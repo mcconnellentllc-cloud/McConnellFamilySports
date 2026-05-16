@@ -1,11 +1,30 @@
 {
+  "events": [
+    {
+      "sport": "gymnastics",
+      "athletes": ["tyndle", "oakley", "tayla"],
+      "date": "2026-05-16",
+      "name": "Carbon Valley Gymnastics Meet",
+      "host": "Carbon Valley Parks and Recreation District",
+      "venue": "Carbon Valley Recreation Center",
+      "address": "701 5th St, Frederick, CO 80530",
+      "phone": "(303) 833-3660",
+      "teams": ["Carbon Valley", "Country", "Excel", "Foothills", "Silverthorne", "TNT"],
+      "competing": {
+        "tyndle": "Optionals",
+        "oakley": "C3",
+        "tayla": "C3"
+      },
+      "notes": "Spectator seating is on the upper level (running track). Limited chairs are provided — you may bring your own, for use on the upper level only."
+    }
+  ],
   "scores": [
     {
       "athlete": "tyndle",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "meet": "Carbon Valley Sports",
-      "location": "",
+      "meet": "Carbon Valley Gymnastics Meet",
+      "location": "Carbon Valley Recreation Center, Frederick, CO",
       "level": "Optionals",
       "results": [
         { "event": "Vault", "score": "" },
@@ -20,8 +39,8 @@
       "athlete": "oakley",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "meet": "Carbon Valley Sports",
-      "location": "",
+      "meet": "Carbon Valley Gymnastics Meet",
+      "location": "Carbon Valley Recreation Center, Frederick, CO",
       "level": "C3",
       "results": [
         { "event": "Vault", "score": "" },
@@ -36,8 +55,8 @@
       "athlete": "tayla",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "meet": "Carbon Valley Sports",
-      "location": "",
+      "meet": "Carbon Valley Gymnastics Meet",
+      "location": "Carbon Valley Recreation Center, Frederick, CO",
       "level": "C3",
       "results": [
         { "event": "Vault", "score": "" },
@@ -54,45 +73,45 @@
       "athlete": "tyndle",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Sports — Optionals",
-      "text": "First meet recorded in the archive. Tyndle competed in optionals at Carbon Valley Sports. Replace this with how the day actually went — warm-up nerves, the routine you'll remember, the drive home."
+      "title": "Carbon Valley Gymnastics Meet — Optionals",
+      "text": "First meet recorded in the archive. Tyndle competed in Optionals at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went — warm-up nerves, the routine you'll remember, the drive home."
     },
     {
       "athlete": "oakley",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Sports — C3",
-      "text": "First meet recorded in the archive. Oakley competed at C3 at Carbon Valley Sports. Replace this with how the day actually went."
+      "title": "Carbon Valley Gymnastics Meet — C3",
+      "text": "First meet recorded in the archive. Oakley competed at C3 at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went."
     },
     {
       "athlete": "tayla",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Sports — C3",
-      "text": "First meet recorded in the archive. Tayla competed at C3 at Carbon Valley Sports. Replace this with how the day actually went."
+      "title": "Carbon Valley Gymnastics Meet — C3",
+      "text": "First meet recorded in the archive. Tayla competed at C3 at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went."
     }
   ],
   "places": [
     {
       "athlete": "tyndle",
       "sport": "gymnastics",
-      "name": "Carbon Valley Sports",
-      "city": "",
-      "note": "Meet venue — May 16, 2026. Add the city and a short note about the place."
+      "name": "Carbon Valley Recreation Center",
+      "city": "Frederick, CO",
+      "note": "701 5th St — host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
     },
     {
       "athlete": "oakley",
       "sport": "gymnastics",
-      "name": "Carbon Valley Sports",
-      "city": "",
-      "note": "Meet venue — May 16, 2026. Add the city and a short note about the place."
+      "name": "Carbon Valley Recreation Center",
+      "city": "Frederick, CO",
+      "note": "701 5th St — host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
     },
     {
       "athlete": "tayla",
       "sport": "gymnastics",
-      "name": "Carbon Valley Sports",
-      "city": "",
-      "note": "Meet venue — May 16, 2026. Add the city and a short note about the place."
+      "name": "Carbon Valley Recreation Center",
+      "city": "Frederick, CO",
+      "note": "701 5th St — host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
     }
   ]
 }

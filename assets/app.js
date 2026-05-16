@@ -141,6 +141,13 @@
       return p.athlete === aSlug && p.sport === sSlug;
     });
   }
+  function eventsFor(aSlug, sSlug) {
+    return (state.content.events || []).filter(function (ev) {
+      if (ev.sport !== sSlug) return false;
+      const list = ev.athletes || [];
+      return list.indexOf(aSlug) !== -1;
+    }).sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+  }
 
   // ---------- Routing ----------
   function parseHash() {
@@ -231,6 +238,11 @@
       el("div", { class: "rule" }),
     ]));
 
+    const upcomingEvents = eventsFor(a.slug, s.slug);
+    if (upcomingEvents.length) {
+      v.appendChild(renderEventCard(upcomingEvents[0], a));
+    }
+
     const tabs = ["scores", "pictures", "places", "memories"];
     const tabLabels = { scores: "Scores", pictures: "Pictures", places: "Places", memories: "Memories" };
     const active = tabs.indexOf(route.tab) !== -1 ? route.tab : "scores";
@@ -250,6 +262,90 @@
     else if (active === "places") renderPlaces(body, a, s);
     else if (active === "memories") renderMemories(body, a, s);
     v.appendChild(body);
+  }
+
+  function isToday(dateStr) {
+    if (!dateStr) return false;
+    const now = new Date();
+    const today =
+      String(now.getFullYear()) + "-" +
+      String(now.getMonth() + 1).padStart(2, "0") + "-" +
+      String(now.getDate()).padStart(2, "0");
+    return dateStr === today;
+  }
+  function eventBadge(dateStr) {
+    if (!dateStr) return "";
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr);
+    if (!m) return "";
+    const ev = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    const diff = Math.round((ev - today) / 86400000);
+    if (diff === 0) return "Today";
+    if (diff === 1) return "Tomorrow";
+    if (diff > 1 && diff <= 14) return "In " + diff + " days";
+    if (diff === -1) return "Yesterday";
+    if (diff < -1) return "Past";
+    return "Upcoming";
+  }
+
+  function renderEventCard(ev, athlete) {
+    const mapsUrl = ev.address
+      ? "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(ev.address)
+      : null;
+    const badge = eventBadge(ev.date);
+    const competingFor = (ev.competing && ev.competing[athlete.slug]) || null;
+
+    const headBits = [el("h2", { class: "event-card__title" }, [ev.name || "Event"])];
+    if (badge) {
+      const badgeClass = "event-card__badge" + (isToday(ev.date) ? " is-today" : "");
+      headBits.push(el("span", { class: badgeClass }, [badge]));
+    }
+
+    const meta = el("dl", { class: "event-card__meta" });
+    function addRow(label, value) {
+      if (!value) return;
+      meta.appendChild(el("dt", null, [label]));
+      meta.appendChild(el("dd", null, value instanceof Node ? [value] : [value]));
+    }
+    addRow("Date", fmtDate(ev.date));
+    if (ev.venue || ev.address) {
+      const lines = [];
+      if (ev.venue) lines.push(ev.venue);
+      if (ev.address) {
+        if (mapsUrl) {
+          lines.push(el("a", { href: mapsUrl, target: "_blank", rel: "noopener" }, [ev.address]));
+        } else {
+          lines.push(ev.address);
+        }
+      }
+      const dd = el("dd");
+      lines.forEach(function (line, i) {
+        if (i > 0) dd.appendChild(el("br"));
+        dd.appendChild(typeof line === "string" ? document.createTextNode(line) : line);
+      });
+      meta.appendChild(el("dt", null, ["Venue"]));
+      meta.appendChild(dd);
+    }
+    if (ev.host) addRow("Host", ev.host);
+    if (ev.phone) {
+      addRow("Contact", el("a", { href: "tel:" + ev.phone.replace(/[^0-9+]/g, "") }, [ev.phone]));
+    }
+    if (competingFor) {
+      addRow(athlete.name + " competing", competingFor);
+    }
+    if (ev.teams && ev.teams.length) {
+      addRow("Teams", ev.teams.join(" · "));
+    }
+
+    const card = el("section", { class: "event-card" }, [
+      el("div", { class: "event-card__head" }, headBits),
+      meta,
+    ]);
+    if (ev.notes) {
+      card.appendChild(el("p", { class: "event-card__note" }, [ev.notes]));
+    }
+    return card;
   }
 
   function emptyState(title, message) {

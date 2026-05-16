@@ -247,6 +247,79 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
 }
 
+/* Event card */
+.event-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  margin: 0 0 32px;
+  box-shadow: var(--shadow);
+}
+.event-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line);
+}
+.event-card__title {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: .3px;
+}
+.event-card__badge {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-soft);
+  color: var(--accent);
+  background: #faf2e7;
+}
+.event-card__badge.is-today {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.event-card__meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 18px;
+  row-gap: 8px;
+  margin: 0;
+  font-size: 14px;
+}
+.event-card__meta dt {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-size: 11px;
+  padding-top: 3px;
+}
+.event-card__meta dd {
+  margin: 0;
+  line-height: 1.5;
+}
+.event-card__meta dd a { color: var(--accent); }
+.event-card__note {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.55;
+}
+
 /* Sport landing tabs */
 .tabs {
   display: flex;
@@ -502,4 +575,8 @@ a:hover { text-decoration: underline; }
   .tabs { gap: 0; }
   .tab { padding: 10px 12px; font-size: 12px; }
   .score-card, .memory, .place { padding: 18px; }
+  .event-card { padding: 20px; }
+  .event-card__title { font-size: 20px; }
+  .event-card__meta { grid-template-columns: 1fr; row-gap: 4px; }
+  .event-card__meta dt { padding-top: 10px; }
 }
