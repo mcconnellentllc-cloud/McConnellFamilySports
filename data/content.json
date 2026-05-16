@@ -36,14 +36,14 @@
       "date": "2026-05-16",
       "meet": "Carbon Valley Gymnastics Meet",
       "location": "Carbon Valley Recreation Center, Frederick, CO",
-      "level": "Optionals",
+      "level": "Optional 1",
       "results": [
-        { "event": "Vault", "score": "" },
-        { "event": "Bars", "score": "" },
-        { "event": "Beam", "score": "" },
-        { "event": "Floor", "score": "" }
+        { "event": "Vault", "score": "7.5", "note": "Qualified for regionals on Vault." },
+        { "event": "Bars", "score": "4.0", "note": "Didn't stick the landing." },
+        { "event": "Beam", "score": "5.4" },
+        { "event": "Floor", "score": "6.6" }
       ],
-      "allAround": "",
+      "allAround": "23.5",
       "placement": ""
     },
     {
@@ -84,8 +84,8 @@
       "athlete": "tyndle",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Gymnastics Meet — Optionals",
-      "text": "First meet recorded in the archive. Tyndle competed in Optionals at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went — warm-up nerves, the routine you'll remember, the drive home.",
+      "title": "Carbon Valley Gymnastics Meet — Optional 1",
+      "text": "Tyndle competed at Optional 1 in Frederick and qualified for regionals on Vault with a 7.5 — the score she came for. Beam was 5.4, Floor 6.6, and Bars 4.0 after a tough landing. All-Around 23.5. First meet in the archive, and the one with the regionals ticket on Vault.",
       "photo": "media/_venues/carbon-valley-rec-center.jpg",
       "photoCaption": "Carbon Valley Recreation Center — meet day."
     },
