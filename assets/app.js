@@ -74,7 +74,7 @@
   function bindGate() {
     $("#gate-form").addEventListener("submit", async function (e) {
       e.preventDefault();
-      const input = $("#gate-input").value;
+      const input = $("#gate-input").value.trim();
       const ok = await tryUnlock(input);
       if (ok) {
         $("#gate-error").hidden = true;
