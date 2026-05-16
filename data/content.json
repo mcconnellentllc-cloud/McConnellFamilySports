@@ -54,12 +54,12 @@
       "location": "Carbon Valley Recreation Center, Frederick, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "" },
-        { "event": "Bars", "score": "" },
-        { "event": "Beam", "score": "" },
-        { "event": "Floor", "score": "" }
+        { "event": "Vault", "score": "6.0" },
+        { "event": "Bars", "score": "6.3" },
+        { "event": "Beam", "score": "6.5" },
+        { "event": "Floor", "score": "7.3", "note": "Qualified for regionals on Floor." }
       ],
-      "allAround": "",
+      "allAround": "26.1",
       "placement": ""
     },
     {
@@ -70,12 +70,12 @@
       "location": "Carbon Valley Recreation Center, Frederick, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "" },
-        { "event": "Bars", "score": "" },
-        { "event": "Beam", "score": "" },
-        { "event": "Floor", "score": "" }
+        { "event": "Vault", "score": "5.4" },
+        { "event": "Bars", "score": "6.9" },
+        { "event": "Beam", "score": "6.5" },
+        { "event": "Floor", "score": "7.0" }
       ],
-      "allAround": "",
+      "allAround": "25.8",
       "placement": ""
     }
   ],
@@ -93,8 +93,8 @@
       "athlete": "oakley",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Gymnastics Meet — C3",
-      "text": "First meet recorded in the archive. Oakley competed at C3 at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went.",
+      "title": "Carbon Valley Gymnastics Meet — Level 3",
+      "text": "Oakley competed at Level 3 in Frederick and qualified for regionals on Floor with a 7.3. Vault was 6.0, Beam 6.5, Bars 6.3. All-Around 26.1. First meet in the archive, and the one with the regionals ticket on Floor.",
       "photo": "media/_venues/carbon-valley-rec-center.jpg",
       "photoCaption": "Carbon Valley Recreation Center — meet day."
     },
@@ -102,8 +102,8 @@
       "athlete": "tayla",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Gymnastics Meet — C3",
-      "text": "First meet recorded in the archive. Tayla competed at C3 at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went.",
+      "title": "Carbon Valley Gymnastics Meet — Level 3",
+      "text": "Tayla competed at Level 3 in Frederick. Bars 6.9, Floor 7.0, Beam 6.5, Vault 5.4. All-Around 25.8. Beam was just a tenth shy of the regionals line and Floor was two-tenths off — both within reach next meet.",
       "photo": "media/_venues/carbon-valley-rec-center.jpg",
       "photoCaption": "Carbon Valley Recreation Center — meet day."
     }
