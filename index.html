@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <title>McConnell Family Sports</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div id="gate" class="gate" hidden>
+    <div class="gate__card">
+      <h1 class="gate__title">McConnell Family Sports</h1>
+      <p class="gate__sub">A private family archive.</p>
+      <form id="gate-form" autocomplete="off">
+        <label for="gate-input" class="gate__label">Password</label>
+        <input id="gate-input" type="password" inputmode="text" autofocus required />
+        <button type="submit">Enter</button>
+        <p id="gate-error" class="gate__error" hidden>That password didn't work.</p>
+      </form>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+    <header class="site-header">
+      <div class="wrap">
+        <a href="#/" class="brand">
+          <span class="brand__mark">M</span>
+          <span class="brand__name">McConnell Family Sports</span>
+        </a>
+        <button id="lock-btn" class="lock-btn" title="Lock">Lock</button>
+      </div>
+    </header>
+
+    <nav id="breadcrumbs" class="crumbs wrap" aria-label="Breadcrumb"></nav>
+
+    <main id="view" class="wrap"></main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>Kept for the McConnell family.</span>
+      </div>
+    </footer>
+  </div>
+
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="lightbox__close" aria-label="Close">&times;</button>
+    <button class="lightbox__prev" aria-label="Previous">&#8249;</button>
+    <button class="lightbox__next" aria-label="Next">&#8250;</button>
+    <figure>
+      <img id="lightbox-img" alt="" />
+      <figcaption id="lightbox-cap"></figcaption>
+    </figure>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

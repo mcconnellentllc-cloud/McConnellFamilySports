@@ -1,0 +1,29 @@
+{
+  "athletes": [
+    {
+      "slug": "tyndle",
+      "name": "Tyndle",
+      "tagline": "Scores, pictures, places, and memories.",
+      "sports": ["gymnastics"]
+    },
+    {
+      "slug": "oakley",
+      "name": "Oakley",
+      "tagline": "Scores, pictures, places, and memories.",
+      "sports": ["gymnastics"]
+    },
+    {
+      "slug": "tayla",
+      "name": "Tayla",
+      "tagline": "Scores, pictures, places, and memories.",
+      "sports": ["gymnastics"]
+    }
+  ],
+  "sports": [
+    {
+      "slug": "gymnastics",
+      "name": "Gymnastics",
+      "events": ["Vault", "Bars", "Beam", "Floor", "All-Around"]
+    }
+  ]
+}
