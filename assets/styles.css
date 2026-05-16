@@ -208,6 +208,16 @@ a:hover { text-decoration: underline; }
   text-align: center;
   padding: 50px 0 30px;
 }
+.crest {
+  margin: 0 auto 18px;
+  line-height: 0;
+}
+.crest svg.haxtun-crest {
+  width: 200px;
+  height: 200px;
+  max-width: 60vw;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.08));
+}
 .cover h1 {
   font-family: var(--serif);
   font-size: 52px;

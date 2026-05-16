@@ -209,14 +209,23 @@
     return el("section", { class: "cover" }, kids);
   }
 
+  function haxtunCrest() {
+    return el("div", {
+      class: "crest",
+      html: '<svg class="haxtun-crest" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Haxtun Bulldogs"><defs><path id="topArc" d="M 38,110 A 72,72 0 0,1 182,110" fill="none"/><path id="botArc" d="M 182,110 A 72,72 0 0,1 38,110" fill="none"/></defs><circle cx="110" cy="110" r="104" fill="#ffffff" stroke="#c8102e" stroke-width="5"/><circle cx="110" cy="110" r="88" fill="none" stroke="#c8102e" stroke-width="1.5"/><circle cx="22" cy="110" r="3.5" fill="#c8102e"/><circle cx="198" cy="110" r="3.5" fill="#c8102e"/><text font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="17" letter-spacing="6" fill="#111"><textPath href="#topArc" startOffset="50%" text-anchor="middle">HAXTUN</textPath></text><text font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="17" letter-spacing="6" fill="#111"><textPath href="#botArc" startOffset="50%" text-anchor="middle">BULLDOGS</textPath></text><text x="110" y="110" text-anchor="middle" dy="0.35em" font-family="Cormorant Garamond, Iowan Old Style, Palatino Linotype, Georgia, serif" font-size="118" font-weight="700" fill="#c8102e">H</text></svg>',
+    });
+  }
+
   function viewHome() {
     const v = $("#view");
     v.innerHTML = "";
-    v.appendChild(coverEl(
+    const cover = coverEl(
       "McConnell Family Sports",
       "Scores, pictures, places, and memories — kept together.",
       "home"
-    ));
+    );
+    cover.insertBefore(haxtunCrest(), cover.firstChild);
+    v.appendChild(cover);
     const grid = el("div", { class: "tiles" });
     (state.athletes.athletes || []).forEach(function (a) {
       grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug }, [
