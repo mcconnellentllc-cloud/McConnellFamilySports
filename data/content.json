@@ -9,13 +9,24 @@
       "venue": "Carbon Valley Recreation Center",
       "address": "701 5th St, Frederick, CO 80530",
       "phone": "(303) 833-3660",
-      "teams": ["Carbon Valley", "Country", "Excel", "Foothills", "Silverthorne", "TNT"],
+      "league": "CARA — Colorado Association of Recreational Athletics",
+      "competitors": "~150–250 gymnasts (estimate, six full CARA teams across C3, C4, and Optionals 1–5)",
+      "teams": [
+        "Carbon Valley (host — Frederick)",
+        "Country",
+        "Excel",
+        "Foothills Flairs (Littleton)",
+        "Silverthorne Storm (Silverthorne)",
+        "TNT"
+      ],
       "competing": {
         "tyndle": "Optionals",
         "oakley": "C3",
         "tayla": "C3"
       },
-      "notes": "Spectator seating is on the upper level (running track). Limited chairs are provided — you may bring your own, for use on the upper level only."
+      "notes": "Spectator seating is on the upper level (running track). Limited chairs are provided — you may bring your own, for use on the upper level only.",
+      "photo": "media/_venues/carbon-valley-rec-center.jpg",
+      "photoCaption": "Carbon Valley Recreation Center — competition floor seen from the upper-level seating, May 16, 2026."
     }
   ],
   "scores": [
@@ -74,21 +85,27 @@
       "sport": "gymnastics",
       "date": "2026-05-16",
       "title": "Carbon Valley Gymnastics Meet — Optionals",
-      "text": "First meet recorded in the archive. Tyndle competed in Optionals at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went — warm-up nerves, the routine you'll remember, the drive home."
+      "text": "First meet recorded in the archive. Tyndle competed in Optionals at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went — warm-up nerves, the routine you'll remember, the drive home.",
+      "photo": "media/_venues/carbon-valley-rec-center.jpg",
+      "photoCaption": "Carbon Valley Recreation Center — meet day."
     },
     {
       "athlete": "oakley",
       "sport": "gymnastics",
       "date": "2026-05-16",
       "title": "Carbon Valley Gymnastics Meet — C3",
-      "text": "First meet recorded in the archive. Oakley competed at C3 at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went."
+      "text": "First meet recorded in the archive. Oakley competed at C3 at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went.",
+      "photo": "media/_venues/carbon-valley-rec-center.jpg",
+      "photoCaption": "Carbon Valley Recreation Center — meet day."
     },
     {
       "athlete": "tayla",
       "sport": "gymnastics",
       "date": "2026-05-16",
       "title": "Carbon Valley Gymnastics Meet — C3",
-      "text": "First meet recorded in the archive. Tayla competed at C3 at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went."
+      "text": "First meet recorded in the archive. Tayla competed at C3 at the Carbon Valley Gymnastics Meet in Frederick. Replace this with how the day actually went.",
+      "photo": "media/_venues/carbon-valley-rec-center.jpg",
+      "photoCaption": "Carbon Valley Recreation Center — meet day."
     }
   ],
   "places": [

@@ -319,6 +319,60 @@ a:hover { text-decoration: underline; }
   font-style: italic;
   line-height: 1.55;
 }
+.event-card__photo {
+  margin: 0 0 18px;
+}
+.event-card__photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  max-height: 420px;
+  object-fit: cover;
+}
+.event-card__photo figcaption {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: italic;
+  text-align: center;
+  margin-top: 8px;
+}
+.event-card__teams {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.event-card__teams li {
+  background: #faf2e7;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 13px;
+  color: var(--ink);
+}
+.memory__photo {
+  margin: 16px 0 0;
+}
+.memory__photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  max-height: 460px;
+  object-fit: cover;
+}
+.memory__photo figcaption {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: italic;
+  text-align: center;
+  margin-top: 8px;
+}
 
 /* Sport landing tabs */
 .tabs {

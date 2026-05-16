@@ -36,6 +36,10 @@ def scan() -> list[dict]:
         return photos
     for athlete_dir in sorted(p for p in MEDIA.iterdir() if p.is_dir()):
         athlete = athlete_dir.name
+        # Skip non-athlete folders (e.g. _venues/, _shared/) — leading underscore
+        # marks media that should not appear in any girl's gallery.
+        if athlete.startswith("_"):
+            continue
         for sport_dir in sorted(p for p in athlete_dir.iterdir() if p.is_dir()):
             sport = sport_dir.name
             for f in sorted(sport_dir.iterdir()):

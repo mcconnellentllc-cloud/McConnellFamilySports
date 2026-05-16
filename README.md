@@ -61,6 +61,12 @@ captions. Underscores work too: `vault_warmup.jpg` → "Vault warmup."
 
 **Supported types.** `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`, `.avif`, `.heic`.
 
+**Venue photos (shared, not tied to one girl).** Drop them into
+`media/_venues/`. Folders that start with `_` are skipped by the gallery
+builder, so the photo won't clutter any girl's pictures page — instead,
+reference its path (e.g. `media/_venues/carbon-valley-rec-center.jpg`) in
+an event's `photo` field or a memory's `photo` field in `data/content.json`.
+
 ---
 
 ## Adding scores, memories, and places

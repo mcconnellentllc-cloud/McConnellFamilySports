@@ -334,14 +334,33 @@
     if (competingFor) {
       addRow(athlete.name + " competing", competingFor);
     }
+    if (ev.league) addRow("League", ev.league);
     if (ev.teams && ev.teams.length) {
-      addRow("Teams", ev.teams.join(" · "));
+      const ul = el("ul", { class: "event-card__teams" });
+      ev.teams.forEach(function (t) { ul.appendChild(el("li", null, [t])); });
+      meta.appendChild(el("dt", null, ["Teams (" + ev.teams.length + ")"]));
+      meta.appendChild(el("dd", null, [ul]));
     }
+    if (ev.competitors) addRow("Competitors", ev.competitors);
 
     const card = el("section", { class: "event-card" }, [
       el("div", { class: "event-card__head" }, headBits),
-      meta,
     ]);
+    if (ev.photo) {
+      const fig = el("figure", { class: "event-card__photo" }, [
+        el("img", {
+          src: ev.photo,
+          alt: ev.photoCaption || (ev.venue || ev.name || "Venue"),
+          loading: "lazy",
+          onerror: function () { fig.remove(); },
+        }),
+      ]);
+      if (ev.photoCaption) {
+        fig.appendChild(el("figcaption", null, [ev.photoCaption]));
+      }
+      card.appendChild(fig);
+    }
+    card.appendChild(meta);
     if (ev.notes) {
       card.appendChild(el("p", { class: "event-card__note" }, [ev.notes]));
     }
@@ -414,11 +433,26 @@
       return;
     }
     rows.forEach(function (m) {
-      parent.appendChild(el("article", { class: "memory" }, [
+      const card = el("article", { class: "memory" }, [
         el("h3", null, [m.title || "Untitled"]),
         el("p", { class: "memory__date" }, [fmtDate(m.date)]),
         el("p", null, [m.text || ""]),
-      ]));
+      ]);
+      if (m.photo) {
+        const fig = el("figure", { class: "memory__photo" }, [
+          el("img", {
+            src: m.photo,
+            alt: m.photoCaption || m.title || "",
+            loading: "lazy",
+            onerror: function () { fig.remove(); },
+          }),
+        ]);
+        if (m.photoCaption) {
+          fig.appendChild(el("figcaption", null, [m.photoCaption]));
+        }
+        card.appendChild(fig);
+      }
+      parent.appendChild(card);
     });
   }
 
