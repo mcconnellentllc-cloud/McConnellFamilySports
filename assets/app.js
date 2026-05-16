@@ -393,28 +393,57 @@
 
       const metaBits = [];
       if (r.location) metaBits.push(el("span", null, [r.location]));
-      if (r.level) metaBits.push(el("span", null, ["Level " + r.level]));
+      if (r.level) metaBits.push(el("span", null, [r.level]));
       if (metaBits.length) {
         const meta = el("p", { class: "score-card__meta" });
         metaBits.forEach(function (b) { meta.appendChild(b); });
         card.appendChild(meta);
       }
 
+      const targets = (s.qualifying && r.level && s.qualifying[r.level]) || null;
+      const qualifiedEvents = [];
+      function buildEvent(name, scoreVal, note, extraClass) {
+        const hasScore = !(scoreVal === "" || scoreVal == null);
+        const display = hasScore ? String(scoreVal) : "—";
+        const target = targets ? targets[name] : null;
+        const numeric = hasScore ? parseFloat(scoreVal) : NaN;
+        const met = target != null && !isNaN(numeric) && numeric >= target;
+        if (met) qualifiedEvents.push(name);
+        const children = [
+          el("p", { class: "event__name" }, [name]),
+          el("p", { class: "event__score" }, [display]),
+        ];
+        if (target != null) {
+          children.push(el("p", {
+            class: "event__target" + (met ? " event__target--met" : ""),
+          }, [(met ? "✓ " : "") + "needs " + target]));
+        }
+        if (note) {
+          children.push(el("p", { class: "event__note" }, [note]));
+        }
+        return el("div", { class: "event" + (extraClass ? " " + extraClass : "") + (met ? " event--met" : "") }, children);
+      }
+
       const events = el("div", { class: "events" });
       (r.results || []).forEach(function (e) {
-        const display = (e.score === "" || e.score == null) ? "—" : String(e.score);
-        events.appendChild(el("div", { class: "event" }, [
-          el("p", { class: "event__name" }, [e.event]),
-          el("p", { class: "event__score" }, [display]),
-        ]));
+        events.appendChild(buildEvent(e.event, e.score, e.note, null));
       });
       if (r.allAround != null && r.allAround !== "") {
-        events.appendChild(el("div", { class: "event event--aa" }, [
-          el("p", { class: "event__name" }, ["All-Around"]),
-          el("p", { class: "event__score" }, [String(r.allAround)]),
-        ]));
+        events.appendChild(buildEvent("All-Around", r.allAround, null, "event--aa"));
       }
       card.appendChild(events);
+
+      if (targets) {
+        const summary = el("p", { class: "score-card__regionals" });
+        if (qualifiedEvents.length) {
+          summary.appendChild(document.createTextNode("Path to Regionals — "));
+          summary.appendChild(el("strong", null, ["qualified on " + qualifiedEvents.join(", ")]));
+          summary.appendChild(document.createTextNode("."));
+        } else {
+          summary.appendChild(document.createTextNode("Path to Regionals — keep climbing."));
+        }
+        card.appendChild(summary);
+      }
 
       if (r.placement) {
         card.appendChild(el("span", { class: "placement" }, [r.placement]));
