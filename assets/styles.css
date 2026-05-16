@@ -216,7 +216,6 @@ a:hover { text-decoration: underline; }
   width: 200px;
   height: 200px;
   max-width: 60vw;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,.08));
 }
 .cover h1 {
   font-family: var(--serif);
