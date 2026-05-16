@@ -23,12 +23,19 @@ The password is **McConnell** (the site asks for it once per browser session).
      this folder first and select everything inside — not the folder itself).
    - Scroll down and click **Commit changes**.
 
-3. **Turn on GitHub Pages.**
-   - In the repo, click **Settings** → **Pages** (in the left sidebar).
+3. **Turn on GitHub Pages.** (One-time, requires a repo admin signed in.)
+   - In the repo, click **Settings** → **Pages** (left sidebar).
    - Under *Build and deployment*, set **Source** to **GitHub Actions**.
-   - That's it — no other Pages settings to change.
+   - No save button — selecting it applies immediately.
 
-4. **Wait a couple of minutes for the first build.**
+4. **Allow Actions to write back to the repo.** (One-time. Lets the deploy
+   workflow commit the auto-generated `data/gallery.json` whenever new
+   photos are uploaded.)
+   - In the repo, click **Settings** → **Actions** → **General** (left sidebar).
+   - Scroll down to **Workflow permissions**.
+   - Choose **Read and write permissions**, then click **Save**.
+
+5. **Wait a couple of minutes for the first build.**
    - Click the **Actions** tab. You'll see a workflow running called
      "Build and Deploy". When it finishes (green check), the site is live.
    - The site URL is shown on the Settings → Pages screen. It looks like:
