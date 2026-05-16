@@ -1,0 +1,453 @@
+/* McConnell Family Sports — single-page archive */
+(function () {
+  "use strict";
+
+  // SHA-256 of the family password. Plaintext is never stored in source.
+  // Generated with: printf 'McConnell' | sha256sum
+  const PASSWORD_HASH = "9592955c5464e8aa0834c891b493c97ed0576d4faa79e703e367a3f511da66ae";
+  const SESSION_KEY = "mfs_unlocked_v1";
+
+  const state = {
+    athletes: null,
+    content: null,
+    gallery: null,
+    galleryItems: [],
+    galleryIndex: 0,
+  };
+
+  // ---------- Utilities ----------
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function el(tag, attrs, children) {
+    const node = document.createElement(tag);
+    if (attrs) {
+      for (const k in attrs) {
+        if (k === "class") node.className = attrs[k];
+        else if (k === "html") node.innerHTML = attrs[k];
+        else if (k.startsWith("on") && typeof attrs[k] === "function") {
+          node.addEventListener(k.slice(2), attrs[k]);
+        } else if (attrs[k] != null) {
+          node.setAttribute(k, attrs[k]);
+        }
+      }
+    }
+    (children || []).forEach(function (c) {
+      if (c == null) return;
+      node.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+    });
+    return node;
+  }
+  function fmtDate(s) {
+    if (!s) return "";
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+    if (!m) return s;
+    const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  }
+  async function sha256Hex(text) {
+    const buf = new TextEncoder().encode(text);
+    const hash = await crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(hash))
+      .map(function (b) { return b.toString(16).padStart(2, "0"); })
+      .join("");
+  }
+
+  // ---------- Gate ----------
+  async function checkUnlocked() {
+    return sessionStorage.getItem(SESSION_KEY) === PASSWORD_HASH;
+  }
+  async function tryUnlock(input) {
+    const hex = await sha256Hex(input);
+    if (hex === PASSWORD_HASH) {
+      sessionStorage.setItem(SESSION_KEY, PASSWORD_HASH);
+      return true;
+    }
+    return false;
+  }
+  function showGate() {
+    $("#gate").hidden = false;
+    $("#app").hidden = true;
+  }
+  function showApp() {
+    $("#gate").hidden = true;
+    $("#app").hidden = false;
+  }
+  function bindGate() {
+    $("#gate-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const input = $("#gate-input").value;
+      const ok = await tryUnlock(input);
+      if (ok) {
+        $("#gate-error").hidden = true;
+        $("#gate-input").value = "";
+        await boot();
+      } else {
+        $("#gate-error").hidden = false;
+        $("#gate-input").focus();
+        $("#gate-input").select();
+      }
+    });
+    $("#lock-btn").addEventListener("click", function () {
+      sessionStorage.removeItem(SESSION_KEY);
+      location.hash = "";
+      showGate();
+    });
+  }
+
+  // ---------- Data loading ----------
+  async function loadJSON(path) {
+    const res = await fetch(path + "?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load " + path + " (" + res.status + ")");
+    try {
+      return await res.json();
+    } catch (err) {
+      throw new Error("Invalid JSON in " + path + ": " + err.message);
+    }
+  }
+  async function loadData() {
+    const [athletes, content, gallery] = await Promise.all([
+      loadJSON("data/athletes.json"),
+      loadJSON("data/content.json"),
+      loadJSON("data/gallery.json").catch(function () { return { photos: [] }; }),
+    ]);
+    state.athletes = athletes;
+    state.content = content;
+    state.gallery = gallery;
+  }
+
+  // ---------- Lookups ----------
+  function getAthlete(slug) {
+    return (state.athletes.athletes || []).find(function (a) { return a.slug === slug; });
+  }
+  function getSport(slug) {
+    return (state.athletes.sports || []).find(function (s) { return s.slug === slug; });
+  }
+  function scoresFor(aSlug, sSlug) {
+    return (state.content.scores || []).filter(function (r) {
+      return r.athlete === aSlug && r.sport === sSlug;
+    }).sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+  }
+  function memoriesFor(aSlug, sSlug) {
+    return (state.content.memories || []).filter(function (r) {
+      return r.athlete === aSlug && r.sport === sSlug;
+    }).sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+  }
+  function placesFor(aSlug, sSlug) {
+    return (state.content.places || []).filter(function (r) {
+      return r.athlete === aSlug && r.sport === sSlug;
+    });
+  }
+  function photosFor(aSlug, sSlug) {
+    return (state.gallery.photos || []).filter(function (p) {
+      return p.athlete === aSlug && p.sport === sSlug;
+    });
+  }
+
+  // ---------- Routing ----------
+  function parseHash() {
+    const h = (location.hash || "").replace(/^#\/?/, "");
+    if (!h) return { route: "home" };
+    const parts = h.split("/").filter(Boolean);
+    if (parts.length === 1) return { route: "athlete", athlete: parts[0] };
+    if (parts.length === 2) return { route: "sport", athlete: parts[0], sport: parts[1], tab: "scores" };
+    if (parts.length === 3) return { route: "sport", athlete: parts[0], sport: parts[1], tab: parts[2] };
+    return { route: "home" };
+  }
+
+  // ---------- Views ----------
+  function renderCrumbs(route) {
+    const c = $("#breadcrumbs");
+    c.innerHTML = "";
+    const parts = [];
+    parts.push(el("a", { href: "#/" }, ["Home"]));
+    if (route.athlete) {
+      const a = getAthlete(route.athlete);
+      if (a) parts.push(el("a", { href: "#/" + a.slug }, [a.name]));
+    }
+    if (route.sport) {
+      const s = getSport(route.sport);
+      if (s) parts.push(el("a", { href: "#/" + route.athlete + "/" + s.slug }, [s.name]));
+    }
+    parts.forEach(function (p, i) {
+      if (i > 0) c.appendChild(el("span", { class: "sep" }, ["/"]));
+      c.appendChild(p);
+    });
+  }
+
+  function viewHome() {
+    const v = $("#view");
+    v.innerHTML = "";
+    v.appendChild(el("section", { class: "cover" }, [
+      el("h1", null, ["McConnell Family Sports"]),
+      el("div", { class: "rule" }),
+      el("p", null, ["Scores, pictures, places, and memories — kept together."]),
+    ]));
+    const grid = el("div", { class: "tiles" });
+    (state.athletes.athletes || []).forEach(function (a) {
+      grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug }, [
+        el("h2", { class: "tile__name" }, [a.name]),
+        el("p", { class: "tile__meta" }, [(a.tagline || "View archive")]),
+      ]));
+    });
+    v.appendChild(grid);
+  }
+
+  function viewAthlete(slug) {
+    const a = getAthlete(slug);
+    const v = $("#view");
+    v.innerHTML = "";
+    if (!a) {
+      v.appendChild(el("p", null, ["Unknown athlete."]));
+      return;
+    }
+    v.appendChild(el("section", { class: "cover" }, [
+      el("h1", null, [a.name]),
+      el("div", { class: "rule" }),
+      el("p", null, [a.tagline || "Choose a sport"]),
+    ]));
+    const grid = el("div", { class: "tiles" });
+    const sports = (state.athletes.sports || []).filter(function (s) {
+      return !a.sports || a.sports.indexOf(s.slug) !== -1;
+    });
+    sports.forEach(function (s) {
+      grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug + "/" + s.slug }, [
+        el("h2", { class: "tile__name" }, [s.name]),
+        el("p", { class: "tile__meta" }, ["Scores · Pictures · Places · Memories"]),
+      ]));
+    });
+    v.appendChild(grid);
+  }
+
+  function viewSport(route) {
+    const a = getAthlete(route.athlete);
+    const s = getSport(route.sport);
+    const v = $("#view");
+    v.innerHTML = "";
+    if (!a || !s) {
+      v.appendChild(el("p", null, ["Section not found."]));
+      return;
+    }
+    v.appendChild(el("section", { class: "cover" }, [
+      el("h1", null, [a.name + " · " + s.name]),
+      el("div", { class: "rule" }),
+    ]));
+
+    const tabs = ["scores", "pictures", "places", "memories"];
+    const tabLabels = { scores: "Scores", pictures: "Pictures", places: "Places", memories: "Memories" };
+    const active = tabs.indexOf(route.tab) !== -1 ? route.tab : "scores";
+
+    const tabBar = el("div", { class: "tabs" });
+    tabs.forEach(function (t) {
+      tabBar.appendChild(el("a", {
+        class: "tab" + (t === active ? " is-active" : ""),
+        href: "#/" + a.slug + "/" + s.slug + "/" + t,
+      }, [tabLabels[t]]));
+    });
+    v.appendChild(tabBar);
+
+    const body = el("section", null);
+    if (active === "scores") renderScores(body, a, s);
+    else if (active === "pictures") renderPictures(body, a, s);
+    else if (active === "places") renderPlaces(body, a, s);
+    else if (active === "memories") renderMemories(body, a, s);
+    v.appendChild(body);
+  }
+
+  function emptyState(title, message) {
+    return el("div", { class: "empty" }, [
+      el("h3", null, [title]),
+      el("p", { html: message }),
+    ]);
+  }
+
+  function renderScores(parent, a, s) {
+    const rows = scoresFor(a.slug, s.slug);
+    if (!rows.length) {
+      parent.appendChild(emptyState(
+        "No scores yet for " + a.name + " in " + s.name,
+        "Add a meet by editing <code>data/content.json</code> and pushing to GitHub."
+      ));
+      return;
+    }
+    rows.forEach(function (r) {
+      const card = el("article", { class: "score-card" });
+      const head = el("div", { class: "score-card__head" }, [
+        el("h3", { class: "score-card__meet" }, [r.meet || "Meet"]),
+        el("div", { class: "score-card__date" }, [fmtDate(r.date)]),
+      ]);
+      card.appendChild(head);
+
+      const metaBits = [];
+      if (r.location) metaBits.push(el("span", null, [r.location]));
+      if (r.level) metaBits.push(el("span", null, ["Level " + r.level]));
+      if (metaBits.length) {
+        const meta = el("p", { class: "score-card__meta" });
+        metaBits.forEach(function (b) { meta.appendChild(b); });
+        card.appendChild(meta);
+      }
+
+      const events = el("div", { class: "events" });
+      (r.results || []).forEach(function (e) {
+        const display = (e.score === "" || e.score == null) ? "—" : String(e.score);
+        events.appendChild(el("div", { class: "event" }, [
+          el("p", { class: "event__name" }, [e.event]),
+          el("p", { class: "event__score" }, [display]),
+        ]));
+      });
+      if (r.allAround != null && r.allAround !== "") {
+        events.appendChild(el("div", { class: "event event--aa" }, [
+          el("p", { class: "event__name" }, ["All-Around"]),
+          el("p", { class: "event__score" }, [String(r.allAround)]),
+        ]));
+      }
+      card.appendChild(events);
+
+      if (r.placement) {
+        card.appendChild(el("span", { class: "placement" }, [r.placement]));
+      }
+      parent.appendChild(card);
+    });
+  }
+
+  function renderMemories(parent, a, s) {
+    const rows = memoriesFor(a.slug, s.slug);
+    if (!rows.length) {
+      parent.appendChild(emptyState(
+        "No memories yet",
+        "Write one in <code>data/content.json</code> under <code>memories</code>."
+      ));
+      return;
+    }
+    rows.forEach(function (m) {
+      parent.appendChild(el("article", { class: "memory" }, [
+        el("h3", null, [m.title || "Untitled"]),
+        el("p", { class: "memory__date" }, [fmtDate(m.date)]),
+        el("p", null, [m.text || ""]),
+      ]));
+    });
+  }
+
+  function renderPlaces(parent, a, s) {
+    const rows = placesFor(a.slug, s.slug);
+    if (!rows.length) {
+      parent.appendChild(emptyState(
+        "No places yet",
+        "Add gyms, venues, or hotels in <code>data/content.json</code> under <code>places</code>."
+      ));
+      return;
+    }
+    const grid = el("div", { class: "places" });
+    rows.forEach(function (p) {
+      grid.appendChild(el("article", { class: "place" }, [
+        el("h3", null, [p.name || "Place"]),
+        el("p", { class: "place__city" }, [p.city || ""]),
+        p.note ? el("p", { class: "place__note" }, [p.note]) : null,
+      ]));
+    });
+    parent.appendChild(grid);
+  }
+
+  function renderPictures(parent, a, s) {
+    const photos = photosFor(a.slug, s.slug);
+    if (!photos.length) {
+      parent.appendChild(emptyState(
+        "No pictures yet",
+        "Drag photos into <code>media/" + a.slug + "/" + s.slug + "/</code> on GitHub. They'll appear here in a few minutes."
+      ));
+      return;
+    }
+    state.galleryItems = photos;
+    const grid = el("div", { class: "gallery" });
+    photos.forEach(function (p, idx) {
+      const btn = el("button", {
+        type: "button",
+        "aria-label": p.caption || "Photo",
+        onclick: function () { openLightbox(idx); },
+      }, [
+        el("img", { src: p.src, alt: p.caption || "", loading: "lazy" }),
+      ]);
+      grid.appendChild(btn);
+    });
+    parent.appendChild(grid);
+  }
+
+  // ---------- Lightbox ----------
+  function openLightbox(i) {
+    state.galleryIndex = i;
+    showLightbox();
+  }
+  function showLightbox() {
+    const p = state.galleryItems[state.galleryIndex];
+    if (!p) return;
+    $("#lightbox-img").src = p.src;
+    $("#lightbox-img").alt = p.caption || "";
+    $("#lightbox-cap").textContent = p.caption || "";
+    $("#lightbox").hidden = false;
+  }
+  function closeLightbox() { $("#lightbox").hidden = true; }
+  function nextPhoto() {
+    if (!state.galleryItems.length) return;
+    state.galleryIndex = (state.galleryIndex + 1) % state.galleryItems.length;
+    showLightbox();
+  }
+  function prevPhoto() {
+    if (!state.galleryItems.length) return;
+    state.galleryIndex = (state.galleryIndex - 1 + state.galleryItems.length) % state.galleryItems.length;
+    showLightbox();
+  }
+  function bindLightbox() {
+    const lb = $("#lightbox");
+    lb.querySelector(".lightbox__close").addEventListener("click", closeLightbox);
+    lb.querySelector(".lightbox__next").addEventListener("click", nextPhoto);
+    lb.querySelector(".lightbox__prev").addEventListener("click", prevPhoto);
+    lb.addEventListener("click", function (e) {
+      if (e.target === lb) closeLightbox();
+    });
+    document.addEventListener("keydown", function (e) {
+      if ($("#lightbox").hidden) return;
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowRight") nextPhoto();
+      else if (e.key === "ArrowLeft") prevPhoto();
+    });
+  }
+
+  // ---------- Render dispatcher ----------
+  function render() {
+    const route = parseHash();
+    renderCrumbs(route);
+    if (route.route === "home") viewHome();
+    else if (route.route === "athlete") viewAthlete(route.athlete);
+    else if (route.route === "sport") viewSport(route);
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  }
+
+  // ---------- Boot ----------
+  async function boot() {
+    showApp();
+    try {
+      await loadData();
+    } catch (err) {
+      $("#view").innerHTML = "";
+      $("#view").appendChild(el("div", { class: "empty" }, [
+        el("h3", null, ["Couldn't load the archive"]),
+        el("p", null, [String(err.message || err)]),
+      ]));
+      return;
+    }
+    render();
+  }
+
+  async function init() {
+    bindGate();
+    bindLightbox();
+    window.addEventListener("hashchange", function () {
+      if (!$("#app").hidden) render();
+    });
+    if (await checkUnlocked()) {
+      await boot();
+    } else {
+      showGate();
+    }
+  }
+
+  init();
+})();

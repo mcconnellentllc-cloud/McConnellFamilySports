@@ -1,0 +1,98 @@
+{
+  "scores": [
+    {
+      "athlete": "tyndle",
+      "sport": "gymnastics",
+      "date": "2026-05-16",
+      "meet": "Carbon Valley Sports",
+      "location": "",
+      "level": "Optionals",
+      "results": [
+        { "event": "Vault", "score": "" },
+        { "event": "Bars", "score": "" },
+        { "event": "Beam", "score": "" },
+        { "event": "Floor", "score": "" }
+      ],
+      "allAround": "",
+      "placement": ""
+    },
+    {
+      "athlete": "oakley",
+      "sport": "gymnastics",
+      "date": "2026-05-16",
+      "meet": "Carbon Valley Sports",
+      "location": "",
+      "level": "C3",
+      "results": [
+        { "event": "Vault", "score": "" },
+        { "event": "Bars", "score": "" },
+        { "event": "Beam", "score": "" },
+        { "event": "Floor", "score": "" }
+      ],
+      "allAround": "",
+      "placement": ""
+    },
+    {
+      "athlete": "tayla",
+      "sport": "gymnastics",
+      "date": "2026-05-16",
+      "meet": "Carbon Valley Sports",
+      "location": "",
+      "level": "C3",
+      "results": [
+        { "event": "Vault", "score": "" },
+        { "event": "Bars", "score": "" },
+        { "event": "Beam", "score": "" },
+        { "event": "Floor", "score": "" }
+      ],
+      "allAround": "",
+      "placement": ""
+    }
+  ],
+  "memories": [
+    {
+      "athlete": "tyndle",
+      "sport": "gymnastics",
+      "date": "2026-05-16",
+      "title": "Carbon Valley Sports — Optionals",
+      "text": "First meet recorded in the archive. Tyndle competed in optionals at Carbon Valley Sports. Replace this with how the day actually went — warm-up nerves, the routine you'll remember, the drive home."
+    },
+    {
+      "athlete": "oakley",
+      "sport": "gymnastics",
+      "date": "2026-05-16",
+      "title": "Carbon Valley Sports — C3",
+      "text": "First meet recorded in the archive. Oakley competed at C3 at Carbon Valley Sports. Replace this with how the day actually went."
+    },
+    {
+      "athlete": "tayla",
+      "sport": "gymnastics",
+      "date": "2026-05-16",
+      "title": "Carbon Valley Sports — C3",
+      "text": "First meet recorded in the archive. Tayla competed at C3 at Carbon Valley Sports. Replace this with how the day actually went."
+    }
+  ],
+  "places": [
+    {
+      "athlete": "tyndle",
+      "sport": "gymnastics",
+      "name": "Carbon Valley Sports",
+      "city": "",
+      "note": "Meet venue — May 16, 2026. Add the city and a short note about the place."
+    },
+    {
+      "athlete": "oakley",
+      "sport": "gymnastics",
+      "name": "Carbon Valley Sports",
+      "city": "",
+      "note": "Meet venue — May 16, 2026. Add the city and a short note about the place."
+    },
+    {
+      "athlete": "tayla",
+      "sport": "gymnastics",
+      "name": "Carbon Valley Sports",
+      "city": "",
+      "note": "Meet venue — May 16, 2026. Add the city and a short note about the place."
+    }
+  ]
+}
