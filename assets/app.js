@@ -433,13 +433,18 @@
 
       const targets = (s.qualifying && r.level && s.qualifying[r.level]) || null;
       const qualifiedEvents = [];
+      const shortfalls = [];
       function buildEvent(name, scoreVal, note, extraClass) {
         const hasScore = !(scoreVal === "" || scoreVal == null);
         const display = hasScore ? String(scoreVal) : "—";
         const target = targets ? targets[name] : null;
         const numeric = hasScore ? parseFloat(scoreVal) : NaN;
         const met = target != null && !isNaN(numeric) && numeric >= target;
-        if (met) qualifiedEvents.push(name);
+        if (met) {
+          qualifiedEvents.push(name);
+        } else if (target != null && hasScore && !isNaN(numeric)) {
+          shortfalls.push({ name: name, gap: target - numeric, score: numeric, target: target });
+        }
         const children = [
           el("p", { class: "event__name" }, [name]),
           el("p", { class: "event__score" }, [display]),
@@ -465,15 +470,31 @@
       card.appendChild(events);
 
       if (targets) {
-        const summary = el("p", { class: "score-card__regionals" });
+        const panel = el("section", { class: "regionals-panel" + (qualifiedEvents.length ? " regionals-panel--booked" : "") });
+        panel.appendChild(el("p", { class: "regionals-panel__label" }, ["Path to Regionals"]));
         if (qualifiedEvents.length) {
-          summary.appendChild(document.createTextNode("Path to Regionals — "));
-          summary.appendChild(el("strong", null, ["qualified on " + qualifiedEvents.join(", ")]));
-          summary.appendChild(document.createTextNode("."));
+          const headline = el("p", { class: "regionals-panel__headline" });
+          headline.appendChild(document.createTextNode("Regionals booked on "));
+          headline.appendChild(el("strong", null, [qualifiedEvents.join(" and ")]));
+          headline.appendChild(document.createTextNode("."));
+          panel.appendChild(headline);
         } else {
-          summary.appendChild(document.createTextNode("Path to Regionals — keep climbing."));
+          panel.appendChild(el("p", { class: "regionals-panel__headline" }, ["Keep climbing."]));
         }
-        card.appendChild(summary);
+        if (shortfalls.length) {
+          const sorted = shortfalls.slice().sort(function (a, b) { return a.gap - b.gap; });
+          const list = el("ul", { class: "regionals-panel__gaps" });
+          sorted.forEach(function (sf) {
+            const gapStr = (Math.round(sf.gap * 10) / 10).toFixed(1);
+            list.appendChild(el("li", null, [
+              el("span", { class: "regionals-panel__event" }, [sf.name]),
+              el("span", { class: "regionals-panel__gap" }, ["+" + gapStr]),
+              el("span", { class: "regionals-panel__detail" }, [sf.score + " → " + sf.target]),
+            ]));
+          });
+          panel.appendChild(list);
+        }
+        card.appendChild(panel);
       }
 
       if (r.placement) {
