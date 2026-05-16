@@ -1,11 +1,11 @@
 :root {
-  --bg: #ff6b00;
-  --paper: #fffdf9;
-  --ink: #1c1c1c;
-  --muted: #6b6258;
-  --line: #d9d1c3;
-  --accent: #6b3f2b;
-  --accent-soft: #b58463;
+  --bg: #fafafa;
+  --paper: #ffffff;
+  --ink: #111111;
+  --muted: #555555;
+  --line: #e2e2e2;
+  --accent: #c8102e;
+  --accent-soft: #8a0a1f;
   --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
   --radius: 6px;
   --serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
