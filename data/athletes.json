@@ -35,5 +35,29 @@
         "Optional 5": { "Vault": 8.8, "Beam": 8.45, "Bars": 8.45, "Floor": 8.8, "All-Around": 34.5 }
       }
     }
+  ],
+  "quotes": [
+    { "text": "Hard work beats talent when talent doesn't work hard.", "attribution": "Tim Notke" },
+    { "text": "It's not whether you get knocked down; it's whether you get up.", "attribution": "Vince Lombardi" },
+    { "text": "Champions keep playing until they get it right.", "attribution": "Billie Jean King" },
+    { "text": "I've failed over and over and over again in my life — and that is why I succeed.", "attribution": "Michael Jordan" },
+    { "text": "Today, I will do what others won't, so tomorrow I can do what others can't.", "attribution": "Jerry Rice" },
+    { "text": "Don't let what you cannot do interfere with what you can do.", "attribution": "John Wooden" },
+    { "text": "It's hard to beat a person who never gives up.", "attribution": "Babe Ruth" },
+    { "text": "You miss 100% of the shots you don't take.", "attribution": "Wayne Gretzky" },
+    { "text": "Pressure is a privilege.", "attribution": "Billie Jean King" },
+    { "text": "There is no substitute for guts.", "attribution": "Paul \"Bear\" Bryant" },
+    { "text": "Practice like you've never won. Perform like you've never lost.", "attribution": "Bobby Knight" },
+    { "text": "Set your goals high, and don't stop till you get there.", "attribution": "Bo Jackson" },
+    { "text": "The only place where success comes before work is in the dictionary.", "attribution": "Vince Lombardi" },
+    { "text": "Trust your training.", "attribution": "Simone Biles" },
+    { "text": "Once you learn to quit, it becomes a habit.", "attribution": "Vince Lombardi" },
+    { "text": "The fight is won or lost far away from witnesses — behind the lines, in the gym, and out there on the road.", "attribution": "Muhammad Ali" },
+    { "text": "I am building a fire, and every day I train, I add more fuel.", "attribution": "Mia Hamm" },
+    { "text": "The more difficult the victory, the greater the happiness in winning.", "attribution": "Pelé" },
+    { "text": "Champions are made when no one is watching.", "attribution": "Anson Dorrance" },
+    { "text": "What you lack in talent can be made up with desire, hustle, and giving 110 percent all the time.", "attribution": "Don Zimmer" },
+    { "text": "Never let the fear of striking out keep you from playing the game.", "attribution": "Babe Ruth" },
+    { "text": "The harder the battle, the sweeter the victory.", "attribution": "Les Brown" }
   ]
 }

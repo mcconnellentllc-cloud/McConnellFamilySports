@@ -180,14 +180,43 @@
     });
   }
 
+  function pickQuote(seed) {
+    const list = (state.athletes && state.athletes.quotes) || [];
+    if (!list.length) return null;
+    const today = new Date();
+    const day = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+    const s = day + "|" + seed;
+    let h = 0;
+    for (let i = 0; i < s.length; i++) {
+      h = ((h << 5) - h) + s.charCodeAt(i);
+      h |= 0;
+    }
+    return list[Math.abs(h) % list.length];
+  }
+  function coverEl(headline, tagline, quoteSeed) {
+    const kids = [
+      el("h1", null, [headline]),
+      el("div", { class: "rule" }),
+    ];
+    if (tagline) kids.push(el("p", { class: "cover__tagline" }, [tagline]));
+    const q = pickQuote(quoteSeed);
+    if (q) {
+      kids.push(el("blockquote", { class: "cover__quote" }, [
+        el("p", null, ["“" + q.text + "”"]),
+        el("cite", null, ["— " + q.attribution]),
+      ]));
+    }
+    return el("section", { class: "cover" }, kids);
+  }
+
   function viewHome() {
     const v = $("#view");
     v.innerHTML = "";
-    v.appendChild(el("section", { class: "cover" }, [
-      el("h1", null, ["McConnell Family Sports"]),
-      el("div", { class: "rule" }),
-      el("p", null, ["Scores, pictures, places, and memories — kept together."]),
-    ]));
+    v.appendChild(coverEl(
+      "McConnell Family Sports",
+      "Scores, pictures, places, and memories — kept together.",
+      "home"
+    ));
     const grid = el("div", { class: "tiles" });
     (state.athletes.athletes || []).forEach(function (a) {
       grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug }, [
@@ -206,11 +235,7 @@
       v.appendChild(el("p", null, ["Unknown athlete."]));
       return;
     }
-    v.appendChild(el("section", { class: "cover" }, [
-      el("h1", null, [a.name]),
-      el("div", { class: "rule" }),
-      el("p", null, [a.tagline || "Choose a sport"]),
-    ]));
+    v.appendChild(coverEl(a.name, a.tagline || "Choose a sport", "athlete:" + a.slug));
     const grid = el("div", { class: "tiles" });
     const sports = (state.athletes.sports || []).filter(function (s) {
       return !a.sports || a.sports.indexOf(s.slug) !== -1;
@@ -233,10 +258,7 @@
       v.appendChild(el("p", null, ["Section not found."]));
       return;
     }
-    v.appendChild(el("section", { class: "cover" }, [
-      el("h1", null, [a.name + " · " + s.name]),
-      el("div", { class: "rule" }),
-    ]));
+    v.appendChild(coverEl(a.name + " · " + s.name, null, "sport:" + a.slug + ":" + s.slug));
 
     const upcomingEvents = eventsFor(a.slug, s.slug);
     if (upcomingEvents.length) {

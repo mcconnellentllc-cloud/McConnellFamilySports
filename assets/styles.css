@@ -110,6 +110,7 @@ a:hover { text-decoration: underline; }
 
 /* Header */
 .site-header {
+  border-top: 4px solid var(--accent);
   border-bottom: 1px solid var(--line);
   background: var(--paper);
   padding: 18px 0;
@@ -131,11 +132,13 @@ a:hover { text-decoration: underline; }
 .brand__mark {
   width: 36px; height: 36px;
   display: grid; place-items: center;
-  border: 1px solid var(--ink);
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
   border-radius: 50%;
   font-family: var(--serif);
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
 }
 .brand__name {
   font-family: var(--serif);
@@ -177,6 +180,16 @@ a:hover { text-decoration: underline; }
   font-style: italic;
   text-align: center;
 }
+.site-footer p { margin: 0; }
+.site-footer__bulldogs {
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
 
 /* Sections */
 .section-title {
@@ -202,17 +215,39 @@ a:hover { text-decoration: underline; }
   letter-spacing: 1px;
   margin: 0 0 10px;
 }
-.cover p {
+.cover__tagline {
   color: var(--muted);
   font-style: italic;
   font-size: 18px;
-  margin: 0 0 40px;
+  margin: 0 0 24px;
 }
 .rule {
-  width: 60px;
-  height: 1px;
-  background: var(--accent-soft);
+  width: 80px;
+  height: 3px;
+  background: var(--accent);
   margin: 22px auto;
+}
+.cover__quote {
+  margin: 6px auto 40px;
+  max-width: 620px;
+  padding: 20px 24px 0;
+  border-top: 1px solid var(--line);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.cover__quote p { margin: 0 0 10px; }
+.cover__quote cite {
+  display: block;
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* Cards grid */
