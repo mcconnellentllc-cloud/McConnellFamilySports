@@ -23,7 +23,17 @@
     {
       "slug": "gymnastics",
       "name": "Gymnastics",
-      "events": ["Vault", "Bars", "Beam", "Floor", "All-Around"]
+      "events": ["Vault", "Bars", "Beam", "Floor", "All-Around"],
+      "qualifying": {
+        "Level 2":    { "Vault": 7.0, "Beam": 8.3,  "Bars": 8.5,  "Floor": 8.3, "All-Around": 32.0 },
+        "Level 3":    { "Vault": 7.0, "Beam": 6.6,  "Bars": 7.2,  "Floor": 7.2, "All-Around": 28.0 },
+        "Level 4":    { "Vault": 7.0, "Beam": 6.6,  "Bars": 6.3,  "Floor": 7.1, "All-Around": 27.0 },
+        "Optional 1": { "Vault": 7.0, "Beam": 6.5,  "Bars": 6.5,  "Floor": 7.0, "All-Around": 27.0 },
+        "Optional 2": { "Vault": 7.5, "Beam": 7.0,  "Bars": 7.0,  "Floor": 7.5, "All-Around": 29.0 },
+        "Optional 3": { "Vault": 8.0, "Beam": 7.5,  "Bars": 7.5,  "Floor": 8.0, "All-Around": 31.0 },
+        "Optional 4": { "Vault": 8.5, "Beam": 8.0,  "Bars": 8.0,  "Floor": 8.5, "All-Around": 33.0 },
+        "Optional 5": { "Vault": 8.8, "Beam": 8.45, "Bars": 8.45, "Floor": 8.8, "All-Around": 34.5 }
+      }
     }
   ]
 }
