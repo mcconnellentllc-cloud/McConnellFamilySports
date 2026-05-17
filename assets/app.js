@@ -7,6 +7,13 @@
   const PASSWORD_HASH = "9592955c5464e8aa0834c891b493c97ed0576d4faa79e703e367a3f511da66ae";
   const SESSION_KEY = "mfs_unlocked_v1";
 
+  // Visitor counter via GoatCounter (no IP storage, no cookies, no
+  // fingerprinting; raw IP is hashed with a 4h-rotating salt and never
+  // persisted). See README "Visitor counter" for the 1-minute signup.
+  // If the subdomain isn't registered yet, the counter just doesn't
+  // display — the site loads normally either way.
+  const VISITOR_COUNTER_BASE = "https://mcconnell-family-sports.goatcounter.com";
+
   const state = {
     athletes: null,
     content: null,
@@ -634,6 +641,7 @@
   // ---------- Boot ----------
   async function boot() {
     showApp();
+    refreshVisitCount();
     try {
       await loadData();
     } catch (err) {
@@ -645,6 +653,34 @@
       return;
     }
     render();
+  }
+
+  // ---------- Visitor counter ----------
+  // Records a single aggregate page-view via GoatCounter (which doesn't
+  // store raw IPs) and fetches the running total to display in the footer.
+  // Both sides fail silent: if the counter is unreachable, the site loads
+  // normally and the footer just omits the number. No personal data leaves
+  // the page beyond what GoatCounter records site-wide.
+  function refreshVisitCount() {
+    if (!VISITOR_COUNTER_BASE) return;
+    // Record the visit. Pixel-style request so CORS doesn't apply.
+    try {
+      const params = new URLSearchParams({ p: "/", t: "site", r: "" });
+      new Image().src = VISITOR_COUNTER_BASE + "/count?" + params.toString();
+    } catch (e) { /* ignore */ }
+    // Fetch the aggregate count and display it.
+    fetch(VISITOR_COUNTER_BASE + "/counter/TOTAL.json", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data) return;
+        const total = typeof data.count === "number" ? data.count : parseInt(data.count, 10);
+        if (!total || isNaN(total)) return;
+        const el = document.getElementById("visit-count");
+        if (!el) return;
+        el.textContent = total.toLocaleString() + " family visits";
+        el.hidden = false;
+      })
+      .catch(function () { /* offline / not signed up yet / blocked — leave hidden */ });
   }
 
   async function init() {
