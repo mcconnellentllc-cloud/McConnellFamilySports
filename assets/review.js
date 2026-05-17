@@ -28,6 +28,10 @@
   const REPO_NAME = "McConnellFamilySports";
   const BRANCH = "main";
 
+  // Same GoatCounter subdomain as the main site. No IP storage, no cookies.
+  // Fail-silent: if not registered yet, the count just doesn't display.
+  const VISITOR_COUNTER_BASE = "https://mcconnell-family-sports.goatcounter.com";
+
   const $ = (sel) => document.querySelector(sel);
 
   function el(tag, attrs, children) {
@@ -508,6 +512,24 @@
     pending = await loadJsonFromSite("data/pending.json");
   }
 
+  // ---------- Visitor counter (display only on this page — main site
+  // does the increment to avoid double-counting a single session) ----------
+  function refreshVisitCount() {
+    if (!VISITOR_COUNTER_BASE) return;
+    fetch(VISITOR_COUNTER_BASE + "/counter/TOTAL.json", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data) return;
+        const total = typeof data.count === "number" ? data.count : parseInt(data.count, 10);
+        if (!total || isNaN(total)) return;
+        const el = document.getElementById("visit-count");
+        if (!el) return;
+        el.textContent = total.toLocaleString() + " family visits";
+        el.hidden = false;
+      })
+      .catch(function () { /* fail silent */ });
+  }
+
   // ---------- Boot ----------
   async function boot() {
     if (!isUnlocked()) {
@@ -515,6 +537,7 @@
       return;
     }
     showApp();
+    refreshVisitCount();
     if (!getToken()) {
       $("#token-prompt").hidden = false;
       $("#tray-controls").hidden = true;

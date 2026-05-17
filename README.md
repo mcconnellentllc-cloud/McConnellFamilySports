@@ -28,6 +28,31 @@ That's a 2-minute change, any time.
 
 ---
 
+## Visitor counter (optional, free, no setup required)
+
+The footer shows a small "family visits" count powered by
+**GoatCounter** (<https://www.goatcounter.com>) — a free
+privacy-respecting counter that doesn't store raw IPs, doesn't set
+cookies, and doesn't fingerprint. (Raw IP is hashed with a
+4-hour-rotating salt for bot detection, then discarded.)
+
+To turn it on, one-time, takes about a minute:
+
+1. Sign up at <https://www.goatcounter.com/signup>.
+2. Pick the subdomain `mcconnell-family-sports` (so your counter
+   lives at `mcconnell-family-sports.goatcounter.com`). Confirm via
+   the email link.
+3. That's it — the site is already wired to that subdomain. The next
+   visit to the site will start the count.
+
+If you pick a different subdomain, update `VISITOR_COUNTER_BASE`
+near the top of `assets/app.js` and `assets/review.js` to match.
+
+If the subdomain isn't registered yet, the counter just doesn't
+appear and the site loads normally — no error, no broken layout.
+
+---
+
 ## How it works (auto-sync from the family Teams channel)
 
 A scheduled GitHub Action runs every 30 minutes and pulls anything new

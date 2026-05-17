@@ -58,6 +58,36 @@ confirm items.
 
 ---
 
+## What this token actually protects against (and what it doesn't)
+
+The site's password gate is a **convenience screen, not hard
+security** — the password hash lives in the browser-side JavaScript,
+so anyone determined enough can fetch the page source and compare
+common passwords against the hash offline. It keeps casual visitors
+out; it doesn't keep a focused attacker out.
+
+The Review tray PAT's real safety rests on three things:
+
+1. **Scope.** The token is fine-grained, single-repo, Contents-only.
+   Even if it leaks, it can't read or modify any other repo on the
+   account, can't change Settings, can't see private profile data.
+2. **Where you paste it.** Don't enter the token on a shared or
+   public computer — other profiles, the next user, and most
+   browser-syncing setups can read it back out of localStorage.
+3. **Cleanup when a device changes hands.** If a phone or laptop is
+   retired, sold, or lost, open the tray on that device and tap
+   "Replace token" (wipes localStorage on that device), or — from
+   any other device — **revoke the token** at
+   <https://github.com/settings/personal-access-tokens>.
+
+**The only hard guarantee of photo privacy** remains switching the
+repository to **Private** in repo Settings (and upgrading the account
+to **GitHub Pro** so GitHub Pages will still serve a private repo).
+This token, the password gate, and any future hardening are layers
+above that baseline — useful, but not a substitute for it.
+
+---
+
 ## Security notes
 
 - **The token is single-repo, Contents only.** It cannot read or
