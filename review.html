@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <title>Review tray — McConnell Family Sports</title>
+  <link rel="stylesheet" href="assets/styles.css?v=12" />
+  <link rel="stylesheet" href="assets/review.css?v=12" />
+</head>
+<body>
+  <div id="gate" class="gate" hidden>
+    <div class="gate__card">
+      <h1 class="gate__title">McConnell Family Sports</h1>
+      <p class="gate__sub">A private family archive.</p>
+      <form id="gate-form" autocomplete="off">
+        <label for="gate-input" class="gate__label">Password</label>
+        <input id="gate-input" type="password" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" autofocus required />
+        <button type="submit">Enter</button>
+        <p id="gate-error" class="gate__error" hidden>That password didn't work.</p>
+      </form>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+    <header class="site-header">
+      <div class="wrap">
+        <a href="./" class="brand">
+          <span class="brand__mark">M</span>
+          <span class="brand__name">McConnell Family Sports</span>
+        </a>
+        <a href="./" class="lock-btn">Back to site</a>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="cover">
+        <h1>Review tray</h1>
+        <div class="rule"></div>
+        <p class="cover__tagline">Sort items the sync couldn't fully classify on its own.</p>
+      </section>
+
+      <section id="token-prompt" class="token-prompt" hidden>
+        <h2>One-time setup</h2>
+        <p>Paste a GitHub fine-grained Personal Access Token. See <a href="https://github.com/mcconnellentllc-cloud/McConnellFamilySports/blob/main/SETUP-GITHUB-TOKEN.md" target="_blank" rel="noopener">SETUP-GITHUB-TOKEN.md</a> for how to make one.</p>
+        <form id="token-form">
+          <input id="token-input" type="password" placeholder="github_pat_..." autocomplete="off" required />
+          <button type="submit">Save token</button>
+        </form>
+        <p id="token-error" class="token-error" hidden></p>
+      </section>
+
+      <section id="tray-controls" class="tray-controls" hidden>
+        <span id="tray-count" class="tray-count"></span>
+        <button id="replace-token" class="link-btn" type="button">Replace token</button>
+      </section>
+
+      <section id="tray" class="tray" aria-live="polite"></section>
+
+      <section id="tray-empty" class="tray-empty" hidden>
+        <h2>Nothing pending.</h2>
+        <p>Everything synced so far has been sorted or auto-filed. New items will show up here within ~30 min of being posted in the family Teams channel.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Kept for the McConnell family.</p>
+        <p class="site-footer__bulldogs">Haxtun Bulldogs — through and through.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/review.js?v=12"></script>
+</body>
+</html>

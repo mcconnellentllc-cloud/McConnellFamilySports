@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 1,
+  "_comment": "Cache of OpenStreetMap Nominatim reverse-geocoding results. Keys are 'lat,lng' rounded to 4 decimals (~11 m precision); values are the resolved display name. Auto-populated by sync_teams.py; safe to delete to force refresh.",
+  "entries": {}
+}

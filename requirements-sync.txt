@@ -1,0 +1,13 @@
+# Dependencies for sync_teams.py.
+# Installed in the sync workflow; not needed locally unless you want to
+# run the sync by hand.
+
+requests>=2.31
+Pillow>=10.0          # EXIF reading + image decoding for face recognition
+
+# Face recognition is optional — the sync degrades gracefully if these
+# fail to install or download their model weights. Comment out to skip
+# entirely (the workflow run will be faster).
+insightface>=0.7
+onnxruntime>=1.17
+numpy>=1.26

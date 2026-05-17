@@ -8,6 +8,61 @@ The password is **McConnell** (the site asks for it once per browser session).
 
 ---
 
+## Privacy notice (read this once)
+
+This repository is **public**. The password gate hides photos and scores from
+people visiting the *website*, but it does **not** hide anything from the
+GitHub repository — anyone with the GitHub URL can browse `media/` and
+download every photo file directly. That is a deliberate choice we made to
+keep the site free.
+
+If at any point that feels wrong — especially as the auto-sync from the
+family Teams channel fills the archive with years of photos of minors — the
+fix is small:
+
+1. Repo Settings → Danger Zone → **Change visibility** → Private.
+2. Upgrade the account to **GitHub Pro** (~$4/month) so GitHub Pages will
+   still serve a private repo.
+
+That's a 2-minute change, any time.
+
+---
+
+## How it works (auto-sync from the family Teams channel)
+
+A scheduled GitHub Action runs every 30 minutes and pulls anything new
+from the family Microsoft Teams channel into the site:
+
+- **Post a photo with `#gymnastics`** (the sport hashtag) **and a girl
+  hashtag** (`#tyndle`, `#oakley`, or `#tayla`, one or more) — the photo is
+  auto-filed straight into `media/<girl>/gymnastics/` and the next deploy
+  publishes it. Done.
+- **Post a photo with only `#gymnastics`** — the sport is set automatically,
+  but the photo waits in the **Review tray** for you to pick the girl. EXIF
+  date and GPS (if your phone embeds it) come over automatically, and a face
+  suggestion is pre-selected when there's a confident match.
+- **Post a photo with no tags** — same flow, the tray collects it as
+  "unsorted." Date and GPS still come over via EXIF.
+- **Post a journal/text message with `#sport #girlname`** — it becomes a
+  Memory entry on that girl's page.
+
+Photos uploaded via Teams' "Files" tab (SharePoint-backed) are also picked
+up — they always start in the tray since they don't carry message hashtags.
+
+The **Review tray** lives at `/review.html` on the site (same password). The
+only routine chore is clearing it; that shrinks over time as the venue map
+and face references fill in.
+
+**Expected early-volume curve:** most items will queue in the tray at first
+because the venue map starts empty. After you sort the first handful from a
+new venue, it gets remembered and subsequent photos from the same place
+auto-resolve.
+
+See **`SETUP-AZURE.md`** for the one-time Microsoft Entra setup that powers
+the sync, and **`SETUP-GITHUB-TOKEN.md`** for the Review tray's token.
+
+---
+
 ## One-time setup (about 10 minutes)
 
 1. **Create a new private repository on GitHub.**
