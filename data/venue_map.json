@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "_comment": "Maps a resolved venue (street address or place name from EXIF GPS reverse-geocoding) to a sport. When a photo's location matches a key here, the sport is set automatically and the photo doesn't need a #sport hashtag. Keys are lowercase, whitespace-normalized; values are sport slugs as defined in athletes.json. Example below is illustrative — replace with real entries as you collect them.",
+  "venues": {
+    "carbon valley recreation center, frederick, co": "gymnastics"
+  }
+}
