@@ -531,6 +531,13 @@ a:hover { text-decoration: underline; }
   font-style: italic;
   margin: 4px 0 0;
 }
+.event__place {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin: 4px 0 0;
+}
 .event--met {
   border-color: var(--accent);
   box-shadow: inset 0 0 0 1px var(--accent);
@@ -610,6 +617,15 @@ a:hover { text-decoration: underline; }
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+.score-card__notes {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink);
+  font-style: italic;
+}
 
 /* Memories */
 .memory {
@@ -687,6 +703,27 @@ a:hover { text-decoration: underline; }
   transition: transform .25s ease;
 }
 .gallery button:hover img { transform: scale(1.04); }
+.gallery__video { position: relative; }
+.gallery__video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+.gallery__play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0,0,0,.6);
+  background: rgba(15,12,8,.18);
+  pointer-events: none;
+  transition: background .2s ease;
+}
+.gallery__video:hover .gallery__play { background: rgba(15,12,8,.32); }
 
 /* Empty state */
 .empty {
@@ -726,13 +763,15 @@ a:hover { text-decoration: underline; }
   max-height: 100%;
   text-align: center;
 }
-.lightbox img {
+.lightbox img,
+.lightbox video {
   max-width: 90vw;
   max-height: 80vh;
   display: block;
   margin: 0 auto;
   border: 1px solid rgba(255,255,255,.1);
 }
+.lightbox video { background: #000; width: auto; }
 .lightbox figcaption {
   color: #ddd;
   margin-top: 14px;

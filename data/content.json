@@ -3,6 +3,21 @@
     {
       "sport": "gymnastics",
       "athletes": ["tyndle", "oakley", "tayla"],
+      "date": "2026-05-29",
+      "name": "Paul Derda Gymnastics Meet",
+      "venue": "Paul Derda Recreation Center",
+      "address": "13201 Lowell Blvd, Broomfield, CO 80020",
+      "league": "CARA — Colorado Association of Recreational Athletics",
+      "competing": {
+        "tyndle": "Optional 1",
+        "oakley": "Level 3 (C3)",
+        "tayla": "Level 3 (C3)"
+      },
+      "notes": "Pre-stamped meet card. Scores fill in live as each event is judged."
+    },
+    {
+      "sport": "gymnastics",
+      "athletes": ["tyndle", "oakley", "tayla"],
       "date": "2026-05-16",
       "name": "Carbon Valley Gymnastics Meet",
       "host": "Carbon Valley Parks and Recreation District",
@@ -30,6 +45,57 @@
     }
   ],
   "scores": [
+    {
+      "athlete": "tyndle",
+      "sport": "gymnastics",
+      "date": "2026-05-29",
+      "meet": "Paul Derda Gymnastics Meet",
+      "location": "Paul Derda Recreation Center, Broomfield, CO",
+      "level": "Optional 1",
+      "results": [
+        { "event": "Vault", "score": "", "placement": "", "note": "" },
+        { "event": "Bars",  "score": "", "placement": "", "note": "" },
+        { "event": "Beam",  "score": "", "placement": "", "note": "" },
+        { "event": "Floor", "score": "", "placement": "", "note": "" }
+      ],
+      "allAround": "",
+      "allAroundPlacement": "",
+      "notes": ""
+    },
+    {
+      "athlete": "oakley",
+      "sport": "gymnastics",
+      "date": "2026-05-29",
+      "meet": "Paul Derda Gymnastics Meet",
+      "location": "Paul Derda Recreation Center, Broomfield, CO",
+      "level": "Level 3",
+      "results": [
+        { "event": "Vault", "score": "", "placement": "", "note": "" },
+        { "event": "Bars",  "score": "", "placement": "", "note": "" },
+        { "event": "Beam",  "score": "", "placement": "", "note": "" },
+        { "event": "Floor", "score": "", "placement": "", "note": "" }
+      ],
+      "allAround": "",
+      "allAroundPlacement": "",
+      "notes": ""
+    },
+    {
+      "athlete": "tayla",
+      "sport": "gymnastics",
+      "date": "2026-05-29",
+      "meet": "Paul Derda Gymnastics Meet",
+      "location": "Paul Derda Recreation Center, Broomfield, CO",
+      "level": "Level 3",
+      "results": [
+        { "event": "Vault", "score": "", "placement": "", "note": "" },
+        { "event": "Bars",  "score": "", "placement": "", "note": "" },
+        { "event": "Beam",  "score": "", "placement": "", "note": "" },
+        { "event": "Floor", "score": "", "placement": "", "note": "" }
+      ],
+      "allAround": "",
+      "allAroundPlacement": "",
+      "notes": ""
+    },
     {
       "athlete": "tyndle",
       "sport": "gymnastics",

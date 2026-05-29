@@ -441,7 +441,7 @@
       const targets = (s.qualifying && r.level && s.qualifying[r.level]) || null;
       const qualifiedEvents = [];
       const shortfalls = [];
-      function buildEvent(name, scoreVal, note, extraClass) {
+      function buildEvent(name, scoreVal, note, extraClass, placement) {
         const hasScore = !(scoreVal === "" || scoreVal == null);
         const display = hasScore ? String(scoreVal) : "—";
         const target = targets ? targets[name] : null;
@@ -461,18 +461,38 @@
             class: "event__target" + (met ? " event__target--met" : ""),
           }, [(met ? "✓ " : "") + "needs " + target]));
         }
+        if (placement) {
+          children.push(el("p", { class: "event__place" }, [placement]));
+        }
         if (note) {
           children.push(el("p", { class: "event__note" }, [note]));
         }
         return el("div", { class: "event" + (extraClass ? " " + extraClass : "") + (met ? " event--met" : "") }, children);
       }
 
+      // All-Around: use the manual value if entered, otherwise auto-sum the
+      // four event scores once they're all filled in. Shows a small hint
+      // when the figure was computed rather than typed.
+      let aaVal = r.allAround;
+      let aaAuto = false;
+      const aaManual = aaVal != null && aaVal !== "";
+      if (!aaManual) {
+        const nums = (r.results || []).map(function (e) { return parseFloat(e.score); });
+        if (nums.length && nums.every(function (n) { return !isNaN(n); })) {
+          aaVal = (Math.round(nums.reduce(function (a, b) { return a + b; }, 0) * 1000) / 1000).toString();
+          aaAuto = true;
+        }
+      }
+
       const events = el("div", { class: "events" });
       (r.results || []).forEach(function (e) {
-        events.appendChild(buildEvent(e.event, e.score, e.note, null));
+        events.appendChild(buildEvent(e.event, e.score, e.note, null, e.placement));
       });
-      if (r.allAround != null && r.allAround !== "") {
-        events.appendChild(buildEvent("All-Around", r.allAround, null, "event--aa"));
+      if (aaVal != null && aaVal !== "") {
+        events.appendChild(buildEvent(
+          "All-Around", aaVal, aaAuto ? "auto-summed" : null,
+          "event--aa", r.allAroundPlacement
+        ));
       }
       card.appendChild(events);
 
@@ -506,6 +526,9 @@
 
       if (r.placement) {
         card.appendChild(el("span", { class: "placement" }, [r.placement]));
+      }
+      if (r.notes) {
+        card.appendChild(el("p", { class: "score-card__notes" }, [r.notes]));
       }
       parent.appendChild(card);
     });
@@ -576,14 +599,35 @@
     state.galleryItems = photos;
     const grid = el("div", { class: "gallery" });
     photos.forEach(function (p, idx) {
-      const btn = el("button", {
-        type: "button",
-        "aria-label": p.caption || "Photo",
-        onclick: function () { openLightbox(idx); },
-      }, [
-        el("img", { src: p.src, alt: p.caption || "", loading: "lazy" }),
-      ]);
-      grid.appendChild(btn);
+      if (p.type === "video") {
+        const vid = el("video", {
+          src: p.src,
+          muted: "",
+          playsinline: "",
+          preload: "metadata",
+          tabindex: "-1",
+        });
+        vid.muted = true;
+        const btn = el("button", {
+          type: "button",
+          class: "gallery__video",
+          "aria-label": p.caption || "Video",
+          onclick: function () { openLightbox(idx); },
+        }, [
+          vid,
+          el("span", { class: "gallery__play", "aria-hidden": "true" }, ["▶"]),
+        ]);
+        grid.appendChild(btn);
+      } else {
+        const btn = el("button", {
+          type: "button",
+          "aria-label": p.caption || "Photo",
+          onclick: function () { openLightbox(idx); },
+        }, [
+          el("img", { src: p.src, alt: p.caption || "", loading: "lazy" }),
+        ]);
+        grid.appendChild(btn);
+      }
     });
     parent.appendChild(grid);
   }
@@ -596,12 +640,30 @@
   function showLightbox() {
     const p = state.galleryItems[state.galleryIndex];
     if (!p) return;
-    $("#lightbox-img").src = p.src;
-    $("#lightbox-img").alt = p.caption || "";
+    const img = $("#lightbox-img");
+    const video = $("#lightbox-video");
+    if (p.type === "video") {
+      img.hidden = true;
+      img.removeAttribute("src");
+      video.src = p.src;
+      video.hidden = false;
+      video.load();
+    } else {
+      video.pause();
+      video.removeAttribute("src");
+      video.hidden = true;
+      img.src = p.src;
+      img.alt = p.caption || "";
+      img.hidden = false;
+    }
     $("#lightbox-cap").textContent = p.caption || "";
     $("#lightbox").hidden = false;
   }
-  function closeLightbox() { $("#lightbox").hidden = true; }
+  function closeLightbox() {
+    const video = $("#lightbox-video");
+    if (video) video.pause();
+    $("#lightbox").hidden = true;
+  }
   function nextPhoto() {
     if (!state.galleryItems.length) return;
     state.galleryIndex = (state.galleryIndex + 1) % state.galleryItems.length;
