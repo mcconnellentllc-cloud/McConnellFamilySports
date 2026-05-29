@@ -6,6 +6,10 @@ on GitHub for free, with no servers and no monthly cost.
 
 The password is **McConnell** (the site asks for it once per browser session).
 
+> **Entering scores at a meet?** See **[MEET-DAY-GUIDE.md](MEET-DAY-GUIDE.md)**
+> for a no-jargon, step-by-step walkthrough of entering scores live and
+> posting photos/videos from your phone.
+
 ---
 
 ## Privacy notice (read this once)
@@ -146,13 +150,43 @@ A file named `first-stuck-landing.jpg` becomes the caption
 "First stuck landing." Rename files before uploading if you'd like prettier
 captions. Underscores work too: `vault_warmup.jpg` → "Vault warmup."
 
-**Supported types.** `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`, `.avif`, `.heic`.
+**Supported types.** Photos: `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`,
+`.avif`, `.heic`. Videos: `.mp4`, `.mov`, `.m4v`, `.webm`.
 
 **Venue photos (shared, not tied to one girl).** Drop them into
 `media/_venues/`. Folders that start with `_` are skipped by the gallery
 builder, so the photo won't clutter any girl's pictures page — instead,
 reference its path (e.g. `media/_venues/carbon-valley-rec-center.jpg`) in
 an event's `photo` field or a memory's `photo` field in `data/content.json`.
+
+---
+
+## Adding videos
+
+Videos go in the **same** per-girl folders as photos
+(`media/<girl>/gymnastics/`) and are uploaded the same way (**Add file →
+Upload files → drag in → Commit changes**). The build script picks them up
+automatically and the Pictures page shows them as inline players with a ▶
+overlay; tap one to play it full-screen in the lightbox.
+
+**Supported video types.** `.mp4`, `.mov`, `.m4v`, `.webm`. For the widest
+playback (every phone and browser), `.mp4` with H.264 video + AAC audio is
+the safest bet — that's also what most phones record by default. iPhone
+`.mov` files generally play fine too.
+
+**Size limits — important.** GitHub blocks any single file over **100 MB**
+and warns above **50 MB**, and the whole repo should stay under roughly
+**1 GB**. GitHub Pages is not a video host. So:
+
+- **Short clips (a single routine, well under ~50 MB):** upload straight to
+  the repo as above. Trim long recordings down to the routine before
+  uploading — your phone's built-in trimmer is enough.
+- **Long or large videos (full sessions, anything near/over 100 MB):** do
+  **not** put them in the repo. Upload to **YouTube or Vimeo as
+  *Unlisted*** (or Google Drive with link-sharing on), then paste the link
+  into that meet's **memory** `text` in `data/content.json`, or share it in
+  the family Teams channel. Unlisted means only people with the link can
+  see it — it won't show up in search.
 
 ---
 
@@ -176,23 +210,36 @@ These live in **`data/content.json`**. Edit it directly on GitHub:
   "date": "2026-03-15",
   "meet": "Spring Classic",
   "location": "Denver, CO",
-  "level": "4",
+  "level": "Optional 1",
   "results": [
-    { "event": "Vault", "score": 9.2 },
-    { "event": "Bars",  "score": 8.9 },
-    { "event": "Beam",  "score": 9.0 },
-    { "event": "Floor", "score": 9.3 }
+    { "event": "Vault", "score": "9.2", "placement": "1st", "note": "" },
+    { "event": "Bars",  "score": "8.9", "placement": "",    "note": "" },
+    { "event": "Beam",  "score": "9.0", "placement": "3rd", "note": "Stuck the dismount." },
+    { "event": "Floor", "score": "9.3", "placement": "2nd", "note": "" }
   ],
-  "allAround": 36.4,
-  "placement": "1st AA"
+  "allAround": "36.4",
+  "allAroundPlacement": "1st AA",
+  "notes": "Best meet of the season — calm and confident on every event."
 }
 ```
 
 - `athlete` is `tyndle`, `oakley`, or `tayla` (lowercase).
 - `sport` is `gymnastics` for now.
 - `date` is `YYYY-MM-DD`.
-- `placement` is free text — `"1st AA"`, `"3rd Beam"`, etc. Leave it as
-  `""` if none.
+- `score` is the judge's number in quotes (`"9.2"`). Leave it `""` until
+  the event is scored.
+- `placement` on each event is the award for that event — `"1st"`,
+  `"3rd"`, a ribbon color, etc. Leave `""` if none.
+- `allAround` is the four-event total. **Leave it `""` and the site adds
+  the four scores for you** once all four are filled in (it shows
+  "auto-summed"). Type a number here only to override.
+- `allAroundPlacement` is the All-Around award — `"1st AA"`, etc.
+- `level` should match a row in the qualifying table in
+  `data/athletes.json` (`"Level 2"`–`"Level 4"`, `"Optional 1"`–
+  `"Optional 5"`) so the **Path to Regionals** panel shows. CARA's "C3"
+  is `"Level 3"` here.
+- `notes` is free text for the whole meet — routine notes, standout
+  moments. Leave `""` if none.
 
 ### Memory entry shape
 
@@ -268,8 +315,8 @@ assets/app.js                 App logic + password gate.
 data/athletes.json            Who and what sports — edit to add people/sports.
 data/content.json             Scores, memories, places — edit by hand.
 data/gallery.json             Auto-generated. Don't hand-edit.
-media/<girl>/<sport>/         Drop photo files in here.
-build.py                      Scans media/ and rebuilds gallery.json.
+media/<girl>/<sport>/         Drop photo and video files in here.
+build.py                      Scans media/ and rebuilds gallery.json (photos + video).
 .github/workflows/deploy.yml  Runs on every push; builds and publishes.
 ```
 
