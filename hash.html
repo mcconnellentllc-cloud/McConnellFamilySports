@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Password hash helper · McConnell Family Sports</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 34rem; margin: 0 auto; padding: 1.5rem;
+    }
+    h1 { font-size: 1.25rem; }
+    p { color: #555; }
+    @media (prefers-color-scheme: dark) { p { color: #aaa; } }
+    label { display: block; font-weight: 600; margin: 1rem 0 .35rem; }
+    input { width: 100%; padding: .6rem .7rem; font-size: 1rem; box-sizing: border-box; }
+    .hash {
+      margin-top: 1rem; padding: .8rem; border: 1px solid #ccc; border-radius: 6px;
+      word-break: break-all; font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: .9rem; min-height: 1.2rem; background: rgba(127,127,127,.08);
+    }
+    button { margin-top: .75rem; padding: .55rem 1rem; font-size: 1rem; cursor: pointer; }
+    .note { font-size: .85rem; margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Password hash helper</h1>
+  <p>
+    Type a new family password to see its SHA-256 fingerprint. Paste that
+    fingerprint into <code>PASSWORD_HASH</code> in <code>assets/app.js</code>
+    and <code>assets/review.js</code> (and the upload Worker's
+    <code>UPLOAD_PASSWORD_SHA256</code> secret). See the README,
+    "Changing the password."
+  </p>
+
+  <label for="pw">New password</label>
+  <input id="pw" type="text" autocomplete="off" autocapitalize="off"
+         autocorrect="off" spellcheck="false" placeholder="Type the new password" />
+
+  <div class="hash" id="out" aria-live="polite"></div>
+  <button type="button" id="copy" disabled>Copy hash</button>
+
+  <p class="note">
+    <strong>Private by design:</strong> this runs entirely in your browser.
+    What you type is never sent anywhere — no server, no network. You can even
+    turn off data/Wi-Fi while using it.
+  </p>
+
+  <script>
+    const pw = document.getElementById("pw");
+    const out = document.getElementById("out");
+    const copy = document.getElementById("copy");
+    let current = "";
+
+    async function sha256Hex(str) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    pw.addEventListener("input", async function () {
+      const val = pw.value;
+      if (!val) { out.textContent = ""; current = ""; copy.disabled = true; return; }
+      current = await sha256Hex(val);
+      out.textContent = current;
+      copy.disabled = false;
+    });
+
+    copy.addEventListener("click", async function () {
+      try {
+        await navigator.clipboard.writeText(current);
+        copy.textContent = "Copied!";
+        setTimeout(() => { copy.textContent = "Copy hash"; }, 1500);
+      } catch (e) {
+        // Clipboard blocked — selecting the text manually still works.
+        const r = document.createRange();
+        r.selectNodeContents(out);
+        const sel = getSelection();
+        sel.removeAllRanges();
+        sel.addRange(r);
+      }
+    });
+  </script>
+</body>
+</html>

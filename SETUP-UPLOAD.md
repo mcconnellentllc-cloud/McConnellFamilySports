@@ -29,6 +29,11 @@ reaches anyone's browser. Family members only ever send the password.
 (the Worker reuses the same app registration and Team/Channel IDs). A free
 Cloudflare account. About 15 minutes.
 
+> **On a phone? Yes — every step here works in a phone web browser.** No
+> computer and no command line: Cloudflare and Microsoft both have full
+> websites, and you edit `app.js` on github.com. It's a one-time job and a
+> bit of careful copy-pasting on a small screen, but nothing needs a PC.
+
 ---
 
 ## Step 1 — Let the app write to the channel's files
@@ -48,57 +53,69 @@ write permission.
 
 ## Step 2 — Get the family password's fingerprint
 
-The Worker checks the password by its SHA-256 hash (so the plaintext password
-is never stored on the server). Generate the hash on Mac/Linux Terminal —
-replace `YourFamilyPassword` with the real site password:
+The Worker checks the password by its SHA-256 hash, and **that hash already
+exists in your site** — there's nothing to compute or install.
 
-```
-printf 'YourFamilyPassword' | shasum -a 256
-```
+1. On github.com, open **`assets/app.js`**.
+2. Near the top, find the line that begins `const PASSWORD_HASH =` — it's a
+   long hex string in quotes.
+3. Copy that hex string. That's your `UPLOAD_PASSWORD_SHA256`.
 
-Copy the long hex string it prints. (It must be the **same** password the
-site's gate uses.) Don't paste the password itself into any file.
+It's the fingerprint of the same family password the site's gate uses, so the
+Upload button and the gate stay in step automatically. (Never paste the
+password itself anywhere — only this hash.)
 
 ---
 
-## Step 3 — Deploy the Worker
+## Step 3 — Create the Worker (all in the Cloudflare website)
 
-From this repo's `upload-endpoint/` folder:
+Do this in your phone (or any) browser at <https://dash.cloudflare.com> — no
+command line.
 
-1. Install the Cloudflare CLI (one time): `npm install -g wrangler`
-2. Sign in: `wrangler login`
-3. Set each secret (it'll prompt you to paste the value):
-   ```
-   wrangler secret put TENANT_ID            # from SETUP-AZURE.md
-   wrangler secret put CLIENT_ID            # from SETUP-AZURE.md
-   wrangler secret put CLIENT_SECRET        # from SETUP-AZURE.md
-   wrangler secret put TEAMS_TEAM_ID        # from SETUP-AZURE.md
-   wrangler secret put TEAMS_CHANNEL_ID     # from SETUP-AZURE.md
-   wrangler secret put UPLOAD_PASSWORD_SHA256   # the hash from Step 2
-   ```
-4. Deploy: `wrangler deploy`
+1. Sign up / log in (the free plan is plenty). In the menu tap
+   **Workers &amp; Pages → Create → Create Worker**. Name it something like
+   `mcconnell-family-sports-upload`, tap **Deploy** to create the starter,
+   then tap **Edit code**.
+2. Select all the starter code and delete it. In another tab, open
+   `upload-endpoint/worker.js` from this repo on github.com, copy **all** of
+   it, paste it into the Cloudflare editor, and tap **Deploy**.
+3. Open the Worker's **Settings → Variables and Secrets** and add the values
+   below. Add `ALLOWED_ORIGIN` as a plain **Text** variable; add the rest as
+   **Secret** (encrypted) so they stay hidden:
 
-Wrangler prints the Worker's URL, e.g.
-`https://mcconnell-family-sports-upload.<your-subdomain>.workers.dev`. Your
-upload endpoint is that URL.
+   | Name | Type | Value |
+   |------|------|-------|
+   | `ALLOWED_ORIGIN` | Text | `https://mcconnellentllc-cloud.github.io` |
+   | `TENANT_ID` | Secret | from `SETUP-AZURE.md` |
+   | `CLIENT_ID` | Secret | from `SETUP-AZURE.md` |
+   | `CLIENT_SECRET` | Secret | from `SETUP-AZURE.md` |
+   | `TEAMS_TEAM_ID` | Secret | from `SETUP-AZURE.md` |
+   | `TEAMS_CHANNEL_ID` | Secret | from `SETUP-AZURE.md` |
+   | `UPLOAD_PASSWORD_SHA256` | Secret | the hash from Step 2 |
 
-> `ALLOWED_ORIGIN` is already set to the site's address in `wrangler.toml`. If
-> you serve the site from a different URL, change it there and redeploy.
+   Save, then tap **Deploy** once more so the new values take effect.
+4. The Worker's address is shown at the top of its page, like
+   `https://mcconnell-family-sports-upload.<your-subdomain>.workers.dev`.
+   That's your upload endpoint.
+
+> **Prefer a command line?** The repo also includes
+> `upload-endpoint/wrangler.toml`. From a computer you can
+> `npm i -g wrangler`, `wrangler login`, run `wrangler secret put <NAME>` for
+> each secret above, then `wrangler deploy`.
 
 ---
 
 ## Step 4 — Point the site at the Worker
 
-1. Open `assets/app.js` and find the line:
-   ```js
-   const UPLOAD_ENDPOINT = "";
-   ```
-2. Paste your Worker URL between the quotes:
+1. On github.com, open **`assets/app.js`** and tap the pencil (**Edit this
+   file**) — this works fine in a phone browser.
+2. Find `const UPLOAD_ENDPOINT = "";` and paste your Worker address between
+   the quotes:
    ```js
    const UPLOAD_ENDPOINT = "https://mcconnell-family-sports-upload.<your-subdomain>.workers.dev";
    ```
-3. Commit. After the deploy, the **Add photos or videos** button is live on
-   every Pictures tab.
+3. **Commit changes**. After the site redeploys, the **Add photos or videos**
+   button is live on every Pictures tab.
 
 That's it. Family members unlock with the password, pick photos/videos, tap
 **Upload to Teams**, and they appear after the next sync.
@@ -116,8 +133,9 @@ That's it. Family members unlock with the password, pick photos/videos, tap
   *Build and Deploy* / the sync workflow → Run workflow).
 - **Security = password strength.** Anyone who knows the family password can
   upload. The short default password is weak; a longer one is meaningfully
-  safer (see README → "Changing the password"). If you change it, redo
-  Step 2 + `wrangler secret put UPLOAD_PASSWORD_SHA256`.
+  safer (see README → "Changing the password"). If you change it, copy the
+  new `PASSWORD_HASH` from `app.js` into the Worker's `UPLOAD_PASSWORD_SHA256`
+  secret (Settings → Variables and Secrets) and redeploy.
 - **Privacy reality is unchanged:** synced files land in the public repo, same
   as photos posted in Teams today. (See the note at the top of
   `SETUP-AZURE.md` about going Private if that ever feels wrong.)
@@ -138,12 +156,14 @@ photos.)
 ## When something goes wrong
 
 - **"Wrong password"** — the hash in `UPLOAD_PASSWORD_SHA256` doesn't match
-  the site password. Redo Step 2 and re-set the secret.
+  the site password. Redo Step 2 (copy `PASSWORD_HASH` from `app.js`) and
+  re-set the secret in the Worker's Settings.
 - **Upload fails with 401/403 from Microsoft** — the `Sites.ReadWrite.All`
   consent (Step 1) didn't apply, or the client secret expired (it lasts 24
   months — see `SETUP-AZURE.md`).
 - **Upload works but the photo never appears** — check that the Teams sync is
   running (`data/.sync_state.json` should show a recent `lastSyncCompletedAt`).
   The Worker puts the file in Teams; the sync is what brings it to the site.
-- **Browser console shows a CORS error** — `ALLOWED_ORIGIN` in `wrangler.toml`
-  must exactly match the site's address (no trailing slash); redeploy.
+- **Browser console shows a CORS error** — the Worker's `ALLOWED_ORIGIN`
+  variable (Settings → Variables and Secrets) must exactly match the site's
+  address (no trailing slash); fix it and redeploy.

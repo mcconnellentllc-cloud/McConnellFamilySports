@@ -328,21 +328,25 @@ The password is stored as a SHA-256 hash (the original word is never in the
 source code). To change it:
 
 1. Pick a new password.
-2. Generate its hash. On Mac/Linux Terminal:
-   ```
-   printf 'YourNewPassword' | shasum -a 256
-   ```
+2. Generate its hash — **on a phone or any browser**, open `hash.html` from
+   the site (e.g.
+   `https://mcconnellentllc-cloud.github.io/McConnellFamilySports/hash.html`),
+   type the new password, and tap **Copy hash**. (It runs entirely in your
+   browser — nothing is sent anywhere.) On a computer you can instead run
+   `printf 'YourNewPassword' | shasum -a 256` in a Terminal.
 3. Open `assets/app.js`, find the line that starts with `const PASSWORD_HASH`,
    and replace the long string with your new hash.
 4. Do the same in `assets/review.js` (it carries a matching copy).
-5. Commit the change.
+5. Commit the change. (All of this — editing files and committing — can be
+   done on github.com from a phone.)
 
 **A longer password is worth it.** If you've enabled the on-site Upload
 button, the upload endpoint checks this same password, so its strength is
-the real lock on who can add files. After changing the password, update the
-endpoint's stored hash: `wrangler secret put UPLOAD_PASSWORD_SHA256` with the
-new password's SHA-256 (see [SETUP-UPLOAD.md](SETUP-UPLOAD.md), Step 2).
-Uploads keep using the old password until you do.
+the real lock on who can add files. After changing the password, copy the new
+`PASSWORD_HASH` value into the upload Worker's `UPLOAD_PASSWORD_SHA256` secret
+(Cloudflare → your Worker → Settings → Variables; all phone-doable, see
+[SETUP-UPLOAD.md](SETUP-UPLOAD.md)). Uploads keep using the old password until
+you do.
 
 ---
 
@@ -350,6 +354,7 @@ Uploads keep using the old password until you do.
 
 ```
 index.html                    The page itself.
+hash.html                     Browser-only helper to hash a new password (phone-friendly).
 assets/styles.css             Styling.
 assets/app.js                 App logic + password gate.
 data/athletes.json            Who and what sports — edit to add people/sports.
