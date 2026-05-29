@@ -135,6 +135,36 @@ the sync, and **`SETUP-GITHUB-TOKEN.md`** for the Review tray's token.
 
 ## Adding photos (no typing required)
 
+### Easiest: straight from the site (password only)
+
+Anyone who knows the family password can upload — no GitHub account or
+token needed on their end.
+
+1. Unlock the site with the family password and open a girl's
+   **Pictures** tab (e.g. Tyndle → Gymnastics → Pictures).
+2. Under **Add photos or videos**, pick files and tap **Upload**. They're
+   filed into that girl's folder automatically and appear in a couple of
+   minutes.
+
+**One-time switch-on (admin, once for the whole site).** The very first
+time, the uploader shows a **Turn on uploads** box. Whoever sets it up
+pastes a GitHub access token once (see
+[SETUP-GITHUB-TOKEN.md](SETUP-GITHUB-TOKEN.md) — about a minute to make).
+The site **encrypts that token with the family password** and stores it at
+`data/upload-key.json`. From then on, everyone with the password can upload
+straight from the site and never sees a token. Redo this step if you ever
+change the family password.
+
+> **How "password only" works without a server.** There's no backend, so
+> the browser needs a credential to save files. Instead of giving everyone
+> a token, the site keeps **one** token encrypted with the family password
+> (AES-GCM, key derived from the password). Only someone who enters the
+> password can decrypt and use it. That ties upload access to the strength
+> of the family password — a longer password is meaningfully safer here, so
+> consider strengthening it (see "Changing the password").
+
+### Or via GitHub directly
+
 1. In GitHub, open the `media/` folder.
 2. Navigate into the right girl's folder, then the right sport:
    `media/tyndle/gymnastics/`, `media/oakley/gymnastics/`, or
@@ -302,7 +332,14 @@ source code). To change it:
    ```
 3. Open `assets/app.js`, find the line that starts with `const PASSWORD_HASH`,
    and replace the long string with your new hash.
-4. Commit the change.
+4. Do the same in `assets/review.js` (it carries a matching copy).
+5. Commit the change.
+
+**A longer password is worth it.** Site uploads are unlocked by the family
+password (the upload token is encrypted with it), so password strength is
+the real lock on who can add files. After changing the password, redo the
+**Turn on uploads** step on a Pictures tab so the upload token is
+re-encrypted under the new password (uploads stop working until you do).
 
 ---
 

@@ -1,19 +1,27 @@
-# Setting up the Review tray token
+# Setting up the upload token
 
-The Review tray (`/review.html` on the site) shows photos and
-messages the sync pulled in but couldn't fully classify on its own.
-When you sort or discard an item, the tray writes the change back to
-the repo by calling the GitHub API directly from your phone or
-browser.
+This one token powers two things that write back to the repo straight
+from the browser (there's no server):
 
-For that to work, the tray needs a **fine-grained Personal Access
-Token** (PAT) with permission to write to *this one repo only*. You
-generate it once, paste it into the tray, and the browser stores it
-locally on your device.
+1. **Site uploads (password only).** On a girl's **Pictures** tab,
+   **Add photos or videos** lets anyone with the family password upload
+   from the site. You switch this on **once for the whole site**: paste
+   the token into the **Turn on uploads** box. The site then encrypts
+   the token with the family password and stores it at
+   `data/upload-key.json`, so from then on **nobody needs a token** —
+   the password alone unlocks uploading for everyone.
+2. **The Review tray** (`/review.html`), which sorts photos/messages the
+   Teams sync couldn't classify. The tray reuses the same token.
 
-You only do this once per device. The token lives in that browser's
-local storage — clearing site data wipes it, and you'd just paste it
-again.
+For either, you need a **fine-grained Personal Access Token** (PAT)
+with permission to write to *this one repo only*. You generate it once.
+
+> **Important:** because the site-upload token is encrypted with the
+> family password, the password's strength *is* the lock on uploading.
+> Anyone who learns or cracks the password can upload. A longer family
+> password makes this genuinely strong; the short default does not. If
+> you change the family password later, redo the **Turn on uploads**
+> step so the token is re-encrypted under the new one.
 
 ---
 
@@ -43,18 +51,22 @@ again.
 
 ---
 
-## Step 2 — Paste it into the Review tray
+## Step 2 — Switch on uploads (once for the whole site)
 
-1. Open the site on your phone in Safari (or any browser) and unlock
-   with the family password.
-2. Go to `https://mcconnellentllc-cloud.github.io/McConnellFamilySports/review.html`.
-3. The tray will prompt for a token the first time. Paste the
-   `github_pat_...` value and tap **Save token**.
+1. Open the site and unlock with the family password.
+2. Go to any girl's **Pictures** tab (e.g. Tyndle → Gymnastics →
+   Pictures).
+3. Under **Add photos or videos**, the **Turn on uploads** box appears
+   the first time. Paste the `github_pat_...` value and tap **Turn on
+   uploads**.
 
-That's it. The token is stored in your browser's local storage (only
-this device, only this browser, scoped to the site's origin). The
-tray uses it to call the GitHub Contents API directly when you
-confirm items.
+The site encrypts the token with the family password and saves it to
+`data/upload-key.json`. After this, **everyone with the password can
+upload from the site without ever entering a token.**
+
+(The Review tray at `/review.html` uses the same token. If you open the
+tray and it asks for one, paste the same value there — that copy is
+stored only in that browser's local storage.)
 
 ---
 

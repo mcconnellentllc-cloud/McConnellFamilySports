@@ -66,6 +66,9 @@
     const hex = await sha256Hex(input);
     if (hex === PASSWORD_HASH) {
       sessionStorage.setItem(SESSION_KEY, PASSWORD_HASH);
+      // Keep the plaintext in memory only (never persisted) so the uploader
+      // can decrypt the shared upload token without prompting again.
+      state.familyPassword = input;
       return true;
     }
     return false;
@@ -95,6 +98,8 @@
     });
     $("#lock-btn").addEventListener("click", function () {
       sessionStorage.removeItem(SESSION_KEY);
+      state.familyPassword = null;
+      state.uploadToken = null;
       location.hash = "";
       showGate();
     });
@@ -588,11 +593,12 @@
   }
 
   function renderPictures(parent, a, s) {
+    parent.appendChild(renderUploader(a, s));
     const photos = photosFor(a.slug, s.slug);
     if (!photos.length) {
       parent.appendChild(emptyState(
         "No pictures yet",
-        "Drag photos into <code>media/" + a.slug + "/" + s.slug + "/</code> on GitHub. They'll appear here in a few minutes."
+        "Use <strong>Add photos or videos</strong> above to upload straight from here, or drop files into <code>media/" + a.slug + "/" + s.slug + "/</code> on GitHub. They'll appear in a few minutes."
       ));
       return;
     }
@@ -630,6 +636,342 @@
       }
     });
     parent.appendChild(grid);
+  }
+
+  // ---------- Direct upload (password-only, no backend) ----------
+  // Anyone with the family password can add photos/videos straight from the
+  // site. There's no server: the browser calls api.github.com directly,
+  // authorized by ONE shared fine-grained, single-repo, Contents-only token.
+  // That token is never stored in plaintext anywhere public — it's encrypted
+  // with the family password (AES-GCM, key derived from the password via
+  // PBKDF2) and kept in data/upload-key.json. Only someone who knows the
+  // password can decrypt and use it. An admin pastes the raw token once to
+  // set this up (see SETUP-GITHUB-TOKEN.md); after that, password-holders
+  // just pick files and upload.
+  const GH_OWNER = "mcconnellentllc-cloud";
+  const GH_REPO = "McConnellFamilySports";
+  const GH_BRANCH = "main";
+  const UPLOAD_KEY_PATH = "data/upload-key.json";
+  const PBKDF2_ITERS = 200000;
+  const TOKEN_DOC_URL =
+    "https://github.com/mcconnellentllc-cloud/McConnellFamilySports/blob/main/SETUP-GITHUB-TOKEN.md";
+  // Files larger than this are steered to YouTube/Drive (see the meet-day
+  // guide) — keeps the Contents API reliable and the repo lean.
+  const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
+
+  // The plaintext password (kept only in memory for this page's lifetime, to
+  // decrypt the upload token) and the decrypted token (cached per session).
+  state.familyPassword = null;
+  state.uploadToken = null;
+  state.uploadKeyBlob = undefined; // undefined = unfetched, null = not set up
+
+  // ---- base64 <-> bytes ----
+  function bytesToB64(bytes) {
+    let s = "";
+    for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+    return btoa(s);
+  }
+  function b64ToBytes(str) {
+    const bin = atob(str);
+    const out = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+
+  // ---- WebCrypto: derive a key from the password and encrypt/decrypt ----
+  async function deriveKey(password, saltBytes) {
+    const base = await crypto.subtle.importKey(
+      "raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]
+    );
+    return crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: saltBytes, iterations: PBKDF2_ITERS, hash: "SHA-256" },
+      base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]
+    );
+  }
+  async function encryptToken(token, password) {
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const key = await deriveKey(password, salt);
+    const ct = await crypto.subtle.encrypt(
+      { name: "AES-GCM", iv: iv }, key, new TextEncoder().encode(token)
+    );
+    return { v: 1, alg: "AES-GCM", kdf: "PBKDF2", iters: PBKDF2_ITERS,
+             salt: bytesToB64(salt), iv: bytesToB64(iv), ct: bytesToB64(new Uint8Array(ct)) };
+  }
+  async function decryptToken(blob, password) {
+    const key = await deriveKey(password, b64ToBytes(blob.salt));
+    const pt = await crypto.subtle.decrypt(
+      { name: "AES-GCM", iv: b64ToBytes(blob.iv) }, key, b64ToBytes(blob.ct)
+    );
+    return new TextDecoder().decode(pt);
+  }
+
+  // ---- GitHub Contents API (token passed explicitly) ----
+  function ghContentsUrl(path) {
+    const enc = path.split("/").map(encodeURIComponent).join("/");
+    return "https://api.github.com/repos/" + GH_OWNER + "/" + GH_REPO + "/contents/" + enc;
+  }
+  function tokenError(status) {
+    const e = new Error(status === 403
+      ? "GitHub returned 403 — the upload token's scope or repo access is wrong. See SETUP-GITHUB-TOKEN.md."
+      : "The upload token needs renewing — an admin can redo setup. See SETUP-GITHUB-TOKEN.md.");
+    e.isTokenError = true;
+    return e;
+  }
+  async function ghHead(path, token) {
+    const r = await fetch(ghContentsUrl(path) + "?ref=" + GH_BRANCH, {
+      headers: {
+        Authorization: "Bearer " + token,
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
+    if (r.status === 404) return null;
+    if (r.status === 401 || r.status === 403) throw tokenError(r.status);
+    if (!r.ok) throw new Error("GitHub GET " + path + " → " + r.status);
+    return r.json();
+  }
+  async function ghPutFile(path, contentB64, message, token, sha) {
+    const body = { message: message, content: contentB64, branch: GH_BRANCH };
+    if (sha) body.sha = sha;
+    const r = await fetch(ghContentsUrl(path), {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + token,
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    if (r.status === 401 || r.status === 403) throw tokenError(r.status);
+    if (!r.ok) throw new Error("GitHub PUT " + path + " → " + r.status);
+    return r.json();
+  }
+
+  function fileToBase64(file) {
+    return new Promise(function (resolve, reject) {
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        resolve(String(reader.result).split(",", 2)[1] || "");
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  function sanitizeFilename(name) {
+    const dot = name.lastIndexOf(".");
+    let stem = dot > 0 ? name.slice(0, dot) : name;
+    let ext = dot > 0 ? name.slice(dot + 1) : "";
+    stem = stem.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "photo";
+    ext = ext.toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
+    return stem + "." + ext;
+  }
+  function setUploadStatus(node, text, kind) {
+    node.textContent = text;
+    node.className = "uploader__status" + (kind ? " is-" + kind : "");
+    node.hidden = false;
+  }
+
+  // Fetch the encrypted token blob from the site (same-origin, no auth).
+  // Returns the parsed blob, or null if uploads aren't set up yet.
+  async function fetchUploadKeyBlob() {
+    if (state.uploadKeyBlob !== undefined) return state.uploadKeyBlob;
+    try {
+      const r = await fetch(UPLOAD_KEY_PATH + "?t=" + Date.now(), { cache: "no-store" });
+      if (!r.ok) { state.uploadKeyBlob = null; return null; }
+      const data = await r.json();
+      state.uploadKeyBlob = (data && data.ct) ? data : null;
+    } catch (e) {
+      state.uploadKeyBlob = null;
+    }
+    return state.uploadKeyBlob;
+  }
+  // Decrypt (once per session) and return the shared upload token.
+  async function ensureUploadToken() {
+    if (state.uploadToken) return state.uploadToken;
+    const blob = await fetchUploadKeyBlob();
+    if (!blob) { const e = new Error("Uploads aren't set up yet."); e.needsSetup = true; throw e; }
+    if (!state.familyPassword) { const e = new Error("Enter the family password to upload."); e.needsPassword = true; throw e; }
+    try {
+      state.uploadToken = await decryptToken(blob, state.familyPassword);
+    } catch (e) {
+      const err = new Error("Couldn't unlock uploads — the token may have been set up under a different password. An admin can redo setup.");
+      err.isTokenError = true;
+      throw err;
+    }
+    return state.uploadToken;
+  }
+
+  // ---- Uploader UI ----
+  function renderUploader(a, s) {
+    const panel = el("section", { class: "uploader" });
+    panel.appendChild(el("h3", { class: "uploader__title" }, ["Add photos or videos"]));
+    const body = el("div", { class: "uploader__body" }, ["Loading…"]);
+    panel.appendChild(body);
+    refreshUploaderState(body, a, s);
+    return panel;
+  }
+
+  async function refreshUploaderState(body, a, s) {
+    body.innerHTML = "";
+    const blob = await fetchUploadKeyBlob();
+
+    // Need the plaintext password in memory to decrypt (or to set up).
+    if (!state.uploadToken && !state.familyPassword) {
+      body.appendChild(passwordConfirmForm(body, a, s));
+      return;
+    }
+    if (blob === null) {
+      body.appendChild(adminSetupForm(body, a, s));
+      return;
+    }
+    body.appendChild(filePickerForm(a, s));
+  }
+
+  function passwordConfirmForm(body, a, s) {
+    const wrap = el("div");
+    wrap.appendChild(el("p", { class: "uploader__hint" }, [
+      "Re-enter the family password to turn on uploading for this visit.",
+    ]));
+    const err = el("p", { class: "uploader__error", hidden: "hidden" });
+    const input = el("input", { type: "password", placeholder: "Family password", autocomplete: "off", "aria-label": "Family password" });
+    const form = el("form", { class: "uploader__token" }, [
+      input, el("button", { type: "submit" }, ["Continue"]),
+    ]);
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const val = input.value.trim();
+      if ((await sha256Hex(val)) !== PASSWORD_HASH) {
+        err.textContent = "That password didn't match.";
+        err.hidden = false;
+        return;
+      }
+      state.familyPassword = val;
+      refreshUploaderState(body, a, s);
+    });
+    wrap.appendChild(form);
+    wrap.appendChild(err);
+    return wrap;
+  }
+
+  function adminSetupForm(body, a, s) {
+    const wrap = el("div");
+    const hint = el("p", { class: "uploader__hint" });
+    hint.appendChild(document.createTextNode("Uploads aren't switched on yet. One-time setup: paste a GitHub access token and it'll be encrypted with the family password so everyone who knows the password can upload — no token needed again. See "));
+    hint.appendChild(el("a", { href: TOKEN_DOC_URL, target: "_blank", rel: "noopener" }, ["how to make the token"]));
+    hint.appendChild(document.createTextNode("."));
+    wrap.appendChild(hint);
+
+    const status = el("p", { class: "uploader__status", "aria-live": "polite", hidden: "hidden" });
+    const input = el("input", { type: "password", placeholder: "github_pat_…", autocomplete: "off", "aria-label": "GitHub access token" });
+    const btn = el("button", { type: "submit" }, ["Turn on uploads"]);
+    const form = el("form", { class: "uploader__token" }, [input, btn]);
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const raw = input.value.trim();
+      if (!/^github_pat_/.test(raw) && !/^ghp_/.test(raw)) {
+        setUploadStatus(status, "That doesn't look like a token (it should start with github_pat_).", "error");
+        return;
+      }
+      btn.disabled = true;
+      setUploadStatus(status, "Encrypting and saving…");
+      try {
+        const blob = await encryptToken(raw, state.familyPassword);
+        const existing = await ghHead(UPLOAD_KEY_PATH, raw);
+        await ghPutFile(
+          UPLOAD_KEY_PATH,
+          bytesToB64(new TextEncoder().encode(JSON.stringify(blob, null, 2) + "\n")),
+          "chore: configure encrypted upload token",
+          raw,
+          existing ? existing.sha : undefined
+        );
+        state.uploadKeyBlob = blob;
+        state.uploadToken = raw;
+        setUploadStatus(status, "Uploads are on. Anyone with the password can now add photos and videos.", "ok");
+        refreshUploaderState(body, a, s);
+      } catch (err) {
+        setUploadStatus(status, err && err.message ? err.message : String(err), "error");
+        btn.disabled = false;
+      }
+    });
+    wrap.appendChild(form);
+    wrap.appendChild(status);
+    return wrap;
+  }
+
+  function filePickerForm(a, s) {
+    const wrap = el("div");
+    const dest = "media/" + a.slug + "/" + s.slug + "/";
+    const hint = el("p", { class: "uploader__hint" });
+    hint.appendChild(document.createTextNode("Pick photos or videos — they go straight to "));
+    hint.appendChild(el("code", null, [dest]));
+    hint.appendChild(document.createTextNode(" and appear here a couple of minutes after the site rebuilds. Up to 25 MB each; post bigger videos to YouTube or Drive (see the meet-day guide)."));
+    wrap.appendChild(hint);
+
+    const input = el("input", {
+      type: "file",
+      multiple: "multiple",
+      accept: "image/*,video/*,.heic,.heif,.mov,.m4v,.mp4,.webm",
+      "aria-label": "Choose photos or videos",
+    });
+    const status = el("p", { class: "uploader__status", "aria-live": "polite", hidden: "hidden" });
+    const btn = el("button", { type: "button", class: "uploader__btn" }, ["Upload"]);
+    btn.addEventListener("click", function () { handleUpload(a, s, input, status, btn); });
+    wrap.appendChild(el("div", { class: "uploader__row" }, [input, btn]));
+    wrap.appendChild(status);
+    return wrap;
+  }
+
+  async function handleUpload(a, s, input, status, btn) {
+    const files = input.files ? Array.prototype.slice.call(input.files) : [];
+    if (!files.length) { setUploadStatus(status, "Pick at least one file first.", "error"); return; }
+    const tooBig = files.filter(function (f) { return f.size > MAX_UPLOAD_BYTES; });
+    if (tooBig.length) {
+      setUploadStatus(status,
+        tooBig.map(function (f) { return f.name; }).join(", ") +
+        " is over 25 MB. Trim long videos, or post big ones to YouTube/Drive (see the meet-day guide).",
+        "error");
+      return;
+    }
+    btn.disabled = true;
+    let done = 0;
+    try {
+      const token = await ensureUploadToken();
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        setUploadStatus(status, "Uploading " + file.name + " (" + (i + 1) + " of " + files.length + ")…");
+        const b64 = await fileToBase64(file);
+        let name = sanitizeFilename(file.name);
+        // Avoid clobbering an existing file with the same name.
+        if (await ghHead("media/" + a.slug + "/" + s.slug + "/" + name, token)) {
+          const dot = name.lastIndexOf(".");
+          name = name.slice(0, dot) + "-" + Date.now().toString(36) + name.slice(dot);
+        }
+        const path = "media/" + a.slug + "/" + s.slug + "/" + name;
+        await ghPutFile(path, b64, "upload: " + name + " → " + a.slug + "/" + s.slug, token);
+        done++;
+      }
+      setUploadStatus(status,
+        done + " file" + (done === 1 ? "" : "s") + " uploaded. They'll appear here a couple of minutes after the site rebuilds.",
+        "ok");
+      input.value = "";
+    } catch (e) {
+      btn.disabled = false;
+      if (e && e.needsPassword) {
+        state.uploadToken = null;
+        render();
+      } else if (e && e.isTokenError) {
+        state.uploadToken = null;
+        setUploadStatus(status, e.message, "error");
+      } else {
+        setUploadStatus(status,
+          "Upload stopped after " + done + " file(s): " + (e && e.message ? e.message : String(e)),
+          "error");
+      }
+      return;
+    }
+    btn.disabled = false;
   }
 
   // ---------- Lightbox ----------
