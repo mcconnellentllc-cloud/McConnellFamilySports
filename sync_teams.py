@@ -76,6 +76,12 @@ GEO_CACHE_PATH = DATA / "geo_cache.json"
 GRAPH = "https://graph.microsoft.com/v1.0"
 HASHTAG_RE = re.compile(r"#([A-Za-z][A-Za-z0-9_-]*)")
 SUPPORTED_IMAGE_EXT = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
+SUPPORTED_VIDEO_EXT = {".mp4", ".mov", ".m4v", ".webm"}
+SUPPORTED_MEDIA_EXT = SUPPORTED_IMAGE_EXT | SUPPORTED_VIDEO_EXT
+# Files uploaded from the website's "Add photos or videos" button are named
+# "mfs.<girl>.<sport>.<original-name>" by the upload endpoint so this sync can
+# file them straight into the right folder instead of the Review tray.
+UPLOAD_PREFIX_RE = re.compile(r"^mfs\.([a-z0-9-]+)\.([a-z0-9-]+)\.(.+)$", re.IGNORECASE)
 NOMINATIM = "https://nominatim.openstreetmap.org/reverse"
 NOMINATIM_MIN_INTERVAL = 1.1  # seconds; respect their 1 req/sec policy
 
@@ -459,6 +465,7 @@ class PhotoInput:
     message_id: str
     message_text: str
     message_date: str  # ISO 8601 from Graph
+    is_video: bool = False  # videos skip EXIF/face extraction
 
 
 def process_photo(ctx: SyncContext, p: PhotoInput) -> None:
@@ -467,16 +474,23 @@ def process_photo(ctx: SyncContext, p: PhotoInput) -> None:
         log.info("Skipping already-seen photo %s", p.filename)
         return
 
-    exif = read_exif(p.bytes_)
-    date = exif.capture_date or p.message_date[:10]
-    latlng = (exif.latitude, exif.longitude) if exif.latitude and exif.longitude else None
-    venue = ctx.venue_for(latlng)
-    sport_from_venue = ctx.sport_from_venue(venue)
+    if p.is_video:
+        # Videos carry no readable EXIF and aren't face-matched; date comes
+        # from the Teams message/drive item, and there's no GPS venue lookup.
+        date = p.message_date[:10]
+        venue = None
+        sport_from_venue = None
+        face_scores = {}
+    else:
+        exif = read_exif(p.bytes_)
+        date = exif.capture_date or p.message_date[:10]
+        latlng = (exif.latitude, exif.longitude) if exif.latitude and exif.longitude else None
+        venue = ctx.venue_for(latlng)
+        sport_from_venue = ctx.sport_from_venue(venue)
+        face_scores = ctx.faces.suggest(p.bytes_) if ctx.faces else {}
 
     girl_hits, sport_from_tag = resolve_tags(p.message_text, ctx.girl_slugs, ctx.sport_slugs)
     sport = sport_from_tag or sport_from_venue
-
-    face_scores = ctx.faces.suggest(p.bytes_) if ctx.faces else {}
 
     resolved = bool(girl_hits and sport)
     if resolved:
@@ -715,19 +729,32 @@ def sync_channel_files(gs: GraphSession, ctx: SyncContext, team_id: str, channel
     since = ctx.state.get("lastDriveItemDateTime")
     log.info("Walking channel drive since %s", since)
     for item in walk_drive(gs, root, since):
-        ext = Path(item.get("name", "")).suffix.lower()
-        if ext not in SUPPORTED_IMAGE_EXT:
+        name = item.get("name", "")
+        ext = Path(name).suffix.lower()
+        if ext not in SUPPORTED_MEDIA_EXT:
             continue
         blob = download_drive_item(gs, item)
         if not blob:
             continue
-        # Drive items don't carry a Teams message; treat as untagged photo.
+        # Files from the site's upload button are named
+        # "mfs.<girl>.<sport>.<original>" — turn that prefix into tags so the
+        # photo/video files straight into the right folder. Everything else is
+        # an untagged drive file and lands in the Review tray as before.
+        filename = name
+        message_text = ""
+        m = UPLOAD_PREFIX_RE.match(name)
+        if m:
+            girl, sport, original = m.group(1).lower(), m.group(2).lower(), m.group(3)
+            if girl in ctx.girl_slugs and sport in ctx.sport_slugs:
+                message_text = f"#{girl} #{sport}"
+                filename = original
         process_photo(ctx, PhotoInput(
-            filename=item.get("name", "photo.jpg"),
+            filename=filename,
             bytes_=blob,
             message_id=f"drive:{item.get('id', '')}",
-            message_text="",
+            message_text=message_text,
             message_date=item.get("lastModifiedDateTime", utcnow_iso()),
+            is_video=(ext in SUPPORTED_VIDEO_EXT),
         ))
         modified = item.get("lastModifiedDateTime")
         if modified:
