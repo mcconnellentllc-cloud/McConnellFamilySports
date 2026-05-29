@@ -88,7 +88,24 @@ event or all at once, your call.
 
 ## Part 2 — Posting photos and videos
 
-Photos **and** videos go in the same place, the same way.
+### Easiest: right from the site (just need the password)
+
+1. Unlock the site with the family password.
+2. Open the girl's **Pictures** tab (e.g. Tyndle → Gymnastics → Pictures).
+3. Under **Add photos or videos**, tap to pick photos/videos from your
+   phone, then tap **Upload**.
+4. A couple of minutes later they appear on that girl's Pictures page.
+   Videos show a ▶ play button — tap to watch full-screen.
+
+That's it — anyone with the password can do this, on any phone, no GitHub
+account needed.
+
+> **First-time-only setup (one person, once for everyone):** the very first
+> time, the uploader shows a **Turn on uploads** box. Paste a GitHub access
+> token once (see `SETUP-GITHUB-TOKEN.md`). After that, nobody needs a token
+> again — the password is all it takes.
+
+### Or via GitHub directly
 
 1. In GitHub, open the **`media`** folder, then the girl's folder, then
    **`gymnastics`**:
@@ -99,7 +116,6 @@ Photos **and** videos go in the same place, the same way.
 3. Drag your photos/videos in (or tap to pick from your phone).
 4. Type a short message like "Paul Derda meet" and click **Commit changes**.
 5. A couple of minutes later they appear on that girl's **Pictures** page.
-   Videos show a ▶ play button — tap to watch full-screen.
 
 **Captions** come from the file name. `vault-stuck-landing.jpg` becomes
 "Vault stuck landing." Rename files before uploading for nicer captions
@@ -137,5 +153,5 @@ or use the Unlisted-link route above.
 | Add the AA award | fill `allAroundPlacement` |
 | Auto-total the AA | leave `allAround` as `""` |
 | Write a meet note | fill `notes` |
-| Post photos/videos | `media/<girl>/gymnastics/` → Add file → Upload → Commit |
+| Post photos/videos | Pictures tab → **Add photos or videos** → pick → Upload |
 | Post a big video | upload to YouTube/Vimeo *Unlisted*, paste link in a memory |
