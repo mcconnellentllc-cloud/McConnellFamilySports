@@ -1,4 +1,4 @@
-# Setting up the upload token
+# Setting up the Review tray token
 
 The **Review tray** (`/review.html`) sorts photos and messages the Teams
 sync pulled in but couldn't fully classify on its own. When you sort or
@@ -42,7 +42,7 @@ into the tray, and the browser stores it in that device's local storage.
 
 ---
 
-## Step 2 — Switch on uploads (once for the whole site)
+## Step 2 — Paste it into the Review tray
 
 1. Open the site on your phone (or any browser) and unlock with the
    family password.
