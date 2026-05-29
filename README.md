@@ -339,10 +339,11 @@ source code). To change it:
 
 **A longer password is worth it.** If you've enabled the on-site Upload
 button, the upload endpoint checks this same password, so its strength is
-the real lock on who can add files. After changing the password, update the
-endpoint's stored hash: `wrangler secret put UPLOAD_PASSWORD_SHA256` with the
-new password's SHA-256 (see [SETUP-UPLOAD.md](SETUP-UPLOAD.md), Step 2).
-Uploads keep using the old password until you do.
+the real lock on who can add files. After changing the password, copy the new
+`PASSWORD_HASH` value into the upload Worker's `UPLOAD_PASSWORD_SHA256` secret
+(Cloudflare → your Worker → Settings → Variables; all phone-doable, see
+[SETUP-UPLOAD.md](SETUP-UPLOAD.md)). Uploads keep using the old password until
+you do.
 
 ---
 
