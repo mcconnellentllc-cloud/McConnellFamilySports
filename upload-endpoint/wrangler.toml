@@ -1,0 +1,20 @@
+# Cloudflare Worker config for the McConnell Family Sports upload endpoint.
+# Deploy with:  npx wrangler deploy   (from this folder)
+# See ../SETUP-UPLOAD.md for the full one-time setup.
+
+name = "mcconnell-family-sports-upload"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Non-secret value. Set this to the site's exact origin so only the site can
+# call the endpoint from a browser. (No trailing slash.)
+[vars]
+ALLOWED_ORIGIN = "https://mcconnellentllc-cloud.github.io"
+
+# The following are SECRETS — do NOT put them here. Set each one with:
+#   npx wrangler secret put TENANT_ID
+#   npx wrangler secret put CLIENT_ID
+#   npx wrangler secret put CLIENT_SECRET
+#   npx wrangler secret put TEAMS_TEAM_ID
+#   npx wrangler secret put TEAMS_CHANNEL_ID
+#   npx wrangler secret put UPLOAD_PASSWORD_SHA256

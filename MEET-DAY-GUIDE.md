@@ -88,22 +88,24 @@ event or all at once, your call.
 
 ## Part 2 — Posting photos and videos
 
-### Easiest: right from the site (just need the password)
+### Easiest: post it in the family Teams channel
+
+Post the photo or video in the family Teams channel with the tags
+`#gymnastics` and the girl (`#tyndle`, `#oakley`, or `#tayla`). The sync
+files it into the right folder and it shows on the site within ~30 minutes.
+No password, no token, nothing else to do.
+
+### From the site (just the password) — if the Upload button is on
 
 1. Unlock the site with the family password.
 2. Open the girl's **Pictures** tab (e.g. Tyndle → Gymnastics → Pictures).
-3. Under **Add photos or videos**, tap to pick photos/videos from your
-   phone, then tap **Upload**.
-4. A couple of minutes later they appear on that girl's Pictures page.
-   Videos show a ▶ play button — tap to watch full-screen.
+3. Under **Add photos or videos**, pick photos/videos from your phone and
+   tap **Upload to Teams**.
+4. They post to Teams for that girl and appear on her Pictures page after the
+   next sync (~30 min). Videos show a ▶ play button — tap to watch.
 
-That's it — anyone with the password can do this, on any phone, no GitHub
-account needed.
-
-> **First-time-only setup (one person, once for everyone):** the very first
-> time, the uploader shows a **Turn on uploads** box. Paste a GitHub access
-> token once (see `SETUP-GITHUB-TOKEN.md`). After that, nobody needs a token
-> again — the password is all it takes.
+Anyone with the password can do this, on any phone, no GitHub account needed.
+(Switching the button on is a one-time admin setup — see `SETUP-UPLOAD.md`.)
 
 ### Or via GitHub directly
 
@@ -153,5 +155,5 @@ or use the Unlisted-link route above.
 | Add the AA award | fill `allAroundPlacement` |
 | Auto-total the AA | leave `allAround` as `""` |
 | Write a meet note | fill `notes` |
-| Post photos/videos | Pictures tab → **Add photos or videos** → pick → Upload |
+| Post photos/videos | Teams channel with `#gymnastics #<girl>` (or Pictures tab → **Add photos or videos** if the button's on) |
 | Post a big video | upload to YouTube/Vimeo *Unlisted*, paste link in a memory |

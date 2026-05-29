@@ -135,33 +135,35 @@ the sync, and **`SETUP-GITHUB-TOKEN.md`** for the Review tray's token.
 
 ## Adding photos (no typing required)
 
-### Easiest: straight from the site (password only)
+### Easiest: post it in the family Teams channel
 
-Anyone who knows the family password can upload — no GitHub account or
-token needed on their end.
+No setup, no token, nothing on the website. Post the photo (or video) in the
+family Teams channel with the sport and girl hashtags — e.g.
+`#gymnastics #tyndle`. The Teams sync files it into Tyndle's folder and it
+shows up on the site within ~30 minutes. (Full details and tag rules:
+[SETUP-AZURE.md](SETUP-AZURE.md).)
+
+### From the site (password only) — once the Upload button is switched on
+
+Anyone who knows the family password can upload right from a girl's
+**Pictures** tab — no GitHub account or token needed on their end.
 
 1. Unlock the site with the family password and open a girl's
    **Pictures** tab (e.g. Tyndle → Gymnastics → Pictures).
-2. Under **Add photos or videos**, pick files and tap **Upload**. They're
-   filed into that girl's folder automatically and appear in a couple of
-   minutes.
+2. Under **Add photos or videos**, pick files and tap **Upload to Teams**.
+   They post into the Teams channel for that girl/sport and appear on the
+   site after the next sync (~30 min).
 
-**One-time switch-on (admin, once for the whole site).** The very first
-time, the uploader shows a **Turn on uploads** box. Whoever sets it up
-pastes a GitHub access token once (see
-[SETUP-GITHUB-TOKEN.md](SETUP-GITHUB-TOKEN.md) — about a minute to make).
-The site **encrypts that token with the family password** and stores it at
-`data/upload-key.json`. From then on, everyone with the password can upload
-straight from the site and never sees a token. Redo this step if you ever
-change the family password.
+This requires a one-time setup of a small upload endpoint (a Cloudflare
+Worker that holds the Microsoft credential server-side and checks the
+password). See **[SETUP-UPLOAD.md](SETUP-UPLOAD.md)**. Until that's done, the
+Pictures tab points people to the Teams-channel method above.
 
-> **How "password only" works without a server.** There's no backend, so
-> the browser needs a credential to save files. Instead of giving everyone
-> a token, the site keeps **one** token encrypted with the family password
-> (AES-GCM, key derived from the password). Only someone who enters the
-> password can decrypt and use it. That ties upload access to the strength
-> of the family password — a longer password is meaningfully safer here, so
-> consider strengthening it (see "Changing the password").
+> **Why a tiny backend?** A static page can't accept uploads on its own, and
+> you didn't want a token in the app. The Worker is the smallest way to do
+> it: the credential stays on the server, and people only ever send the
+> family password. Upload access is therefore as strong as the password — a
+> longer one is meaningfully safer (see "Changing the password").
 
 ### Or via GitHub directly
 
@@ -335,11 +337,12 @@ source code). To change it:
 4. Do the same in `assets/review.js` (it carries a matching copy).
 5. Commit the change.
 
-**A longer password is worth it.** Site uploads are unlocked by the family
-password (the upload token is encrypted with it), so password strength is
-the real lock on who can add files. After changing the password, redo the
-**Turn on uploads** step on a Pictures tab so the upload token is
-re-encrypted under the new password (uploads stop working until you do).
+**A longer password is worth it.** If you've enabled the on-site Upload
+button, the upload endpoint checks this same password, so its strength is
+the real lock on who can add files. After changing the password, update the
+endpoint's stored hash: `wrangler secret put UPLOAD_PASSWORD_SHA256` with the
+new password's SHA-256 (see [SETUP-UPLOAD.md](SETUP-UPLOAD.md), Step 2).
+Uploads keep using the old password until you do.
 
 ---
 
@@ -354,6 +357,8 @@ data/content.json             Scores, memories, places — edit by hand.
 data/gallery.json             Auto-generated. Don't hand-edit.
 media/<girl>/<sport>/         Drop photo and video files in here.
 build.py                      Scans media/ and rebuilds gallery.json (photos + video).
+sync_teams.py                 Teams → site sync (also files uploads from the Upload button).
+upload-endpoint/              Cloudflare Worker for the on-site Upload button (see SETUP-UPLOAD.md).
 .github/workflows/deploy.yml  Runs on every push; builds and publishes.
 ```
 
