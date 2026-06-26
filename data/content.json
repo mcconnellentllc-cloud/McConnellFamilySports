@@ -3,6 +3,22 @@
     {
       "sport": "gymnastics",
       "athletes": ["tyndle", "oakley", "tayla"],
+      "date": "2026-06-26",
+      "name": "Commerce City Meet",
+      "venue": "Bison Ridge Recreation Center",
+      "address": "13905 E. 112th Ave, Commerce City, CO 80022",
+      "phone": "(303) 286-6800",
+      "league": "CARA — Colorado Association of Recreational Athletics",
+      "competing": {
+        "tyndle": "Optional 1",
+        "oakley": "Level 3",
+        "tayla": "Level 3"
+      },
+      "notes": "Sessions: Compulsory 2 & 3 (7:00am), Optional 1 & 2 (11:00am), and Compulsory 4 / Optional 3 & 4 (3:15pm)."
+    },
+    {
+      "sport": "gymnastics",
+      "athletes": ["tyndle", "oakley", "tayla"],
       "date": "2026-05-29",
       "name": "Paul Derda Gymnastics Meet",
       "venue": "Paul Derda Recreation Center",
@@ -45,6 +61,53 @@
     }
   ],
   "scores": [
+    {
+      "athlete": "tyndle",
+      "sport": "gymnastics",
+      "date": "2026-06-26",
+      "meet": "Commerce City Meet",
+      "location": "Bison Ridge Recreation Center, Commerce City, CO",
+      "level": "Optional 1",
+      "results": [
+        { "event": "Vault", "score": "", "placement": "", "note": "" },
+        { "event": "Bars",  "score": "", "placement": "", "note": "" },
+        { "event": "Beam",  "score": "", "placement": "", "note": "" },
+        { "event": "Floor", "score": "", "placement": "", "note": "" }
+      ],
+      "allAround": "",
+      "allAroundPlacement": "",
+      "notes": "Scores not yet recorded."
+    },
+    {
+      "athlete": "oakley",
+      "sport": "gymnastics",
+      "date": "2026-06-26",
+      "meet": "Commerce City Meet",
+      "location": "Bison Ridge Recreation Center, Commerce City, CO",
+      "level": "Level 3",
+      "results": [
+        { "event": "Vault", "score": "6.8" },
+        { "event": "Bars",  "score": "7.0" },
+        { "event": "Beam",  "score": "7.6" },
+        { "event": "Floor", "score": "8.1" }
+      ],
+      "allAround": "29.5"
+    },
+    {
+      "athlete": "tayla",
+      "sport": "gymnastics",
+      "date": "2026-06-26",
+      "meet": "Commerce City Meet",
+      "location": "Bison Ridge Recreation Center, Commerce City, CO",
+      "level": "Level 3",
+      "results": [
+        { "event": "Vault", "score": "6.6" },
+        { "event": "Bars",  "score": "7.0" },
+        { "event": "Beam",  "score": "7.8" },
+        { "event": "Floor", "score": "8.3" }
+      ],
+      "allAround": "29.7"
+    },
     {
       "athlete": "tyndle",
       "sport": "gymnastics",
