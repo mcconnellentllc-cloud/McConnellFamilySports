@@ -47,6 +47,9 @@
       }
     }
   },
+  "academics": [],
+  "personal": [],
+  "travel": [],
   "events": [
     {
       "sport": "gymnastics",
@@ -117,14 +120,14 @@
       "location": "Bison Ridge Recreation Center, Commerce City, CO",
       "level": "Optional 1",
       "results": [
-        { "event": "Vault", "score": "", "placement": "", "note": "" },
-        { "event": "Bars",  "score": "", "placement": "", "note": "" },
-        { "event": "Beam",  "score": "", "placement": "", "note": "" },
+        { "event": "Vault", "score": "7.7", "placement": "", "note": "" },
+        { "event": "Bars",  "score": "5.6", "placement": "", "note": "" },
+        { "event": "Beam",  "score": "5.3", "placement": "", "note": "" },
         { "event": "Floor", "score": "", "placement": "", "note": "" }
       ],
       "allAround": "",
       "allAroundPlacement": "",
-      "notes": "Hasn't competed yet — scores to come."
+      "notes": "Floor still to come — the All-Around will total automatically once Floor is scored."
     },
     {
       "athlete": "oakley",
@@ -134,7 +137,7 @@
       "location": "Bison Ridge Recreation Center, Commerce City, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "6.8" },
+        { "event": "Vault", "score": "6.8", "placement": "5th" },
         { "event": "Bars",  "score": "7.0" },
         { "event": "Beam",  "score": "7.6" },
         { "event": "Floor", "score": "8.1" }
@@ -152,7 +155,7 @@
         { "event": "Vault", "score": "6.6" },
         { "event": "Bars",  "score": "7.0" },
         { "event": "Beam",  "score": "7.8" },
-        { "event": "Floor", "score": "8.3" }
+        { "event": "Floor", "score": "8.3", "placement": "6th" }
       ],
       "allAround": "29.7"
     },

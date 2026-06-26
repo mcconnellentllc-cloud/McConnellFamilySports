@@ -492,6 +492,67 @@ a:hover { text-decoration: underline; }
   margin: 0 4px;
 }
 
+/* ---------- Year headings + category entries ---------- */
+.year-head {
+  font-family: var(--serif);
+  font-size: 26px;
+  color: var(--accent);
+  margin: 22px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--line);
+}
+.year-head:first-child { margin-top: 0; }
+.entry {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.entry__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.entry__title {
+  font-family: var(--serif);
+  font-size: 21px;
+  margin: 0 0 6px;
+}
+.entry__date {
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+}
+.entry__meta {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+.entry__text { font-size: 15px; margin: 0 0 8px; }
+.entry__badges { margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.entry__badges .badge {
+  background: #fff4f6;
+  border: 1px solid var(--accent);
+  color: var(--accent-soft);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.entry__photo {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin: 8px 0 4px;
+}
+.entry__links { font-size: 14px; margin: 6px 0 0; }
+.tile--family { border-style: dashed; }
+
 /* ---------- Softball season card ---------- */
 .softball-card {
   background: var(--paper);

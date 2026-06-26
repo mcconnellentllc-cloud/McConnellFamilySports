@@ -132,6 +132,36 @@
   function getSport(slug) {
     return (state.athletes.sports || []).find(function (s) { return s.slug === slug; });
   }
+  const CATEGORY_DEFAULTS = {
+    sports: { name: "Sports", blurb: "Seasons, scores, and game-day photos." },
+    academics: { name: "Academics", blurb: "School years, grades, and honors." },
+    personal: { name: "Personal", blurb: "Milestones, firsts, and favorites." },
+    travel: { name: "Travel", blurb: "Trips and the places we've been." },
+  };
+  function getCategory(slug) {
+    const configured = ((state.athletes && state.athletes.categories) || [])
+      .find(function (c) { return c.slug === slug; });
+    return configured || Object.assign({ slug: slug }, CATEGORY_DEFAULTS[slug] || { name: slug, blurb: "" });
+  }
+  function categoryName(slug) { return getCategory(slug).name; }
+  // Pull dated entries for an athlete from a content.json array (academics,
+  // personal, travel). "family" matches entries tagged athlete:"family".
+  function entriesFor(arrName, aSlug) {
+    return (state.content[arrName] || [])
+      .filter(function (e) { return e.athlete === aSlug; })
+      .sort(function (x, y) { return (y.date || y.year || "").localeCompare(x.date || x.year || ""); });
+  }
+  // Group dated entries under a year heading (newest first).
+  function groupByYear(entries) {
+    const groups = {};
+    const order = [];
+    entries.forEach(function (e) {
+      const y = e.year || (e.date ? String(e.date).slice(0, 4) : "Undated");
+      if (!groups[y]) { groups[y] = []; order.push(y); }
+      groups[y].push(e);
+    });
+    return order.map(function (y) { return { year: y, items: groups[y] }; });
+  }
   function scoresFor(aSlug, sSlug) {
     return (state.content.scores || []).filter(function (r) {
       return r.athlete === aSlug && r.sport === sSlug;
@@ -161,14 +191,38 @@
   }
 
   // ---------- Routing ----------
+  // Life categories each girl's archive is organized under. "sports" holds
+  // the individual sports (gymnastics, softball …); the others are flat
+  // pages grouped by year/season inside.
+  const CATEGORY_SLUGS = ["sports", "academics", "personal", "travel"];
+  function isCategory(slug) { return CATEGORY_SLUGS.indexOf(slug) !== -1; }
+
   function parseHash() {
     const h = (location.hash || "").replace(/^#\/?/, "");
     if (!h) return { route: "home" };
     const parts = h.split("/").filter(Boolean);
-    if (parts.length === 1) return { route: "athlete", athlete: parts[0] };
-    if (parts.length === 2) return { route: "sport", athlete: parts[0], sport: parts[1], tab: "scores" };
-    if (parts.length === 3) return { route: "sport", athlete: parts[0], sport: parts[1], tab: parts[2] };
-    return { route: "home" };
+    const first = parts[0];
+
+    // Shared family archive (trips / memories not tied to one girl).
+    if (first === "family") {
+      if (parts.length === 1) return { route: "family" };
+      return { route: "familyCategory", category: parts[1], tab: parts[2] };
+    }
+
+    if (parts.length === 1) return { route: "athlete", athlete: first };
+
+    const second = parts[1];
+    if (isCategory(second)) {
+      if (second === "sports") {
+        // #/girl/sports → activity tiles; #/girl/sports/<sport>/<tab> → sport.
+        if (parts.length === 2) return { route: "category", athlete: first, category: "sports" };
+        return { route: "sport", athlete: first, sport: parts[2], tab: parts[3] || "scores" };
+      }
+      return { route: "category", athlete: first, category: second, sub: parts[2] };
+    }
+
+    // Backward-compatible: #/girl/<sport> and #/girl/<sport>/<tab> still work.
+    return { route: "sport", athlete: first, sport: second, tab: parts[2] || "scores" };
   }
 
   // ---------- Views ----------
@@ -177,14 +231,27 @@
     c.innerHTML = "";
     const parts = [];
     parts.push(el("a", { href: "#/" }, ["Home"]));
-    if (route.athlete) {
-      const a = getAthlete(route.athlete);
-      if (a) parts.push(el("a", { href: "#/" + a.slug }, [a.name]));
+
+    if (route.route === "family" || route.route === "familyCategory") {
+      parts.push(el("a", { href: "#/family" }, ["Family"]));
+      if (route.route === "familyCategory" && route.category) {
+        parts.push(el("a", { href: "#/family/" + route.category }, [categoryName(route.category)]));
+      }
+    } else {
+      if (route.athlete) {
+        const a = getAthlete(route.athlete);
+        if (a) parts.push(el("a", { href: "#/" + a.slug }, [a.name]));
+      }
+      const cat = route.category || (route.route === "sport" ? "sports" : null);
+      if (cat) {
+        parts.push(el("a", { href: "#/" + route.athlete + "/" + cat }, [categoryName(cat)]));
+      }
+      if (route.route === "sport" && route.sport) {
+        const s = getSport(route.sport);
+        if (s) parts.push(el("a", { href: "#/" + route.athlete + "/sports/" + s.slug }, [s.name]));
+      }
     }
-    if (route.sport) {
-      const s = getSport(route.sport);
-      if (s) parts.push(el("a", { href: "#/" + route.athlete + "/" + s.slug }, [s.name]));
-    }
+
     parts.forEach(function (p, i) {
       if (i > 0) c.appendChild(el("span", { class: "sep" }, ["/"]));
       c.appendChild(p);
@@ -244,6 +311,11 @@
         el("p", { class: "tile__meta" }, [(a.tagline || "View archive")]),
       ]));
     });
+    // Shared family archive.
+    grid.appendChild(el("a", { class: "tile tile--family", href: "#/family" }, [
+      el("h2", { class: "tile__name" }, ["Family"]),
+      el("p", { class: "tile__meta" }, ["Trips, holidays, and shared memories."]),
+    ]));
     v.appendChild(grid);
   }
 
@@ -255,21 +327,59 @@
       v.appendChild(el("p", null, ["Unknown athlete."]));
       return;
     }
-    v.appendChild(coverEl(a.name, a.tagline || "Choose a sport", "athlete:" + a.slug));
+    v.appendChild(coverEl(a.name, a.tagline || "Choose a category", "athlete:" + a.slug));
     const grid = el("div", { class: "tiles" });
-    const sports = (state.athletes.sports || []).filter(function (s) {
-      return !a.sports || a.sports.indexOf(s.slug) !== -1;
-    });
-    sports.forEach(function (s) {
-      const tileMeta = s.slug === "softball"
-        ? "Season · Pictures · Memories"
-        : "Scores · Pictures · Places · Memories";
-      grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug + "/" + s.slug }, [
-        el("h2", { class: "tile__name" }, [s.name]),
-        el("p", { class: "tile__meta" }, [tileMeta]),
+    CATEGORY_SLUGS.forEach(function (slug) {
+      const cat = getCategory(slug);
+      grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug + "/" + slug }, [
+        el("h2", { class: "tile__name" }, [cat.name]),
+        el("p", { class: "tile__meta" }, [cat.blurb || ""]),
       ]));
     });
     v.appendChild(grid);
+  }
+
+  // Category landing: Sports lists the girl's individual sports; the others
+  // render their own entry lists grouped by year.
+  function viewCategory(route) {
+    const a = getAthlete(route.athlete);
+    const v = $("#view");
+    v.innerHTML = "";
+    if (!a) {
+      v.appendChild(el("p", null, ["Unknown athlete."]));
+      return;
+    }
+    const cat = getCategory(route.category);
+    v.appendChild(coverEl(a.name + " · " + cat.name, cat.blurb, "cat:" + a.slug + ":" + cat.slug));
+    const body = el("section", null);
+
+    if (route.category === "sports") {
+      const grid = el("div", { class: "tiles" });
+      const sports = (state.athletes.sports || []).filter(function (s) {
+        return !a.sports || a.sports.indexOf(s.slug) !== -1;
+      });
+      if (!sports.length) {
+        body.appendChild(emptyState("No sports yet for " + a.name,
+          "Add one in <code>data/athletes.json</code> (the girl's <code>sports</code> list)."));
+      }
+      sports.forEach(function (s) {
+        const tileMeta = s.slug === "softball"
+          ? "Season · Pictures · Memories"
+          : "Scores · Pictures · Places · Memories";
+        grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug + "/sports/" + s.slug }, [
+          el("h2", { class: "tile__name" }, [s.name]),
+          el("p", { class: "tile__meta" }, [tileMeta]),
+        ]));
+      });
+      body.appendChild(grid);
+    } else if (route.category === "academics") {
+      renderAcademics(body, a.slug);
+    } else if (route.category === "personal") {
+      renderPersonal(body, a.slug);
+    } else if (route.category === "travel") {
+      renderTravel(body, a.slug);
+    }
+    v.appendChild(body);
   }
 
   function viewSport(route) {
@@ -300,7 +410,7 @@
     tabs.forEach(function (t) {
       tabBar.appendChild(el("a", {
         class: "tab" + (t === active ? " is-active" : ""),
-        href: "#/" + a.slug + "/" + s.slug + "/" + t,
+        href: "#/" + a.slug + "/sports/" + s.slug + "/" + t,
       }, [tabLabels[t]]));
     });
     v.appendChild(tabBar);
@@ -426,6 +536,100 @@
     ]);
   }
 
+  // ---------- Family views ----------
+  function viewFamily() {
+    const v = $("#view");
+    v.innerHTML = "";
+    v.appendChild(coverEl("The McConnells", "Trips, holidays, and shared memories.", "family"));
+    const grid = el("div", { class: "tiles" });
+    [
+      ["travel", "Travel", "Family trips and the places we've been."],
+      ["personal", "Memories", "Holidays, milestones, and everyday moments."],
+    ].forEach(function (c) {
+      grid.appendChild(el("a", { class: "tile", href: "#/family/" + c[0] }, [
+        el("h2", { class: "tile__name" }, [c[1]]),
+        el("p", { class: "tile__meta" }, [c[2]]),
+      ]));
+    });
+    v.appendChild(grid);
+  }
+  function viewFamilyCategory(route) {
+    const v = $("#view");
+    v.innerHTML = "";
+    const isTravel = route.category === "travel";
+    const title = isTravel ? "Travel" : "Memories";
+    v.appendChild(coverEl("Family · " + title, null, "familycat:" + route.category));
+    const body = el("section", null);
+    if (isTravel) renderTravel(body, "family");
+    else renderPersonal(body, "family");
+    v.appendChild(body);
+  }
+
+  // ---------- Category content renderers (academics / personal / travel) ----------
+  function entryPhoto(path, alt) {
+    if (!path) return null;
+    return el("img", { class: "entry__photo", src: path, alt: alt || "", loading: "lazy" });
+  }
+  function renderYearGroups(parent, entries, renderItem, emptyTitle, emptyMsg) {
+    if (!entries.length) {
+      parent.appendChild(emptyState(emptyTitle, emptyMsg));
+      return;
+    }
+    groupByYear(entries).forEach(function (g) {
+      parent.appendChild(el("h3", { class: "year-head" }, [g.year]));
+      g.items.forEach(function (e) { parent.appendChild(renderItem(e)); });
+    });
+  }
+
+  function renderAcademics(parent, aSlug) {
+    renderYearGroups(parent, entriesFor("academics", aSlug), function (e) {
+      const card = el("article", { class: "entry entry--academics" });
+      const head = [];
+      if (e.school) head.push(e.school);
+      if (e.grade) head.push(e.grade);
+      card.appendChild(el("h4", { class: "entry__title" }, [head.join(" · ") || e.title || "School year"]));
+      if (e.gpa) card.appendChild(el("p", { class: "entry__meta" }, [el("span", null, ["GPA " + e.gpa])]));
+      if (e.honors && e.honors.length) {
+        const badges = el("p", { class: "entry__badges" });
+        e.honors.forEach(function (h) { badges.appendChild(el("span", { class: "badge" }, ["🏅 " + h])); });
+        card.appendChild(badges);
+      }
+      if (e.highlights) card.appendChild(el("p", { class: "entry__text" }, [e.highlights]));
+      if (e.notes) card.appendChild(el("p", { class: "entry__text" }, [e.notes]));
+      const ph = entryPhoto(e.photo, e.school || "School");
+      if (ph) card.appendChild(ph);
+      return card;
+    }, "No academics recorded yet", "Add a school year in <code>data/content.json</code> under <code>academics</code>.");
+  }
+
+  function renderPersonal(parent, aSlug) {
+    renderYearGroups(parent, entriesFor("personal", aSlug), function (e) {
+      const card = el("article", { class: "entry entry--personal" });
+      const head = el("div", { class: "entry__head" }, [el("h4", { class: "entry__title" }, [e.title || "Milestone"])]);
+      if (e.date) head.appendChild(el("span", { class: "entry__date" }, [fmtDate(e.date)]));
+      card.appendChild(head);
+      if (e.text) card.appendChild(el("p", { class: "entry__text" }, [e.text]));
+      const ph = entryPhoto(e.photo, e.title || "");
+      if (ph) card.appendChild(ph);
+      return card;
+    }, "No milestones recorded yet", "Add one in <code>data/content.json</code> under <code>personal</code>.");
+  }
+
+  function renderTravel(parent, aSlug) {
+    renderYearGroups(parent, entriesFor("travel", aSlug), function (e) {
+      const card = el("article", { class: "entry entry--travel" });
+      const head = el("div", { class: "entry__head" }, [el("h4", { class: "entry__title" }, [e.title || e.destination || "Trip"])]);
+      if (e.date) head.appendChild(el("span", { class: "entry__date" }, [fmtDate(e.date)]));
+      card.appendChild(head);
+      if (e.destination) card.appendChild(el("p", { class: "entry__meta" }, [el("span", null, ["📍 " + e.destination])]));
+      if (e.text) card.appendChild(el("p", { class: "entry__text" }, [e.text]));
+      const ph = entryPhoto(e.photo, e.destination || e.title || "");
+      if (ph) card.appendChild(ph);
+      if (e.link) card.appendChild(el("p", { class: "entry__links" }, [el("a", { href: e.link, target: "_blank", rel: "noopener" }, ["More →"])]));
+      return card;
+    }, "No trips recorded yet", "Add a trip in <code>data/content.json</code> under <code>travel</code>.");
+  }
+
   function renderSoftball(parent, a, s) {
     const sb = state.content.softball;
     const player = sb && sb.players && sb.players[a.slug];
@@ -513,7 +717,9 @@
       ));
       return;
     }
-    rows.forEach(function (r) {
+    groupByYear(rows).forEach(function (g) {
+      parent.appendChild(el("h3", { class: "year-head" }, [g.year]));
+      g.items.forEach(function (r) {
       const card = el("article", { class: "score-card" });
       const head = el("div", { class: "score-card__head" }, [
         el("h3", { class: "score-card__meet" }, [r.meet || "Meet"]),
@@ -623,6 +829,7 @@
         card.appendChild(el("p", { class: "score-card__notes" }, [r.notes]));
       }
       parent.appendChild(card);
+      });
     });
   }
 
@@ -951,7 +1158,11 @@
     renderCrumbs(route);
     if (route.route === "home") viewHome();
     else if (route.route === "athlete") viewAthlete(route.athlete);
+    else if (route.route === "category") viewCategory(route);
     else if (route.route === "sport") viewSport(route);
+    else if (route.route === "family") viewFamily();
+    else if (route.route === "familyCategory") viewFamilyCategory(route);
+    else viewHome();
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
 
