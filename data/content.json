@@ -48,7 +48,14 @@
     }
   },
   "academics": [],
-  "personal": [],
+  "personal": [
+    {
+      "athlete": "family",
+      "title": "Three sisters, CARA gymnastics",
+      "text": "Tyndle, Oakley, and Tayla with their CARA gymnastics ribbons after a meet.",
+      "photo": "media/_family/sisters-cara-gymnastics.jpg"
+    }
+  ],
   "travel": [],
   "events": [
     {
