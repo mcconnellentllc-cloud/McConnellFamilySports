@@ -259,6 +259,27 @@
   "memories": [
     {
       "athlete": "tyndle",
+      "sport": "softball",
+      "date": "Summer 2026",
+      "title": "2026 Bulldogs — All-Star season at shortstop",
+      "text": "Tyndle (#22) led the Haxtun Bulldogs 9-12 in hits and tied for the RBI lead from shortstop, also taking the circle as a pitcher and recording the team's most assists (.429 average, 9 hits, 6 RBI, 8 assists). Her signature moment: a walk-off RBI single against Grant on June 9 to win it 7-6. Named to the 2026 League All-Star team."
+    },
+    {
+      "athlete": "oakley",
+      "sport": "softball",
+      "date": "Summer 2026",
+      "title": "2026 Bulldogs — patient bat, perfect glove",
+      "text": "Oakley (#7) anchored second base and led the Bulldogs to the plate with 24 plate appearances, drawing 12 walks (tied for the team best) and fielding a flawless 1.000. The most patient at-bat in the lineup and a sure glove all summer."
+    },
+    {
+      "athlete": "tayla",
+      "sport": "softball",
+      "date": "Summer 2026",
+      "title": "2026 Bulldogs — steady in right field",
+      "text": "Tayla (#16) patrolled right field across 8 games, chipping in an RBI and 2 walks while fielding a clean 1.000. She showed up every time her number was called."
+    },
+    {
+      "athlete": "tyndle",
       "sport": "gymnastics",
       "date": "2026-05-16",
       "title": "Carbon Valley Gymnastics Meet — Optional 1",
