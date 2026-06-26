@@ -130,11 +130,11 @@
         { "event": "Vault", "score": "7.7", "placement": "", "note": "" },
         { "event": "Bars",  "score": "5.6", "placement": "", "note": "" },
         { "event": "Beam",  "score": "5.3", "placement": "", "note": "" },
-        { "event": "Floor", "score": "", "placement": "", "note": "" }
+        { "event": "Floor", "score": "7.0", "placement": "", "note": "" }
       ],
-      "allAround": "",
+      "allAround": "25.6",
       "allAroundPlacement": "",
-      "notes": "Floor still to come — the All-Around will total automatically once Floor is scored."
+      "notes": ""
     },
     {
       "athlete": "oakley",
