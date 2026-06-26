@@ -1,4 +1,52 @@
 {
+  "softball": {
+    "team": {
+      "title": "Softball — 2026 Bulldogs",
+      "name": "Haxtun Bulldogs 9-12",
+      "season": "2026",
+      "record": "2-9",
+      "recordDetail": "2-7 regular season + 0-2 league tournament",
+      "coach": "Coach McConnell, assistant",
+      "blurb": "Three McConnell girls suited up for the Bulldogs this summer.",
+      "teamSite": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/",
+      "links": [
+        { "label": "Full 2026 stats", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#stats" },
+        { "label": "Team photos", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/gallery-2026/" },
+        { "label": "Bulldogs softball home", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/" }
+      ]
+    },
+    "players": {
+      "tyndle": {
+        "number": "22",
+        "position": "Shortstop & Pitcher",
+        "stats": ".429 AVG · 9 hits · 6 RBI · 8 assists",
+        "summary": "Led the team in hits, tied for the RBI lead, and recorded the most assists. Walk-off RBI single vs Grant on 6/9 to win it 7-6.",
+        "allStar": "Named to the 2026 League All-Star team.",
+        "links": [
+          { "label": "Tyndle's player section", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p22" },
+          { "label": "All-Star announcement", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/league-all-stars/" }
+        ]
+      },
+      "oakley": {
+        "number": "7",
+        "position": "Second Base",
+        "stats": "24 PA (most on team) · 12 walks (tied team-best) · 1.000 fielding",
+        "summary": "The team's most patient at-bat and a perfect glove at second.",
+        "links": [
+          { "label": "Oakley's player section", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p7" }
+        ]
+      },
+      "tayla": {
+        "number": "16",
+        "position": "Right Field",
+        "stats": "8 games · 1 RBI · 2 walks · 1.000 fielding",
+        "summary": "Patrolled right field and showed up every time her number was called.",
+        "links": [
+          { "label": "Tayla's player section", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p16" }
+        ]
+      }
+    }
+  },
   "events": [
     {
       "sport": "gymnastics",

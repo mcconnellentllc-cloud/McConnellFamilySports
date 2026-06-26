@@ -4,19 +4,19 @@
       "slug": "tyndle",
       "name": "Tyndle",
       "tagline": "Scores, pictures, places, and memories.",
-      "sports": ["gymnastics"]
+      "sports": ["gymnastics", "softball"]
     },
     {
       "slug": "oakley",
       "name": "Oakley",
       "tagline": "Scores, pictures, places, and memories.",
-      "sports": ["gymnastics"]
+      "sports": ["gymnastics", "softball"]
     },
     {
       "slug": "tayla",
       "name": "Tayla",
       "tagline": "Scores, pictures, places, and memories.",
-      "sports": ["gymnastics"]
+      "sports": ["gymnastics", "softball"]
     }
   ],
   "sports": [
@@ -34,6 +34,11 @@
         "Optional 4": { "Vault": 8.5, "Beam": 8.0,  "Bars": 8.0,  "Floor": 8.5, "All-Around": 33.0 },
         "Optional 5": { "Vault": 8.8, "Beam": 8.45, "Bars": 8.45, "Floor": 8.8, "All-Around": 34.5 }
       }
+    },
+    {
+      "slug": "softball",
+      "name": "Softball",
+      "events": []
     }
   ],
   "quotes": [
