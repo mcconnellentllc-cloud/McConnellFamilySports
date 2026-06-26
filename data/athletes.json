@@ -41,6 +41,12 @@
       "events": []
     }
   ],
+  "categories": [
+    { "slug": "sports",    "name": "Sports",    "blurb": "Seasons, scores, and game-day photos." },
+    { "slug": "academics", "name": "Academics", "blurb": "School years, grades, and honors." },
+    { "slug": "personal",  "name": "Personal",  "blurb": "Milestones, firsts, and favorites." },
+    { "slug": "travel",    "name": "Travel",    "blurb": "Trips and the places we've been." }
+  ],
   "quotes": [
     { "text": "Hard work beats talent when talent doesn't work hard.", "attribution": "Tim Notke" },
     { "text": "It's not whether you get knocked down; it's whether you get up.", "attribution": "Vince Lombardi" },
