@@ -261,9 +261,12 @@
       return !a.sports || a.sports.indexOf(s.slug) !== -1;
     });
     sports.forEach(function (s) {
+      const tileMeta = s.slug === "softball"
+        ? "Season · Pictures · Memories"
+        : "Scores · Pictures · Places · Memories";
       grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug + "/" + s.slug }, [
         el("h2", { class: "tile__name" }, [s.name]),
-        el("p", { class: "tile__meta" }, ["Scores · Pictures · Places · Memories"]),
+        el("p", { class: "tile__meta" }, [tileMeta]),
       ]));
     });
     v.appendChild(grid);
@@ -286,7 +289,11 @@
     }
 
     const tabs = ["scores", "pictures", "places", "memories"];
-    const tabLabels = { scores: "Scores", pictures: "Pictures", places: "Places", memories: "Memories" };
+    const isSoftball = s.slug === "softball";
+    const tabLabels = {
+      scores: isSoftball ? "Season" : "Scores",
+      pictures: "Pictures", places: "Places", memories: "Memories",
+    };
     const active = tabs.indexOf(route.tab) !== -1 ? route.tab : "scores";
 
     const tabBar = el("div", { class: "tabs" });
@@ -299,7 +306,10 @@
     v.appendChild(tabBar);
 
     const body = el("section", null);
-    if (active === "scores") renderScores(body, a, s);
+    if (active === "scores") {
+      if (isSoftball) renderSoftball(body, a, s);
+      else renderScores(body, a, s);
+    }
     else if (active === "pictures") renderPictures(body, a, s);
     else if (active === "places") renderPlaces(body, a, s);
     else if (active === "memories") renderMemories(body, a, s);
@@ -414,6 +424,84 @@
       el("h3", null, [title]),
       el("p", { html: message }),
     ]);
+  }
+
+  function renderSoftball(parent, a, s) {
+    const sb = state.content.softball;
+    const player = sb && sb.players && sb.players[a.slug];
+    if (!sb || !player) {
+      parent.appendChild(emptyState(
+        "No softball season yet for " + a.name,
+        "Add it by editing <code>data/content.json</code> and pushing to GitHub."
+      ));
+      return;
+    }
+    const team = sb.team || {};
+
+    function linkRow(links, cls) {
+      const row = el("p", { class: cls || "softball-card__links" });
+      (links || []).forEach(function (lk, i) {
+        if (i > 0) row.appendChild(document.createTextNode(" · "));
+        row.appendChild(el("a", { href: lk.url, target: "_blank", rel: "noopener" }, [lk.label]));
+      });
+      return row;
+    }
+
+    const card = el("article", { class: "softball-card" });
+    card.appendChild(el("h3", { class: "softball-card__title" }, ["🥎 " + (team.title || "Softball")]));
+
+    const meta = el("p", { class: "softball-card__meta" });
+    if (team.name) meta.appendChild(el("strong", null, [team.name]));
+    if (team.record) {
+      meta.appendChild(document.createTextNode(" · Final record "));
+      meta.appendChild(el("strong", null, [team.record]));
+    }
+    if (team.recordDetail) meta.appendChild(document.createTextNode(" (" + team.recordDetail + ")"));
+    if (team.coach) meta.appendChild(document.createTextNode(" · " + team.coach));
+    if (meta.childNodes.length) card.appendChild(meta);
+
+    if (team.blurb || team.teamSite) {
+      const blurb = el("p", { class: "softball-card__blurb" });
+      if (team.blurb) blurb.appendChild(document.createTextNode(team.blurb + " "));
+      if (team.teamSite) blurb.appendChild(el("a", { href: team.teamSite, target: "_blank", rel: "noopener" }, ["Full team site →"]));
+      card.appendChild(blurb);
+    }
+
+    card.appendChild(el("hr", { class: "softball-card__rule" }));
+
+    // The girl whose page this is — highlighted.
+    const isStar = !!player.allStar;
+    const sec = el("section", { class: "softball-player" + (isStar ? " is-star" : "") });
+    sec.appendChild(el("h4", { class: "softball-player__name" }, [
+      (isStar ? "🏆 " : "🥎 ") + a.name +
+      (player.number ? " (#" + player.number + ")" : "") +
+      (player.position ? " — " + player.position : ""),
+    ]));
+    if (player.stats) sec.appendChild(el("p", { class: "softball-player__stats" }, [player.stats]));
+    if (player.summary) sec.appendChild(el("p", { class: "softball-player__summary" }, [player.summary]));
+    if (player.allStar) sec.appendChild(el("p", { class: "softball-player__allstar" }, ["⭐ " + player.allStar]));
+    if (player.links && player.links.length) sec.appendChild(linkRow(player.links, "softball-player__links"));
+    card.appendChild(sec);
+
+    // Sisters also on the team.
+    const sisters = Object.keys(sb.players).filter(function (slug) { return slug !== a.slug; });
+    if (sisters.length) {
+      const also = el("p", { class: "softball-card__sisters" });
+      also.appendChild(document.createTextNode("Also on the team: "));
+      sisters.forEach(function (slug, i) {
+        if (i > 0) also.appendChild(document.createTextNode(" · "));
+        const sis = getAthlete(slug);
+        also.appendChild(el("a", { href: "#/" + slug + "/softball" }, [sis ? sis.name : slug]));
+      });
+      card.appendChild(also);
+    }
+
+    if (team.links && team.links.length) {
+      card.appendChild(el("hr", { class: "softball-card__rule" }));
+      card.appendChild(linkRow(team.links));
+    }
+
+    parent.appendChild(card);
   }
 
   function renderScores(parent, a, s) {
