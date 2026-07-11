@@ -120,6 +120,40 @@
   ],
   "scores": [
     {
+      "athlete": "tayla",
+      "sport": "gymnastics",
+      "date": "2026-07-11",
+      "meet": "Regionals",
+      "location": "Elizabeth, CO",
+      "level": "Optional 1",
+      "results": [
+        { "event": "Vault", "score": "6.8", "placement": "", "note": "" },
+        { "event": "Bars",  "score": "7.7", "placement": "", "note": "" },
+        { "event": "Beam",  "score": "9.05", "placement": "", "note": "" },
+        { "event": "Floor", "score": "8.0", "placement": "", "note": "" }
+      ],
+      "allAround": "31.55",
+      "allAroundPlacement": "",
+      "notes": ""
+    },
+    {
+      "athlete": "oakley",
+      "sport": "gymnastics",
+      "date": "2026-07-11",
+      "meet": "Regionals",
+      "location": "Elizabeth, CO",
+      "level": "Optional 1",
+      "results": [
+        { "event": "Vault", "score": "6.4", "placement": "", "note": "" },
+        { "event": "Bars",  "score": "5.3", "placement": "", "note": "" },
+        { "event": "Beam",  "score": "7.4", "placement": "", "note": "" },
+        { "event": "Floor", "score": "7.8", "placement": "", "note": "" }
+      ],
+      "allAround": "26.9",
+      "allAroundPlacement": "",
+      "notes": ""
+    },
+    {
       "athlete": "tyndle",
       "sport": "gymnastics",
       "date": "2026-06-26",
