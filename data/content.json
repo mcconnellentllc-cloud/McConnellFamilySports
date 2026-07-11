@@ -128,7 +128,7 @@
       "level": "Optional 1",
       "results": [
         { "event": "Vault", "score": "6.8", "placement": "6th", "note": "" },
-        { "event": "Bars",  "score": "7.7", "placement": "", "note": "" },
+        { "event": "Bars",  "score": "7.7", "placement": "6th", "note": "" },
         { "event": "Beam",  "score": "9.05", "placement": "", "note": "" },
         { "event": "Floor", "score": "8.0", "placement": "", "note": "" }
       ],
