@@ -736,7 +736,11 @@
         card.appendChild(meta);
       }
 
-      const targets = (s.qualifying && r.level && s.qualifying[r.level]) || null;
+      // The qualifying overlay ("needs X" badges + Path to Regionals panel)
+      // tracks progress toward Regionals during the regular season. On the
+      // Regionals meet itself it's redundant, so show plain scores there.
+      const isFinalMeet = /regional|state|national/i.test(r.meet || "");
+      const targets = (!isFinalMeet && s.qualifying && r.level && s.qualifying[r.level]) || null;
       const qualifiedEvents = [];
       const shortfalls = [];
       function buildEvent(name, scoreVal, note, extraClass, placement) {
