@@ -1194,6 +1194,89 @@ a:hover { text-decoration: underline; }
 .supply-card__items--soft li { color: var(--muted); }
 .supply-card__items--soft li::before { background: var(--line); }
 
+/* Chores */
+.chore-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.chore-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.chore-card__name {
+  font-family: var(--serif); font-size: 20px; margin: 0 0 8px;
+  padding-bottom: 8px; border-bottom: 1px dashed var(--line);
+}
+.chore-card .grocery__item { padding: 8px 2px; }
+.chore-card .grocery__item:last-child { border-bottom: 0; }
+
+/* Calendar */
+.cal { margin-bottom: 40px; }
+.cal__day {
+  font-family: var(--serif); font-size: 20px; color: var(--accent);
+  margin: 22px 0 10px; padding-bottom: 4px;
+  border-bottom: 2px solid var(--line);
+}
+.cal__event {
+  display: flex; gap: 16px; align-items: baseline;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+}
+.cal__time {
+  flex: none; width: 84px;
+  font-weight: 700; font-size: 14px;
+  color: var(--accent-soft);
+  font-variant-numeric: tabular-nums;
+}
+.cal__time--allday { color: var(--muted); font-weight: 600; }
+.cal__body { flex: 1; }
+.cal__title { font-family: var(--serif); font-size: 18px; margin: 0; }
+.cal__meta { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+
+/* How-to-update (Claude helper) */
+.help-intro {
+  font-size: 16px; line-height: 1.6; max-width: 640px;
+  margin: 0 0 24px;
+}
+.help-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.help-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.help-card__title {
+  font-family: var(--serif); font-size: 19px; margin: 0 0 10px;
+  color: var(--accent-soft);
+}
+.help-phrases { list-style: none; padding: 0; margin: 0; }
+.help-phrases li {
+  padding: 8px 0; border-top: 1px solid var(--line);
+}
+.help-phrases li:first-child { border-top: 0; }
+.help-quote { font-style: italic; font-size: 15px; line-height: 1.5; }
+.help-reassure {
+  background: #fff5f6;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 20px;
+  font-size: 15px; line-height: 1.6;
+  margin-bottom: 40px;
+}
+
 /* Mobile */
 @media (max-width: 640px) {
   .cover h1 { font-size: 38px; }
