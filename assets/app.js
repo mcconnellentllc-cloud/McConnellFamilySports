@@ -18,6 +18,8 @@
     athletes: null,
     content: null,
     gallery: null,
+    meals: null,
+    supplies: null,
     galleryItems: [],
     galleryIndex: 0,
   };
@@ -115,14 +117,18 @@
     }
   }
   async function loadData() {
-    const [athletes, content, gallery] = await Promise.all([
+    const [athletes, content, gallery, meals, supplies] = await Promise.all([
       loadJSON("data/athletes.json"),
       loadJSON("data/content.json"),
       loadJSON("data/gallery.json").catch(function () { return { photos: [] }; }),
+      loadJSON("data/meals.json").catch(function () { return null; }),
+      loadJSON("data/supplies.json").catch(function () { return null; }),
     ]);
     state.athletes = athletes;
     state.content = content;
     state.gallery = gallery;
+    state.meals = meals;
+    state.supplies = supplies;
   }
 
   // ---------- Lookups ----------
@@ -209,6 +215,13 @@
       return { route: "familyCategory", category: parts[1], tab: parts[2] };
     }
 
+    // Private family portal (the personal side, reached via the M badge).
+    if (first === "portal") {
+      if (parts[1] === "meals") return { route: "portalMeals" };
+      if (parts[1] === "supplies") return { route: "portalSupplies" };
+      return { route: "portal" };
+    }
+
     if (parts.length === 1) return { route: "athlete", athlete: first };
 
     const second = parts[1];
@@ -236,6 +249,13 @@
       parts.push(el("a", { href: "#/family" }, ["Family"]));
       if (route.route === "familyCategory" && route.category) {
         parts.push(el("a", { href: "#/family/" + route.category }, [categoryName(route.category)]));
+      }
+    } else if (route.route === "portal" || route.route === "portalMeals" || route.route === "portalSupplies") {
+      parts.push(el("a", { href: "#/portal" }, ["Family Portal"]));
+      if (route.route === "portalMeals") {
+        parts.push(el("a", { href: "#/portal/meals" }, ["Meals"]));
+      } else if (route.route === "portalSupplies") {
+        parts.push(el("a", { href: "#/portal/supplies" }, ["School Supplies"]));
       }
     } else {
       if (route.athlete) {
@@ -563,6 +583,269 @@
     if (isTravel) renderTravel(body, "family");
     else renderPersonal(body, "family");
     v.appendChild(body);
+  }
+
+  // ---------- Family Portal (the private, personal side) ----------
+  function viewPortal() {
+    const v = $("#view");
+    v.innerHTML = "";
+    const cover = coverEl(
+      "Family Portal",
+      "Our home base — meals, plans, and keeping the household running.",
+      "portal"
+    );
+    v.appendChild(cover);
+    const grid = el("div", { class: "tiles" });
+    grid.appendChild(el("a", { class: "tile tile--portal", href: "#/portal/meals" }, [
+      el("h2", { class: "tile__name" }, ["Meals for the Week"]),
+      el("p", { class: "tile__meta" }, ["Everyone picks a meal — auto grocery list & budget."]),
+    ]));
+    grid.appendChild(el("a", { class: "tile tile--portal", href: "#/portal/supplies" }, [
+      el("h2", { class: "tile__name" }, ["School Supplies"]),
+      el("p", { class: "tile__meta" }, ["Each kid's list, plus one combined shopping run."]),
+    ]));
+    // Room to grow: chores, calendar, budget, and more can slot in here.
+    grid.appendChild(el("div", { class: "tile tile--portal tile--soon" }, [
+      el("h2", { class: "tile__name" }, ["More coming"]),
+      el("p", { class: "tile__meta" }, ["Chores, calendar, and family to-dos will live here."]),
+    ]));
+    v.appendChild(grid);
+  }
+
+  function money(n) {
+    return "$" + (Math.round(n * 100) / 100).toFixed(2);
+  }
+
+  // Combine every meal's ingredients into one de-duplicated shopping list,
+  // merging repeats by item name (summing cost, joining quantities).
+  function buildGroceryList(meals) {
+    const map = {};
+    const order = [];
+    (meals || []).forEach(function (m) {
+      (m.ingredients || []).forEach(function (ing) {
+        const name = (ing.item || "").trim();
+        if (!name) return;
+        const key = name.toLowerCase();
+        if (!map[key]) {
+          map[key] = { item: name, qtys: [], cost: 0, meals: [] };
+          order.push(key);
+        }
+        if (ing.qty) map[key].qtys.push(String(ing.qty));
+        map[key].cost += Number(ing.cost) || 0;
+        if (m.name && map[key].meals.indexOf(m.name) === -1) map[key].meals.push(m.name);
+      });
+    });
+    return order.map(function (k) { return map[k]; })
+      .sort(function (a, b) { return a.item.localeCompare(b.item); });
+  }
+
+  function viewMeals() {
+    const v = $("#view");
+    v.innerHTML = "";
+    const data = state.meals;
+    if (!data || !(data.meals || []).length) {
+      v.appendChild(coverEl("Meals for the Week", null, "meals"));
+      v.appendChild(emptyState(
+        "No meals planned yet",
+        "Add meals by editing <code>data/meals.json</code> and pushing to GitHub."
+      ));
+      return;
+    }
+
+    const cover = coverEl(data.week || "Meals for the Week", data.note || null, "meals");
+    v.appendChild(cover);
+
+    // ---- This week's picks ----
+    v.appendChild(el("h3", { class: "year-head" }, ["This Week's Meals"]));
+    const mealsWrap = el("div", { class: "meal-list" });
+    (data.meals || []).forEach(function (m) {
+      const subtotal = (m.ingredients || []).reduce(function (s, i) { return s + (Number(i.cost) || 0); }, 0);
+      const head = el("div", { class: "meal-card__head" }, [
+        el("div", null, [
+          el("h4", { class: "meal-card__name" }, [m.name || "Meal"]),
+          m.day ? el("p", { class: "meal-card__day" }, [m.day]) : null,
+        ]),
+        m.pickedBy ? el("span", { class: "meal-card__who" }, [m.pickedBy + "'s pick"]) : null,
+      ]);
+      const ul = el("ul", { class: "meal-card__ings" });
+      (m.ingredients || []).forEach(function (ing) {
+        ul.appendChild(el("li", null, [
+          el("span", { class: "meal-card__ing" }, [ing.item || ""]),
+          ing.qty ? el("span", { class: "meal-card__qty" }, [String(ing.qty)]) : null,
+        ]));
+      });
+      const card = el("article", { class: "meal-card" }, [head, ul]);
+      if (subtotal > 0) {
+        card.appendChild(el("p", { class: "meal-card__sub" }, ["Est. " + money(subtotal)]));
+      }
+      mealsWrap.appendChild(card);
+    });
+    v.appendChild(mealsWrap);
+
+    // ---- Grocery list (auto) ----
+    const groceries = buildGroceryList(data.meals);
+    v.appendChild(el("h3", { class: "year-head" }, ["Grocery List"]));
+    const listWrap = el("section", { class: "grocery" });
+    const storeKey = "mfs_grocery_" + (data.week || "week");
+    let checked = {};
+    try { checked = JSON.parse(localStorage.getItem(storeKey) || "{}") || {}; } catch (e) { checked = {}; }
+    function persist() {
+      try { localStorage.setItem(storeKey, JSON.stringify(checked)); } catch (e) { /* ignore */ }
+    }
+    const ul = el("ul", { class: "grocery__list" });
+    groceries.forEach(function (g) {
+      const id = "g_" + g.item.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+      const box = el("input", { type: "checkbox", id: id, class: "grocery__box" });
+      if (checked[g.item]) box.checked = true;
+      const row = el("li", { class: "grocery__item" + (checked[g.item] ? " is-checked" : "") });
+      box.addEventListener("change", function () {
+        checked[g.item] = box.checked;
+        persist();
+        if (box.checked) row.classList.add("is-checked");
+        else row.classList.remove("is-checked");
+      });
+      const label = el("label", { class: "grocery__label", for: id }, [
+        el("span", { class: "grocery__name" }, [g.item]),
+        g.qtys.length ? el("span", { class: "grocery__qty" }, [g.qtys.join(" + ")]) : null,
+      ]);
+      row.appendChild(box);
+      row.appendChild(label);
+      if (g.cost > 0) row.appendChild(el("span", { class: "grocery__cost" }, [money(g.cost)]));
+      ul.appendChild(row);
+    });
+    listWrap.appendChild(ul);
+    v.appendChild(listWrap);
+
+    // ---- Budget ----
+    const total = groceries.reduce(function (s, g) { return s + g.cost; }, 0);
+    const target = Number(data.budgetTarget) || 0;
+    v.appendChild(el("h3", { class: "year-head" }, ["Budget"]));
+    const budget = el("section", { class: "budget" });
+    budget.appendChild(el("div", { class: "budget__row" }, [
+      el("span", { class: "budget__label" }, ["Estimated total"]),
+      el("span", { class: "budget__value" }, [money(total)]),
+    ]));
+    if (target > 0) {
+      const remaining = target - total;
+      const pct = Math.max(0, Math.min(100, Math.round((total / target) * 100)));
+      const over = remaining < 0;
+      budget.appendChild(el("div", { class: "budget__row" }, [
+        el("span", { class: "budget__label" }, ["Weekly budget"]),
+        el("span", { class: "budget__value" }, [money(target)]),
+      ]));
+      const bar = el("div", { class: "budget__bar" }, [
+        el("div", { class: "budget__fill" + (over ? " is-over" : ""), style: "width:" + pct + "%" }),
+      ]);
+      budget.appendChild(bar);
+      budget.appendChild(el("p", { class: "budget__note" + (over ? " is-over" : "") }, [
+        over ? ("Over by " + money(-remaining)) : (money(remaining) + " left"),
+      ]));
+    }
+    v.appendChild(budget);
+  }
+
+  function viewSupplies() {
+    const v = $("#view");
+    v.innerHTML = "";
+    const data = state.supplies;
+    if (!data || !(data.kids || []).length) {
+      v.appendChild(coverEl("School Supplies", null, "supplies"));
+      v.appendChild(emptyState(
+        "No supply list yet",
+        "Add lists by editing <code>data/supplies.json</code> and pushing to GitHub."
+      ));
+      return;
+    }
+    const grades = data.grades || {};
+    function gradeOf(kid) { return grades[kid.grade] || { required: [], appreciated: [] }; }
+
+    const heading = [data.school, data.year].filter(Boolean).join(" · ") || "School Supplies";
+    v.appendChild(coverEl(heading, data.note || null, "supplies"));
+
+    // ---- Every student brings ----
+    if ((data.allStudents || []).length || data.artFeeNote) {
+      v.appendChild(el("h3", { class: "year-head" }, ["Every Student Brings"]));
+      const shared = el("section", { class: "supply-shared" });
+      const ul = el("ul", { class: "supply-shared__list" });
+      (data.allStudents || []).forEach(function (item) {
+        ul.appendChild(el("li", null, [item]));
+      });
+      shared.appendChild(ul);
+      if (data.artFeeNote) {
+        shared.appendChild(el("p", { class: "supply-shared__fee" }, [data.artFeeNote]));
+      }
+      v.appendChild(shared);
+    }
+
+    // ---- Per-kid lists ----
+    v.appendChild(el("h3", { class: "year-head" }, ["By Kid"]));
+    const wrap = el("div", { class: "supply-list" });
+    (data.kids || []).forEach(function (kid) {
+      const g = gradeOf(kid);
+      const head = el("div", { class: "supply-card__head" }, [
+        el("h4", { class: "supply-card__name" }, [kid.name]),
+        kid.grade ? el("span", { class: "supply-card__grade" }, [kid.grade]) : null,
+      ]);
+      const reqUl = el("ul", { class: "supply-card__items" });
+      (g.required || []).forEach(function (item) {
+        reqUl.appendChild(el("li", null, [item]));
+      });
+      const card = el("article", { class: "supply-card" }, [head, reqUl]);
+      if ((g.appreciated || []).length) {
+        card.appendChild(el("p", { class: "supply-card__sublabel" }, ["Not required, but appreciated"]));
+        const appUl = el("ul", { class: "supply-card__items supply-card__items--soft" });
+        (g.appreciated || []).forEach(function (item) {
+          appUl.appendChild(el("li", null, [item]));
+        });
+        card.appendChild(appUl);
+      }
+      wrap.appendChild(card);
+    });
+    v.appendChild(wrap);
+
+    // ---- Combined shopping list (required items across all kids) ----
+    const counts = {};
+    const order = [];
+    (data.kids || []).forEach(function (kid) {
+      (gradeOf(kid).required || []).forEach(function (item) {
+        const key = item.toLowerCase();
+        if (!counts[key]) { counts[key] = { item: item, n: 0 }; order.push(key); }
+        counts[key].n += 1;
+      });
+    });
+    const combined = order.map(function (k) { return counts[k]; })
+      .sort(function (a, b) { return a.item.localeCompare(b.item); });
+
+    v.appendChild(el("h3", { class: "year-head" }, ["Combined Shopping List"]));
+    const listWrap = el("section", { class: "grocery" });
+    const storeKey = "mfs_supplies_" + (data.year || "year");
+    let checked = {};
+    try { checked = JSON.parse(localStorage.getItem(storeKey) || "{}") || {}; } catch (e) { checked = {}; }
+    function persist() {
+      try { localStorage.setItem(storeKey, JSON.stringify(checked)); } catch (e) { /* ignore */ }
+    }
+    const ul = el("ul", { class: "grocery__list" });
+    combined.forEach(function (c) {
+      const id = "s_" + c.item.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+      const box = el("input", { type: "checkbox", id: id, class: "grocery__box" });
+      if (checked[c.item]) box.checked = true;
+      const row = el("li", { class: "grocery__item" + (checked[c.item] ? " is-checked" : "") });
+      box.addEventListener("change", function () {
+        checked[c.item] = box.checked;
+        persist();
+        if (box.checked) row.classList.add("is-checked");
+        else row.classList.remove("is-checked");
+      });
+      const label = el("label", { class: "grocery__label", for: id }, [
+        el("span", { class: "grocery__name" }, [c.item]),
+      ]);
+      row.appendChild(box);
+      row.appendChild(label);
+      if (c.n > 1) row.appendChild(el("span", { class: "grocery__cost" }, ["×" + c.n]));
+      ul.appendChild(row);
+    });
+    listWrap.appendChild(ul);
+    v.appendChild(listWrap);
   }
 
   // ---------- Category content renderers (academics / personal / travel) ----------
@@ -1166,6 +1449,9 @@
     else if (route.route === "sport") viewSport(route);
     else if (route.route === "family") viewFamily();
     else if (route.route === "familyCategory") viewFamilyCategory(route);
+    else if (route.route === "portal") viewPortal();
+    else if (route.route === "portalMeals") viewMeals();
+    else if (route.route === "portalSupplies") viewSupplies();
     else viewHome();
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
