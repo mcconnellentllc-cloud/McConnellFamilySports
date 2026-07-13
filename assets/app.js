@@ -20,6 +20,8 @@
     gallery: null,
     meals: null,
     supplies: null,
+    chores: null,
+    calendar: null,
     galleryItems: [],
     galleryIndex: 0,
   };
@@ -117,18 +119,22 @@
     }
   }
   async function loadData() {
-    const [athletes, content, gallery, meals, supplies] = await Promise.all([
+    const [athletes, content, gallery, meals, supplies, chores, calendar] = await Promise.all([
       loadJSON("data/athletes.json"),
       loadJSON("data/content.json"),
       loadJSON("data/gallery.json").catch(function () { return { photos: [] }; }),
       loadJSON("data/meals.json").catch(function () { return null; }),
       loadJSON("data/supplies.json").catch(function () { return null; }),
+      loadJSON("data/chores.json").catch(function () { return null; }),
+      loadJSON("data/calendar.json").catch(function () { return null; }),
     ]);
     state.athletes = athletes;
     state.content = content;
     state.gallery = gallery;
     state.meals = meals;
     state.supplies = supplies;
+    state.chores = chores;
+    state.calendar = calendar;
   }
 
   // ---------- Lookups ----------
@@ -219,6 +225,9 @@
     if (first === "portal") {
       if (parts[1] === "meals") return { route: "portalMeals" };
       if (parts[1] === "supplies") return { route: "portalSupplies" };
+      if (parts[1] === "chores") return { route: "portalChores" };
+      if (parts[1] === "calendar") return { route: "portalCalendar" };
+      if (parts[1] === "help") return { route: "portalHelp" };
       return { route: "portal" };
     }
 
@@ -250,13 +259,16 @@
       if (route.route === "familyCategory" && route.category) {
         parts.push(el("a", { href: "#/family/" + route.category }, [categoryName(route.category)]));
       }
-    } else if (route.route === "portal" || route.route === "portalMeals" || route.route === "portalSupplies") {
+    } else if (route.route.indexOf("portal") === 0) {
       parts.push(el("a", { href: "#/portal" }, ["Family Portal"]));
-      if (route.route === "portalMeals") {
-        parts.push(el("a", { href: "#/portal/meals" }, ["Meals"]));
-      } else if (route.route === "portalSupplies") {
-        parts.push(el("a", { href: "#/portal/supplies" }, ["School Supplies"]));
-      }
+      const leaf = {
+        portalMeals: ["#/portal/meals", "Meals"],
+        portalSupplies: ["#/portal/supplies", "School Supplies"],
+        portalChores: ["#/portal/chores", "Chores"],
+        portalCalendar: ["#/portal/calendar", "Calendar"],
+        portalHelp: ["#/portal/help", "How to Update"],
+      }[route.route];
+      if (leaf) parts.push(el("a", { href: leaf[0] }, [leaf[1]]));
     } else {
       if (route.athlete) {
         const a = getAthlete(route.athlete);
@@ -604,10 +616,17 @@
       el("h2", { class: "tile__name" }, ["School Supplies"]),
       el("p", { class: "tile__meta" }, ["Each kid's list, plus one combined shopping run."]),
     ]));
-    // Room to grow: chores, calendar, budget, and more can slot in here.
-    grid.appendChild(el("div", { class: "tile tile--portal tile--soon" }, [
-      el("h2", { class: "tile__name" }, ["More coming"]),
-      el("p", { class: "tile__meta" }, ["Chores, calendar, and family to-dos will live here."]),
+    grid.appendChild(el("a", { class: "tile tile--portal", href: "#/portal/chores" }, [
+      el("h2", { class: "tile__name" }, ["Chores"]),
+      el("p", { class: "tile__meta" }, ["Who does what this week — check them off."]),
+    ]));
+    grid.appendChild(el("a", { class: "tile tile--portal", href: "#/portal/calendar" }, [
+      el("h2", { class: "tile__name" }, ["Calendar"]),
+      el("p", { class: "tile__meta" }, ["Practices, appointments, and family plans."]),
+    ]));
+    grid.appendChild(el("a", { class: "tile tile--portal", href: "#/portal/help" }, [
+      el("h2", { class: "tile__name" }, ["How to Update This Site"]),
+      el("p", { class: "tile__meta" }, ["Just ask Claude — no code, plain words."]),
     ]));
     v.appendChild(grid);
   }
@@ -846,6 +865,154 @@
     });
     listWrap.appendChild(ul);
     v.appendChild(listWrap);
+  }
+
+  // Reusable checkbox row backed by localStorage (used by chores).
+  function checkRow(storeKey, checked, persist, label, extra) {
+    const id = "c_" + label.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+    const box = el("input", { type: "checkbox", id: id, class: "grocery__box" });
+    if (checked[label]) box.checked = true;
+    const row = el("li", { class: "grocery__item" + (checked[label] ? " is-checked" : "") });
+    box.addEventListener("change", function () {
+      checked[label] = box.checked;
+      persist();
+      if (box.checked) row.classList.add("is-checked");
+      else row.classList.remove("is-checked");
+    });
+    const lab = el("label", { class: "grocery__label", for: id }, [
+      el("span", { class: "grocery__name" }, [label]),
+    ]);
+    row.appendChild(box);
+    row.appendChild(lab);
+    if (extra) row.appendChild(extra);
+    return row;
+  }
+
+  function viewChores() {
+    const v = $("#view");
+    v.innerHTML = "";
+    const data = state.chores;
+    if (!data || !(data.people || []).length) {
+      v.appendChild(coverEl("Chores", null, "chores"));
+      v.appendChild(emptyState(
+        "No chores set yet",
+        "Add chores by editing <code>data/chores.json</code> and pushing to GitHub."
+      ));
+      return;
+    }
+    v.appendChild(coverEl(data.week || "Chores", data.note || null, "chores"));
+    const wrap = el("div", { class: "chore-list" });
+    (data.people || []).forEach(function (p) {
+      const storeKey = "mfs_chores_" + (data.week || "week") + "_" + (p.name || "");
+      let checked = {};
+      try { checked = JSON.parse(localStorage.getItem(storeKey) || "{}") || {}; } catch (e) { checked = {}; }
+      function persist() {
+        try { localStorage.setItem(storeKey, JSON.stringify(checked)); } catch (e) { /* ignore */ }
+      }
+      const ul = el("ul", { class: "grocery__list" });
+      (p.chores || []).forEach(function (ch) {
+        ul.appendChild(checkRow(storeKey, checked, persist, ch, null));
+      });
+      wrap.appendChild(el("article", { class: "chore-card" }, [
+        el("h4", { class: "chore-card__name" }, [p.name || ""]),
+        ul,
+      ]));
+    });
+    v.appendChild(wrap);
+  }
+
+  function fmtDayLong(s) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
+    if (!m) return s || "";
+    const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return d.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+  }
+  function todayStr() {
+    const d = new Date();
+    const p = function (n) { return (n < 10 ? "0" : "") + n; };
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+  }
+
+  function viewCalendar() {
+    const v = $("#view");
+    v.innerHTML = "";
+    const data = state.calendar;
+    v.appendChild(coverEl("Family Calendar", (data && data.note) || null, "calendar"));
+    const events = (data && data.events || [])
+      .filter(function (e) { return e.date && e.date >= todayStr(); })
+      .sort(function (a, b) {
+        if (a.date !== b.date) return a.date.localeCompare(b.date);
+        return (a.time || "").localeCompare(b.time || "");
+      });
+    if (!events.length) {
+      v.appendChild(emptyState(
+        "Nothing coming up",
+        "Add events by editing <code>data/calendar.json</code> — or just ask Claude to add them."
+      ));
+      return;
+    }
+    // Group by day.
+    const groups = [];
+    let cur = null;
+    events.forEach(function (e) {
+      if (!cur || cur.date !== e.date) { cur = { date: e.date, items: [] }; groups.push(cur); }
+      cur.items.push(e);
+    });
+    const wrap = el("div", { class: "cal" });
+    groups.forEach(function (g) {
+      wrap.appendChild(el("h3", { class: "cal__day" }, [fmtDayLong(g.date)]));
+      g.items.forEach(function (e) {
+        const meta = [];
+        if (e.who) meta.push(e.who);
+        if (e.where) meta.push(e.where);
+        wrap.appendChild(el("article", { class: "cal__event" }, [
+          e.time ? el("span", { class: "cal__time" }, [e.time]) : el("span", { class: "cal__time cal__time--allday" }, ["All day"]),
+          el("div", { class: "cal__body" }, [
+            el("p", { class: "cal__title" }, [e.title || "Event"]),
+            meta.length ? el("p", { class: "cal__meta" }, [meta.join(" · ")]) : null,
+          ]),
+        ]));
+      });
+    });
+    v.appendChild(wrap);
+  }
+
+  function viewHelp() {
+    const v = $("#view");
+    v.innerHTML = "";
+    v.appendChild(coverEl(
+      "How to Update This Site",
+      "You don't need to know any code. Just tell Claude what you want in plain words.",
+      "help"
+    ));
+    const intro = el("p", { class: "help-intro" }, [
+      "Everything on this site — scores, photos, meals, chores, the calendar — updates when you ask Claude in everyday language. Here are examples you can copy, change the details, and send."
+    ]);
+    v.appendChild(intro);
+
+    const groups = [
+      ["Meals", ["Add tacos for Tuesday, Oakley picked it.", "Change Thursday's dinner to grilled chicken.", "Set the grocery budget to $250."]],
+      ["Chores", ["Give Tayla trash duty this week.", "Add “water the plants” to Tyndle's chores.", "Start a new chore week."]],
+      ["Calendar", ["Add gymnastics practice this Thursday at 5:30 at the Haxtun gym.", "Oakley has a dentist appointment July 20 at 10:15.", "Remove the Friday family dinner."]],
+      ["School supplies", ["Add a glue stick to Tyndle's list.", "Mark that we already bought the scissors.", "Move Tayla up to 5th grade next year."]],
+      ["Memories & scores (the family side)", ["Tayla got a 9.2 on beam at the Denver meet — add it.", "Add these photos to Oakley's gallery.", "Write a note about our trip to the lake."]],
+    ];
+    const list = el("div", { class: "help-groups" });
+    groups.forEach(function (g) {
+      const items = el("ul", { class: "help-phrases" });
+      g[1].forEach(function (phrase) {
+        items.appendChild(el("li", null, [el("span", { class: "help-quote" }, ["“" + phrase + "”"])]));
+      });
+      list.appendChild(el("section", { class: "help-card" }, [
+        el("h4", { class: "help-card__title" }, [g[0]]),
+        items,
+      ]));
+    });
+    v.appendChild(list);
+
+    v.appendChild(el("p", { class: "help-reassure" }, [
+      "You can't break anything. Claude makes its changes on a copy first, shows the result, and every change can be undone. When in doubt, just ask — “How do I…?” works too."
+    ]));
   }
 
   // ---------- Category content renderers (academics / personal / travel) ----------
@@ -1452,6 +1619,9 @@
     else if (route.route === "portal") viewPortal();
     else if (route.route === "portalMeals") viewMeals();
     else if (route.route === "portalSupplies") viewSupplies();
+    else if (route.route === "portalChores") viewChores();
+    else if (route.route === "portalCalendar") viewCalendar();
+    else if (route.route === "portalHelp") viewHelp();
     else viewHome();
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
