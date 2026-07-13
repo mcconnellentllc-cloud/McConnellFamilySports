@@ -1,10 +1,5 @@
 {
-  "_comment": "Shared family calendar. Add events with a date (YYYY-MM-DD); time, who, and where are optional. The page groups events by day, soonest first, and quietly drops days that have already passed. These are starter examples — replace with your real week.",
-  "note": "Practices, appointments, meets, and family plans — the week at a glance.",
-  "events": [
-    { "date": "2026-07-14", "time": "5:30 PM", "title": "Gymnastics practice", "who": "Tayla & Oakley", "where": "Haxtun gym" },
-    { "date": "2026-07-16", "time": "6:00 PM", "title": "Family dinner night", "who": "Everyone", "where": "Home" },
-    { "date": "2026-07-18", "time": "9:00 AM", "title": "Gymnastics meet", "who": "Tyndle", "where": "TBD" },
-    { "date": "2026-07-20", "time": "10:15 AM", "title": "Dentist checkup", "who": "Oakley", "where": "Haxtun Dental" }
-  ]
+  "_comment": "Shared family calendar. Nothing is filled in yet — add real events here (or just ask Claude). Each event takes: date (YYYY-MM-DD) plus optional time, who, and where.",
+  "note": "",
+  "events": []
 }
