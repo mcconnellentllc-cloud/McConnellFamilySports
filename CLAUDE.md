@@ -16,6 +16,23 @@
   Never paste the plaintext password into commits, PR bodies, or other
   repo artifacts.
 
+## Two layers — who each is for
+The site has two distinct audiences; keep them separate.
+- **Layer 1 — the main site** (tiles from the home page: the girls, Family
+  archive, scores/pictures/places/memories). This is the *shared* family
+  layer, built for the extended circle — parents, siblings, grandparents —
+  to follow the girls' memories and successes. Warm, editorial, meant to be
+  shown off.
+- **Layer 2 — the Family Portal** (the red **M** badge in the header →
+  `#/portal`; data in `data/meals.json`, `data/supplies.json`, etc.). This is
+  the "underground," *private household* side — just for the parents (the
+  user and Brandi): meals, school supplies, budgets, and day-to-day family
+  logistics. Not for the extended family.
+- The portal doubles as a gentle on-ramp for getting **Brandi comfortable
+  with Claude/AI**, so keep it genuinely simple and inviting to use — low
+  friction, plain language, nothing intimidating. Favor approachability over
+  cleverness when building portal features.
+
 ## House style
 - Editorial / family-keepsake tone, not childish or sports-bro.
 - Don't introduce frameworks, build systems, or backends. Pages must stay
