@@ -139,6 +139,14 @@ a:hover { text-decoration: underline; }
   font-family: var(--serif);
   font-size: 20px;
   font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.brand__mark:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, .18);
+  text-decoration: none;
 }
 .brand__name {
   font-family: var(--serif);
@@ -999,6 +1007,192 @@ a:hover { text-decoration: underline; }
 .lightbox__prev { left: 16px; top: 50%; transform: translateY(-50%); font-size: 48px; }
 .lightbox__next { right: 16px; top: 50%; transform: translateY(-50%); font-size: 48px; }
 .lightbox__close:hover, .lightbox__prev:hover, .lightbox__next:hover { color: var(--accent-soft); }
+
+/* ---------- Family Portal ---------- */
+.tile--portal { border-color: var(--accent); border-style: solid; }
+.tile--portal .tile__name { color: var(--accent-soft); }
+.tile--soon {
+  border-style: dashed;
+  opacity: .7;
+  cursor: default;
+}
+.tile--soon:hover { transform: none; box-shadow: none; }
+
+/* Meal cards */
+.meal-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.meal-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+}
+.meal-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--line);
+}
+.meal-card__name { font-family: var(--serif); font-size: 20px; margin: 0; }
+.meal-card__day {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--muted); margin: 2px 0 0;
+}
+.meal-card__who {
+  flex: none;
+  background: #fff4f6;
+  border: 1px solid var(--accent);
+  color: var(--accent-soft);
+  font-size: 12px; font-weight: 600;
+  border-radius: 999px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+.meal-card__ings { list-style: none; padding: 0; margin: 0; }
+.meal-card__ings li {
+  display: flex; justify-content: space-between; gap: 12px;
+  font-size: 14px; padding: 4px 0;
+}
+.meal-card__qty { color: var(--muted); font-variant-numeric: tabular-nums; }
+.meal-card__sub {
+  margin: 10px 0 0; padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 13px; color: var(--muted); text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Grocery list */
+.grocery { margin-bottom: 8px; }
+.grocery__list { list-style: none; padding: 0; margin: 0; }
+.grocery__item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.grocery__box { width: 18px; height: 18px; flex: none; accent-color: var(--accent); cursor: pointer; }
+.grocery__label { flex: 1; display: flex; justify-content: space-between; gap: 12px; cursor: pointer; }
+.grocery__name { font-size: 15px; }
+.grocery__qty { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.grocery__cost {
+  flex: none; color: var(--muted); font-size: 13px;
+  font-variant-numeric: tabular-nums; min-width: 56px; text-align: right;
+}
+.grocery__item.is-checked .grocery__name,
+.grocery__item.is-checked .grocery__qty {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.grocery__item.is-checked { opacity: .7; }
+
+/* Budget */
+.budget {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 40px;
+}
+.budget__row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 4px 0;
+}
+.budget__label { color: var(--muted); font-size: 14px; }
+.budget__value {
+  font-family: var(--serif); font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+.budget__bar {
+  height: 10px; border-radius: 999px;
+  background: var(--line); overflow: hidden;
+  margin: 12px 0 8px;
+}
+.budget__fill { height: 100%; background: var(--accent); border-radius: 999px; }
+.budget__fill.is-over { background: var(--accent-soft); }
+.budget__note {
+  margin: 0; font-size: 14px; font-weight: 600; color: var(--accent);
+  text-align: right;
+}
+.budget__note.is-over { color: var(--accent-soft); }
+
+/* School supplies */
+.supply-shared {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 8px;
+}
+.supply-shared__list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.supply-shared__list li {
+  background: #fafafa;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+.supply-shared__fee {
+  margin: 12px 0 0; padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 14px; font-style: italic; color: var(--accent-soft);
+}
+.supply-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.supply-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.supply-card__head {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 10px; margin-bottom: 12px; padding-bottom: 10px;
+  border-bottom: 1px dashed var(--line);
+}
+.supply-card__name { font-family: var(--serif); font-size: 20px; margin: 0; }
+.supply-card__grade {
+  flex: none;
+  background: #fff4f6;
+  border: 1px solid var(--accent);
+  color: var(--accent-soft);
+  font-size: 12px; font-weight: 600;
+  border-radius: 999px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+.supply-card__items { list-style: none; padding: 0; margin: 0; }
+.supply-card__items li {
+  font-size: 14px; padding: 5px 0 5px 20px;
+  position: relative;
+}
+.supply-card__items li::before {
+  content: "";
+  position: absolute; left: 4px; top: 12px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent);
+}
+.supply-card__sublabel {
+  margin: 12px 0 4px; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--muted); font-weight: 700;
+}
+.supply-card__items--soft li { color: var(--muted); }
+.supply-card__items--soft li::before { background: var(--line); }
 
 /* Mobile */
 @media (max-width: 640px) {
