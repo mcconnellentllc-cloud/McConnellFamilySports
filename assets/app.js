@@ -745,7 +745,15 @@
     v.appendChild(mealsWrap);
 
     // ---- Grocery list (auto) ----
+    // Only build the grocery list and budget once meals actually have
+    // ingredients; otherwise the page would show an empty list and $0.00.
     const groceries = buildGroceryList(data.meals);
+    if (!groceries.length) {
+      v.appendChild(el("p", { class: "meals-hint" }, [
+        "Add ingredients to a meal and the grocery list and budget will build here automatically."
+      ]));
+      return;
+    }
     v.appendChild(el("h3", { class: "year-head" }, ["Grocery List"]));
     const listWrap = el("section", { class: "grocery" });
     const storeKey = "mfs_grocery_" + (data.week || "week");
