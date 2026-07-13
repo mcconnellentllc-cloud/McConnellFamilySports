@@ -1194,6 +1194,13 @@ a:hover { text-decoration: underline; }
 .supply-card__items--soft li { color: var(--muted); }
 .supply-card__items--soft li::before { background: var(--line); }
 
+.meals-hint {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 14px;
+  margin: 12px 0 40px;
+}
+
 /* Share this page */
 .share-bar {
   display: flex;
