@@ -1,0 +1,59 @@
+{
+  "_comment": "School supply lists. Each kid points to a grade; the grade lists live once under 'grades' so two kids in the same grade share them. Edit the grade lists or move a kid to a new grade each year. The combined shopping list at the bottom of the page is built automatically from every kid's required items.",
+  "year": "2026–27",
+  "school": "Haxtun Elementary",
+  "note": "Every student also brings a backpack, a water bottle with a secure lid, and PE shoes.",
+  "allStudents": ["Backpack", "Water bottle with a secure lid", "PE shoes"],
+  "artFee": 5,
+  "artFeeNote": "$5 art fee per student, collected to restock art supplies as needed.",
+  "kids": [
+    { "name": "Tyndle", "grade": "6th Grade" },
+    { "name": "Oakley", "grade": "4th Grade" },
+    { "name": "Tayla", "grade": "4th Grade" }
+  ],
+  "grades": {
+    "4th Grade": {
+      "required": [
+        "1 spiral notebook",
+        "1 box of 48 crayons",
+        "2 red checking pens",
+        "1 pocket folder",
+        "36 #2 pencils or mechanical pencils with lead",
+        "1 pack graph paper",
+        "1 pair of scissors",
+        "1 bottle of glue",
+        "1 large eraser",
+        "Colored pencils",
+        "Washable markers (8 basic colors)",
+        "Pencil box/bag",
+        "Multiplication flash cards",
+        "Headphones"
+      ],
+      "appreciated": [
+        "Clorox/Lysol wipes",
+        "Mouse"
+      ]
+    },
+    "6th Grade": {
+      "required": [
+        "Pencils (provide own lead if needed)",
+        "1 block eraser",
+        "1 package of colored pencils",
+        "2 packages of markers",
+        "1 pkg of fine tip dry erase markers",
+        "1 pair of scissors",
+        "2 large glue sticks",
+        "1–2 inch binder",
+        "Supply box/bag",
+        "Headphones or earbuds (wired only, no Bluetooth)",
+        "1 pkg of dividers",
+        "1 composition notebook",
+        "1 pack of 4 colored highlighters"
+      ],
+      "appreciated": [
+        "Mouse (highly recommended)",
+        "Container of Clorox/Lysol wipes"
+      ]
+    }
+  }
+}

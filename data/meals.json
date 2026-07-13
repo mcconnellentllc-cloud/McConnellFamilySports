@@ -1,0 +1,67 @@
+{
+  "_comment": "Family meal plan. Everyone picks a meal for the week — edit this file to add yours. The site builds the grocery list and budget automatically from the ingredients below. 'cost' is an estimate in dollars; leave it 0 if you're not sure. Change 'week' each week to reset the shopping checkboxes.",
+  "week": "Week of July 13, 2026",
+  "budgetTarget": 200,
+  "note": "Each of us picks one dinner. Add your meal and its ingredients — the grocery list and budget update themselves.",
+  "meals": [
+    {
+      "day": "Monday",
+      "pickedBy": "Tyndle",
+      "name": "Spaghetti & Meatballs",
+      "ingredients": [
+        { "item": "Spaghetti", "qty": "1 box", "cost": 1.50 },
+        { "item": "Marinara sauce", "qty": "2 jars", "cost": 5.00 },
+        { "item": "Ground beef", "qty": "1 lb", "cost": 6.00 },
+        { "item": "Parmesan", "qty": "1 wedge", "cost": 4.00 },
+        { "item": "Garlic bread", "qty": "1 loaf", "cost": 3.00 }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "pickedBy": "Oakley",
+      "name": "Taco Night",
+      "ingredients": [
+        { "item": "Ground beef", "qty": "1 lb", "cost": 6.00 },
+        { "item": "Taco shells", "qty": "1 box", "cost": 2.50 },
+        { "item": "Shredded cheese", "qty": "1 bag", "cost": 3.50 },
+        { "item": "Lettuce", "qty": "1 head", "cost": 1.75 },
+        { "item": "Tomatoes", "qty": "2", "cost": 1.50 },
+        { "item": "Sour cream", "qty": "1 tub", "cost": 2.25 }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "pickedBy": "Tayla",
+      "name": "Homemade Pizza",
+      "ingredients": [
+        { "item": "Pizza dough", "qty": "2", "cost": 4.00 },
+        { "item": "Marinara sauce", "qty": "1 jar", "cost": 2.50 },
+        { "item": "Shredded cheese", "qty": "1 bag", "cost": 3.50 },
+        { "item": "Pepperoni", "qty": "1 pack", "cost": 3.75 }
+      ]
+    },
+    {
+      "day": "Thursday",
+      "pickedBy": "Mom",
+      "name": "Grilled Chicken & Veggies",
+      "ingredients": [
+        { "item": "Chicken breast", "qty": "2 lb", "cost": 9.00 },
+        { "item": "Broccoli", "qty": "1 bunch", "cost": 2.50 },
+        { "item": "Bell peppers", "qty": "3", "cost": 3.00 },
+        { "item": "Rice", "qty": "1 bag", "cost": 3.00 }
+      ]
+    },
+    {
+      "day": "Friday",
+      "pickedBy": "Dad",
+      "name": "Burgers & Fries",
+      "ingredients": [
+        { "item": "Ground beef", "qty": "1 lb", "cost": 6.00 },
+        { "item": "Hamburger buns", "qty": "1 pack", "cost": 2.50 },
+        { "item": "Cheddar slices", "qty": "1 pack", "cost": 3.00 },
+        { "item": "Frozen fries", "qty": "1 bag", "cost": 3.50 },
+        { "item": "Lettuce", "qty": "1 head", "cost": 1.75 }
+      ]
+    }
+  ]
+}
