@@ -1,27 +1,6 @@
 {
-  "_comment": "Weekly chore board. Each person has a list of chores; the page shows a card per person with check-off boxes that remember themselves for the week. Change 'week' to start fresh (it resets the checkboxes). These are starter examples — swap in whatever fits your house.",
-  "week": "Week of July 13, 2026",
-  "note": "Everyone pitches in. Check chores off as you finish — the boxes remember until we start a new week.",
-  "people": [
-    {
-      "name": "Tyndle",
-      "chores": ["Load & unload the dishwasher", "Take out the trash & recycling", "Tidy the living room", "Feed the pets"]
-    },
-    {
-      "name": "Oakley",
-      "chores": ["Set & clear the table", "Make her bed", "Put away her laundry", "Wipe the bathroom sink"]
-    },
-    {
-      "name": "Tayla",
-      "chores": ["Help clear the table", "Make her bed", "Put away her laundry", "Pick up toys & shoes"]
-    },
-    {
-      "name": "Mom",
-      "chores": ["Grocery run", "Start laundry", "Meal prep for the week"]
-    },
-    {
-      "name": "Dad",
-      "chores": ["Mow the lawn", "Take cars for gas", "Trash to the curb"]
-    }
-  ]
+  "_comment": "Weekly chore board. Nothing is filled in yet — add real people and their chores here (or just ask Claude). Each person takes: name and a list of chores. Checkboxes remember per week.",
+  "week": "",
+  "note": "",
+  "people": []
 }
