@@ -1,7 +1,13 @@
 {
-  "_comment": "Family meal plan. Nothing is filled in yet — add real meals here (or just ask Claude) and the site will build the grocery list and budget automatically. Each meal takes: day, pickedBy, name, and ingredients (each with item, qty, and an estimated cost).",
+  "_comment": "Family meal plan. Meals below are exactly as given. Ingredients are left empty until provided — add them (item, qty, cost) and the grocery list and budget will build themselves. Set a 'budgetTarget' and 'week' whenever you want those shown.",
   "week": "",
   "note": "",
   "budgetTarget": 0,
-  "meals": []
+  "meals": [
+    { "day": "Monday", "pickedBy": "Kendal", "name": "Chicken sandwiches", "ingredients": [] },
+    { "day": "Tuesday", "pickedBy": "Oakley", "name": "Spaghetti", "ingredients": [] },
+    { "day": "Wednesday", "pickedBy": "Mom", "name": "Sloppy Joes", "ingredients": [] },
+    { "day": "Thursday", "pickedBy": "Taylor", "name": "Chicken Alfredo", "ingredients": [] },
+    { "day": "Friday", "pickedBy": "", "name": "Leftovers on the road — heading to state gymnastics", "ingredients": [] }
+  ]
 }
