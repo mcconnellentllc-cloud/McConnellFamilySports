@@ -5,6 +5,7 @@
       "name": "Haxtun Bulldogs 9-12",
       "season": "2026",
       "record": "2-9",
+      "recordLabel": "Final record",
       "recordDetail": "2-7 regular season + 0-2 league tournament",
       "coach": "Coach McConnell, assistant",
       "blurb": "Three McConnell girls suited up for the Bulldogs this summer.",
@@ -44,6 +45,19 @@
         "links": [
           { "label": "Tayla's player section", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p16" }
         ]
+      }
+    }
+  },
+  "volleyball": {
+    "team": {
+      "title": "Volleyball — 2026 Junior High Bulldogs",
+      "name": "Haxtun Bulldogs Junior High",
+      "season": "2026",
+      "blurb": "Tyndle's first season of junior high volleyball, in the Bulldogs' home gym."
+    },
+    "players": {
+      "tyndle": {
+        "summary": "Tyndle joined the Haxtun junior high volleyball team for the 2026 fall season — her first year on the court."
       }
     }
   },
@@ -310,6 +324,14 @@
   "memories": [
     {
       "athlete": "tyndle",
+      "sport": "volleyball",
+      "date": "Fall 2026",
+      "title": "First season of junior high volleyball",
+      "text": "Tyndle took the court for the Haxtun Bulldogs junior high volleyball team this fall — a new sport, a new season, and a home gym full of state championship banners.",
+      "photo": "media/tyndle/volleyball/bulldogs-huddle-at-home.jpg"
+    },
+    {
+      "athlete": "tyndle",
       "sport": "softball",
       "date": "Summer 2026",
       "title": "2026 Bulldogs — All-Star season at shortstop",
@@ -378,6 +400,13 @@
       "name": "Carbon Valley Recreation Center",
       "city": "Frederick, CO",
       "note": "701 5th St — host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "name": "Haxtun Schools Gymnasium",
+      "city": "Haxtun, CO",
+      "note": "Home gym for Bulldogs junior high volleyball."
     }
   ]
 }

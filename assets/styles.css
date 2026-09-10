@@ -561,56 +561,56 @@ a:hover { text-decoration: underline; }
 .entry__links { font-size: 14px; margin: 6px 0 0; }
 .tile--family { border-style: dashed; }
 
-/* ---------- Softball season card ---------- */
-.softball-card {
+/* ---------- Team season card (softball, volleyball …) ---------- */
+.season-card {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 22px 24px;
   margin-bottom: 18px;
 }
-.softball-card__title {
+.season-card__title {
   font-family: var(--serif);
   font-size: 24px;
   margin: 0 0 6px;
 }
-.softball-card__meta {
+.season-card__meta {
   color: var(--muted);
   font-size: 14px;
   margin: 0 0 10px;
 }
-.softball-card__meta strong { color: var(--ink); }
-.softball-card__blurb {
+.season-card__meta strong { color: var(--ink); }
+.season-card__blurb {
   font-size: 15px;
   margin: 0 0 4px;
 }
-.softball-card__rule {
+.season-card__rule {
   border: 0;
   border-top: 1px dashed var(--line);
   margin: 16px 0;
 }
-.softball-player {
+.season-player {
   border-left: 3px solid var(--line);
   padding-left: 16px;
 }
-.softball-player.is-star {
+.season-player.is-star {
   border-left-color: var(--accent);
 }
-.softball-player__name {
+.season-player__name {
   font-family: var(--serif);
   font-size: 20px;
   margin: 0 0 8px;
 }
-.softball-player__stats {
+.season-player__stats {
   font-weight: 700;
   font-size: 15px;
   margin: 0 0 8px;
 }
-.softball-player__summary {
+.season-player__summary {
   font-size: 15px;
   margin: 0 0 8px;
 }
-.softball-player__allstar {
+.season-player__allstar {
   display: inline-block;
   background: #fff4f6;
   border: 1px solid var(--accent);
@@ -621,9 +621,9 @@ a:hover { text-decoration: underline; }
   padding: 6px 12px;
   margin: 4px 0 10px;
 }
-.softball-player__links,
-.softball-card__links,
-.softball-card__sisters {
+.season-player__links,
+.season-card__links,
+.season-card__sisters {
   font-size: 13px;
   color: var(--muted);
   margin: 8px 0 0;

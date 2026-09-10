@@ -320,6 +320,45 @@ Then in each girl's entry, add the slug to her `sports` list, e.g.
 `"sports": ["gymnastics", "soccer"]`. Create matching folders under
 `media/<girl>/<sport>/` and you're set.
 
+### Team sports (softball, volleyball …)
+
+A sport marked `"teamSport": true` swaps the per-meet **Scores** table for a
+single **Season** card — team name, record, and each girl's line. Give it an
+`"icon"` (any emoji) for the card heading:
+
+```json
+{ "slug": "volleyball", "name": "Volleyball", "events": [],
+  "teamSport": true, "icon": "🏐" }
+```
+
+The season itself lives in **`data/content.json`** under the sport slug:
+
+```json
+"volleyball": {
+  "team": {
+    "title": "Volleyball — 2026 Junior High Bulldogs",
+    "name": "Haxtun Bulldogs Junior High",
+    "season": "2026",
+    "record": "4-2",
+    "recordLabel": "Final record",
+    "coach": "Coach Smith",
+    "blurb": "One line about the season."
+  },
+  "players": {
+    "tyndle": {
+      "number": "12",
+      "position": "Outside Hitter",
+      "stats": "18 kills · 22 serve receptions",
+      "summary": "A sentence or two about her season.",
+      "allStar": "Any honor — shows as a highlighted badge."
+    }
+  }
+}
+```
+
+Every field except `players` is optional — leave out what you don't have yet
+and the card simply skips it.
+
 ---
 
 ## Changing the password
