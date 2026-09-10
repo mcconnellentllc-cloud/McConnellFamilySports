@@ -4,7 +4,7 @@
       "slug": "tyndle",
       "name": "Tyndle",
       "tagline": "Scores, pictures, places, and memories.",
-      "sports": ["gymnastics", "softball"]
+      "sports": ["gymnastics", "softball", "volleyball"]
     },
     {
       "slug": "oakley",
@@ -38,7 +38,16 @@
     {
       "slug": "softball",
       "name": "Softball",
-      "events": []
+      "events": [],
+      "teamSport": true,
+      "icon": "🥎"
+    },
+    {
+      "slug": "volleyball",
+      "name": "Volleyball",
+      "events": [],
+      "teamSport": true,
+      "icon": "🏐"
     }
   ],
   "categories": [

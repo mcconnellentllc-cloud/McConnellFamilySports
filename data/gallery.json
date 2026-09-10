@@ -1,3 +1,20 @@
 {
-  "photos": []
+  "photos": [
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/bulldogs-huddle-at-home.jpg",
+      "caption": "Bulldogs huddle at home",
+      "file": "bulldogs-huddle-at-home.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/serving-in-the-home-gym.jpg",
+      "caption": "Serving in the home gym",
+      "file": "serving-in-the-home-gym.jpg"
+    }
+  ]
 }
