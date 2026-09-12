@@ -359,6 +359,26 @@ The season itself lives in **`data/content.json`** under the sport slug:
 Every field except `players` is optional — leave out what you don't have yet
 and the card simply skips it.
 
+**More than one team in the same sport?** Volleyball fields a junior high
+squad and a 4th grade squad. Use `teams` (keyed by any short id) instead of
+`team`, and give each girl a `team`:
+
+```json
+"volleyball": {
+  "teams": {
+    "jhs":    { "title": "Volleyball — 2026 Junior High Bulldogs", "name": "…" },
+    "fourth": { "title": "Volleyball — 2026 Fourth Grade",         "name": "…" }
+  },
+  "players": {
+    "tyndle": { "team": "jhs",    "summary": "…" },
+    "oakley": { "team": "fourth", "summary": "…" }
+  }
+}
+```
+
+Each girl sees her own team's card, and "also on the team" lists only her
+actual teammates.
+
 ---
 
 ## Changing the password

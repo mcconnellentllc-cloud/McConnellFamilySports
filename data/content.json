@@ -49,15 +49,32 @@
     }
   },
   "volleyball": {
-    "team": {
-      "title": "Volleyball — 2026 Junior High Bulldogs",
-      "name": "Haxtun Bulldogs Junior High",
-      "season": "2026",
-      "blurb": "Tyndle's first season of junior high volleyball, in the Bulldogs' home gym."
+    "teams": {
+      "jhs": {
+        "title": "Volleyball — 2026 Junior High Bulldogs",
+        "name": "Haxtun Bulldogs Junior High",
+        "season": "2026",
+        "blurb": "Tyndle's first season of junior high volleyball."
+      },
+      "fourth": {
+        "title": "Volleyball — 2026 Fourth Grade",
+        "name": "Haxtun 4th Grade",
+        "season": "2026",
+        "blurb": "Oakley and Tayla on the court together in 4th grade."
+      }
     },
     "players": {
       "tyndle": {
+        "team": "jhs",
         "summary": "Tyndle joined the Haxtun junior high volleyball team for the 2026 fall season — her first year on the court."
+      },
+      "oakley": {
+        "team": "fourth",
+        "summary": "Oakley is playing 4th grade volleyball this fall."
+      },
+      "tayla": {
+        "team": "fourth",
+        "summary": "Tayla is playing 4th grade volleyball this fall."
       }
     }
   },

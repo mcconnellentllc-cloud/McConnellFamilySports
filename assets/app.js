@@ -1139,6 +1139,11 @@
   // A team sport (softball, volleyball …) shows a season card instead of a
   // scores table. The season lives in data/content.json under the sport slug:
   // { "team": {...}, "players": { "<girl>": {...} } }.
+  //
+  // When one sport fields more than one squad in the same season (volleyball's
+  // junior high and 4th grade teams), use "teams" keyed by a team id and give
+  // each player a "team". Each girl then sees her own team's card, and only
+  // her actual teammates in the "also on the team" line.
   function renderTeamSeason(parent, a, s) {
     const season = state.content[s.slug];
     const player = season && season.players && season.players[a.slug];
@@ -1151,7 +1156,7 @@
       ));
       return;
     }
-    const team = season.team || {};
+    const team = (season.teams && season.teams[player.team]) || season.team || {};
 
     function linkRow(links, cls) {
       const row = el("p", { class: cls || "season-card__links" });
@@ -1199,7 +1204,9 @@
     card.appendChild(sec);
 
     // Sisters also on the team.
-    const sisters = Object.keys(season.players).filter(function (slug) { return slug !== a.slug; });
+    const sisters = Object.keys(season.players).filter(function (slug) {
+      return slug !== a.slug && season.players[slug].team === player.team;
+    });
     if (sisters.length) {
       const also = el("p", { class: "season-card__sisters" });
       also.appendChild(document.createTextNode("Also on the team: "));

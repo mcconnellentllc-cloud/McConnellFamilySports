@@ -10,13 +10,13 @@
       "slug": "oakley",
       "name": "Oakley",
       "tagline": "Scores, pictures, places, and memories.",
-      "sports": ["gymnastics", "softball"]
+      "sports": ["gymnastics", "softball", "volleyball"]
     },
     {
       "slug": "tayla",
       "name": "Tayla",
       "tagline": "Scores, pictures, places, and memories.",
-      "sports": ["gymnastics", "softball"]
+      "sports": ["gymnastics", "softball", "volleyball"]
     }
   ],
   "sports": [
