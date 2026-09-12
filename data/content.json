@@ -106,6 +106,22 @@
       "notes": "Junior high road game against the Holyoke Dragons."
     },
     {
+      "sport": "volleyball",
+      "athletes": ["tyndle"],
+      "date": "2026-08-31",
+      "name": "at Sedgwick County",
+      "venue": "Sedgwick County, CO",
+      "notes": "Listed as tentative on the August calendar, with the time still to be decided."
+    },
+    {
+      "sport": "volleyball",
+      "athletes": ["tyndle"],
+      "date": "2026-08-25",
+      "name": "vs Perkins County",
+      "venue": "Haxtun Schools Gymnasium",
+      "notes": "First game of the season — home, 4:00 pm."
+    },
+    {
       "sport": "gymnastics",
       "athletes": ["tyndle", "oakley", "tayla"],
       "date": "2026-06-26",
