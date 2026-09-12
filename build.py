@@ -17,6 +17,7 @@ Run in CI:    handled by .github/workflows/deploy.yml
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -31,11 +32,56 @@ VIDEO_EXTS = {".mp4", ".mov", ".m4v", ".webm"}
 MEDIA_EXTS = IMAGE_EXTS | VIDEO_EXTS
 
 
+# Names a camera or phone assigns on its own — IMG_4821, PXL_20260912_183045,
+# DSC00042, and friends. They say nothing about the photo, so they make worse
+# captions than no caption at all.
+CAMERA_NAME_RE = re.compile(
+    r"^(img|image|photo|pxl|dsc|dscn|dji|gopr|mvimg|vid|video|mov|fullsizerender)"
+    r"[ _-]*[0-9_\-]*$",
+    re.IGNORECASE,
+)
+
+
 def caption_from_filename(stem: str) -> str:
     cleaned = stem.replace("-", " ").replace("_", " ").strip()
     if not cleaned:
         return ""
+    if CAMERA_NAME_RE.match(stem.strip()):
+        return ""
     return cleaned[:1].upper() + cleaned[1:]
+
+
+def convert_heic(path: Path) -> Path:
+    """Turn an iPhone .heic/.heif into a .jpg so every browser can show it.
+
+    Chrome, Firefox, and Android render HEIC as a broken image, so a photo
+    uploaded straight from an iPhone's Files app would be invisible to most
+    of the family. Converting keeps that from happening silently.
+
+    If the optional decoder isn't installed the original file is left alone
+    and returned unchanged — a missing dependency must never fail the build.
+    """
+    try:
+        from PIL import Image
+        import pillow_heif
+
+        pillow_heif.register_heif_opener()
+    except Exception:
+        print(f"  ! {path.name}: HEIC decoder unavailable, leaving as-is.")
+        return path
+
+    jpg = path.with_suffix(".jpg")
+    if jpg.exists():
+        return jpg
+    try:
+        with Image.open(path) as im:
+            im.convert("RGB").save(jpg, "JPEG", quality=90)
+    except Exception as exc:
+        print(f"  ! {path.name}: could not convert ({exc}), leaving as-is.")
+        return path
+    path.unlink()
+    print(f"  + converted {path.name} -> {jpg.name}")
+    return jpg
 
 
 def scan() -> list[dict]:
@@ -58,6 +104,9 @@ def scan() -> list[dict]:
                 ext = f.suffix.lower()
                 if ext not in MEDIA_EXTS:
                     continue
+                if ext in {".heic", ".heif"}:
+                    f = convert_heic(f)
+                    ext = f.suffix.lower()
                 rel = f"media/{athlete}/{sport}/{f.name}"
                 photos.append(
                     {

@@ -1499,14 +1499,23 @@
   function refreshUploaderState(body, a, s) {
     body.innerHTML = "";
     if (!UPLOAD_ENDPOINT) {
+      // Big, obvious call to action — this is the one path that works today.
+      body.appendChild(el("a", {
+        class: "uploader__cta",
+        href: githubUploadUrl(a, s),
+        target: "_blank",
+        rel: "noopener",
+      }, ["📷  Upload to " + a.name + "'s " + s.name.toLowerCase() + " folder"]));
+
       const hint = el("p", { class: "uploader__hint" });
-      hint.appendChild(document.createTextNode("On-site uploading isn't switched on yet. To add photos now, "));
-      hint.appendChild(el("a", {
-        href: githubUploadUrl(a, s), target: "_blank", rel: "noopener",
-      }, ["upload them to " + a.name + "'s " + s.name.toLowerCase() + " folder on GitHub"]));
       hint.appendChild(document.createTextNode(
-        " — works from a phone, and they show up here a couple of minutes later. " +
-        "Whatever you name the file becomes its caption. To enable the Upload button here instead, see "));
+        "Opens GitHub's upload page for this folder — works from a phone. On an iPhone, pick "));
+      hint.appendChild(el("strong", null, ["Photo Library"]));
+      hint.appendChild(document.createTextNode(" rather than "));
+      hint.appendChild(el("strong", null, ["Browse"]));
+      hint.appendChild(document.createTextNode(
+        ", so the photo uploads as a JPEG everyone can see. Pictures show up here a couple of " +
+        "minutes after you commit. To switch on uploading from this page instead, see "));
       hint.appendChild(el("a", { href: UPLOAD_DOC_URL, target: "_blank", rel: "noopener" }, ["SETUP-UPLOAD.md"]));
       hint.appendChild(document.createTextNode("."));
       body.appendChild(hint);

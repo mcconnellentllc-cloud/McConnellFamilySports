@@ -28,6 +28,12 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Install image tools
+        # pillow-heif lets build.py turn iPhone .heic uploads into .jpg, which
+        # every browser can display. Optional by design: if the install fails,
+        # build.py leaves HEIC files alone rather than failing the deploy.
+        run: pip install pillow pillow-heif || true
+
       - name: Regenerate gallery.json from media/
         run: python3 build.py
 
@@ -35,16 +41,19 @@ jobs:
         run: |
           python3 -c "import json; [json.load(open(p)) for p in ['data/athletes.json','data/content.json','data/gallery.json']]; print('JSON OK')"
 
-      - name: Commit refreshed gallery.json (if changed)
+      - name: Commit refreshed gallery.json and converted media (if changed)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if git diff --quiet -- data/gallery.json; then
-            echo "gallery.json unchanged"
+          # media/ is included because build.py may have replaced a .heic
+          # upload with a .jpg; that conversion has to be committed or it
+          # would be redone on every deploy.
+          if git diff --quiet -- data/gallery.json media/; then
+            echo "gallery.json and media unchanged"
           else
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/gallery.json
+            git add data/gallery.json media/
             git commit -m "chore: refresh gallery.json"
             git push origin HEAD:main
           fi
