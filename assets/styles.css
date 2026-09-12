@@ -628,6 +628,34 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
   margin: 8px 0 0;
 }
+.event-card__sets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.event-card__sets li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 3px 0;
+}
+.event-card__set-label { color: var(--muted); min-width: 46px; }
+.event-card__set-score { font-weight: 700; font-variant-numeric: tabular-nums; }
+.event-card__set-flag {
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 7px;
+}
+.event-card__sets .is-win .event-card__set-flag {
+  background: var(--accent);
+  color: #fff;
+}
+.event-card__sets .is-loss .event-card__set-flag {
+  background: var(--line);
+  color: var(--muted);
+}
+
 .events {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));

@@ -103,6 +103,10 @@
       "date": "2026-09-12",
       "name": "at Holyoke Dragons",
       "venue": "Holyoke, CO",
+      "status": "Match in progress",
+      "sets": [
+        { "set": 1, "us": 25, "them": 16 }
+      ],
       "notes": "Junior high road game against the Holyoke Dragons."
     },
     {

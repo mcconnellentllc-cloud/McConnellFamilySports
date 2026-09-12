@@ -584,6 +584,23 @@
       meta.appendChild(el("dd", null, [ul]));
     }
     if (ev.competitors) addRow("Competitors", ev.competitors);
+    if (ev.sets && ev.sets.length) {
+      const list = el("ul", { class: "event-card__sets" });
+      let won = 0;
+      ev.sets.forEach(function (g) {
+        const ours = Number(g.us), theirs = Number(g.them);
+        const win = ours > theirs;
+        if (win) won += 1;
+        list.appendChild(el("li", { class: win ? "is-win" : "is-loss" }, [
+          el("span", { class: "event-card__set-label" }, ["Set " + g.set]),
+          el("span", { class: "event-card__set-score" }, [ours + "–" + theirs]),
+          el("span", { class: "event-card__set-flag" }, [win ? "W" : "L"]),
+        ]));
+      });
+      meta.appendChild(el("dt", null, ["Sets (" + won + "–" + (ev.sets.length - won) + ")"]));
+      meta.appendChild(el("dd", null, [list]));
+    }
+    if (ev.status) addRow("Status", ev.status);
 
     const card = el("section", { class: "event-card" }, [
       el("div", { class: "event-card__head" }, headBits),
