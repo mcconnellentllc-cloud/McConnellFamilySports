@@ -1414,7 +1414,9 @@
     if (!photos.length) {
       parent.appendChild(emptyState(
         "No pictures yet",
-        "Use <strong>Add photos or videos</strong> above to upload straight from here, or drop files into <code>media/" + a.slug + "/" + s.slug + "/</code> on GitHub. They'll appear in a few minutes."
+        UPLOAD_ENDPOINT
+          ? "Use <strong>Add photos or videos</strong> above to upload straight from here, or drop files into <code>media/" + a.slug + "/" + s.slug + "/</code> on GitHub. They'll appear in a few minutes."
+          : "Drop files into <code>media/" + a.slug + "/" + s.slug + "/</code> on GitHub — the link above opens that folder. They'll appear in a few minutes."
       ));
       return;
     }
@@ -1466,8 +1468,13 @@
   // Paste your deployed endpoint URL here after following SETUP-UPLOAD.md,
   // e.g. "https://mcconnell-family-sports.vercel.app/api/upload".
   const UPLOAD_ENDPOINT = "";
-  const UPLOAD_DOC_URL =
-    "https://github.com/mcconnellentllc-cloud/McConnellFamilySports/blob/main/SETUP-UPLOAD.md";
+  const REPO_URL = "https://github.com/mcconnellentllc-cloud/McConnellFamilySports";
+  const UPLOAD_DOC_URL = REPO_URL + "/blob/main/SETUP-UPLOAD.md";
+  // GitHub's own upload page, opened straight at media/<girl>/<sport>/.
+  // Works on a phone and is the only path that currently works end to end.
+  function githubUploadUrl(a, s) {
+    return REPO_URL + "/upload/main/media/" + a.slug + "/" + s.slug;
+  }
   const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
 
   // The plaintext family password, kept only in memory for this page's
@@ -1493,10 +1500,13 @@
     body.innerHTML = "";
     if (!UPLOAD_ENDPOINT) {
       const hint = el("p", { class: "uploader__hint" });
+      hint.appendChild(document.createTextNode("On-site uploading isn't switched on yet. To add photos now, "));
+      hint.appendChild(el("a", {
+        href: githubUploadUrl(a, s), target: "_blank", rel: "noopener",
+      }, ["upload them to " + a.name + "'s " + s.name.toLowerCase() + " folder on GitHub"]));
       hint.appendChild(document.createTextNode(
-        "On-site uploading isn't switched on yet. For now, add photos by posting them in the family Teams channel (with "));
-      hint.appendChild(el("code", null, ["#" + s.slug + " #" + a.slug]));
-      hint.appendChild(document.createTextNode(") — the sync files them here automatically. To enable the Upload button, see "));
+        " — works from a phone, and they show up here a couple of minutes later. " +
+        "Whatever you name the file becomes its caption. To enable the Upload button here instead, see "));
       hint.appendChild(el("a", { href: UPLOAD_DOC_URL, target: "_blank", rel: "noopener" }, ["SETUP-UPLOAD.md"]));
       hint.appendChild(document.createTextNode("."));
       body.appendChild(hint);

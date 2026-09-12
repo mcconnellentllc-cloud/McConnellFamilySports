@@ -5,10 +5,20 @@ name: Teams Sync
 # read from GitHub Actions secrets — never committed. See SETUP-AZURE.md
 # for one-time configuration.
 
+# DISABLED — the scheduled run is switched off on purpose.
+#
+# This sync needs five Azure secrets (TENANT_ID, CLIENT_ID, CLIENT_SECRET,
+# TEAMS_TEAM_ID, TEAMS_CHANNEL_ID) that have never been set, so every
+# scheduled run failed at startup — 1,675 of them — and no photo posted to
+# Teams ever reached the site.
+#
+# To switch it back on: set the five secrets per SETUP-AZURE.md, run this
+# workflow once by hand (Actions -> Teams Sync -> Run workflow) to confirm
+# it works, then uncomment the two schedule lines below.
 on:
-  schedule:
-    # Every 30 minutes. Cron is in UTC.
-    - cron: "*/30 * * * *"
+  # schedule:
+  #   # Every 30 minutes. Cron is in UTC.
+  #   - cron: "*/30 * * * *"
   workflow_dispatch:
 
 # Only one sync at a time; queue, never cancel, so partial progress
