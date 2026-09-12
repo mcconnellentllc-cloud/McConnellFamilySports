@@ -66,6 +66,7 @@
     "players": {
       "tyndle": {
         "team": "jhs",
+        "number": "6",
         "summary": "Tyndle joined the Haxtun junior high volleyball team for the 2026 fall season — her first year on the court."
       },
       "oakley": {
@@ -96,6 +97,14 @@
   ],
   "travel": [],
   "events": [
+    {
+      "sport": "volleyball",
+      "athletes": ["tyndle"],
+      "date": "2026-09-12",
+      "name": "at Holyoke Dragons",
+      "venue": "Holyoke, CO",
+      "notes": "Junior high road game against the Holyoke Dragons."
+    },
     {
       "sport": "gymnastics",
       "athletes": ["tyndle", "oakley", "tayla"],
@@ -424,6 +433,13 @@
       "name": "Haxtun Schools Gymnasium",
       "city": "Haxtun, CO",
       "note": "Home gym for Bulldogs junior high volleyball."
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "name": "Holyoke Dragons Gym",
+      "city": "Holyoke, CO",
+      "note": "Road game against the Dragons on September 12, 2026."
     }
   ]
 }

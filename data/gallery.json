@@ -4,6 +4,14 @@
       "athlete": "tyndle",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/tyndle/volleyball/Haxtun-at-Holyoke-Dragons.jpg",
+      "caption": "Haxtun at Holyoke Dragons",
+      "file": "Haxtun-at-Holyoke-Dragons.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/tyndle/volleyball/bulldogs-huddle-at-home.jpg",
       "caption": "Bulldogs huddle at home",
       "file": "bulldogs-huddle-at-home.jpg"
