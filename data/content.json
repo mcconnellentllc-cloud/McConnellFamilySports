@@ -103,7 +103,8 @@
       "date": "2026-09-14",
       "name": "vs Sterling",
       "venue": "Haxtun Schools Gymnasium",
-      "status": "Match in progress",
+      "status": "Final",
+      "result": "loss",
       "notes": "Junior high home game against Sterling."
     },
     {
@@ -112,11 +113,13 @@
       "date": "2026-09-12",
       "name": "at Holyoke Dragons",
       "venue": "Holyoke, CO",
-      "status": "Set 1 recorded — final score still to be entered",
+      "status": "Final",
+      "result": "loss",
+      "resultDetail": "after taking the opening set.",
       "sets": [
         { "set": 1, "us": 25, "them": 16 }
       ],
-      "notes": "Junior high road game against the Holyoke Dragons."
+      "notes": "Junior high road game against the Holyoke Dragons. The Bulldogs took the first set 25–16 before the Dragons came back to win the match."
     },
     {
       "sport": "volleyball",

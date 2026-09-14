@@ -584,6 +584,18 @@
       meta.appendChild(el("dd", null, [ul]));
     }
     if (ev.competitors) addRow("Competitors", ev.competitors);
+    if (ev.result) {
+      const won = /^w/i.test(ev.result);
+      const pill = el("span", {
+        class: "event-card__result " + (won ? "is-win" : "is-loss"),
+      }, [won ? "Win" : "Loss"]);
+      const dd = el("dd", null, [pill]);
+      if (ev.resultDetail) {
+        dd.appendChild(document.createTextNode(" " + ev.resultDetail));
+      }
+      meta.appendChild(el("dt", null, ["Result"]));
+      meta.appendChild(dd);
+    }
     if (ev.sets && ev.sets.length) {
       const list = el("ul", { class: "event-card__sets" });
       let won = 0;
@@ -1240,7 +1252,66 @@
       card.appendChild(linkRow(team.links));
     }
 
+    const log = renderGameLog(a, s);
+    if (log) {
+      card.appendChild(el("hr", { class: "season-card__rule" }));
+      card.appendChild(log);
+    }
+
     parent.appendChild(card);
+  }
+
+  // Schedule and results for one girl's season, oldest game first so the
+  // season reads forward. Games still to be played show no result.
+  function renderGameLog(a, s) {
+    const games = eventsFor(a.slug, s.slug).slice().sort(function (x, y) {
+      return (x.date || "").localeCompare(y.date || "");
+    });
+    if (!games.length) return null;
+
+    const wrap = el("section", { class: "game-log" });
+    let won = 0, lost = 0;
+    games.forEach(function (g) {
+      if (!g.result) return;
+      if (/^w/i.test(g.result)) won += 1; else lost += 1;
+    });
+    const heading = "Schedule & results" +
+      (won + lost ? " (" + won + "–" + lost + " recorded)" : "");
+    wrap.appendChild(el("h4", { class: "game-log__title" }, [heading]));
+
+    const list = el("ol", { class: "game-log__list" });
+    games.forEach(function (g) {
+      const row = el("li", { class: "game-log__row" });
+      row.appendChild(el("span", { class: "game-log__date" }, [shortDate(g.date)]));
+      row.appendChild(el("span", { class: "game-log__name" }, [g.name || "Game"]));
+
+      const right = el("span", { class: "game-log__result" });
+      if (g.result) {
+        const w = /^w/i.test(g.result);
+        right.appendChild(el("span", {
+          class: "event-card__result " + (w ? "is-win" : "is-loss"),
+        }, [w ? "W" : "L"]));
+      } else if (g.status) {
+        right.appendChild(el("span", { class: "game-log__pending" }, [g.status]));
+      }
+      if (g.sets && g.sets.length) {
+        right.appendChild(el("span", { class: "game-log__sets" }, [
+          g.sets.map(function (x) { return x.us + "–" + x.them; }).join(", "),
+        ]));
+      }
+      row.appendChild(right);
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+    return wrap;
+  }
+
+  // "Sep 14" — compact enough to sit in a table row.
+  function shortDate(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+    if (!m) return iso || "";
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return months[Number(m[2]) - 1] + " " + Number(m[3]);
   }
 
   function renderScores(parent, a, s) {
