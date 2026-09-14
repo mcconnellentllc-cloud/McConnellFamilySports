@@ -12,6 +12,14 @@
       "athlete": "tyndle",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/tyndle/volleyball/Tyndle-ready-vs-Sterling.jpg",
+      "caption": "Tyndle ready vs Sterling",
+      "file": "Tyndle-ready-vs-Sterling.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/tyndle/volleyball/bulldogs-huddle-at-home.jpg",
       "caption": "Bulldogs huddle at home",
       "file": "bulldogs-huddle-at-home.jpg"

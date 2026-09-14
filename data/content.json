@@ -100,10 +100,19 @@
     {
       "sport": "volleyball",
       "athletes": ["tyndle"],
+      "date": "2026-09-14",
+      "name": "vs Sterling",
+      "venue": "Haxtun Schools Gymnasium",
+      "status": "Match in progress",
+      "notes": "Junior high home game against Sterling."
+    },
+    {
+      "sport": "volleyball",
+      "athletes": ["tyndle"],
       "date": "2026-09-12",
       "name": "at Holyoke Dragons",
       "venue": "Holyoke, CO",
-      "status": "Match in progress",
+      "status": "Set 1 recorded — final score still to be entered",
       "sets": [
         { "set": 1, "us": 25, "them": 16 }
       ],
