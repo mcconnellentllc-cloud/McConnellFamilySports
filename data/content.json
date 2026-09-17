@@ -100,6 +100,16 @@
     {
       "sport": "volleyball",
       "athletes": ["tyndle"],
+      "date": "2026-09-17",
+      "name": "at Sedgwick County",
+      "venue": "Sedgwick County Schools",
+      "address": "Julesburg, CO",
+      "status": "Match in progress",
+      "notes": "Junior high road game against the Cougars in Julesburg."
+    },
+    {
+      "sport": "volleyball",
+      "athletes": ["tyndle"],
       "date": "2026-09-14",
       "name": "vs Sterling",
       "venue": "Haxtun Schools Gymnasium",
@@ -472,6 +482,13 @@
       "name": "Holyoke Dragons Gym",
       "city": "Holyoke, CO",
       "note": "Road game against the Dragons on September 12, 2026."
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "name": "Sedgwick County Schools — Cougars Gym",
+      "city": "Julesburg, CO",
+      "note": "Road game against the Cougars on September 17, 2026."
     }
   ]
 }
