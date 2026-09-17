@@ -4,9 +4,25 @@
       "athlete": "tyndle",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/tyndle/volleyball/Bulldogs-at-Sedgwick-County.jpg",
+      "caption": "Bulldogs at Sedgwick County",
+      "file": "Bulldogs-at-Sedgwick-County.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/tyndle/volleyball/Haxtun-at-Holyoke-Dragons.jpg",
       "caption": "Haxtun at Holyoke Dragons",
       "file": "Haxtun-at-Holyoke-Dragons.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/In-play-at-Sedgwick-County.jpg",
+      "caption": "In play at Sedgwick County",
+      "file": "In-play-at-Sedgwick-County.jpg"
     },
     {
       "athlete": "tyndle",
