@@ -105,7 +105,7 @@
       "venue": "Sedgwick County Schools",
       "address": "Julesburg, CO",
       "status": "Match in progress",
-      "notes": "Junior high road game against the Cougars in Julesburg."
+      "notes": "Junior high road game against the Cougars in Julesburg — the game tentatively set for August 31, rescheduled to today."
     },
     {
       "sport": "volleyball",
@@ -130,14 +130,6 @@
         { "set": 1, "us": 25, "them": 16 }
       ],
       "notes": "Junior high road game against the Holyoke Dragons. The Bulldogs took the first set 25–16 before the Dragons came back to win the match."
-    },
-    {
-      "sport": "volleyball",
-      "athletes": ["tyndle"],
-      "date": "2026-08-31",
-      "name": "at Sedgwick County",
-      "venue": "Sedgwick County, CO",
-      "notes": "Listed as tentative on the August calendar, with the time still to be decided."
     },
     {
       "sport": "volleyball",
