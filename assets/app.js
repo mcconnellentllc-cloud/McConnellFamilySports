@@ -1256,6 +1256,8 @@
     if (log) {
       card.appendChild(el("hr", { class: "season-card__rule" }));
       card.appendChild(log);
+      const cal = renderCalendarLinks(a, s);
+      if (cal) card.appendChild(cal);
     }
 
     parent.appendChild(card);
@@ -1304,6 +1306,27 @@
     });
     wrap.appendChild(list);
     return wrap;
+  }
+
+  // Subscribe keeps the phone's calendar in step as games are added; the
+  // download is a one-off import for anything that won't subscribe.
+  function renderCalendarLinks(a, s) {
+    if (!eventsFor(a.slug, s.slug).length) return null;
+    const base = location.origin + location.pathname.replace(/[^/]*$/, "");
+    const file = "calendar/" + a.slug + "-" + s.slug + ".ics";
+    const httpUrl = base + file;
+    const webcal = httpUrl.replace(/^https?:/, "webcal:");
+
+    const row = el("p", { class: "cal-links" });
+    row.appendChild(el("a", { class: "cal-links__btn", href: webcal }, [
+      "📅  Subscribe to " + a.name + "'s " + s.name.toLowerCase() + " schedule",
+    ]));
+    row.appendChild(el("span", { class: "cal-links__alt" }, [
+      "Keeps updating as games are added. Or ",
+      el("a", { href: file, download: a.slug + "-" + s.slug + ".ics" }, ["download the .ics"]),
+      " for a one-time import.",
+    ]));
+    return row;
   }
 
   // "Sep 14" — compact enough to sit in a table row.

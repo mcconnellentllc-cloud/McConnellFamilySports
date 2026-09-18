@@ -1,0 +1,41 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//McConnell Family Sports//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tayla — Sports
+BEGIN:VEVENT
+UID:20260516-gymnastics-carbon-valley-gymnastics-meet@mcconnellfamilysports
+DTSTAMP:20260516T000000Z
+DTSTART;VALUE=DATE:20260516
+DTEND;VALUE=DATE:20260517
+SUMMARY:Gymnastics: Carbon Valley Gymnastics Meet
+LOCATION:Carbon Valley Recreation Center — 701 5th St\, Frederick\, CO 80
+ 530
+DESCRIPTION:Spectator seating is on the upper level (running track). Limite
+ d chairs are provided — you may bring your own\, for use on the upper le
+ vel only.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260529-gymnastics-paul-derda-gymnastics-meet@mcconnellfamilysports
+DTSTAMP:20260529T000000Z
+DTSTART;VALUE=DATE:20260529
+DTEND;VALUE=DATE:20260530
+SUMMARY:Gymnastics: Paul Derda Gymnastics Meet
+LOCATION:Paul Derda Recreation Center — 13201 Lowell Blvd\, Broomfield\, 
+ CO 80020
+DESCRIPTION:Pre-stamped meet card. Scores fill in live as each event is jud
+ ged.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260626-gymnastics-commerce-city-meet@mcconnellfamilysports
+DTSTAMP:20260626T000000Z
+DTSTART;VALUE=DATE:20260626
+DTEND;VALUE=DATE:20260627
+SUMMARY:Gymnastics: Commerce City Meet
+LOCATION:Bison Ridge Recreation Center — 13905 E. 112th Ave\, Commerce Ci
+ ty\, CO 80022
+DESCRIPTION:Sessions: Compulsory 2 & 3 (7:00am)\, Optional 1 & 2 (11:00am)\
+ , and Compulsory 4 / Optional 3 & 4 (3:15pm).
+END:VEVENT
+END:VCALENDAR

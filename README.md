@@ -381,6 +381,25 @@ actual teammates.
 
 ---
 
+## Calendar feeds (add the schedule to your phone)
+
+`build.py` turns the `events` in `data/content.json` into subscribable
+calendar files under `calendar/`:
+
+- `calendar/<girl>.ics` — everything she has on
+- `calendar/<girl>-<sport>.ics` — just that sport
+
+Each sport page shows a **Subscribe** button (a `webcal://` link). Subscribing
+is the one worth using: the phone re-checks the file, so games added later
+appear on their own. The `.ics` download next to it is a one-time import that
+will not update.
+
+Games are written as all-day events, because most entries carry a date but no
+start time. Add a time to the event's `notes` and it shows in the calendar
+entry's description.
+
+---
+
 ## Changing the password
 
 The password is stored as a SHA-256 hash (the original word is never in the
