@@ -628,6 +628,25 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
   margin: 8px 0 0;
 }
+.cal-links { margin: 14px 0 0; }
+.cal-links__btn {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.cal-links__btn:hover { background: var(--accent); color: #fff; }
+.cal-links__alt {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .game-log__title {
   font-family: var(--serif);
   font-size: 17px;

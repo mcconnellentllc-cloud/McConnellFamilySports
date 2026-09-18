@@ -24,6 +24,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 MEDIA = ROOT / "media"
 OUT = ROOT / "data" / "gallery.json"
+CONTENT = ROOT / "data" / "content.json"
+ATHLETES = ROOT / "data" / "athletes.json"
+CAL_DIR = ROOT / "calendar"
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".heic", ".heif"}
 # Web-friendly video containers. .mp4 (H.264/AAC) plays in every browser;
@@ -121,6 +124,131 @@ def scan() -> list[dict]:
     return photos
 
 
+# ---------- Calendar feeds ----------
+# Each girl gets a subscribable .ics of her events, plus one per sport, so a
+# phone can follow the season and pick up new games as they are added.
+
+
+def ics_escape(text: str) -> str:
+    """Escape a value for an iCalendar TEXT field (RFC 5545 §3.3.11)."""
+    return (
+        str(text)
+        .replace("\\", "\\\\")
+        .replace(";", "\\;")
+        .replace(",", "\\,")
+        .replace("\n", "\\n")
+    )
+
+
+def ics_fold(line: str) -> str:
+    """Fold a content line to 75 octets, continuation lines starting with a space."""
+    raw = line.encode("utf-8")
+    if len(raw) <= 75:
+        return line
+    out, chunk = [], b""
+    for ch in line:
+        enc = ch.encode("utf-8")
+        # 74 leaves room for the leading space on continuation lines.
+        if len(chunk) + len(enc) > (75 if not out else 74):
+            out.append(chunk.decode("utf-8"))
+            chunk = b""
+        chunk += enc
+    out.append(chunk.decode("utf-8"))
+    return "\r\n ".join(out)
+
+
+def next_day(iso: str) -> str:
+    """The day after an ISO date, as an all-day DTEND is exclusive."""
+    y, m, d = (int(x) for x in iso.split("-"))
+    days = [31, 29 if (y % 4 == 0 and (y % 100 != 0 or y % 400 == 0)) else 28,
+            31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    d += 1
+    if d > days[m - 1]:
+        d, m = 1, m + 1
+        if m > 12:
+            m, y = 1, y + 1
+    return f"{y:04d}{m:02d}{d:02d}"
+
+
+def build_calendar(name: str, events: list[dict], sports: dict) -> str:
+    lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//McConnell Family Sports//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        f"X-WR-CALNAME:{ics_escape(name)}",
+    ]
+    for ev in events:
+        date = (ev.get("date") or "").strip()
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
+            continue
+        stamp = date.replace("-", "")
+        sport = sports.get(ev.get("sport"), {}).get("name") or ev.get("sport") or ""
+        title = ev.get("name") or "Event"
+        summary = f"{sport}: {title}" if sport else title
+
+        where = " — ".join(x for x in (ev.get("venue"), ev.get("address")) if x)
+        desc_bits = []
+        if ev.get("notes"):
+            desc_bits.append(ev["notes"])
+        if ev.get("result"):
+            desc_bits.append("Result: " + str(ev["result"]).title())
+        if ev.get("sets"):
+            desc_bits.append("Sets: " + ", ".join(
+                f"{g.get('us')}-{g.get('them')}" for g in ev["sets"]))
+
+        # Stable per-event id so re-subscribing updates rather than duplicates.
+        slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+        lines += [
+            "BEGIN:VEVENT",
+            f"UID:{stamp}-{ev.get('sport','event')}-{slug}@mcconnellfamilysports",
+            f"DTSTAMP:{stamp}T000000Z",
+            f"DTSTART;VALUE=DATE:{stamp}",
+            f"DTEND;VALUE=DATE:{next_day(date)}",
+            f"SUMMARY:{ics_escape(summary)}",
+        ]
+        if where:
+            lines.append(f"LOCATION:{ics_escape(where)}")
+        if desc_bits:
+            lines.append(f"DESCRIPTION:{ics_escape(' '.join(desc_bits))}")
+        lines.append("END:VEVENT")
+    lines.append("END:VCALENDAR")
+    # RFC 5545 requires CRLF line endings.
+    return "\r\n".join(ics_fold(x) for x in lines) + "\r\n"
+
+
+def write_calendars() -> int:
+    if not CONTENT.exists() or not ATHLETES.exists():
+        return 0
+    content = json.loads(CONTENT.read_text(encoding="utf-8"))
+    roster = json.loads(ATHLETES.read_text(encoding="utf-8"))
+    events = content.get("events") or []
+    sports = {s["slug"]: s for s in roster.get("sports", [])}
+
+    CAL_DIR.mkdir(parents=True, exist_ok=True)
+    written = 0
+    for girl in roster.get("athletes", []):
+        slug, name = girl["slug"], girl["name"]
+        mine = [e for e in events if slug in (e.get("athletes") or [])]
+        if not mine:
+            continue
+        mine.sort(key=lambda e: e.get("date") or "")
+        targets = [(f"{slug}.ics", f"{name} — Sports", mine)]
+        for sp in sorted({e.get("sport") for e in mine if e.get("sport")}):
+            label = sports.get(sp, {}).get("name") or sp
+            targets.append((
+                f"{slug}-{sp}.ics",
+                f"{name} — {label}",
+                [e for e in mine if e.get("sport") == sp],
+            ))
+        for filename, cal_name, rows in targets:
+            (CAL_DIR / filename).write_text(
+                build_calendar(cal_name, rows, sports), encoding="utf-8", newline="")
+            written += 1
+    return written
+
+
 def main() -> int:
     photos = scan()
     OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -134,6 +262,8 @@ def main() -> int:
         f"Wrote {OUT.relative_to(ROOT)} with {len(photos)} media item(s) "
         f"({n_photo} photo(s), {n_video} video(s))."
     )
+    n_cal = write_calendars()
+    print(f"Wrote {n_cal} calendar feed(s) to {CAL_DIR.relative_to(ROOT)}/.")
     return 0
 
 

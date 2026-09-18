@@ -48,13 +48,13 @@ jobs:
           # media/ is included because build.py may have replaced a .heic
           # upload with a .jpg; that conversion has to be committed or it
           # would be redone on every deploy.
-          if git diff --quiet -- data/gallery.json media/; then
-            echo "gallery.json and media unchanged"
+          if git diff --quiet -- data/gallery.json media/ calendar/; then
+            echo "gallery.json, media, and calendar feeds unchanged"
           else
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/gallery.json media/
-            git commit -m "chore: refresh gallery.json"
+            git add data/gallery.json media/ calendar/
+            git commit -m "chore: refresh gallery.json and calendar feeds"
             git push origin HEAD:main
           fi
 

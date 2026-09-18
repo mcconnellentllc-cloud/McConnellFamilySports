@@ -1,0 +1,80 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//McConnell Family Sports//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tyndle — Sports
+BEGIN:VEVENT
+UID:20260516-gymnastics-carbon-valley-gymnastics-meet@mcconnellfamilysports
+DTSTAMP:20260516T000000Z
+DTSTART;VALUE=DATE:20260516
+DTEND;VALUE=DATE:20260517
+SUMMARY:Gymnastics: Carbon Valley Gymnastics Meet
+LOCATION:Carbon Valley Recreation Center — 701 5th St\, Frederick\, CO 80
+ 530
+DESCRIPTION:Spectator seating is on the upper level (running track). Limite
+ d chairs are provided — you may bring your own\, for use on the upper le
+ vel only.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260529-gymnastics-paul-derda-gymnastics-meet@mcconnellfamilysports
+DTSTAMP:20260529T000000Z
+DTSTART;VALUE=DATE:20260529
+DTEND;VALUE=DATE:20260530
+SUMMARY:Gymnastics: Paul Derda Gymnastics Meet
+LOCATION:Paul Derda Recreation Center — 13201 Lowell Blvd\, Broomfield\, 
+ CO 80020
+DESCRIPTION:Pre-stamped meet card. Scores fill in live as each event is jud
+ ged.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260626-gymnastics-commerce-city-meet@mcconnellfamilysports
+DTSTAMP:20260626T000000Z
+DTSTART;VALUE=DATE:20260626
+DTEND;VALUE=DATE:20260627
+SUMMARY:Gymnastics: Commerce City Meet
+LOCATION:Bison Ridge Recreation Center — 13905 E. 112th Ave\, Commerce Ci
+ ty\, CO 80022
+DESCRIPTION:Sessions: Compulsory 2 & 3 (7:00am)\, Optional 1 & 2 (11:00am)\
+ , and Compulsory 4 / Optional 3 & 4 (3:15pm).
+END:VEVENT
+BEGIN:VEVENT
+UID:20260825-volleyball-vs-perkins-county@mcconnellfamilysports
+DTSTAMP:20260825T000000Z
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+SUMMARY:Volleyball: vs Perkins County
+LOCATION:Haxtun Schools Gymnasium
+DESCRIPTION:First game of the season — home\, 4:00 pm.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260912-volleyball-at-holyoke-dragons@mcconnellfamilysports
+DTSTAMP:20260912T000000Z
+DTSTART;VALUE=DATE:20260912
+DTEND;VALUE=DATE:20260913
+SUMMARY:Volleyball: at Holyoke Dragons
+LOCATION:Holyoke\, CO
+DESCRIPTION:Junior high road game against the Holyoke Dragons. The Bulldogs
+  took the first set 25–16 before the Dragons came back to win the match.
+  Result: Loss Sets: 25-16
+END:VEVENT
+BEGIN:VEVENT
+UID:20260914-volleyball-vs-sterling@mcconnellfamilysports
+DTSTAMP:20260914T000000Z
+DTSTART;VALUE=DATE:20260914
+DTEND;VALUE=DATE:20260915
+SUMMARY:Volleyball: vs Sterling
+LOCATION:Haxtun Schools Gymnasium
+DESCRIPTION:Junior high home game against Sterling. Result: Loss
+END:VEVENT
+BEGIN:VEVENT
+UID:20260917-volleyball-at-sedgwick-county@mcconnellfamilysports
+DTSTAMP:20260917T000000Z
+DTSTART;VALUE=DATE:20260917
+DTEND;VALUE=DATE:20260918
+SUMMARY:Volleyball: at Sedgwick County
+LOCATION:Sedgwick County Schools — Julesburg\, CO
+DESCRIPTION:Junior high road game against the Cougars in Julesburg — the 
+ game tentatively set for August 31\, rescheduled to today.
+END:VEVENT
+END:VCALENDAR

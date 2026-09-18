@@ -1,0 +1,46 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//McConnell Family Sports//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tyndle — Volleyball
+BEGIN:VEVENT
+UID:20260825-volleyball-vs-perkins-county@mcconnellfamilysports
+DTSTAMP:20260825T000000Z
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+SUMMARY:Volleyball: vs Perkins County
+LOCATION:Haxtun Schools Gymnasium
+DESCRIPTION:First game of the season — home\, 4:00 pm.
+END:VEVENT
+BEGIN:VEVENT
+UID:20260912-volleyball-at-holyoke-dragons@mcconnellfamilysports
+DTSTAMP:20260912T000000Z
+DTSTART;VALUE=DATE:20260912
+DTEND;VALUE=DATE:20260913
+SUMMARY:Volleyball: at Holyoke Dragons
+LOCATION:Holyoke\, CO
+DESCRIPTION:Junior high road game against the Holyoke Dragons. The Bulldogs
+  took the first set 25–16 before the Dragons came back to win the match.
+  Result: Loss Sets: 25-16
+END:VEVENT
+BEGIN:VEVENT
+UID:20260914-volleyball-vs-sterling@mcconnellfamilysports
+DTSTAMP:20260914T000000Z
+DTSTART;VALUE=DATE:20260914
+DTEND;VALUE=DATE:20260915
+SUMMARY:Volleyball: vs Sterling
+LOCATION:Haxtun Schools Gymnasium
+DESCRIPTION:Junior high home game against Sterling. Result: Loss
+END:VEVENT
+BEGIN:VEVENT
+UID:20260917-volleyball-at-sedgwick-county@mcconnellfamilysports
+DTSTAMP:20260917T000000Z
+DTSTART;VALUE=DATE:20260917
+DTEND;VALUE=DATE:20260918
+SUMMARY:Volleyball: at Sedgwick County
+LOCATION:Sedgwick County Schools — Julesburg\, CO
+DESCRIPTION:Junior high road game against the Cougars in Julesburg — the 
+ game tentatively set for August 31\, rescheduled to today.
+END:VEVENT
+END:VCALENDAR
