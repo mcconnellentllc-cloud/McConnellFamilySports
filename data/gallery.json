@@ -4,6 +4,14 @@
       "athlete": "tyndle",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/tyndle/volleyball/A-team-at-Sedgwick-County.jpg",
+      "caption": "A team at Sedgwick County",
+      "file": "A-team-at-Sedgwick-County.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/tyndle/volleyball/Bulldogs-at-Sedgwick-County.jpg",
       "caption": "Bulldogs at Sedgwick County",
       "file": "Bulldogs-at-Sedgwick-County.jpg"
