@@ -67,7 +67,8 @@
       "tyndle": {
         "team": "jhs",
         "number": "6",
-        "summary": "Tyndle joined the Haxtun junior high volleyball team for the 2026 fall season — her first year on the court."
+        "position": "A team",
+        "summary": "Tyndle joined the Haxtun junior high volleyball team for the 2026 fall season — her first year on the court, and she is playing A team as a 6th grader."
       },
       "oakley": {
         "team": "fourth",
@@ -382,6 +383,14 @@
     }
   ],
   "memories": [
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "date": "Fall 2026",
+      "title": "Playing A team as a 6th grader",
+      "text": "In her first year of junior high volleyball, Tyndle earned a spot on the A team as a 6th grader — on the floor against older girls, in her first season on the court.",
+      "photo": "media/tyndle/volleyball/A-team-at-Sedgwick-County.jpg"
+    },
     {
       "athlete": "tyndle",
       "sport": "volleyball",
