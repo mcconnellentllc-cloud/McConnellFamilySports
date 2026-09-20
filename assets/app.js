@@ -149,6 +149,14 @@
   function isTeamSport(s) {
     return !!(s && s.teamSport);
   }
+  // Memory types are data-driven: add one to "memoryTypes" in
+  // data/athletes.json and it shows up as a filter on its own.
+  function memoryTypes() {
+    return (state.athletes && state.athletes.memoryTypes) || [];
+  }
+  function getMemoryType(slug) {
+    return memoryTypes().find(function (t) { return t.slug === slug; });
+  }
   const CATEGORY_DEFAULTS = {
     sports: { name: "Sports", blurb: "Seasons, scores, and game-day photos." },
     academics: { name: "Academics", blurb: "School years, grades, and honors." },
@@ -455,7 +463,7 @@
     } else if (route.category === "academics") {
       renderAcademics(body, a.slug);
     } else if (route.category === "personal") {
-      renderPersonal(body, a.slug);
+      renderPersonal(body, a.slug, route.sub);
     } else if (route.category === "travel") {
       renderTravel(body, a.slug);
     }
@@ -670,7 +678,7 @@
     v.appendChild(coverEl("Family · " + title, null, "familycat:" + route.category));
     const body = el("section", null);
     if (isTravel) renderTravel(body, "family");
-    else renderPersonal(body, "family");
+    else renderPersonal(body, "family", route.tab);
     v.appendChild(body);
   }
 
@@ -1137,8 +1145,26 @@
     }, "No academics recorded yet", "Add a school year in <code>data/content.json</code> under <code>academics</code>.");
   }
 
-  function renderPersonal(parent, aSlug) {
-    renderYearGroups(parent, entriesFor("personal", aSlug), function (e) {
+  function renderPersonal(parent, aSlug, typeSlug) {
+    const all = entriesFor("personal", aSlug);
+    const active = getMemoryType(typeSlug) ? typeSlug : null;
+    parent.appendChild(renderTypeFilter(aSlug, all, active));
+    const rows = active ? all.filter(function (e) { return e.type === active; }) : all;
+    if (active && !rows.length) {
+      const t = getMemoryType(active);
+      // Family photos are filed by type; a girl's own go in _memories/.
+      const folder = aSlug === "family"
+        ? "media/_family/" + active + "/"
+        : "media/_memories/";
+      parent.appendChild(emptyState(
+        "Nothing under " + t.name + " yet",
+        "Photos go in <code>" + folder + "</code>, with an entry under " +
+        "<code>personal</code> in <code>data/content.json</code> carrying " +
+        "<code>\"type\": \"" + active + "\"</code>."
+      ));
+      return;
+    }
+    renderYearGroups(parent, rows, function (e) {
       const card = el("article", { class: "entry entry--personal" });
       const head = el("div", { class: "entry__head" }, [el("h4", { class: "entry__title" }, [e.title || "Milestone"])]);
       if (e.date) head.appendChild(el("span", { class: "entry__date" }, [fmtDate(e.date)]));
@@ -1148,6 +1174,31 @@
       if (ph) card.appendChild(ph);
       return card;
     }, "No milestones recorded yet", "Add one in <code>data/content.json</code> under <code>personal</code>.");
+  }
+
+  // A chip row across the top of Memories: All, then every type that has
+  // something in it, with counts. Types with nothing saved stay hidden so the
+  // row reflects what is actually there.
+  function renderTypeFilter(aSlug, entries, active) {
+    const base = aSlug === "family" ? "#/family/personal" : "#/" + aSlug + "/personal";
+    const row = el("nav", { class: "chips", "aria-label": "Filter memories by type" });
+    const counts = {};
+    entries.forEach(function (e) {
+      if (e.type) counts[e.type] = (counts[e.type] || 0) + 1;
+    });
+    row.appendChild(el("a", {
+      class: "chip" + (active ? "" : " is-active"),
+      href: base,
+    }, ["All (" + entries.length + ")"]));
+    memoryTypes().forEach(function (t) {
+      if (!counts[t.slug]) return;
+      row.appendChild(el("a", {
+        class: "chip" + (active === t.slug ? " is-active" : ""),
+        href: base + "/" + t.slug,
+        title: t.blurb || "",
+      }, [t.name + " (" + counts[t.slug] + ")"]));
+    });
+    return row;
   }
 
   function renderTravel(parent, aSlug) {

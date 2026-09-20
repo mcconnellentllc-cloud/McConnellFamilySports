@@ -381,6 +381,38 @@ actual teammates.
 
 ---
 
+## Memories, sorted by type
+
+Memories live in `data/content.json` under `personal`. Each entry can carry a
+`type`, and the Memories page grows a filter chip for every type that has
+something in it:
+
+```json
+{
+  "athlete": "family",
+  "type": "holidays",
+  "date": "2026-12-25",
+  "title": "Christmas morning",
+  "text": "One or two sentences.",
+  "photo": "media/_family/holidays/christmas-morning.jpg"
+}
+```
+
+- `athlete` is a girl's slug, or `"family"` for anything shared.
+- Photos for family memories go in `media/_family/<type>/`; a single girl's go
+  in `media/_memories/`. Both folders start with `_`, so `build.py` keeps them
+  out of the per-girl sport galleries.
+- `type` is optional. Untyped entries still appear under **All**.
+
+The type list lives in `data/athletes.json` under `memoryTypes` — add one
+there and it appears on its own:
+
+```json
+{ "slug": "farm", "name": "Farm", "blurb": "Tractors, harvest, and work at home." }
+```
+
+---
+
 ## Calendar feeds (add the schedule to your phone)
 
 `build.py` turns the `events` in `data/content.json` into subscribable

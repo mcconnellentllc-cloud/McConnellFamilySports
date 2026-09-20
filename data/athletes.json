@@ -50,6 +50,14 @@
       "icon": "🏐"
     }
   ],
+  "memoryTypes": [
+    { "slug": "milestones",   "name": "Milestones",   "blurb": "Firsts, awards, and the big ones." },
+    { "slug": "holidays",     "name": "Holidays",     "blurb": "Christmas, Easter, the Fourth, birthdays." },
+    { "slug": "everyday",     "name": "Everyday",     "blurb": "Ordinary days worth keeping." },
+    { "slug": "farm",         "name": "Farm",         "blurb": "Tractors, harvest, and work at home." },
+    { "slug": "school",       "name": "School",       "blurb": "First days, programs, and projects." },
+    { "slug": "celebrations", "name": "Celebrations", "blurb": "Parties, banquets, and gatherings." }
+  ],
   "categories": [
     { "slug": "sports",    "name": "Sports",    "blurb": "Seasons, scores, and game-day photos." },
     { "slug": "academics", "name": "Academics", "blurb": "School years, grades, and honors." },
