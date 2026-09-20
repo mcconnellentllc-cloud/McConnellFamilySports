@@ -1,5 +1,5 @@
 /*
- * McConnell Family Sports — upload endpoint (Cloudflare Worker).
+ * The McConnell Family — upload endpoint (Cloudflare Worker).
  *
  * Why this exists: the website is a static page on GitHub Pages, so it can't
  * accept file uploads on its own. This tiny Worker is the only "backend." It:

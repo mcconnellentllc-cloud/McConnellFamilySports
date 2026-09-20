@@ -1,6 +1,6 @@
 # Setting up the Microsoft Teams sync
 
-> **Privacy reality, stated up front:** the McConnell Family Sports
+> **Privacy reality, stated up front:** the The McConnell Family
 > GitHub repo is **public**. Anything synced from Teams into `media/`
 > becomes downloadable by anyone who knows the GitHub URL. The site's
 > password gate only hides photos from the website — it does *not*

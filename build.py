@@ -174,7 +174,7 @@ def build_calendar(name: str, events: list[dict], sports: dict) -> str:
     lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//McConnell Family Sports//EN",
+        "PRODID:-//The McConnell Family//EN",
         "CALSCALE:GREGORIAN",
         "METHOD:PUBLISH",
         f"X-WR-CALNAME:{ics_escape(name)}",

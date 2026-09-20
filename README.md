@@ -1,4 +1,4 @@
-# McConnell Family Sports
+# The McConnell Family
 
 A private, password-protected family archive for the McConnell girls' sports —
 scores, pictures, places, and memories. It's a single-page website that lives
