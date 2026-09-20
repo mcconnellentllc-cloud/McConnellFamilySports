@@ -1,0 +1,11 @@
+{
+  "_comment": "Family history and tree. Hand-edit freely. 'people' entries render newest-to-oldest by the 'sort' field if present, otherwise in the order written. Photos go in media/_history/ (the leading underscore keeps build.py from filing them into a girl's gallery).",
+  "intro": "",
+  "tree": {
+    "url": "https://www.ancestry.com/family-tree/tree/6845633/family?cfpid=-1216089496",
+    "label": "The McConnell tree on Ancestry",
+    "note": "Opens Ancestry — you'll need an account with access to the tree to view it."
+  },
+  "lines": [],
+  "people": []
+}

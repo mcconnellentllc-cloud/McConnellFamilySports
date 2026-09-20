@@ -381,6 +381,41 @@ actual teammates.
 
 ---
 
+## Family history and the tree
+
+`data/history.json` holds the history section at **Family → Family History**.
+Every field is optional, so the page is useful from the first entry:
+
+```json
+{
+  "intro": "A sentence or two under the page title.",
+  "tree": {
+    "url": "https://www.ancestry.com/family-tree/tree/…",
+    "label": "The McConnell tree on Ancestry",
+    "note": "Opens Ancestry — you'll need an account with access to the tree."
+  },
+  "lines": [
+    { "surname": "McConnell", "origin": "Ireland → Nebraska → Haxtun",
+      "blurb": "One or two sentences about the line." }
+  ],
+  "people": [
+    { "name": "…", "years": "1901–1984", "relation": "Tyndle's great-grandfather",
+      "place": "Phillips County, CO", "story": "…",
+      "photo": "media/_history/name.jpg", "sort": "1901" }
+  ]
+}
+```
+
+People sort by `sort` (or `years`) oldest first. Photos go in
+`media/_history/` — the leading underscore keeps `build.py` from filing them
+into a girl's sport gallery.
+
+The Ancestry link is just a link. Ancestry requires an account with access to
+that tree, so relatives without one will hit a login wall — the stories
+written into `people` are what everyone can actually read.
+
+---
+
 ## Memories, sorted by type
 
 Memories live in `data/content.json` under `personal`. Each entry can carry a
