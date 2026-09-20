@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-sync_teams.py — one-way Microsoft Teams → McConnell Family Sports sync.
+sync_teams.py — one-way Microsoft Teams → The McConnell Family sync.
 
 Reads new messages and attached photos from the family Teams channel
 via the Microsoft Graph API, extracts EXIF metadata, optionally

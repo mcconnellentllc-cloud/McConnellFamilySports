@@ -1,4 +1,4 @@
-/* McConnell Family Sports — single-page archive */
+/* The McConnell Family — single-page archive */
 (function () {
   "use strict";
 
@@ -357,7 +357,7 @@
     }
     btn.addEventListener("click", async function () {
       const data = {
-        title: "McConnell Family Sports",
+        title: "The McConnell Family",
         text: "The McConnell family's scores, pictures, and memories.",
         url: url,
       };
@@ -386,7 +386,7 @@
     v.innerHTML = "";
     v.appendChild(shareBar());
     const cover = coverEl(
-      "McConnell Family Sports",
+      "The McConnell Family",
       "Scores, pictures, places, and memories — kept together.",
       "home"
     );
