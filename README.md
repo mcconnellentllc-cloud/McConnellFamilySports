@@ -381,6 +381,28 @@ actual teammates.
 
 ---
 
+## Photos are resized automatically
+
+`build.py` shrinks any photo whose long edge is over **1800px** and re-encodes
+it, so you can upload straight from a phone without thinking about it. A
+typical 2–4 MB iPhone shot lands around 350–450 KB — about a quarter of the
+size, with no visible difference at any size the site displays.
+
+- Files keep their own name and format. A `.jpeg` stays `.jpeg`; PNGs stay
+  PNGs, since they may carry transparency.
+- Photos already under 1800px are left untouched, so nothing is re-encoded
+  twice and quality never degrades on repeat builds.
+- EXIF is dropped, which also removes the **GPS coordinates** a phone writes
+  into every shot. Rotation is applied to the pixels first, so nothing ends up
+  sideways.
+- Best effort: if Pillow is unavailable the originals are served as-is and the
+  build still succeeds.
+
+**Videos are not touched.** A single phone clip can be 10–15 MB — more than
+thirty resized photos — so they are the thing to watch as the site grows.
+
+---
+
 ## Family history and the tree
 
 `data/history.json` holds the history section at **Family → Family History**.
