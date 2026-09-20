@@ -358,7 +358,7 @@
     btn.addEventListener("click", async function () {
       const data = {
         title: "The McConnell Family",
-        text: "The McConnell family's scores, pictures, and memories.",
+        text: "The McConnell family's seasons, pictures, and memories.",
         url: url,
       };
       if (navigator.share) {
@@ -387,7 +387,7 @@
     v.appendChild(shareBar());
     const cover = coverEl(
       "The McConnell Family",
-      "Scores, pictures, places, and memories — kept together.",
+      "Seasons, school years, trips, and the moments worth keeping.",
       "home"
     );
     cover.insertBefore(haxtunCrest(), cover.firstChild);
@@ -402,7 +402,7 @@
     // Shared family archive.
     grid.appendChild(el("a", { class: "tile tile--family", href: "#/family" }, [
       el("h2", { class: "tile__name" }, ["Family"]),
-      el("p", { class: "tile__meta" }, ["Trips, holidays, and shared memories."]),
+      el("p", { class: "tile__meta" }, ["Trips, holidays, and the moments we keep together."]),
     ]));
     v.appendChild(grid);
   }
@@ -657,7 +657,7 @@
   function viewFamily() {
     const v = $("#view");
     v.innerHTML = "";
-    v.appendChild(coverEl("The McConnells", "Trips, holidays, and shared memories.", "family"));
+    v.appendChild(coverEl("The McConnells", "Trips, holidays, and the moments we keep together.", "family"));
     const grid = el("div", { class: "tiles" });
     [
       ["travel", "Travel", "Family trips and the places we've been."],
