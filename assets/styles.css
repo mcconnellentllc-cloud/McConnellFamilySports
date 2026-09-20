@@ -628,6 +628,41 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
   margin: 8px 0 0;
 }
+/* ---------- Family history ---------- */
+.tree-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 20px;
+}
+.tree-card__title { font-family: var(--serif); font-size: 21px; margin: 0 0 8px; }
+.tree-card__link { font-size: 15px; font-weight: 600; margin: 0 0 6px; }
+.tree-card__note { color: var(--muted); font-size: 13px; margin: 0; }
+.lines { margin-bottom: 22px; }
+.lines__title { font-family: var(--serif); font-size: 19px; margin: 0 0 10px; }
+.lines__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.line {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.line h4 { font-family: var(--serif); font-size: 18px; margin: 0 0 4px; }
+.line__origin { color: var(--muted); font-size: 13px; margin: 0 0 6px; }
+.line__blurb { font-size: 14px; margin: 0; }
+.person {
+  border-left: 3px solid var(--line);
+  padding: 2px 0 2px 16px;
+  margin-bottom: 20px;
+}
+.person__name { font-family: var(--serif); font-size: 20px; margin: 0 0 4px; }
+.person__meta { color: var(--muted); font-size: 13px; margin: 0 0 8px; }
+.person__story { font-size: 15px; margin: 0; }
+
 /* Memory type filter chips */
 .chips {
   display: flex;

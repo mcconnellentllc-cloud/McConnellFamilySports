@@ -119,7 +119,7 @@
     }
   }
   async function loadData() {
-    const [athletes, content, gallery, meals, supplies, chores, calendar] = await Promise.all([
+    const [athletes, content, gallery, meals, supplies, chores, calendar, history] = await Promise.all([
       loadJSON("data/athletes.json"),
       loadJSON("data/content.json"),
       loadJSON("data/gallery.json").catch(function () { return { photos: [] }; }),
@@ -127,6 +127,7 @@
       loadJSON("data/supplies.json").catch(function () { return null; }),
       loadJSON("data/chores.json").catch(function () { return null; }),
       loadJSON("data/calendar.json").catch(function () { return null; }),
+      loadJSON("data/history.json").catch(function () { return null; }),
     ]);
     state.athletes = athletes;
     state.content = content;
@@ -135,6 +136,7 @@
     state.supplies = supplies;
     state.chores = chores;
     state.calendar = calendar;
+    state.history = history;
   }
 
   // ---------- Lookups ----------
@@ -270,7 +272,11 @@
     if (route.route === "family" || route.route === "familyCategory") {
       parts.push(el("a", { href: "#/family" }, ["Family"]));
       if (route.route === "familyCategory" && route.category) {
-        parts.push(el("a", { href: "#/family/" + route.category }, [categoryName(route.category)]));
+        // "history" is family-only, so it has no entry in the shared category list.
+        const label = route.category === "history"
+          ? "Family History"
+          : categoryName(route.category);
+        parts.push(el("a", { href: "#/family/" + route.category }, [label]));
       }
     } else if (route.route.indexOf("portal") === 0) {
       parts.push(el("a", { href: "#/portal" }, ["Family Portal"]));
@@ -660,6 +666,7 @@
     v.appendChild(coverEl("The McConnells", "Trips, holidays, and the moments we keep together.", "family"));
     const grid = el("div", { class: "tiles" });
     [
+      ["history", "Family History", "Where the McConnells come from, and the tree."],
       ["travel", "Travel", "Family trips and the places we've been."],
       ["personal", "Memories", "Holidays, milestones, and everyday moments."],
     ].forEach(function (c) {
@@ -673,6 +680,15 @@
   function viewFamilyCategory(route) {
     const v = $("#view");
     v.innerHTML = "";
+    if (route.category === "history") {
+      const h = state.history || {};
+      v.appendChild(coverEl("Family · History", h.intro || null, "familycat:history"));
+      const body = el("section", null);
+      renderHistory(body, h);
+      v.appendChild(body);
+      return;
+    }
+
     const isTravel = route.category === "travel";
     const title = isTravel ? "Travel" : "Memories";
     v.appendChild(coverEl("Family · " + title, null, "familycat:" + route.category));
@@ -680,6 +696,75 @@
     if (isTravel) renderTravel(body, "family");
     else renderPersonal(body, "family", route.tab);
     v.appendChild(body);
+  }
+
+  // Family history: a link out to the tree, plus whatever stories have been
+  // written down. Everything is optional, so the page is useful from the
+  // first entry rather than only once it is complete.
+  function renderHistory(parent, h) {
+    const tree = h.tree || {};
+    if (tree.url) {
+      const card = el("article", { class: "tree-card" }, [
+        el("h3", { class: "tree-card__title" }, ["🌳  " + (tree.label || "The family tree")]),
+      ]);
+      card.appendChild(el("p", { class: "tree-card__link" }, [
+        el("a", { href: tree.url, target: "_blank", rel: "noopener" }, ["Open the tree →"]),
+      ]));
+      if (tree.note) card.appendChild(el("p", { class: "tree-card__note" }, [tree.note]));
+      parent.appendChild(card);
+    }
+
+    const lines = h.lines || [];
+    if (lines.length) {
+      const wrap = el("section", { class: "lines" });
+      wrap.appendChild(el("h3", { class: "lines__title" }, ["The lines"]));
+      const grid = el("div", { class: "lines__grid" });
+      lines.forEach(function (l) {
+        grid.appendChild(el("article", { class: "line" }, [
+          el("h4", null, [l.surname || "Family"]),
+          l.origin ? el("p", { class: "line__origin" }, [l.origin]) : null,
+          l.blurb ? el("p", { class: "line__blurb" }, [l.blurb]) : null,
+        ]));
+      });
+      wrap.appendChild(grid);
+      parent.appendChild(wrap);
+    }
+
+    const people = (h.people || []).slice().sort(function (a, b) {
+      return String(a.sort || a.years || "").localeCompare(String(b.sort || b.years || ""));
+    });
+    if (!people.length) {
+      parent.appendChild(emptyState(
+        "No stories written down yet",
+        "Add them to <code>people</code> in <code>data/history.json</code> — a name, " +
+        "the years, how they connect, where they lived, and the story. Photos go in " +
+        "<code>media/_history/</code>."
+      ));
+      return;
+    }
+    people.forEach(function (pn) {
+      const card = el("article", { class: "person" });
+      card.appendChild(el("h3", { class: "person__name" }, [pn.name || "Unnamed"]));
+      const meta = [];
+      if (pn.years) meta.push(pn.years);
+      if (pn.relation) meta.push(pn.relation);
+      if (pn.place) meta.push(pn.place);
+      if (meta.length) card.appendChild(el("p", { class: "person__meta" }, [meta.join(" · ")]));
+      if (pn.story) card.appendChild(el("p", { class: "person__story" }, [pn.story]));
+      if (pn.photo) {
+        const fig = el("figure", { class: "memory__photo" }, [
+          el("img", {
+            src: pn.photo,
+            alt: pn.photoCaption || pn.name || "",
+            loading: "lazy",
+            onerror: function () { fig.remove(); },
+          }),
+        ]);
+        if (pn.photoCaption) fig.appendChild(el("figcaption", null, [pn.photoCaption]));
+        card.appendChild(fig);
+      }
+      parent.appendChild(card);
+    });
   }
 
   // ---------- Family Portal (the private, personal side) ----------
