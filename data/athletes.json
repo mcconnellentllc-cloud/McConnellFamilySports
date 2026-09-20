@@ -3,19 +3,19 @@
     {
       "slug": "tyndle",
       "name": "Tyndle",
-      "tagline": "Scores, pictures, places, and memories.",
+      "tagline": "Seasons, school years, and the moments in between.",
       "sports": ["gymnastics", "softball", "volleyball"]
     },
     {
       "slug": "oakley",
       "name": "Oakley",
-      "tagline": "Scores, pictures, places, and memories.",
+      "tagline": "Seasons, school years, and the moments in between.",
       "sports": ["gymnastics", "softball", "volleyball"]
     },
     {
       "slug": "tayla",
       "name": "Tayla",
-      "tagline": "Scores, pictures, places, and memories.",
+      "tagline": "Seasons, school years, and the moments in between.",
       "sports": ["gymnastics", "softball", "volleyball"]
     }
   ],
