@@ -28,6 +28,46 @@
       "athlete": "tyndle",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_6745.jpeg",
+      "caption": "",
+      "file": "IMG_6745.jpeg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_6767.jpeg",
+      "caption": "",
+      "file": "IMG_6767.jpeg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_6771.jpeg",
+      "caption": "",
+      "file": "IMG_6771.jpeg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_6977.jpeg",
+      "caption": "",
+      "file": "IMG_6977.jpeg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "video",
+      "src": "media/tyndle/volleyball/IMG_6978.mov",
+      "caption": "",
+      "file": "IMG_6978.mov"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/tyndle/volleyball/In-play-at-Sedgwick-County.jpg",
       "caption": "In play at Sedgwick County",
       "file": "In-play-at-Sedgwick-County.jpg"
