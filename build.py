@@ -28,6 +28,13 @@ CONTENT = ROOT / "data" / "content.json"
 ATHLETES = ROOT / "data" / "athletes.json"
 CAL_DIR = ROOT / "calendar"
 
+# Photos come straight off a phone at full resolution — several megabytes and
+# thousands of pixels wide. Nothing on the site displays them that large, so
+# the build shrinks the long edge to this and re-encodes. Comfortably sharp on
+# a retina screen in the lightbox, and roughly a quarter of the file size.
+LONG_EDGE = 1800
+JPEG_QUALITY = 85
+
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".heic", ".heif"}
 # Web-friendly video containers. .mp4 (H.264/AAC) plays in every browser;
 # .mov (iPhone), .m4v, and .webm are also detected and rendered inline.
@@ -85,6 +92,75 @@ def convert_heic(path: Path) -> Path:
     path.unlink()
     print(f"  + converted {path.name} -> {jpg.name}")
     return jpg
+
+
+def optimize_image(path: Path) -> Path:
+    """Shrink an oversized photo in place, and drop its EXIF.
+
+    Two things happen here worth knowing about:
+
+    * Orientation is baked into the pixels before the EXIF is discarded.
+      iPhone photos are often stored sideways with a rotation flag; dropping
+      that flag without applying it first would leave them on their side.
+    * EXIF goes away, which also removes the GPS coordinates a phone writes
+      into every shot. These files are served from a public site, so losing
+      the exact location a photo of the girls was taken is a feature.
+
+    Best effort: if Pillow is missing or a file will not open, the original is
+    left exactly as it is and the build carries on.
+    """
+    ext = path.suffix.lower()
+    # The file keeps its own name and format. Renaming someone's upload is a
+    # surprise nobody asked for, and .jpeg is as valid as .jpg.
+    if ext not in {".jpg", ".jpeg", ".png", ".webp"}:
+        return path
+    try:
+        from PIL import Image, ImageOps
+    except Exception:
+        return path
+    try:
+        with Image.open(path) as im:
+            if max(im.size) <= LONG_EDGE:
+                return path  # already small enough; never re-encode needlessly
+            before = path.stat().st_size
+            im = ImageOps.exif_transpose(im)          # honour rotation...
+            im.thumbnail((LONG_EDGE, LONG_EDGE), Image.LANCZOS)
+            if ext == ".png":
+                # Keep PNG as PNG: it may carry transparency, and a flattened
+                # screenshot or logo looks worse as JPEG, not better.
+                im.save(path, "PNG", optimize=True)
+            elif ext == ".webp":
+                im.save(path, "WEBP", quality=JPEG_QUALITY, method=6)
+            else:
+                im.convert("RGB").save(path, "JPEG", quality=JPEG_QUALITY,
+                                       optimize=True, progressive=True)
+    except Exception as exc:
+        print(f"  ! {path.name}: could not resize ({exc}), leaving as-is.")
+        return path
+    after = path.stat().st_size
+    print(f"  ~ {path.name}: {before / 1048576:.2f} MB -> {after / 1048576:.2f} MB")
+    return path
+
+
+def optimize_media() -> None:
+    """Convert and shrink every photo under media/, including _ folders.
+
+    The underscore folders (_family, _memories, _history, _schedules) never
+    reach a gallery, but they are served to browsers just the same, so they
+    get the same treatment.
+    """
+    if not MEDIA.exists():
+        return
+    for f in sorted(MEDIA.rglob("*")):
+        if not f.is_file() or f.name.startswith("."):
+            continue
+        ext = f.suffix.lower()
+        if ext not in IMAGE_EXTS:
+            continue
+        if ext in {".heic", ".heif"}:
+            f = convert_heic(f)
+        if f.suffix.lower() in IMAGE_EXTS and f.suffix.lower() not in {".gif"}:
+            optimize_image(f)
 
 
 def scan() -> list[dict]:
@@ -250,6 +326,7 @@ def write_calendars() -> int:
 
 
 def main() -> int:
+    optimize_media()
     photos = scan()
     OUT.parent.mkdir(parents=True, exist_ok=True)
     payload = {"photos": photos}
