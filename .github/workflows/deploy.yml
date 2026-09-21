@@ -34,6 +34,13 @@ jobs:
         # build.py leaves HEIC files alone rather than failing the deploy.
         run: pip install pillow pillow-heif || true
 
+      - name: Ensure ffmpeg is available
+        # build.py re-encodes phone video to 720p H.264 in an .mp4. ffmpeg ships
+        # on the runner image, so this usually prints a version and moves on;
+        # the install is only a fallback. Failure is tolerated — build.py leaves
+        # videos untouched when ffmpeg is missing.
+        run: ffmpeg -version >/dev/null 2>&1 || sudo apt-get install -y ffmpeg || true
+
       - name: Regenerate gallery.json from media/
         run: python3 build.py
 
