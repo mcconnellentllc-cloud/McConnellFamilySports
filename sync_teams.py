@@ -640,6 +640,70 @@ def channel_files_drive_root(gs: GraphSession, team_id: str, channel_id: str) ->
     return None
 
 
+def sharepoint_library_root(gs: GraphSession, site_url: str, library: str | None) -> str | None:
+    """Resolve a SharePoint document library to the same /drives/... path shape
+    that channel_files_drive_root returns, so walk_drive can consume it.
+
+    site_url is the address you see in the browser, e.g.
+    https://contoso.sharepoint.com/sites/OurFamily — everything after the host
+    is the server-relative path Graph wants. library is the document library's
+    display name, e.g. "Our Family - Pictures"; leave it unset to use the
+    site's default library.
+
+    When the library cannot be found, every library on the site is logged, so
+    the run itself tells you what to put in the setting.
+    """
+    cleaned = site_url.strip().rstrip("/")
+    cleaned = re.sub(r"^https?://", "", cleaned)
+    if "/" in cleaned:
+        host, path = cleaned.split("/", 1)
+        site_ref = f"{host}:/{path}:"
+    else:
+        host, site_ref = cleaned, cleaned
+    r = gs.get(f"/sites/{site_ref}")
+    if r.status_code != 200:
+        log.error("Could not resolve SharePoint site %s -> HTTP %s", site_url, r.status_code)
+        log.error("Expected something like https://contoso.sharepoint.com/sites/OurFamily")
+        return None
+    site_id = r.json().get("id")
+    if not site_id:
+        log.error("Site lookup returned no id for %s", site_url)
+        return None
+
+    r = gs.get(f"/sites/{site_id}/drives")
+    if r.status_code != 200:
+        log.error("Could not list libraries on %s -> HTTP %s", site_url, r.status_code)
+        return None
+    drives = r.json().get("value", [])
+    if not drives:
+        log.error("No document libraries on %s", site_url)
+        return None
+
+    drive = None
+    if library:
+        want = library.strip().casefold()
+        drive = next((d for d in drives if (d.get("name") or "").strip().casefold() == want), None)
+        if not drive:
+            log.error("No library named %r on %s. Libraries found:", library, site_url)
+            for d in drives:
+                log.error("    %s", d.get("name"))
+            return None
+    else:
+        drive = drives[0]
+        log.info("No SHAREPOINT_LIBRARY set; using %r", drive.get("name"))
+
+    drive_id = drive.get("id")
+    r = gs.get(f"/drives/{drive_id}/root")
+    if r.status_code != 200:
+        log.error("Could not open the root of %r -> HTTP %s", drive.get("name"), r.status_code)
+        return None
+    root_id = r.json().get("id")
+    if not root_id:
+        return None
+    log.info("SharePoint library %r resolved", drive.get("name"))
+    return f"/drives/{drive_id}/items/{root_id}"
+
+
 def walk_drive(gs: GraphSession, folder_path: str, since: str | None) -> Iterable[dict]:
     """Yield drive items (files only) modified after `since` (ISO 8601)."""
     for item in gs.paged(f"{folder_path}/children"):
@@ -726,8 +790,17 @@ def sync_channel_files(gs: GraphSession, ctx: SyncContext, team_id: str, channel
     root = channel_files_drive_root(gs, team_id, channel_id)
     if not root:
         return
+    sync_drive_folder(gs, ctx, root, "channel drive")
+
+
+def sync_drive_folder(gs: GraphSession, ctx: SyncContext, root: str, label: str) -> None:
+    """Walk any Graph drive folder and process the media in it.
+
+    A Teams channel's files folder and a plain SharePoint document library are
+    both just drives to Graph, so the same walk serves both.
+    """
     since = ctx.state.get("lastDriveItemDateTime")
-    log.info("Walking channel drive since %s", since)
+    log.info("Walking %s since %s", label, since)
     for item in walk_drive(gs, root, since):
         name = item.get("name", "")
         ext = Path(name).suffix.lower()
@@ -770,11 +843,23 @@ def main() -> int:
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
 
-    required = ["TENANT_ID", "CLIENT_ID", "CLIENT_SECRET", "TEAMS_TEAM_ID", "TEAMS_CHANNEL_ID"]
+    required = ["TENANT_ID", "CLIENT_ID", "CLIENT_SECRET"]
     missing = [k for k in required if not os.environ.get(k)]
     if missing:
         log.error("Missing required env vars: %s", ", ".join(missing))
         log.error("See SETUP-AZURE.md for how to configure them.")
+        return 2
+
+    # Two sources, either or both. Teams needs a team and channel; SharePoint
+    # needs the address of a site. Credentials are shared.
+    team_id = os.environ.get("TEAMS_TEAM_ID")
+    channel_id = os.environ.get("TEAMS_CHANNEL_ID")
+    sp_site = os.environ.get("SHAREPOINT_SITE_URL")
+    sp_library = os.environ.get("SHAREPOINT_LIBRARY")
+    if not (team_id and channel_id) and not sp_site:
+        log.error("Nothing to sync from. Set TEAMS_TEAM_ID and TEAMS_CHANNEL_ID, "
+                  "or SHAREPOINT_SITE_URL (with SHAREPOINT_LIBRARY), or both.")
+        log.error("See SETUP-AZURE.md.")
         return 2
 
     dry_run = os.environ.get("SYNC_DRY_RUN") == "1"
@@ -805,12 +890,14 @@ def main() -> int:
         client_secret=os.environ["CLIENT_SECRET"],
     )
 
-    team_id = os.environ["TEAMS_TEAM_ID"]
-    channel_id = os.environ["TEAMS_CHANNEL_ID"]
-
     try:
-        sync_messages(gs, ctx, team_id, channel_id)
-        sync_channel_files(gs, ctx, team_id, channel_id)
+        if team_id and channel_id:
+            sync_messages(gs, ctx, team_id, channel_id)
+            sync_channel_files(gs, ctx, team_id, channel_id)
+        if sp_site:
+            root = sharepoint_library_root(gs, sp_site, sp_library)
+            if root:
+                sync_drive_folder(gs, ctx, root, f"SharePoint library {sp_library or '(default)'}")
     except requests.HTTPError as e:
         log.error("Graph request failed: %s", e)
         # Persist what we have so far — partial progress is fine.
