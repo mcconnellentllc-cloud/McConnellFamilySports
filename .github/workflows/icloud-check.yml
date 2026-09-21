@@ -28,6 +28,12 @@ jobs:
               -H 'Content-Type: text/plain' --data '{"streamCtag":null}' || echo "curl failed: $?"
           done
           echo
+          echo "--- Microsoft Graph (the Teams sync path) ---"
+          curl -sS -m 20 -o /dev/null -w "graph.microsoft.com  http=%{http_code}\n" \
+            "https://graph.microsoft.com/v1.0/\$metadata" || echo "curl failed: $?"
+          curl -sS -m 20 -o /dev/null -w "login.microsoftonline.com  http=%{http_code}\n" \
+            "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration" || echo "curl failed: $?"
+          echo
           echo "--- first 600 bytes of the last response ---"
           head -c 600 /tmp/out.json 2>/dev/null || echo "(nothing)"
           echo
