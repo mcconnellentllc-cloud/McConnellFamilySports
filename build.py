@@ -106,6 +106,61 @@ def convert_heic(path: Path) -> Path:
     return jpg
 
 
+def _dms_to_decimal(dms, ref: str) -> float | None:
+    try:
+        d, m, sec = (float(x) for x in dms)
+    except Exception:
+        return None
+    val = d + m / 60 + sec / 3600
+    return -val if str(ref).upper() in {"S", "W"} else val
+
+
+def read_capture_meta(path: Path) -> dict:
+    """When and where a photo was taken, read before its EXIF is stripped.
+
+    Returned coordinates are rounded to two decimals — roughly a kilometre,
+    enough to tell one town or campground from another, and deliberately not
+    enough to point at a house. This lands in a public repo.
+    """
+    meta: dict = {}
+    try:
+        from PIL import Image, ExifTags
+    except Exception:
+        return meta
+    try:
+        with Image.open(path) as im:
+            raw = im.getexif()
+            if not raw:
+                return meta
+            for tag in ("DateTimeOriginal", "DateTime"):
+                tid = next((k for k, v in ExifTags.TAGS.items() if v == tag), None)
+                val = raw.get(tid) if tid else None
+                if not val:
+                    sub = raw.get_ifd(ExifTags.IFD.Exif) if hasattr(raw, "get_ifd") else {}
+                    val = sub.get(tid) if tid else None
+                if val:
+                    # "2026:07:13 09:41:02" -> "2026-07-13"
+                    meta["taken"] = str(val)[:10].replace(":", "-")
+                    break
+            gps_ifd = raw.get_ifd(ExifTags.IFD.GPSInfo) if hasattr(raw, "get_ifd") else {}
+            if gps_ifd:
+                g = {ExifTags.GPSTAGS.get(k, k): v for k, v in gps_ifd.items()}
+                if "GPSLatitude" in g and "GPSLongitude" in g:
+                    lat = _dms_to_decimal(g["GPSLatitude"], g.get("GPSLatitudeRef", "N"))
+                    lng = _dms_to_decimal(g["GPSLongitude"], g.get("GPSLongitudeRef", "E"))
+                    if lat is not None and lng is not None:
+                        meta["lat"] = round(lat, 2)
+                        meta["lng"] = round(lng, 2)
+    except Exception:
+        pass
+    return meta
+
+
+# Filled in during optimize_media(), consumed by scan(). Keyed by the path
+# relative to the repo root.
+CAPTURE_META: dict[str, dict] = {}
+
+
 def optimize_image(path: Path) -> Path:
     """Shrink an oversized photo in place, and drop its EXIF.
 
@@ -122,6 +177,11 @@ def optimize_image(path: Path) -> Path:
     left exactly as it is and the build carries on.
     """
     ext = path.suffix.lower()
+    # Read when and where before anything touches the file: the re-encode
+    # below drops EXIF, and with it the GPS and timestamp.
+    meta = read_capture_meta(path)
+    if meta:
+        CAPTURE_META[str(path.relative_to(ROOT))] = meta
     # The file keeps its own name and format. Renaming someone's upload is a
     # surprise nobody asked for, and .jpeg is as valid as .jpg.
     if ext not in {".jpg", ".jpeg", ".png", ".webp"}:
@@ -286,16 +346,16 @@ def scan() -> list[dict]:
                     f = convert_heic(f)
                     ext = f.suffix.lower()
                 rel = f"media/{athlete}/{sport}/{f.name}"
-                photos.append(
-                    {
-                        "athlete": athlete,
-                        "sport": sport,
-                        "type": "video" if ext in VIDEO_EXTS else "photo",
-                        "src": rel,
-                        "caption": caption_from_filename(f.stem),
-                        "file": f.name,
-                    }
-                )
+                entry = {
+                    "athlete": athlete,
+                    "sport": sport,
+                    "type": "video" if ext in VIDEO_EXTS else "photo",
+                    "src": rel,
+                    "caption": caption_from_filename(f.stem),
+                    "file": f.name,
+                }
+                entry.update(CAPTURE_META.get(rel, {}))
+                photos.append(entry)
     return photos
 
 
