@@ -689,8 +689,14 @@ def sharepoint_library_root(gs: GraphSession, site_url: str, library: str | None
                 log.error("    %s", d.get("name"))
             return None
     else:
-        drive = drives[0]
-        log.info("No SHAREPOINT_LIBRARY set; using %r", drive.get("name"))
+        # Deliberately do not guess. Picking the first library silently syncs
+        # the wrong folder, which is worse than stopping — so list what is
+        # there and let a human choose.
+        log.error("SHAREPOINT_LIBRARY is not set. Libraries on %s:", site_url)
+        for d in drives:
+            log.error("    %s", d.get("name"))
+        log.error("Set SHAREPOINT_LIBRARY to one of those and run again.")
+        return None
 
     drive_id = drive.get("id")
     r = gs.get(f"/drives/{drive_id}/root")
