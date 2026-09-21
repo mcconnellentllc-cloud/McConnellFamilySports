@@ -6,6 +6,9 @@ name: iCloud reachability check
 
 on:
   workflow_dispatch:
+  push:
+    branches: [claude/tyndle-jr-high-volleyball-xq2jk9]
+    paths: ['.github/workflows/icloud-check.yml']
 
 jobs:
   probe:
