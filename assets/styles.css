@@ -674,6 +674,14 @@ a:hover { text-decoration: underline; }
 .line h4 { font-family: var(--serif); font-size: 18px; margin: 0 0 4px; }
 .line__origin { color: var(--muted); font-size: 13px; margin: 0 0 6px; }
 .line__blurb { font-size: 14px; margin: 0; }
+.line--link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.line--link:hover { border-color: var(--accent); }
+.line--link h4 { color: var(--accent); }
+.line__story { font-size: 16px; margin: 0 0 20px; }
 .person {
   border-left: 3px solid var(--line);
   padding: 2px 0 2px 16px;

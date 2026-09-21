@@ -280,6 +280,12 @@
           : route.category === "recipes" ? "Recipes"
           : categoryName(route.category);
         parts.push(el("a", { href: "#/family/" + route.category }, [label]));
+        if (route.category === "history" && route.tab) {
+          const ln = ((state.history || {}).lines || [])
+            .find(function (l) { return l.slug === route.tab; });
+          if (ln) parts.push(el("a", { href: "#/family/history/" + ln.slug },
+            ["The " + ln.surname + "s"]));
+        }
       }
     } else if (route.route.indexOf("portal") === 0) {
       parts.push(el("a", { href: "#/portal" }, ["Family Portal"]));
@@ -719,9 +725,25 @@
 
     if (route.category === "history") {
       const h = state.history || {};
-      v.appendChild(coverEl("Family · History", h.intro || null, "familycat:history"));
+      const line = route.tab
+        ? (h.lines || []).find(function (l) { return l.slug === route.tab; })
+        : null;
+      if (route.tab && !line) {
+        v.appendChild(coverEl("Family · History", null, "familycat:history"));
+        const body = el("section", null);
+        body.appendChild(emptyState("Unknown family line",
+          "Add it to <code>lines</code> in <code>data/history.json</code>."));
+        v.appendChild(body);
+        return;
+      }
+      v.appendChild(coverEl(
+        line ? "The " + line.surname + "s" : "Family · History",
+        line ? (line.blurb || line.origin || null) : (h.intro || null),
+        "familycat:history" + (line ? ":" + line.slug : "")
+      ));
       const body = el("section", null);
-      renderHistory(body, h);
+      if (line) renderHistoryLine(body, h, line);
+      else renderHistory(body, h);
       v.appendChild(body);
       return;
     }
@@ -733,6 +755,22 @@
     if (isTravel) renderTravel(body, "family");
     else renderPersonal(body, "family", route.tab);
     v.appendChild(body);
+  }
+
+  // One surname line: its story, then the people filed under it.
+  function renderHistoryLine(parent, h, line) {
+    if (line.story) parent.appendChild(el("p", { class: "line__story" }, [line.story]));
+    const people = (h.people || []).filter(function (p) { return p.line === line.slug; });
+    if (!people.length) {
+      parent.appendChild(emptyState(
+        "Nothing written down for the " + line.surname + "s yet",
+        "Add entries to <code>people</code> in <code>data/history.json</code> with " +
+        "<code>\"line\": \"" + line.slug + "\"</code> — a name, the years, how they " +
+        "connect, where they lived, and the story."
+      ));
+      return;
+    }
+    renderPeople(parent, people);
   }
 
   // Recipes. Every field but the title is optional: a photo of a handwritten
@@ -805,10 +843,16 @@
       wrap.appendChild(el("h3", { class: "lines__title" }, ["The lines"]));
       const grid = el("div", { class: "lines__grid" });
       lines.forEach(function (l) {
-        grid.appendChild(el("article", { class: "line" }, [
+        const n = (h.people || []).filter(function (pn) { return pn.line === l.slug; }).length;
+        grid.appendChild(el("a", {
+          class: "line line--link",
+          href: "#/family/history/" + l.slug,
+        }, [
           el("h4", null, [l.surname || "Family"]),
           l.origin ? el("p", { class: "line__origin" }, [l.origin]) : null,
-          l.blurb ? el("p", { class: "line__blurb" }, [l.blurb]) : null,
+          el("p", { class: "line__blurb" }, [
+            l.blurb || (n ? n + " written up" : "Nothing written down yet"),
+          ]),
         ]));
       });
       wrap.appendChild(grid);
@@ -827,6 +871,10 @@
       ));
       return;
     }
+    renderPeople(parent, people);
+  }
+
+  function renderPeople(parent, people) {
     people.forEach(function (pn) {
       const card = el("article", { class: "person" });
       card.appendChild(el("h3", { class: "person__name" }, [pn.name || "Unnamed"]));
