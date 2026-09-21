@@ -439,6 +439,26 @@ photo of a handwritten card with nothing typed up is still worth keeping:
 
 ---
 
+## The family crest
+
+The shield at the top of Family History is an **original design made for this
+family** — not a historical grant, and not a surname "coat of arms" bought off
+a heraldry site. Scotland's Court of the Lord Lyon is explicit that no such
+thing exists: arms belong to one individual at a time and descend only to that
+person's male-line heirs.
+
+What the design means:
+
+- **Six stars** across the chief, one for each child
+- **A bound wheat sheaf** over **plowed ground** — the farm
+- **Red and white**, the colors already used across the site
+- **ROOTED AND RISING** on the ribbon
+
+It lives in `familyShield()` in `assets/app.js` as inline SVG, so it scales
+cleanly and needs no image file. The motto is one string in that function.
+
+---
+
 ## Family history and the tree
 
 `data/history.json` holds the history section at **Family → Family History**.
