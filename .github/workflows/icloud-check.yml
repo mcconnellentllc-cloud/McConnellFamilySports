@@ -1,0 +1,32 @@
+name: iCloud reachability check
+
+# A throwaway probe. The sandbox this repo is developed in cannot reach
+# icloud.com, so before building an iCloud crawler we need to know whether the
+# Actions runner can. Run by hand; delete once the answer is known.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Can the runner reach Apple at all?
+        run: |
+          echo "--- photos.icloud.com ---"
+          curl -sS -m 20 -o /dev/null -w "http=%{http_code}\n" \
+            "https://photos.icloud.com/shared/album/${TOKEN}" || echo "curl failed: $?"
+          echo
+          echo "--- sharedstreams webstream API ---"
+          for H in p01 p23 p52; do
+            printf "%s " "$H"
+            curl -sS -m 20 -o /tmp/out.json -w "http=%{http_code} bytes=%{size_download}\n" \
+              -X POST "https://${H}-sharedstreams.icloud.com/${TOKEN}/sharedstreams/webstream" \
+              -H 'Content-Type: text/plain' --data '{"streamCtag":null}' || echo "curl failed: $?"
+          done
+          echo
+          echo "--- first 600 bytes of the last response ---"
+          head -c 600 /tmp/out.json 2>/dev/null || echo "(nothing)"
+          echo
+        env:
+          TOKEN: 099K-AmYaWGib7eYBygC2UtlA
