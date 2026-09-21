@@ -75,6 +75,48 @@ button again.
 
 ---
 
+## Step 2b — Choose what to sync from
+
+The sync can read either a **Teams channel**, a **SharePoint document
+library**, or both. The credentials above cover both; only the pointers
+differ.
+
+### Option A — a SharePoint document library (simplest)
+
+If a phone already syncs into a library — say **Our Family - Pictures**
+under your tenant — point the sync straight at it. Two settings:
+
+| Secret | Value |
+| --- | --- |
+| `SHAREPOINT_SITE_URL` | The address of the site, as it appears in the browser: `https://<tenant>.sharepoint.com/sites/<SiteName>` |
+| `SHAREPOINT_LIBRARY` | The library's display name, e.g. `Our Family - Pictures` |
+
+To find the site address: open the library in a browser and copy
+everything up to and including `/sites/<SiteName>` — drop the rest.
+
+Don't know the exact library name? Set `SHAREPOINT_SITE_URL` and leave
+`SHAREPOINT_LIBRARY` empty, then run the sync once. The log lists every
+library on the site, and you copy the name you want from it. Getting it
+wrong is not destructive — the run just tells you the real names and
+stops.
+
+Subfolders are walked too, so a "Kyle's Phone" folder inside the library
+is picked up without any extra configuration.
+
+### Option B — a Teams channel
+
+| Secret | Value |
+| --- | --- |
+| `TEAMS_TEAM_ID` | The team's id |
+| `TEAMS_CHANNEL_ID` | The channel's id |
+
+This also reads messages, so a photo posted in chat with `#tyndle
+#volleyball` is filed by those tags.
+
+Set either pair, or both. If neither is set the sync stops and says so.
+
+---
+
 ## Step 3 — Create a client secret
 
 1. In the left nav of the app, click **Certificates & secrets**.
