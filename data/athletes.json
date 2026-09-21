@@ -164,6 +164,16 @@
       "slug": "celebrations",
       "name": "Celebrations",
       "blurb": "Parties, banquets, and gatherings."
+    },
+    {
+      "slug": "faith",
+      "name": "Faith",
+      "blurb": "Baptisms, confirmations, and church."
+    },
+    {
+      "slug": "pets",
+      "name": "Pets",
+      "blurb": "The animals that are part of the family."
     }
   ],
   "categories": [
