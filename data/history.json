@@ -1,11 +1,33 @@
 {
-  "_comment": "Family history and tree. Hand-edit freely. 'people' entries render newest-to-oldest by the 'sort' field if present, otherwise in the order written. Photos go in media/_history/ (the leading underscore keeps build.py from filing them into a girl's gallery).",
+  "_comment": "Family history. 'lines' are the surnames we descend from, each with its own page at #/family/history/<slug>. 'people' entries carry a 'line' to file them. Everything here should be sourced from the family's own records — a family history page is read as fact by people who come later.",
   "intro": "",
   "tree": {
     "url": "https://www.ancestry.com/family-tree/tree/6845633/family?cfpid=-1216089496",
     "label": "The McConnell tree on Ancestry",
     "note": "Opens Ancestry. You'll need to be signed in, and the tree's owner has to have invited you or made the tree public — otherwise Ancestry shows a private-tree notice instead. Living family members stay hidden to anyone not invited."
   },
-  "lines": [],
+  "lines": [
+    {
+      "slug": "mcconnell",
+      "surname": "McConnell",
+      "origin": "",
+      "blurb": "",
+      "story": ""
+    },
+    {
+      "slug": "peterson",
+      "surname": "Peterson",
+      "origin": "",
+      "blurb": "",
+      "story": ""
+    },
+    {
+      "slug": "barkey",
+      "surname": "Barkey",
+      "origin": "",
+      "blurb": "",
+      "story": ""
+    }
+  ],
   "people": []
 }
