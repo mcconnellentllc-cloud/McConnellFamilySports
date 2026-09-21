@@ -4,35 +4,119 @@
       "slug": "tyndle",
       "name": "Tyndle",
       "tagline": "Seasons, school years, and the moments in between.",
-      "sports": ["gymnastics", "softball", "volleyball"]
+      "sports": [
+        "gymnastics",
+        "softball",
+        "volleyball"
+      ]
     },
     {
       "slug": "oakley",
       "name": "Oakley",
       "tagline": "Seasons, school years, and the moments in between.",
-      "sports": ["gymnastics", "softball", "volleyball"]
+      "sports": [
+        "gymnastics",
+        "softball",
+        "volleyball"
+      ]
     },
     {
       "slug": "tayla",
       "name": "Tayla",
       "tagline": "Seasons, school years, and the moments in between.",
-      "sports": ["gymnastics", "softball", "volleyball"]
+      "sports": [
+        "gymnastics",
+        "softball",
+        "volleyball"
+      ]
+    },
+    {
+      "slug": "gage",
+      "name": "Gage",
+      "tagline": "Seasons, school years, and the moments in between.",
+      "sports": []
+    },
+    {
+      "slug": "gradyn",
+      "name": "Gradyn",
+      "tagline": "Seasons, school years, and the moments in between.",
+      "sports": []
+    },
+    {
+      "slug": "bryce",
+      "name": "Bryce",
+      "tagline": "Seasons, school years, and the moments in between.",
+      "sports": []
     }
   ],
   "sports": [
     {
       "slug": "gymnastics",
       "name": "Gymnastics",
-      "events": ["Vault", "Bars", "Beam", "Floor", "All-Around"],
+      "events": [
+        "Vault",
+        "Bars",
+        "Beam",
+        "Floor",
+        "All-Around"
+      ],
       "qualifying": {
-        "Level 2":    { "Vault": 7.0, "Beam": 8.3,  "Bars": 8.5,  "Floor": 8.3, "All-Around": 32.0 },
-        "Level 3":    { "Vault": 7.0, "Beam": 6.6,  "Bars": 7.2,  "Floor": 7.2, "All-Around": 28.0 },
-        "Level 4":    { "Vault": 7.0, "Beam": 6.6,  "Bars": 6.3,  "Floor": 7.1, "All-Around": 27.0 },
-        "Optional 1": { "Vault": 7.0, "Beam": 6.5,  "Bars": 6.5,  "Floor": 7.0, "All-Around": 27.0 },
-        "Optional 2": { "Vault": 7.5, "Beam": 7.0,  "Bars": 7.0,  "Floor": 7.5, "All-Around": 29.0 },
-        "Optional 3": { "Vault": 8.0, "Beam": 7.5,  "Bars": 7.5,  "Floor": 8.0, "All-Around": 31.0 },
-        "Optional 4": { "Vault": 8.5, "Beam": 8.0,  "Bars": 8.0,  "Floor": 8.5, "All-Around": 33.0 },
-        "Optional 5": { "Vault": 8.8, "Beam": 8.45, "Bars": 8.45, "Floor": 8.8, "All-Around": 34.5 }
+        "Level 2": {
+          "Vault": 7.0,
+          "Beam": 8.3,
+          "Bars": 8.5,
+          "Floor": 8.3,
+          "All-Around": 32.0
+        },
+        "Level 3": {
+          "Vault": 7.0,
+          "Beam": 6.6,
+          "Bars": 7.2,
+          "Floor": 7.2,
+          "All-Around": 28.0
+        },
+        "Level 4": {
+          "Vault": 7.0,
+          "Beam": 6.6,
+          "Bars": 6.3,
+          "Floor": 7.1,
+          "All-Around": 27.0
+        },
+        "Optional 1": {
+          "Vault": 7.0,
+          "Beam": 6.5,
+          "Bars": 6.5,
+          "Floor": 7.0,
+          "All-Around": 27.0
+        },
+        "Optional 2": {
+          "Vault": 7.5,
+          "Beam": 7.0,
+          "Bars": 7.0,
+          "Floor": 7.5,
+          "All-Around": 29.0
+        },
+        "Optional 3": {
+          "Vault": 8.0,
+          "Beam": 7.5,
+          "Bars": 7.5,
+          "Floor": 8.0,
+          "All-Around": 31.0
+        },
+        "Optional 4": {
+          "Vault": 8.5,
+          "Beam": 8.0,
+          "Bars": 8.0,
+          "Floor": 8.5,
+          "All-Around": 33.0
+        },
+        "Optional 5": {
+          "Vault": 8.8,
+          "Beam": 8.45,
+          "Bars": 8.45,
+          "Floor": 8.8,
+          "All-Around": 34.5
+        }
       }
     },
     {
@@ -51,41 +135,147 @@
     }
   ],
   "memoryTypes": [
-    { "slug": "milestones",   "name": "Milestones",   "blurb": "Firsts, awards, and the big ones." },
-    { "slug": "holidays",     "name": "Holidays",     "blurb": "Christmas, Easter, the Fourth, birthdays." },
-    { "slug": "everyday",     "name": "Everyday",     "blurb": "Ordinary days worth keeping." },
-    { "slug": "farm",         "name": "Farm",         "blurb": "Tractors, harvest, and work at home." },
-    { "slug": "school",       "name": "School",       "blurb": "First days, programs, and projects." },
-    { "slug": "celebrations", "name": "Celebrations", "blurb": "Parties, banquets, and gatherings." }
+    {
+      "slug": "milestones",
+      "name": "Milestones",
+      "blurb": "Firsts, awards, and the big ones."
+    },
+    {
+      "slug": "holidays",
+      "name": "Holidays",
+      "blurb": "Christmas, Easter, the Fourth, birthdays."
+    },
+    {
+      "slug": "everyday",
+      "name": "Everyday",
+      "blurb": "Ordinary days worth keeping."
+    },
+    {
+      "slug": "farm",
+      "name": "Farm",
+      "blurb": "Tractors, harvest, and work at home."
+    },
+    {
+      "slug": "school",
+      "name": "School",
+      "blurb": "First days, programs, and projects."
+    },
+    {
+      "slug": "celebrations",
+      "name": "Celebrations",
+      "blurb": "Parties, banquets, and gatherings."
+    }
   ],
   "categories": [
-    { "slug": "sports",    "name": "Sports",    "blurb": "Seasons, scores, and game-day photos." },
-    { "slug": "academics", "name": "Academics", "blurb": "School years, grades, and honors." },
-    { "slug": "personal",  "name": "Personal",  "blurb": "Milestones, firsts, and favorites." },
-    { "slug": "travel",    "name": "Travel",    "blurb": "Trips and the places we've been." }
+    {
+      "slug": "sports",
+      "name": "Sports",
+      "blurb": "Seasons, scores, and game-day photos."
+    },
+    {
+      "slug": "academics",
+      "name": "Academics",
+      "blurb": "School years, grades, and honors."
+    },
+    {
+      "slug": "personal",
+      "name": "Personal",
+      "blurb": "Milestones, firsts, and favorites."
+    },
+    {
+      "slug": "travel",
+      "name": "Travel",
+      "blurb": "Trips and the places we've been."
+    }
   ],
   "quotes": [
-    { "text": "Hard work beats talent when talent doesn't work hard.", "attribution": "Tim Notke" },
-    { "text": "It's not whether you get knocked down; it's whether you get up.", "attribution": "Vince Lombardi" },
-    { "text": "Champions keep playing until they get it right.", "attribution": "Billie Jean King" },
-    { "text": "I've failed over and over and over again in my life — and that is why I succeed.", "attribution": "Michael Jordan" },
-    { "text": "Today, I will do what others won't, so tomorrow I can do what others can't.", "attribution": "Jerry Rice" },
-    { "text": "Don't let what you cannot do interfere with what you can do.", "attribution": "John Wooden" },
-    { "text": "It's hard to beat a person who never gives up.", "attribution": "Babe Ruth" },
-    { "text": "You miss 100% of the shots you don't take.", "attribution": "Wayne Gretzky" },
-    { "text": "Pressure is a privilege.", "attribution": "Billie Jean King" },
-    { "text": "There is no substitute for guts.", "attribution": "Paul \"Bear\" Bryant" },
-    { "text": "Practice like you've never won. Perform like you've never lost.", "attribution": "Bobby Knight" },
-    { "text": "Set your goals high, and don't stop till you get there.", "attribution": "Bo Jackson" },
-    { "text": "The only place where success comes before work is in the dictionary.", "attribution": "Vince Lombardi" },
-    { "text": "Trust your training.", "attribution": "Simone Biles" },
-    { "text": "Once you learn to quit, it becomes a habit.", "attribution": "Vince Lombardi" },
-    { "text": "The fight is won or lost far away from witnesses — behind the lines, in the gym, and out there on the road.", "attribution": "Muhammad Ali" },
-    { "text": "I am building a fire, and every day I train, I add more fuel.", "attribution": "Mia Hamm" },
-    { "text": "The more difficult the victory, the greater the happiness in winning.", "attribution": "Pelé" },
-    { "text": "Champions are made when no one is watching.", "attribution": "Anson Dorrance" },
-    { "text": "What you lack in talent can be made up with desire, hustle, and giving 110 percent all the time.", "attribution": "Don Zimmer" },
-    { "text": "Never let the fear of striking out keep you from playing the game.", "attribution": "Babe Ruth" },
-    { "text": "The harder the battle, the sweeter the victory.", "attribution": "Les Brown" }
+    {
+      "text": "Hard work beats talent when talent doesn't work hard.",
+      "attribution": "Tim Notke"
+    },
+    {
+      "text": "It's not whether you get knocked down; it's whether you get up.",
+      "attribution": "Vince Lombardi"
+    },
+    {
+      "text": "Champions keep playing until they get it right.",
+      "attribution": "Billie Jean King"
+    },
+    {
+      "text": "I've failed over and over and over again in my life — and that is why I succeed.",
+      "attribution": "Michael Jordan"
+    },
+    {
+      "text": "Today, I will do what others won't, so tomorrow I can do what others can't.",
+      "attribution": "Jerry Rice"
+    },
+    {
+      "text": "Don't let what you cannot do interfere with what you can do.",
+      "attribution": "John Wooden"
+    },
+    {
+      "text": "It's hard to beat a person who never gives up.",
+      "attribution": "Babe Ruth"
+    },
+    {
+      "text": "You miss 100% of the shots you don't take.",
+      "attribution": "Wayne Gretzky"
+    },
+    {
+      "text": "Pressure is a privilege.",
+      "attribution": "Billie Jean King"
+    },
+    {
+      "text": "There is no substitute for guts.",
+      "attribution": "Paul \"Bear\" Bryant"
+    },
+    {
+      "text": "Practice like you've never won. Perform like you've never lost.",
+      "attribution": "Bobby Knight"
+    },
+    {
+      "text": "Set your goals high, and don't stop till you get there.",
+      "attribution": "Bo Jackson"
+    },
+    {
+      "text": "The only place where success comes before work is in the dictionary.",
+      "attribution": "Vince Lombardi"
+    },
+    {
+      "text": "Trust your training.",
+      "attribution": "Simone Biles"
+    },
+    {
+      "text": "Once you learn to quit, it becomes a habit.",
+      "attribution": "Vince Lombardi"
+    },
+    {
+      "text": "The fight is won or lost far away from witnesses — behind the lines, in the gym, and out there on the road.",
+      "attribution": "Muhammad Ali"
+    },
+    {
+      "text": "I am building a fire, and every day I train, I add more fuel.",
+      "attribution": "Mia Hamm"
+    },
+    {
+      "text": "The more difficult the victory, the greater the happiness in winning.",
+      "attribution": "Pelé"
+    },
+    {
+      "text": "Champions are made when no one is watching.",
+      "attribution": "Anson Dorrance"
+    },
+    {
+      "text": "What you lack in talent can be made up with desire, hustle, and giving 110 percent all the time.",
+      "attribution": "Don Zimmer"
+    },
+    {
+      "text": "Never let the fear of striking out keep you from playing the game.",
+      "attribution": "Babe Ruth"
+    },
+    {
+      "text": "The harder the battle, the sweeter the victory.",
+      "attribution": "Les Brown"
+    }
   ]
 }

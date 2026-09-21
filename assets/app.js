@@ -454,7 +454,7 @@
       });
       if (!sports.length) {
         body.appendChild(emptyState("No sports yet for " + a.name,
-          "Add one in <code>data/athletes.json</code> (the girl's <code>sports</code> list)."));
+          "Add one in <code>data/athletes.json</code> (that kid's <code>sports</code> list)."));
       }
       sports.forEach(function (s) {
         const tileMeta = isTeamSport(s)
