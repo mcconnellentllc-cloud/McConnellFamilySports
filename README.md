@@ -398,8 +398,24 @@ size, with no visible difference at any size the site displays.
 - Best effort: if Pillow is unavailable the originals are served as-is and the
   build still succeeds.
 
-**Videos are not touched.** A single phone clip can be 10–15 MB — more than
-thirty resized photos — so they are the thing to watch as the site grows.
+## Videos are re-encoded too
+
+Phone clips get the same treatment: **720p H.264 in an `.mp4`**, which took the
+one clip in the repo from 13 MB to 1.3 MB.
+
+The container change matters as much as the size. iPhone `.mov` files are not
+reliably playable in Chrome, Firefox, or on Android — a clip left as `.mov` is
+invisible to most of the family, the same problem HEIC photos had. H.264 in
+`.mp4` plays everywhere, so `.mov` becomes `.mp4` and `gallery.json` follows.
+
+- Encoded videos are tagged in their metadata, so later builds skip them
+  rather than re-encoding and degrading quality.
+- Clips longer than **5 minutes are left alone** — encoding happens inside the
+  Pages deploy, which times out after ten.
+- If the re-encode comes out no smaller, the original is kept.
+- `-movflags +faststart` puts the index at the front of the file so playback
+  begins before the whole thing has downloaded.
+- Needs `ffmpeg` on PATH. Without it, videos are served as uploaded.
 
 ---
 

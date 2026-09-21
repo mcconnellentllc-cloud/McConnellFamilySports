@@ -18,6 +18,8 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -34,6 +36,16 @@ CAL_DIR = ROOT / "calendar"
 # a retina screen in the lightbox, and roughly a quarter of the file size.
 LONG_EDGE = 1800
 JPEG_QUALITY = 85
+
+# Video off a phone is the single biggest thing on the site — a seven second
+# 1080p clip runs 13 MB, more than thirty resized photos. 720p at CRF 26 is
+# indistinguishable on a phone and roughly a tenth the size.
+VIDEO_LONG_EDGE = 1280
+VIDEO_CRF = 26
+# Encoding runs inside the Pages deploy, which times out after ten minutes.
+# Anything longer than this is left alone rather than risk failing the build.
+VIDEO_MAX_SECONDS = 300
+VIDEO_TAG = "mfs-optimized-v1"
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".heic", ".heif"}
 # Web-friendly video containers. .mp4 (H.264/AAC) plays in every browser;
@@ -142,6 +154,90 @@ def optimize_image(path: Path) -> Path:
     return path
 
 
+def _run(cmd: list[str]) -> subprocess.CompletedProcess:
+    return subprocess.run(cmd, capture_output=True, text=True)
+
+
+def video_meta(path: Path) -> tuple[float, str]:
+    """(duration in seconds, our optimisation tag) — zeros if unreadable."""
+    r = _run(["ffprobe", "-v", "error", "-show_entries",
+              "format=duration:format_tags=comment",
+              "-of", "default=noprint_wrappers=1:nokey=1", str(path)])
+    if r.returncode != 0:
+        return 0.0, ""
+    lines = [x.strip() for x in r.stdout.splitlines() if x.strip()]
+    dur = 0.0
+    tag = ""
+    for line in lines:
+        try:
+            dur = float(line)
+        except ValueError:
+            tag = line
+    return dur, tag
+
+
+def optimize_video(path: Path) -> Path:
+    """Re-encode a phone video down to 720p H.264, and land it in an .mp4.
+
+    The container change is the point as much as the size is: iPhone .mov
+    files are not reliably playable in Chrome, Firefox, or on Android, so a
+    clip left as .mov is invisible to most of the family — the same problem
+    HEIC photos had. H.264 in .mp4 plays everywhere.
+
+    Skipped, leaving the original untouched, when ffmpeg is missing, the clip
+    is already tagged from a previous build, it runs longer than
+    VIDEO_MAX_SECONDS, or the re-encode comes out no smaller.
+    """
+    if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
+        print(f"  ! {path.name}: ffmpeg not available, leaving as-is.")
+        return path
+
+    duration, tag = video_meta(path)
+    if tag == VIDEO_TAG:
+        return path  # already done on an earlier build
+    if duration > VIDEO_MAX_SECONDS:
+        print(f"  ! {path.name}: {duration:.0f}s is longer than "
+              f"{VIDEO_MAX_SECONDS}s, leaving as-is.")
+        return path
+
+    before = path.stat().st_size
+    out = path.with_suffix(".mp4")
+    tmp = path.with_name(path.stem + ".mfs-tmp.mp4")
+    r = _run([
+        "ffmpeg", "-hide_banner", "-loglevel", "error", "-i", str(path),
+        # Only the video and audio tracks. iPhone clips carry extra data
+        # streams that some players choke on.
+        "-map", "0:v:0", "-map", "0:a?",
+        "-vf", (f"scale='min({VIDEO_LONG_EDGE},iw)':'min({VIDEO_LONG_EDGE},ih)'"
+                ":force_original_aspect_ratio=decrease:force_divisible_by=2"),
+        "-c:v", "libx264", "-crf", str(VIDEO_CRF), "-preset", "veryfast",
+        "-pix_fmt", "yuv420p",
+        "-c:a", "aac", "-b:a", "128k",
+        # Puts the index at the front so playback can start before the whole
+        # file has downloaded.
+        "-movflags", "+faststart",
+        "-metadata", f"comment={VIDEO_TAG}",
+        "-y", str(tmp),
+    ])
+    if r.returncode != 0 or not tmp.exists():
+        print(f"  ! {path.name}: ffmpeg failed, leaving as-is.")
+        tmp.unlink(missing_ok=True)
+        return path
+
+    after = tmp.stat().st_size
+    if after >= before:
+        print(f"  = {path.name}: re-encode was no smaller, keeping original.")
+        tmp.unlink(missing_ok=True)
+        return path
+
+    if path != out:
+        path.unlink()
+    tmp.replace(out)
+    print(f"  ~ {out.name}: {before / 1048576:.2f} MB -> {after / 1048576:.2f} MB"
+          + (f"  (was {path.suffix})" if path.suffix != ".mp4" else ""))
+    return out
+
+
 def optimize_media() -> None:
     """Convert and shrink every photo under media/, including _ folders.
 
@@ -155,6 +251,9 @@ def optimize_media() -> None:
         if not f.is_file() or f.name.startswith("."):
             continue
         ext = f.suffix.lower()
+        if ext in VIDEO_EXTS:
+            optimize_video(f)
+            continue
         if ext not in IMAGE_EXTS:
             continue
         if ext in {".heic", ".heif"}:
