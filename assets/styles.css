@@ -227,7 +227,12 @@ a:hover { text-decoration: underline; }
   margin: 0 auto 18px;
   line-height: 0;
 }
-.crest svg.haxtun-crest,
+.crest svg.crest-shield {
+  width: 190px;
+  height: 215px;
+  max-width: 58vw;
+}
+.haxtun-crest,
 .family-crest {
   width: 200px;
   height: 200px;
