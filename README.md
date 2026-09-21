@@ -419,6 +419,26 @@ invisible to most of the family, the same problem HEIC photos had. H.264 in
 
 ---
 
+## Recipes
+
+`data/recipes.json` drives **Family → Recipes**. Only `title` is required — a
+photo of a handwritten card with nothing typed up is still worth keeping:
+
+```json
+{
+  "title": "Grandma's cinnamon rolls",
+  "from": "Grandma McConnell",
+  "serves": "12",
+  "time": "About 3 hours, mostly rising",
+  "note": "A line about when we make these.",
+  "photo": "media/_recipes/cinnamon-rolls.jpg",
+  "ingredients": ["1 cup warm milk", "2 tsp yeast"],
+  "steps": ["Proof the yeast in the warm milk.", "…"]
+}
+```
+
+---
+
 ## Family history and the tree
 
 `data/history.json` holds the history section at **Family → Family History**.

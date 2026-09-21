@@ -1,0 +1,5 @@
+{
+  "_comment": "Family recipes. Every field except 'title' is optional — a recipe with just a name and a photo of a handwritten card is still worth keeping. Photos go in media/_recipes/ (the leading underscore keeps build.py from filing them into a kid's gallery).",
+  "intro": "",
+  "recipes": []
+}

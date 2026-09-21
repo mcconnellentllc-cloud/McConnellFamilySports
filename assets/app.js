@@ -119,7 +119,8 @@
     }
   }
   async function loadData() {
-    const [athletes, content, gallery, meals, supplies, chores, calendar, history] = await Promise.all([
+    const [athletes, content, gallery, meals, supplies, chores, calendar, history,
+           recipes] = await Promise.all([
       loadJSON("data/athletes.json"),
       loadJSON("data/content.json"),
       loadJSON("data/gallery.json").catch(function () { return { photos: [] }; }),
@@ -128,6 +129,7 @@
       loadJSON("data/chores.json").catch(function () { return null; }),
       loadJSON("data/calendar.json").catch(function () { return null; }),
       loadJSON("data/history.json").catch(function () { return null; }),
+      loadJSON("data/recipes.json").catch(function () { return null; }),
     ]);
     state.athletes = athletes;
     state.content = content;
@@ -137,6 +139,7 @@
     state.chores = chores;
     state.calendar = calendar;
     state.history = history;
+    state.recipes = recipes;
   }
 
   // ---------- Lookups ----------
@@ -273,8 +276,8 @@
       parts.push(el("a", { href: "#/family" }, ["Family"]));
       if (route.route === "familyCategory" && route.category) {
         // "history" is family-only, so it has no entry in the shared category list.
-        const label = route.category === "history"
-          ? "Family History"
+        const label = route.category === "history" ? "Family History"
+          : route.category === "recipes" ? "Recipes"
           : categoryName(route.category);
         parts.push(el("a", { href: "#/family/" + route.category }, [label]));
       }
@@ -687,8 +690,13 @@
     const grid = el("div", { class: "tiles" });
     [
       ["history", "Family History", "Where the McConnells come from, and the tree."],
-      ["travel", "Travel", "Family trips and the places we've been."],
       ["personal", "Memories", "Holidays, milestones, and everyday moments."],
+      ["travel", "Travel", "Family trips and the places we've been."],
+      ["recipes", "Recipes", "The food this family comes back to."],
+      // Memory types with a tile of their own, straight into the filter.
+      ["personal/farm", "Farm & Ranch", "Harvest, equipment, and work at home."],
+      ["personal/faith", "Faith", "Baptisms, confirmations, and church."],
+      ["personal/pets", "Pets", "The animals that are part of the family."],
     ].forEach(function (c) {
       grid.appendChild(el("a", { class: "tile", href: "#/family/" + c[0] }, [
         el("h2", { class: "tile__name" }, [c[1]]),
@@ -700,6 +708,15 @@
   function viewFamilyCategory(route) {
     const v = $("#view");
     v.innerHTML = "";
+    if (route.category === "recipes") {
+      const r = state.recipes || {};
+      v.appendChild(coverEl("Family · Recipes", r.intro || null, "familycat:recipes"));
+      const body = el("section", null);
+      renderRecipes(body, r);
+      v.appendChild(body);
+      return;
+    }
+
     if (route.category === "history") {
       const h = state.history || {};
       v.appendChild(coverEl("Family · History", h.intro || null, "familycat:history"));
@@ -716,6 +733,54 @@
     if (isTravel) renderTravel(body, "family");
     else renderPersonal(body, "family", route.tab);
     v.appendChild(body);
+  }
+
+  // Recipes. Every field but the title is optional: a photo of a handwritten
+  // card with nothing typed up is still worth having on the page.
+  function renderRecipes(parent, data) {
+    const rows = (data.recipes || []).slice();
+    if (!rows.length) {
+      parent.appendChild(emptyState(
+        "No recipes yet",
+        "Add them to <code>recipes</code> in <code>data/recipes.json</code> — " +
+        "a title, who it came from, the ingredients and the steps. Photos, " +
+        "including snapshots of handwritten cards, go in <code>media/_recipes/</code>."
+      ));
+      return;
+    }
+    rows.forEach(function (r) {
+      const card = el("article", { class: "recipe" });
+      card.appendChild(el("h3", { class: "recipe__title" }, [r.title || "Untitled"]));
+      const meta = [];
+      if (r.from) meta.push("From " + r.from);
+      if (r.serves) meta.push("Serves " + r.serves);
+      if (r.time) meta.push(r.time);
+      if (meta.length) card.appendChild(el("p", { class: "recipe__meta" }, [meta.join(" · ")]));
+      if (r.note) card.appendChild(el("p", { class: "recipe__note" }, [r.note]));
+      if (r.photo) {
+        const fig = el("figure", { class: "memory__photo" }, [
+          el("img", {
+            src: r.photo, alt: r.photoCaption || r.title || "",
+            loading: "lazy", onerror: function () { fig.remove(); },
+          }),
+        ]);
+        if (r.photoCaption) fig.appendChild(el("figcaption", null, [r.photoCaption]));
+        card.appendChild(fig);
+      }
+      if (r.ingredients && r.ingredients.length) {
+        card.appendChild(el("h4", { class: "recipe__head" }, ["Ingredients"]));
+        const ul = el("ul", { class: "recipe__ingredients" });
+        r.ingredients.forEach(function (i) { ul.appendChild(el("li", null, [i])); });
+        card.appendChild(ul);
+      }
+      if (r.steps && r.steps.length) {
+        card.appendChild(el("h4", { class: "recipe__head" }, ["Steps"]));
+        const ol = el("ol", { class: "recipe__steps" });
+        r.steps.forEach(function (i) { ol.appendChild(el("li", null, [i])); });
+        card.appendChild(ol);
+      }
+      parent.appendChild(card);
+    });
   }
 
   // Family history: a link out to the tree, plus whatever stories have been
@@ -1296,12 +1361,15 @@
       href: base,
     }, ["All (" + entries.length + ")"]));
     memoryTypes().forEach(function (t) {
-      if (!counts[t.slug]) return;
+      // Hide empty types, unless this is the one being viewed — arriving from
+      // a Family tile on a type with nothing saved must still show where you
+      // are, not a row with nothing selected.
+      if (!counts[t.slug] && active !== t.slug) return;
       row.appendChild(el("a", {
         class: "chip" + (active === t.slug ? " is-active" : ""),
         href: base + "/" + t.slug,
         title: t.blurb || "",
-      }, [t.name + " (" + counts[t.slug] + ")"]));
+      }, [t.name + " (" + (counts[t.slug] || 0) + ")"]));
     });
     return row;
   }
