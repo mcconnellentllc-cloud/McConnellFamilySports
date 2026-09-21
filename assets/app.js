@@ -769,6 +769,16 @@
   // One surname line: its story, then the people filed under it.
   function renderHistoryLine(parent, h, line) {
     if (line.story) parent.appendChild(el("p", { class: "line__story" }, [line.story]));
+    if (line.photo) {
+      const fig = el("figure", { class: "memory__photo" }, [
+        el("img", {
+          src: line.photo, alt: line.photoCaption || line.surname || "",
+          loading: "lazy", onerror: function () { fig.remove(); },
+        }),
+      ]);
+      if (line.photoCaption) fig.appendChild(el("figcaption", null, [line.photoCaption]));
+      parent.appendChild(fig);
+    }
     const people = (h.people || []).filter(function (p) { return p.line === line.slug; });
     if (!people.length) {
       parent.appendChild(emptyState(
@@ -893,6 +903,11 @@
       if (pn.place) meta.push(pn.place);
       if (meta.length) card.appendChild(el("p", { class: "person__meta" }, [meta.join(" · ")]));
       if (pn.story) card.appendChild(el("p", { class: "person__story" }, [pn.story]));
+      if (pn.caveat) {
+        card.appendChild(el("p", { class: "person__caveat" }, [
+          el("strong", null, ["Not yet confirmed. "]), pn.caveat,
+        ]));
+      }
       if (pn.photo) {
         const fig = el("figure", { class: "memory__photo" }, [
           el("img", {

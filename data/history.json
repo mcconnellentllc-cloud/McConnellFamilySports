@@ -24,10 +24,66 @@
     {
       "slug": "barkey",
       "surname": "Barkey",
-      "origin": "",
-      "blurb": "",
-      "story": ""
+      "origin": "Cortland, Nebraska — and back east to New York and New Jersey",
+      "blurb": "Barkey to Stanley to Morris, and a claim on the American Revolution.",
+      "story": "This line is documented in a family sheet titled \"Our Family Connection to the American Revolution,\" which traces Belle Barkey back through her Stanley and Morris forebears. The names, dates and places below are taken from that sheet. More is online at barkey-us.org.",
+      "photo": "media/_history/barkey-revolution-family-sheet.jpg",
+      "photoCaption": "The family sheet this line is drawn from."
     }
   ],
-  "people": []
+  "people": [
+    {
+      "line": "barkey",
+      "sort": "1734",
+      "name": "Robert Morris",
+      "years": "1734–1806",
+      "relation": "Claimed as the head of the Morris line",
+      "place": "Born Liverpool, England · died Philadelphia, Pennsylvania",
+      "story": "Robert Morris signed the Declaration of Independence, the Articles of Confederation and the Constitution — one of only two men to sign all three. As Superintendent of Finance he kept the Revolution solvent, at times pledging his own credit to feed and move the army, and he backed the march to Yorktown. He recommended Alexander Hamilton for the first Secretary of the Treasury, and bought the Philadelphia house President Washington lived in while the capital was there. Afterward he speculated enormously in western land, lost everything, and spent three years in debtors' prison. He died in 1806 with almost nothing. Robert Morris University is named for him.",
+      "caveat": "The step from John T Morris to Robert Morris is the one link on the family sheet that is not yet confirmed. Robert Morris's seven children by Mary White are well documented — Robert, Thomas, William White, Esther, Charles, Maria and Henry — and no John appears among them. The sheet also places John's birth in \"Morristown, Middlesex, New Jersey,\" but Morristown is in Morris County, and in 1777 Robert Morris's household was in Philadelphia. Morris is a common name and this is the most common way a family tree goes wrong. Worth finding a record naming John's father before the connection is treated as settled."
+    },
+    {
+      "line": "barkey",
+      "sort": "1777",
+      "name": "John T Morris",
+      "years": "1777–1852",
+      "relation": "Father of Philip Robert Morris",
+      "place": "Born Morristown, New Jersey · died Otto, Cattaraugus County, New York",
+      "story": "Born 15 August 1777, died 1 October 1852. The family moved west into Cattaraugus County, New York, where the next two generations were born and raised."
+    },
+    {
+      "line": "barkey",
+      "sort": "1812",
+      "name": "Philip Robert Morris",
+      "years": "1812–1863",
+      "relation": "Father of Cordelia · Civil War veteran",
+      "place": "Born New York · died Lake Providence, East Carroll Parish, Louisiana",
+      "story": "Born 12 May 1812 in New York. He died on 27 February 1863 at Lake Providence, Louisiana — and the place and the date together tell the story. That winter, Grant was trying to get past Vicksburg, and McPherson's men spent January through March digging a canal from the Mississippi into Lake Providence. The camp there was called Soldiers' Rest. The fighting was not what killed most of them: it was standing water, subtropical swamp and disease. Philip Robert Morris died in that camp three weeks before the levee was cut, at fifty."
+    },
+    {
+      "line": "barkey",
+      "sort": "1834",
+      "name": "Cordelia Astardy Morris",
+      "years": "1834–1902",
+      "relation": "Daughter of Philip Robert Morris · mother of Monroe Morris Stanley",
+      "place": "Born Cattaraugus, New York · died Chester, Eaton County, Michigan",
+      "story": "Born 6 May 1834, died 6 March 1902. She appears on the family sheet as Cordelia Astardy Morris Stanley Benson, and was widowed young — her father died in Louisiana when she was twenty-eight."
+    },
+    {
+      "line": "barkey",
+      "sort": "1870",
+      "name": "Monroe Morris Stanley",
+      "relation": "Son of Cordelia · father of Belle",
+      "place": "Nebraska",
+      "story": "Photographed with his wife Cordilia and their children. He carried his mother's maiden name, Morris, as his middle name — which is how the line stayed traceable."
+    },
+    {
+      "line": "barkey",
+      "sort": "1900",
+      "name": "Belle Stanley Barkey",
+      "relation": "Daughter of Monroe Morris Stanley",
+      "place": "Cortland, Nebraska",
+      "story": "Belle Stanley married Frank Barkey on 4 May 1919 at Cortland, Nebraska. A family photograph from December 1948 shows the two of them with their children — Cline, Orpha, Daniel and Marian."
+    }
+  ]
 }
