@@ -191,91 +191,193 @@
   "quotes": [
     {
       "text": "Hard work beats talent when talent doesn't work hard.",
-      "attribution": "Tim Notke"
+      "attribution": "Tim Notke",
+      "use": "sports"
     },
     {
       "text": "It's not whether you get knocked down; it's whether you get up.",
-      "attribution": "Vince Lombardi"
+      "attribution": "Vince Lombardi",
+      "use": "sports"
     },
     {
       "text": "Champions keep playing until they get it right.",
-      "attribution": "Billie Jean King"
+      "attribution": "Billie Jean King",
+      "use": "sports"
     },
     {
       "text": "I've failed over and over and over again in my life — and that is why I succeed.",
-      "attribution": "Michael Jordan"
+      "attribution": "Michael Jordan",
+      "use": "sports"
     },
     {
       "text": "Today, I will do what others won't, so tomorrow I can do what others can't.",
-      "attribution": "Jerry Rice"
+      "attribution": "Jerry Rice",
+      "use": "sports"
     },
     {
       "text": "Don't let what you cannot do interfere with what you can do.",
-      "attribution": "John Wooden"
+      "attribution": "John Wooden",
+      "use": "sports"
     },
     {
       "text": "It's hard to beat a person who never gives up.",
-      "attribution": "Babe Ruth"
+      "attribution": "Babe Ruth",
+      "use": "sports"
     },
     {
       "text": "You miss 100% of the shots you don't take.",
-      "attribution": "Wayne Gretzky"
+      "attribution": "Wayne Gretzky",
+      "use": "sports"
     },
     {
       "text": "Pressure is a privilege.",
-      "attribution": "Billie Jean King"
+      "attribution": "Billie Jean King",
+      "use": "sports"
     },
     {
       "text": "There is no substitute for guts.",
-      "attribution": "Paul \"Bear\" Bryant"
+      "attribution": "Paul \"Bear\" Bryant",
+      "use": "sports"
     },
     {
       "text": "Practice like you've never won. Perform like you've never lost.",
-      "attribution": "Bobby Knight"
+      "attribution": "Bobby Knight",
+      "use": "sports"
     },
     {
       "text": "Set your goals high, and don't stop till you get there.",
-      "attribution": "Bo Jackson"
+      "attribution": "Bo Jackson",
+      "use": "sports"
     },
     {
       "text": "The only place where success comes before work is in the dictionary.",
-      "attribution": "Vince Lombardi"
+      "attribution": "Vince Lombardi",
+      "use": "sports"
     },
     {
       "text": "Trust your training.",
-      "attribution": "Simone Biles"
+      "attribution": "Simone Biles",
+      "use": "sports"
     },
     {
       "text": "Once you learn to quit, it becomes a habit.",
-      "attribution": "Vince Lombardi"
+      "attribution": "Vince Lombardi",
+      "use": "sports"
     },
     {
       "text": "The fight is won or lost far away from witnesses — behind the lines, in the gym, and out there on the road.",
-      "attribution": "Muhammad Ali"
+      "attribution": "Muhammad Ali",
+      "use": "sports"
     },
     {
       "text": "I am building a fire, and every day I train, I add more fuel.",
-      "attribution": "Mia Hamm"
+      "attribution": "Mia Hamm",
+      "use": "sports"
     },
     {
       "text": "The more difficult the victory, the greater the happiness in winning.",
-      "attribution": "Pelé"
+      "attribution": "Pelé",
+      "use": "sports"
     },
     {
       "text": "Champions are made when no one is watching.",
-      "attribution": "Anson Dorrance"
+      "attribution": "Anson Dorrance",
+      "use": "sports"
     },
     {
       "text": "What you lack in talent can be made up with desire, hustle, and giving 110 percent all the time.",
-      "attribution": "Don Zimmer"
+      "attribution": "Don Zimmer",
+      "use": "sports"
     },
     {
       "text": "Never let the fear of striking out keep you from playing the game.",
-      "attribution": "Babe Ruth"
+      "attribution": "Babe Ruth",
+      "use": "sports"
     },
     {
       "text": "The harder the battle, the sweeter the victory.",
-      "attribution": "Les Brown"
+      "attribution": "Les Brown",
+      "use": "sports"
+    },
+    {
+      "text": "The farmer has to be an optimist or he wouldn't still be a farmer.",
+      "attribution": "Will Rogers",
+      "use": "family"
+    },
+    {
+      "text": "Don't judge each day by the harvest you reap but by the seeds that you plant.",
+      "attribution": "Robert Louis Stevenson",
+      "use": "family"
+    },
+    {
+      "text": "Family is not an important thing. It's everything.",
+      "attribution": "Michael J. Fox",
+      "use": "family"
+    },
+    {
+      "text": "To us, family means putting your arms around each other and being there.",
+      "attribution": "Barbara Bush",
+      "use": "family"
+    },
+    {
+      "text": "In every conceivable manner, the family is link to our past, bridge to our future.",
+      "attribution": "Alex Haley",
+      "use": "family"
+    },
+    {
+      "text": "Other things may change us, but we start and end with family.",
+      "attribution": "Anthony Brandt",
+      "use": "family"
+    },
+    {
+      "text": "The strength of a family, like the strength of an army, is in its loyalty to each other.",
+      "attribution": "Mario Puzo",
+      "use": "family"
+    },
+    {
+      "text": "Family faces are magic mirrors. Looking at people who belong to us, we see the past, present, and future.",
+      "attribution": "Gail Lumet Buckley",
+      "use": "family"
+    },
+    {
+      "text": "It didn't matter how big our house was; it mattered that there was love in it.",
+      "attribution": "Peter Buffett",
+      "use": "family"
+    },
+    {
+      "text": "The best inheritance a parent can give his children is a few minutes of his time each day.",
+      "attribution": "O. A. Battista",
+      "use": "family"
+    },
+    {
+      "text": "We don't remember days, we remember moments.",
+      "attribution": "Cesare Pavese",
+      "use": "family"
+    },
+    {
+      "text": "Live in each season as it passes; breathe the air, drink the drink, taste the fruit.",
+      "attribution": "Henry David Thoreau",
+      "use": "family"
+    },
+    {
+      "text": "Hard work spotlights the character of people: some turn up their sleeves, some turn up their noses, and some don't turn up at all.",
+      "attribution": "Sam Ewing",
+      "use": "family"
+    },
+    {
+      "text": "A person's a person, no matter how small.",
+      "attribution": "Dr. Seuss",
+      "use": "family"
+    },
+    {
+      "text": "Blessed is the influence of one true, loving human soul on another.",
+      "attribution": "George Eliot",
+      "use": "family"
+    },
+    {
+      "text": "Enjoy the little things, for one day you may look back and realize they were the big things.",
+      "attribution": "Robert Brault",
+      "use": "family"
     }
   ]
 }
