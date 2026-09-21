@@ -309,8 +309,19 @@
     });
   }
 
+  // "sport:tyndle:volleyball" and "cat:tyndle:sports" are sports pages;
+  // everything else — home, family, history, a girl's own page — is not.
+  function quoteUseFor(seed) {
+    const t = String(seed || "");
+    return (t.indexOf("sport:") === 0 || t.indexOf(":sports") !== -1)
+      ? "sports" : "family";
+  }
   function pickQuote(seed) {
-    const list = (state.athletes && state.athletes.quotes) || [];
+    const all = (state.athletes && state.athletes.quotes) || [];
+    const want = quoteUseFor(seed);
+    // Fall back to the whole set if nothing carries a "use" yet.
+    let list = all.filter(function (q) { return (q.use || "sports") === want; });
+    if (!list.length) list = all;
     if (!list.length) return null;
     const today = new Date();
     const day = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
@@ -380,6 +391,13 @@
     return el("div", { class: "share-bar" }, [btn]);
   }
 
+  function familyCrest() {
+    return el("div", {
+      class: "crest",
+      html: '<svg class="family-crest" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The McConnell Family, Haxtun, Colorado"><defs><path id="fTop" d="M 38,110 A 72,72 0 0,1 182,110" fill="none"/><path id="fBot" d="M 40,110 A 70,70 0 0,0 180,110" fill="none"/></defs><circle cx="110" cy="110" r="104" fill="#ffffff" stroke="#c8102e" stroke-width="4"/><circle cx="110" cy="110" r="90" fill="none" stroke="#c8102e" stroke-width="1"/><text font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="15" letter-spacing="6" fill="#111"><textPath href="#fTop" startOffset="50%" text-anchor="middle">McCONNELL</textPath></text><text font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-weight="600" font-size="11" letter-spacing="4" fill="#6b6b6b"><textPath href="#fBot" startOffset="50%" text-anchor="middle">HAXTUN · COLORADO</textPath></text><text x="110" y="112" text-anchor="middle" dy="0.35em" font-family="Cormorant Garamond, Iowan Old Style, Palatino Linotype, Georgia, serif" font-size="104" font-weight="600" fill="#c8102e">M</text></svg>',
+    });
+  }
+
   function haxtunCrest() {
     return el("div", {
       class: "crest",
@@ -396,7 +414,7 @@
       "Seasons, school years, trips, and the moments worth keeping.",
       "home"
     );
-    cover.insertBefore(haxtunCrest(), cover.firstChild);
+    cover.insertBefore(familyCrest(), cover.firstChild);
     v.appendChild(cover);
     const grid = el("div", { class: "tiles" });
     (state.athletes.athletes || []).forEach(function (a) {
@@ -485,7 +503,9 @@
       v.appendChild(el("p", null, ["Section not found."]));
       return;
     }
-    v.appendChild(coverEl(a.name + " · " + s.name, null, "sport:" + a.slug + ":" + s.slug));
+    const sportCover = coverEl(a.name + " · " + s.name, null, "sport:" + a.slug + ":" + s.slug);
+    sportCover.insertBefore(haxtunCrest(), sportCover.firstChild);
+    v.appendChild(sportCover);
 
     const upcomingEvents = eventsFor(a.slug, s.slug);
     if (upcomingEvents.length) {
