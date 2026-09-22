@@ -63,12 +63,29 @@ CAMERA_NAME_RE = re.compile(
     re.IGNORECASE,
 )
 
+# iCloud and photo-library exports name files after internal identifiers:
+# "7CEE4F81-8027-4144-8BF4-0A18239F79D1", "20140921_195838761_iOS",
+# "65966727791_F155C471-F6C0-40D2-9073-...". A run of eight or more hex
+# characters containing a digit is an id, not a word — "Sedgwick" and
+# "Bulldogs" survive because they contain letters outside a-f.
+HEX_RUN_RE = re.compile(r"(?=[0-9a-f]*[0-9])[0-9a-f]{8,}", re.IGNORECASE)
+
+
+def looks_like_an_id(stem: str) -> bool:
+    """True when a filename is a machine identifier rather than a description."""
+    if HEX_RUN_RE.search(stem):
+        return True
+    letters = sum(c.isalpha() for c in stem)
+    digits = sum(c.isdigit() for c in stem)
+    # Mostly digits with barely any letters — a timestamp or a counter.
+    return digits >= 6 and letters <= 3
+
 
 def caption_from_filename(stem: str) -> str:
     cleaned = stem.replace("-", " ").replace("_", " ").strip()
     if not cleaned:
         return ""
-    if CAMERA_NAME_RE.match(stem.strip()):
+    if CAMERA_NAME_RE.match(stem.strip()) or looks_like_an_id(stem):
         return ""
     return cleaned[:1].upper() + cleaned[1:]
 

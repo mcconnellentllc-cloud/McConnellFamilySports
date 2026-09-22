@@ -392,6 +392,11 @@ size, with no visible difference at any size the site displays.
   PNGs, since they may carry transparency.
 - Photos already under 1800px are left untouched, so nothing is re-encoded
   twice and quality never degrades on repeat builds.
+- **Machine filenames produce no caption.** A phone or photo library names
+  files after internal identifiers — `IMG_6745`, `PXL_20260912_183045`,
+  `7CEE4F81-8027-4144-8BF4-0A18239F79D1`, `20140921_195838761_iOS`. None of
+  those say anything about the photo, so they yield no caption rather than a
+  wall of hex. Descriptive names still become captions as before.
 - EXIF is dropped, which also removes the **GPS coordinates** a phone writes
   into every shot. Rotation is applied to the pixels first, so nothing ends up
   sideways.
