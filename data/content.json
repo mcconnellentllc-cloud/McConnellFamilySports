@@ -1,7 +1,7 @@
 {
   "softball": {
     "team": {
-      "title": "Softball — 2026 Bulldogs",
+      "title": "Softball \u2014 2026 Bulldogs",
       "name": "Haxtun Bulldogs 9-12",
       "season": "2026",
       "record": "2-9",
@@ -11,39 +11,60 @@
       "blurb": "Three McConnell girls suited up for the Bulldogs this summer.",
       "teamSite": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/",
       "links": [
-        { "label": "Full 2026 stats", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#stats" },
-        { "label": "Team photos", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/gallery-2026/" },
-        { "label": "Bulldogs softball home", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/" }
+        {
+          "label": "Full 2026 stats",
+          "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#stats"
+        },
+        {
+          "label": "Team photos",
+          "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/gallery-2026/"
+        },
+        {
+          "label": "Bulldogs softball home",
+          "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/"
+        }
       ]
     },
     "players": {
       "tyndle": {
         "number": "22",
         "position": "Shortstop & Pitcher",
-        "stats": ".429 AVG · 9 hits · 6 RBI · 8 assists",
+        "stats": ".429 AVG \u00b7 9 hits \u00b7 6 RBI \u00b7 8 assists",
         "summary": "Led the team in hits, tied for the RBI lead, and recorded the most assists. Walk-off RBI single vs Grant on 6/9 to win it 7-6.",
         "allStar": "Named to the 2026 League All-Star team.",
         "links": [
-          { "label": "Tyndle's player section", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p22" },
-          { "label": "All-Star announcement", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/league-all-stars/" }
+          {
+            "label": "Tyndle's player section",
+            "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p22"
+          },
+          {
+            "label": "All-Star announcement",
+            "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/league-all-stars/"
+          }
         ]
       },
       "oakley": {
         "number": "7",
         "position": "Second Base",
-        "stats": "24 PA (most on team) · 12 walks (tied team-best) · 1.000 fielding",
+        "stats": "24 PA (most on team) \u00b7 12 walks (tied team-best) \u00b7 1.000 fielding",
         "summary": "The team's most patient at-bat and a perfect glove at second.",
         "links": [
-          { "label": "Oakley's player section", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p7" }
+          {
+            "label": "Oakley's player section",
+            "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p7"
+          }
         ]
       },
       "tayla": {
         "number": "16",
         "position": "Right Field",
-        "stats": "8 games · 1 RBI · 2 walks · 1.000 fielding",
+        "stats": "8 games \u00b7 1 RBI \u00b7 2 walks \u00b7 1.000 fielding",
         "summary": "Patrolled right field and showed up every time her number was called.",
         "links": [
-          { "label": "Tayla's player section", "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p16" }
+          {
+            "label": "Tayla's player section",
+            "url": "https://mcconnellentllc-cloud.github.io/haxtun-softball9-12/season-2026/#p16"
+          }
         ]
       }
     }
@@ -51,13 +72,13 @@
   "volleyball": {
     "teams": {
       "jhs": {
-        "title": "Volleyball — 2026 Junior High Bulldogs",
+        "title": "Volleyball \u2014 2026 Junior High Bulldogs",
         "name": "Haxtun Bulldogs Junior High",
         "season": "2026",
         "blurb": "Tyndle's first season of junior high volleyball."
       },
       "fourth": {
-        "title": "Volleyball — 2026 Fourth Grade",
+        "title": "Volleyball \u2014 2026 Fourth Grade",
         "name": "Haxtun 4th Grade",
         "season": "2026",
         "blurb": "Oakley and Tayla on the court together in 4th grade."
@@ -68,7 +89,7 @@
         "team": "jhs",
         "number": "6",
         "position": "A team",
-        "summary": "Tyndle joined the Haxtun junior high volleyball team for the 2026 fall season — her first year on the court, and she is playing A team as a 6th grader."
+        "summary": "Tyndle joined the Haxtun junior high volleyball team for the 2026 fall season \u2014 her first year on the court, and she is playing A team as a 6th grader."
       },
       "oakley": {
         "team": "fourth",
@@ -87,7 +108,7 @@
       "type": "farm",
       "date": "2026-07-13",
       "title": "First day driving a tractor",
-      "text": "Tyndle's first day behind the wheel — running a John Deere 8320R with autosteer and AutoTurn, pulling a 35-foot sunflower disc.",
+      "text": "Tyndle's first day behind the wheel \u2014 running a John Deere 8320R with autosteer and AutoTurn, pulling a 35-foot sunflower disc.",
       "photo": "media/_memories/tyndle-first-tractor.jpg"
     },
     {
@@ -101,17 +122,21 @@
   "events": [
     {
       "sport": "volleyball",
-      "athletes": ["tyndle"],
+      "athletes": [
+        "tyndle"
+      ],
       "date": "2026-09-17",
       "name": "at Sedgwick County",
       "venue": "Sedgwick County Schools",
       "address": "Julesburg, CO",
       "status": "Match in progress",
-      "notes": "Junior high road game against the Cougars in Julesburg — the game tentatively set for August 31, rescheduled to today."
+      "notes": "Junior high road game against the Cougars in Julesburg \u2014 the game tentatively set for August 31, rescheduled to today."
     },
     {
       "sport": "volleyball",
-      "athletes": ["tyndle"],
+      "athletes": [
+        "tyndle"
+      ],
       "date": "2026-09-14",
       "name": "vs Sterling",
       "venue": "Haxtun Schools Gymnasium",
@@ -121,7 +146,9 @@
     },
     {
       "sport": "volleyball",
-      "athletes": ["tyndle"],
+      "athletes": [
+        "tyndle"
+      ],
       "date": "2026-09-12",
       "name": "at Holyoke Dragons",
       "venue": "Holyoke, CO",
@@ -129,27 +156,37 @@
       "result": "loss",
       "resultDetail": "after taking the opening set.",
       "sets": [
-        { "set": 1, "us": 25, "them": 16 }
+        {
+          "set": 1,
+          "us": 25,
+          "them": 16
+        }
       ],
-      "notes": "Junior high road game against the Holyoke Dragons. The Bulldogs took the first set 25–16 before the Dragons came back to win the match."
+      "notes": "Junior high road game against the Holyoke Dragons. The Bulldogs took the first set 25\u201316 before the Dragons came back to win the match."
     },
     {
       "sport": "volleyball",
-      "athletes": ["tyndle"],
+      "athletes": [
+        "tyndle"
+      ],
       "date": "2026-08-25",
       "name": "vs Perkins County",
       "venue": "Haxtun Schools Gymnasium",
-      "notes": "First game of the season — home, 4:00 pm."
+      "notes": "First game of the season \u2014 home, 4:00 pm."
     },
     {
       "sport": "gymnastics",
-      "athletes": ["tyndle", "oakley", "tayla"],
+      "athletes": [
+        "tyndle",
+        "oakley",
+        "tayla"
+      ],
       "date": "2026-06-26",
       "name": "Commerce City Meet",
       "venue": "Bison Ridge Recreation Center",
       "address": "13905 E. 112th Ave, Commerce City, CO 80022",
       "phone": "(303) 286-6800",
-      "league": "CARA — Colorado Association of Recreational Athletics",
+      "league": "CARA \u2014 Colorado Association of Recreational Athletics",
       "competing": {
         "tyndle": "Optional 1",
         "oakley": "Level 3",
@@ -159,12 +196,16 @@
     },
     {
       "sport": "gymnastics",
-      "athletes": ["tyndle", "oakley", "tayla"],
+      "athletes": [
+        "tyndle",
+        "oakley",
+        "tayla"
+      ],
       "date": "2026-05-29",
       "name": "Paul Derda Gymnastics Meet",
       "venue": "Paul Derda Recreation Center",
       "address": "13201 Lowell Blvd, Broomfield, CO 80020",
-      "league": "CARA — Colorado Association of Recreational Athletics",
+      "league": "CARA \u2014 Colorado Association of Recreational Athletics",
       "competing": {
         "tyndle": "Optional 1",
         "oakley": "Level 3 (C3)",
@@ -174,17 +215,21 @@
     },
     {
       "sport": "gymnastics",
-      "athletes": ["tyndle", "oakley", "tayla"],
+      "athletes": [
+        "tyndle",
+        "oakley",
+        "tayla"
+      ],
       "date": "2026-05-16",
       "name": "Carbon Valley Gymnastics Meet",
       "host": "Carbon Valley Parks and Recreation District",
       "venue": "Carbon Valley Recreation Center",
       "address": "701 5th St, Frederick, CO 80530",
       "phone": "(303) 833-3660",
-      "league": "CARA — Colorado Association of Recreational Athletics",
-      "competitors": "~150–250 gymnasts (estimate, six full CARA teams across C3, C4, and Optionals 1–5)",
+      "league": "CARA \u2014 Colorado Association of Recreational Athletics",
+      "competitors": "~150\u2013250 gymnasts (estimate, six full CARA teams across C3, C4, and Optionals 1\u20135)",
       "teams": [
-        "Carbon Valley (host — Frederick)",
+        "Carbon Valley (host \u2014 Frederick)",
         "Country",
         "Excel",
         "Foothills Flairs (Littleton)",
@@ -196,9 +241,9 @@
         "oakley": "C3",
         "tayla": "C3"
       },
-      "notes": "Spectator seating is on the upper level (running track). Limited chairs are provided — you may bring your own, for use on the upper level only.",
+      "notes": "Spectator seating is on the upper level (running track). Limited chairs are provided \u2014 you may bring your own, for use on the upper level only.",
       "photo": "media/_venues/carbon-valley-rec-center.jpg",
-      "photoCaption": "Carbon Valley Recreation Center — competition floor seen from the upper-level seating, May 16, 2026."
+      "photoCaption": "Carbon Valley Recreation Center \u2014 competition floor seen from the upper-level seating, May 16, 2026."
     }
   ],
   "scores": [
@@ -210,10 +255,30 @@
       "location": "Elizabeth, CO",
       "level": "Optional 1",
       "results": [
-        { "event": "Vault", "score": "6.8", "placement": "6th", "note": "" },
-        { "event": "Bars",  "score": "7.7", "placement": "6th", "note": "" },
-        { "event": "Beam",  "score": "9.05", "placement": "1st", "note": "" },
-        { "event": "Floor", "score": "8.0", "placement": "6th", "note": "" }
+        {
+          "event": "Vault",
+          "score": "6.8",
+          "placement": "6th",
+          "note": ""
+        },
+        {
+          "event": "Bars",
+          "score": "7.7",
+          "placement": "6th",
+          "note": ""
+        },
+        {
+          "event": "Beam",
+          "score": "9.05",
+          "placement": "1st",
+          "note": ""
+        },
+        {
+          "event": "Floor",
+          "score": "8.0",
+          "placement": "6th",
+          "note": ""
+        }
       ],
       "allAround": "31.55",
       "allAroundPlacement": "5th",
@@ -227,10 +292,30 @@
       "location": "Elizabeth, CO",
       "level": "Optional 1",
       "results": [
-        { "event": "Vault", "score": "6.4", "placement": "", "note": "" },
-        { "event": "Bars",  "score": "5.3", "placement": "", "note": "" },
-        { "event": "Beam",  "score": "7.4", "placement": "", "note": "" },
-        { "event": "Floor", "score": "7.8", "placement": "", "note": "" }
+        {
+          "event": "Vault",
+          "score": "6.4",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Bars",
+          "score": "5.3",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Beam",
+          "score": "7.4",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Floor",
+          "score": "7.8",
+          "placement": "",
+          "note": ""
+        }
       ],
       "allAround": "26.9",
       "allAroundPlacement": "",
@@ -244,10 +329,30 @@
       "location": "Bison Ridge Recreation Center, Commerce City, CO",
       "level": "Optional 1",
       "results": [
-        { "event": "Vault", "score": "7.7", "placement": "", "note": "" },
-        { "event": "Bars",  "score": "5.6", "placement": "", "note": "" },
-        { "event": "Beam",  "score": "5.3", "placement": "", "note": "" },
-        { "event": "Floor", "score": "7.0", "placement": "", "note": "" }
+        {
+          "event": "Vault",
+          "score": "7.7",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Bars",
+          "score": "5.6",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Beam",
+          "score": "5.3",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Floor",
+          "score": "7.0",
+          "placement": "",
+          "note": ""
+        }
       ],
       "allAround": "25.6",
       "allAroundPlacement": "",
@@ -261,10 +366,23 @@
       "location": "Bison Ridge Recreation Center, Commerce City, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "6.8", "placement": "5th" },
-        { "event": "Bars",  "score": "7.0" },
-        { "event": "Beam",  "score": "7.6" },
-        { "event": "Floor", "score": "8.1" }
+        {
+          "event": "Vault",
+          "score": "6.8",
+          "placement": "5th"
+        },
+        {
+          "event": "Bars",
+          "score": "7.0"
+        },
+        {
+          "event": "Beam",
+          "score": "7.6"
+        },
+        {
+          "event": "Floor",
+          "score": "8.1"
+        }
       ],
       "allAround": "29.5"
     },
@@ -276,10 +394,23 @@
       "location": "Bison Ridge Recreation Center, Commerce City, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "6.6" },
-        { "event": "Bars",  "score": "7.0" },
-        { "event": "Beam",  "score": "7.8" },
-        { "event": "Floor", "score": "8.3", "placement": "6th" }
+        {
+          "event": "Vault",
+          "score": "6.6"
+        },
+        {
+          "event": "Bars",
+          "score": "7.0"
+        },
+        {
+          "event": "Beam",
+          "score": "7.8"
+        },
+        {
+          "event": "Floor",
+          "score": "8.3",
+          "placement": "6th"
+        }
       ],
       "allAround": "29.7"
     },
@@ -291,10 +422,30 @@
       "location": "Paul Derda Recreation Center, Broomfield, CO",
       "level": "Optional 1",
       "results": [
-        { "event": "Vault", "score": "", "placement": "", "note": "" },
-        { "event": "Bars",  "score": "", "placement": "", "note": "" },
-        { "event": "Beam",  "score": "", "placement": "", "note": "" },
-        { "event": "Floor", "score": "", "placement": "", "note": "" }
+        {
+          "event": "Vault",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Bars",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Beam",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Floor",
+          "score": "",
+          "placement": "",
+          "note": ""
+        }
       ],
       "allAround": "",
       "allAroundPlacement": "",
@@ -308,10 +459,30 @@
       "location": "Paul Derda Recreation Center, Broomfield, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "", "placement": "", "note": "" },
-        { "event": "Bars",  "score": "", "placement": "", "note": "" },
-        { "event": "Beam",  "score": "", "placement": "", "note": "" },
-        { "event": "Floor", "score": "", "placement": "", "note": "" }
+        {
+          "event": "Vault",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Bars",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Beam",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Floor",
+          "score": "",
+          "placement": "",
+          "note": ""
+        }
       ],
       "allAround": "",
       "allAroundPlacement": "",
@@ -325,10 +496,30 @@
       "location": "Paul Derda Recreation Center, Broomfield, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "", "placement": "", "note": "" },
-        { "event": "Bars",  "score": "", "placement": "", "note": "" },
-        { "event": "Beam",  "score": "", "placement": "", "note": "" },
-        { "event": "Floor", "score": "", "placement": "", "note": "" }
+        {
+          "event": "Vault",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Bars",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Beam",
+          "score": "",
+          "placement": "",
+          "note": ""
+        },
+        {
+          "event": "Floor",
+          "score": "",
+          "placement": "",
+          "note": ""
+        }
       ],
       "allAround": "",
       "allAroundPlacement": "",
@@ -342,13 +533,27 @@
       "location": "Carbon Valley Recreation Center, Frederick, CO",
       "level": "Optional 1",
       "results": [
-        { "event": "Vault", "score": "7.5", "note": "Qualified for regionals on Vault." },
-        { "event": "Bars", "score": "4.0", "note": "Didn't stick the landing." },
-        { "event": "Beam", "score": "5.4" },
-        { "event": "Floor", "score": "6.6" }
+        {
+          "event": "Vault",
+          "score": "7.5",
+          "note": "Qualified for regionals on Vault."
+        },
+        {
+          "event": "Bars",
+          "score": "4.0",
+          "note": "Didn't stick the landing."
+        },
+        {
+          "event": "Beam",
+          "score": "5.4"
+        },
+        {
+          "event": "Floor",
+          "score": "6.6"
+        }
       ],
       "allAround": "23.5",
-      "placement": "5th place — Vault"
+      "placement": "5th place \u2014 Vault"
     },
     {
       "athlete": "oakley",
@@ -358,10 +563,23 @@
       "location": "Carbon Valley Recreation Center, Frederick, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "6.0" },
-        { "event": "Bars", "score": "6.3" },
-        { "event": "Beam", "score": "6.5" },
-        { "event": "Floor", "score": "7.3", "note": "Qualified for regionals on Floor." }
+        {
+          "event": "Vault",
+          "score": "6.0"
+        },
+        {
+          "event": "Bars",
+          "score": "6.3"
+        },
+        {
+          "event": "Beam",
+          "score": "6.5"
+        },
+        {
+          "event": "Floor",
+          "score": "7.3",
+          "note": "Qualified for regionals on Floor."
+        }
       ],
       "allAround": "26.1",
       "placement": ""
@@ -374,10 +592,22 @@
       "location": "Carbon Valley Recreation Center, Frederick, CO",
       "level": "Level 3",
       "results": [
-        { "event": "Vault", "score": "5.4" },
-        { "event": "Bars", "score": "6.9" },
-        { "event": "Beam", "score": "6.5" },
-        { "event": "Floor", "score": "7.0" }
+        {
+          "event": "Vault",
+          "score": "5.4"
+        },
+        {
+          "event": "Bars",
+          "score": "6.9"
+        },
+        {
+          "event": "Beam",
+          "score": "6.5"
+        },
+        {
+          "event": "Floor",
+          "score": "7.0"
+        }
       ],
       "allAround": "25.8",
       "placement": ""
@@ -389,7 +619,7 @@
       "sport": "volleyball",
       "date": "Fall 2026",
       "title": "Playing A team as a 6th grader",
-      "text": "In her first year of junior high volleyball, Tyndle earned a spot on the A team as a 6th grader — on the floor against older girls, in her first season on the court.",
+      "text": "In her first year of junior high volleyball, Tyndle earned a spot on the A team as a 6th grader \u2014 on the floor against older girls, in her first season on the court.",
       "photo": "media/tyndle/volleyball/A-team-at-Sedgwick-County.jpg"
     },
     {
@@ -397,56 +627,56 @@
       "sport": "volleyball",
       "date": "Fall 2026",
       "title": "First season of junior high volleyball",
-      "text": "Tyndle took the court for the Haxtun Bulldogs junior high volleyball team this fall — a new sport, a new season, and a home gym full of state championship banners.",
+      "text": "Tyndle took the court for the Haxtun Bulldogs junior high volleyball team this fall \u2014 a new sport, a new season, and a home gym full of state championship banners.",
       "photo": "media/tyndle/volleyball/bulldogs-huddle-at-home.jpg"
     },
     {
       "athlete": "tyndle",
       "sport": "softball",
       "date": "Summer 2026",
-      "title": "2026 Bulldogs — All-Star season at shortstop",
+      "title": "2026 Bulldogs \u2014 All-Star season at shortstop",
       "text": "Tyndle (#22) led the Haxtun Bulldogs 9-12 in hits and tied for the RBI lead from shortstop, also taking the circle as a pitcher and recording the team's most assists (.429 average, 9 hits, 6 RBI, 8 assists). Her signature moment: a walk-off RBI single against Grant on June 9 to win it 7-6. Named to the 2026 League All-Star team."
     },
     {
       "athlete": "oakley",
       "sport": "softball",
       "date": "Summer 2026",
-      "title": "2026 Bulldogs — patient bat, perfect glove",
+      "title": "2026 Bulldogs \u2014 patient bat, perfect glove",
       "text": "Oakley (#7) anchored second base and led the Bulldogs to the plate with 24 plate appearances, drawing 12 walks (tied for the team best) and fielding a flawless 1.000. The most patient at-bat in the lineup and a sure glove all summer."
     },
     {
       "athlete": "tayla",
       "sport": "softball",
       "date": "Summer 2026",
-      "title": "2026 Bulldogs — steady in right field",
+      "title": "2026 Bulldogs \u2014 steady in right field",
       "text": "Tayla (#16) patrolled right field across 8 games, chipping in an RBI and 2 walks while fielding a clean 1.000. She showed up every time her number was called."
     },
     {
       "athlete": "tyndle",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Gymnastics Meet — Optional 1",
-      "text": "Tyndle competed at Optional 1 in Frederick and placed 5th on Vault with a 7.5 — the same score that punched her regionals ticket. Beam was 5.4, Floor 6.6, and Bars 4.0 after a tough landing. All-Around 23.5. Walked out with a green CARA 5th-place Vault ribbon and a trip to regionals on the same event. First meet in the archive.",
+      "title": "Carbon Valley Gymnastics Meet \u2014 Optional 1",
+      "text": "Tyndle competed at Optional 1 in Frederick and placed 5th on Vault with a 7.5 \u2014 the same score that punched her regionals ticket. Beam was 5.4, Floor 6.6, and Bars 4.0 after a tough landing. All-Around 23.5. Walked out with a green CARA 5th-place Vault ribbon and a trip to regionals on the same event. First meet in the archive.",
       "photo": "media/_venues/carbon-valley-rec-center.jpg",
-      "photoCaption": "Carbon Valley Recreation Center — meet day."
+      "photoCaption": "Carbon Valley Recreation Center \u2014 meet day."
     },
     {
       "athlete": "oakley",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Gymnastics Meet — Level 3",
+      "title": "Carbon Valley Gymnastics Meet \u2014 Level 3",
       "text": "Oakley competed at Level 3 in Frederick and qualified for regionals on Floor with a 7.3. Vault was 6.0, Beam 6.5, Bars 6.3. All-Around 26.1. First meet in the archive, and the one with the regionals ticket on Floor.",
       "photo": "media/_venues/carbon-valley-rec-center.jpg",
-      "photoCaption": "Carbon Valley Recreation Center — meet day."
+      "photoCaption": "Carbon Valley Recreation Center \u2014 meet day."
     },
     {
       "athlete": "tayla",
       "sport": "gymnastics",
       "date": "2026-05-16",
-      "title": "Carbon Valley Gymnastics Meet — Level 3",
-      "text": "Tayla competed at Level 3 in Frederick. Bars 6.9, Floor 7.0, Beam 6.5, Vault 5.4. All-Around 25.8. Beam was just a tenth shy of the regionals line and Floor was two-tenths off — both within reach next meet.",
+      "title": "Carbon Valley Gymnastics Meet \u2014 Level 3",
+      "text": "Tayla competed at Level 3 in Frederick. Bars 6.9, Floor 7.0, Beam 6.5, Vault 5.4. All-Around 25.8. Beam was just a tenth shy of the regionals line and Floor was two-tenths off \u2014 both within reach next meet.",
       "photo": "media/_venues/carbon-valley-rec-center.jpg",
-      "photoCaption": "Carbon Valley Recreation Center — meet day."
+      "photoCaption": "Carbon Valley Recreation Center \u2014 meet day."
     }
   ],
   "places": [
@@ -455,21 +685,21 @@
       "sport": "gymnastics",
       "name": "Carbon Valley Recreation Center",
       "city": "Frederick, CO",
-      "note": "701 5th St — host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
+      "note": "701 5th St \u2014 host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
     },
     {
       "athlete": "oakley",
       "sport": "gymnastics",
       "name": "Carbon Valley Recreation Center",
       "city": "Frederick, CO",
-      "note": "701 5th St — host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
+      "note": "701 5th St \u2014 host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
     },
     {
       "athlete": "tayla",
       "sport": "gymnastics",
       "name": "Carbon Valley Recreation Center",
       "city": "Frederick, CO",
-      "note": "701 5th St — host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
+      "note": "701 5th St \u2014 host venue for the May 16, 2026 Carbon Valley Gymnastics Meet."
     },
     {
       "athlete": "tyndle",
@@ -488,7 +718,7 @@
     {
       "athlete": "tyndle",
       "sport": "volleyball",
-      "name": "Sedgwick County Schools — Cougars Gym",
+      "name": "Sedgwick County Schools \u2014 Cougars Gym",
       "city": "Julesburg, CO",
       "note": "Road game against the Cougars on September 17, 2026."
     }
