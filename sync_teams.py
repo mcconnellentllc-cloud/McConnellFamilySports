@@ -107,8 +107,19 @@ def load_json(path: Path, default: Any) -> Any:
 
 
 def write_json(path: Path, value: Any) -> None:
+    """Write JSON the family can still read and hand-edit on GitHub.
+
+    ensure_ascii would turn every em dash and middot in content.json into a
+    \\u2014 escape, so the accents come out as noise in the very files the
+    house rules say are edited by hand. And a run that changed nothing should
+    leave no diff behind: without the comparison below, a sync that synced
+    nothing still rewrote content.json top to bottom.
+    """
+    text = json.dumps(value, indent=2, sort_keys=False, ensure_ascii=False) + "\n"
+    if path.exists() and path.read_text(encoding="utf-8") == text:
+        return
     tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(json.dumps(value, indent=2, sort_keys=False) + "\n")
+    tmp.write_text(text, encoding="utf-8")
     tmp.replace(path)
 
 
@@ -640,6 +651,89 @@ def channel_files_drive_root(gs: GraphSession, team_id: str, channel_id: str) ->
     return None
 
 
+def graph_error(r: requests.Response) -> str:
+    """Graph explains every failure in the response body. A bare status code
+    does not, so never report one on its own."""
+    try:
+        err = r.json().get("error", {})
+        detail = (err.get("code") or "").strip()
+        message = (err.get("message") or "").strip()
+        return " - ".join(x for x in (detail, message) if x) or r.text[:300]
+    except ValueError:
+        return (r.text or "")[:300]
+
+
+def split_site_url(site_url: str) -> tuple[str, str]:
+    """Split a SharePoint address into (host, server-relative path).
+
+    Copying the address out of a browser usually picks up more than the site:
+    https://contoso.sharepoint.com/sites/OurFamily/Pictures/Forms/AllItems.aspx
+    is the site OurFamily with library chrome stapled on. Graph wants the site
+    alone, so keep the collection segment and the site name and drop the rest.
+    """
+    cleaned = re.sub(r"^https?://", "", site_url.strip()).strip("/")
+    host, _, path = cleaned.partition("/")
+    parts = [s for s in path.split("/") if s]
+    if len(parts) >= 2 and parts[0].casefold() in ("sites", "teams", "personal"):
+        parts = parts[:2]
+    return host, "/".join(parts)
+
+
+def resolve_site_id(gs: GraphSession, site_url: str) -> str | None:
+    """Find a site's Graph id, reporting what Graph said when it cannot.
+
+    Graph addresses a site by path with a colon separating host from path.
+    Whether that path also takes a closing colon depends on the shape of the
+    request, and guessing wrong returns a bare HTTP 400 that names no cause -
+    which is exactly what the first real run produced. So try each accepted
+    form, then fall back to searching for the site by name, and log Graph's
+    own explanation for every attempt that fails.
+    """
+    host, path = split_site_url(site_url)
+    if not host:
+        log.error("SHAREPOINT_SITE_URL has no hostname in it.")
+        log.error("Expected something like https://contoso.sharepoint.com/sites/OurFamily")
+        return None
+
+    refs = [f"/sites/{host}:/{path}", f"/sites/{host}:/{path}:"] if path else []
+    refs.append(f"/sites/{host}")
+
+    for ref in refs:
+        r = gs.get(ref)
+        if r.status_code == 200:
+            site_id = r.json().get("id")
+            if site_id:
+                log.info("Resolved site via %s", ref)
+                return site_id
+            log.warning("%s returned 200 but no site id", ref)
+            continue
+        log.warning("%s -> HTTP %s %s", ref, r.status_code, graph_error(r))
+
+    # Nothing addressed directly. Ask Graph to search by the site's name; this
+    # also copes with a renamed site whose URL no longer matches.
+    leaf = path.rsplit("/", 1)[-1] if path else host.split(".", 1)[0]
+    r = gs.get("/sites", params={"search": leaf})
+    if r.status_code == 200:
+        hits = r.json().get("value", [])
+        wanted = f"{host}/{path}".casefold().rstrip("/")
+        for s in hits:
+            web = re.sub(r"^https?://", "", (s.get("webUrl") or "")).casefold().rstrip("/")
+            if web == wanted and s.get("id"):
+                log.info("Resolved site by search on %r", leaf)
+                return s["id"]
+        log.error("Searching for %r matched %d site(s), none at %s:", leaf, len(hits), site_url)
+        for s in hits:
+            log.error("    %s -> %s", s.get("displayName"), s.get("webUrl"))
+    else:
+        log.error("Site search failed -> HTTP %s %s", r.status_code, graph_error(r))
+
+    log.error("Could not resolve SharePoint site %s", site_url)
+    log.error("Expected something like https://contoso.sharepoint.com/sites/OurFamily")
+    log.error("A 403 here means the app registration is missing admin consent "
+              "for the Sites application permission.")
+    return None
+
+
 def sharepoint_library_root(gs: GraphSession, site_url: str, library: str | None) -> str | None:
     """Resolve a SharePoint document library to the same /drives/... path shape
     that channel_files_drive_root returns, so walk_drive can consume it.
@@ -653,26 +747,13 @@ def sharepoint_library_root(gs: GraphSession, site_url: str, library: str | None
     When the library cannot be found, every library on the site is logged, so
     the run itself tells you what to put in the setting.
     """
-    cleaned = site_url.strip().rstrip("/")
-    cleaned = re.sub(r"^https?://", "", cleaned)
-    if "/" in cleaned:
-        host, path = cleaned.split("/", 1)
-        site_ref = f"{host}:/{path}:"
-    else:
-        host, site_ref = cleaned, cleaned
-    r = gs.get(f"/sites/{site_ref}")
-    if r.status_code != 200:
-        log.error("Could not resolve SharePoint site %s -> HTTP %s", site_url, r.status_code)
-        log.error("Expected something like https://contoso.sharepoint.com/sites/OurFamily")
-        return None
-    site_id = r.json().get("id")
+    site_id = resolve_site_id(gs, site_url)
     if not site_id:
-        log.error("Site lookup returned no id for %s", site_url)
         return None
 
     r = gs.get(f"/sites/{site_id}/drives")
     if r.status_code != 200:
-        log.error("Could not list libraries on %s -> HTTP %s", site_url, r.status_code)
+        log.error("Could not list libraries on %s -> HTTP %s %s", site_url, r.status_code, graph_error(r))
         return None
     drives = r.json().get("value", [])
     if not drives:
@@ -701,7 +782,7 @@ def sharepoint_library_root(gs: GraphSession, site_url: str, library: str | None
     drive_id = drive.get("id")
     r = gs.get(f"/drives/{drive_id}/root")
     if r.status_code != 200:
-        log.error("Could not open the root of %r -> HTTP %s", drive.get("name"), r.status_code)
+        log.error("Could not open the root of %r -> HTTP %s %s", drive.get("name"), r.status_code, graph_error(r))
         return None
     root_id = r.json().get("id")
     if not root_id:
@@ -896,14 +977,21 @@ def main() -> int:
         client_secret=os.environ["CLIENT_SECRET"],
     )
 
+    # A source that never opened is a failed run, however calmly it ended.
+    # The first real sync resolved no library, logged the reason, and still
+    # exited 0 - so Actions showed a green check for a sync that moved
+    # nothing. Track what actually opened and fail the run if nothing did.
+    sources_opened = 0
     try:
         if team_id and channel_id:
             sync_messages(gs, ctx, team_id, channel_id)
             sync_channel_files(gs, ctx, team_id, channel_id)
+            sources_opened += 1
         if sp_site:
             root = sharepoint_library_root(gs, sp_site, sp_library)
             if root:
                 sync_drive_folder(gs, ctx, root, f"SharePoint library {sp_library or '(default)'}")
+                sources_opened += 1
     except requests.HTTPError as e:
         log.error("Graph request failed: %s", e)
         # Persist what we have so far — partial progress is fine.
@@ -918,6 +1006,11 @@ def main() -> int:
             write_json(CONTENT_PATH, ctx.content)
             nominatim.save()
             log.info("State + pending + content persisted")
+
+    if not sources_opened:
+        log.error("No source could be opened, so nothing was synced. "
+                  "The errors above say why.")
+        return 1
 
     return 0
 
