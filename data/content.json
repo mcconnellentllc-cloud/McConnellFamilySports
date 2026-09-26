@@ -203,6 +203,18 @@
   ],
   "scores": [
     {
+      "athlete": "tyndle",
+      "sport": "running",
+      "date": "2026-09-26",
+      "meet": "Jay Jeffers Memorial 5K",
+      "location": "Haxtun, CO",
+      "results": [
+        { "event": "5K", "score": "23:05", "placement": "1st — girls", "note": "7:26 per mile" }
+      ],
+      "placement": "1st place — girls",
+      "notes": "Run on Cornfest morning through downtown Haxtun, out past the grain elevator and back up Colorado Avenue between the food trailers and the orange cones. Tyndle was the first girl across the line."
+    },
+    {
       "athlete": "tayla",
       "sport": "gymnastics",
       "date": "2026-07-11",
@@ -386,6 +398,22 @@
   "memories": [
     {
       "athlete": "tyndle",
+      "sport": "running",
+      "date": "2026-09-26",
+      "title": "Cornfest morning on Main Street",
+      "text": "Before the cones came down — Main Street closed to traffic, the food trailers setting up, the lemonade flag out, and the whole town turned into a race course for the morning.",
+      "photo": "media/_memories/cornfest-morning-on-main-street.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "running",
+      "date": "2026-09-26",
+      "title": "First girl across the line",
+      "text": "Tyndle ran the Jay Jeffers Memorial 5K at Cornfest in 23 minutes 5 seconds — a shade under seven and a half minutes a mile, three miles of it — and finished first among the girls. Her own town, her own main street, the grain elevator over her shoulder, and nobody ahead of her.",
+      "photo": "media/tyndle/running/coming-up-the-home-stretch.jpg"
+    },
+    {
+      "athlete": "tyndle",
       "sport": "volleyball",
       "date": "Fall 2026",
       "title": "Playing A team as a 6th grader",
@@ -450,6 +478,13 @@
     }
   ],
   "places": [
+    {
+      "athlete": "tyndle",
+      "sport": "running",
+      "name": "Downtown Haxtun",
+      "city": "Haxtun, CO",
+      "note": "Colorado Avenue — start and finish of the Jay Jeffers Memorial 5K, run on Cornfest morning past the grain elevator."
+    },
     {
       "athlete": "tyndle",
       "sport": "gymnastics",

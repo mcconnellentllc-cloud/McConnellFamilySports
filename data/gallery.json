@@ -2,6 +2,30 @@
   "photos": [
     {
       "athlete": "tyndle",
+      "sport": "running",
+      "type": "photo",
+      "src": "media/tyndle/running/coming-up-the-home-stretch.jpg",
+      "caption": "Coming up the home stretch",
+      "file": "coming-up-the-home-stretch.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "running",
+      "type": "photo",
+      "src": "media/tyndle/running/past-the-grain-elevator.jpg",
+      "caption": "Past the grain elevator",
+      "file": "past-the-grain-elevator.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "running",
+      "type": "photo",
+      "src": "media/tyndle/running/up-Colorado-Avenue-past-the-bulldog-flag.jpg",
+      "caption": "Up Colorado Avenue past the bulldog flag",
+      "file": "up-Colorado-Avenue-past-the-bulldog-flag.jpg"
+    },
+    {
+      "athlete": "tyndle",
       "sport": "volleyball",
       "type": "photo",
       "src": "media/tyndle/volleyball/A-team-at-Sedgwick-County.jpg",
