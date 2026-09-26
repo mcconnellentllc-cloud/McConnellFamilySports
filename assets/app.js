@@ -1700,10 +1700,16 @@
       // All-Around: use the manual value if entered, otherwise auto-sum the
       // four event scores once they're all filled in. Shows a small hint
       // when the figure was computed rather than typed.
+      //
+      // Only where the sport actually has an All-Around, though. It is a
+      // gymnastics idea, and parseFloat is happy to read a finishing time
+      // of "23:05" as the number 23 — so without this guard a running card
+      // would sprout a nonsense "All-Around 23" tile under the one result.
+      const hasAllAround = (s.events || []).indexOf("All-Around") !== -1;
       let aaVal = r.allAround;
       let aaAuto = false;
       const aaManual = aaVal != null && aaVal !== "";
-      if (!aaManual) {
+      if (!aaManual && hasAllAround) {
         const nums = (r.results || []).map(function (e) { return parseFloat(e.score); });
         if (nums.length && nums.every(function (n) { return !isNaN(n); })) {
           aaVal = (Math.round(nums.reduce(function (a, b) { return a + b; }, 0) * 1000) / 1000).toString();
