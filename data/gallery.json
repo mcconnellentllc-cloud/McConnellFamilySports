@@ -9,15 +9,45 @@
       "file": "IMG_5806.jpeg"
     },
     {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/oakley/volleyball/IMG_7088.jpeg",
+      "caption": "",
+      "file": "IMG_7088.jpeg",
+      "taken": "2026-09-19",
+      "lat": 40.64,
+      "lng": -103.22
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/oakley/volleyball/IMG_7095.jpeg",
+      "caption": "",
+      "file": "IMG_7095.jpeg",
+      "taken": "2026-09-19",
+      "lat": 40.64,
+      "lng": -103.22
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/oakley/volleyball/IMG_7106.jpeg",
+      "caption": "",
+      "file": "IMG_7106.jpeg",
+      "taken": "2026-09-19",
+      "lat": 40.64,
+      "lng": -103.22
+    },
+    {
       "athlete": "tayla",
       "sport": "gymnastics",
       "type": "photo",
       "src": "media/tayla/gymnastics/IMG_6213.jpeg",
       "caption": "",
-      "file": "IMG_6213.jpeg",
-      "taken": "2026-07-11",
-      "lat": 39.37,
-      "lng": -104.6
+      "file": "IMG_6213.jpeg"
     },
     {
       "athlete": "tayla",
@@ -25,10 +55,7 @@
       "type": "photo",
       "src": "media/tayla/gymnastics/IMG_6326.jpeg",
       "caption": "",
-      "file": "IMG_6326.jpeg",
-      "taken": "2026-07-18",
-      "lat": 39.87,
-      "lng": -105.04
+      "file": "IMG_6326.jpeg"
     },
     {
       "athlete": "tayla",
@@ -36,10 +63,7 @@
       "type": "photo",
       "src": "media/tayla/gymnastics/IMG_6329.jpeg",
       "caption": "",
-      "file": "IMG_6329.jpeg",
-      "taken": "2026-07-18",
-      "lat": 39.87,
-      "lng": -105.04
+      "file": "IMG_6329.jpeg"
     },
     {
       "athlete": "tyndle",
