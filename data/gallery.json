@@ -1,6 +1,17 @@
 {
   "photos": [
     {
+      "athlete": "oakley",
+      "sport": "gymnastics",
+      "type": "photo",
+      "src": "media/oakley/gymnastics/IMG_5806.jpeg",
+      "caption": "",
+      "file": "IMG_5806.jpeg",
+      "taken": "2026-06-26",
+      "lat": 39.9,
+      "lng": -104.83
+    },
+    {
       "athlete": "tyndle",
       "sport": "running",
       "type": "video",
@@ -14,10 +25,7 @@
       "type": "photo",
       "src": "media/tyndle/running/IMG_7264.jpeg",
       "caption": "",
-      "file": "IMG_7264.jpeg",
-      "taken": "2026-09-26",
-      "lat": 40.64,
-      "lng": -102.63
+      "file": "IMG_7264.jpeg"
     },
     {
       "athlete": "tyndle",
