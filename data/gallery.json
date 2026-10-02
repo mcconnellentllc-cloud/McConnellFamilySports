@@ -3,6 +3,25 @@
     {
       "athlete": "tyndle",
       "sport": "running",
+      "type": "video",
+      "src": "media/tyndle/running/IMG_7263.mp4",
+      "caption": "",
+      "file": "IMG_7263.mp4"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "running",
+      "type": "photo",
+      "src": "media/tyndle/running/IMG_7264.jpeg",
+      "caption": "",
+      "file": "IMG_7264.jpeg",
+      "taken": "2026-09-26",
+      "lat": 40.64,
+      "lng": -102.63
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "running",
       "type": "photo",
       "src": "media/tyndle/running/coming-up-the-home-stretch.jpg",
       "caption": "Coming up the home stretch",
