@@ -14,10 +14,7 @@
       "type": "photo",
       "src": "media/oakley/volleyball/IMG_7088.jpeg",
       "caption": "",
-      "file": "IMG_7088.jpeg",
-      "taken": "2026-09-19",
-      "lat": 40.64,
-      "lng": -103.22
+      "file": "IMG_7088.jpeg"
     },
     {
       "athlete": "oakley",
@@ -25,10 +22,7 @@
       "type": "photo",
       "src": "media/oakley/volleyball/IMG_7095.jpeg",
       "caption": "",
-      "file": "IMG_7095.jpeg",
-      "taken": "2026-09-19",
-      "lat": 40.64,
-      "lng": -103.22
+      "file": "IMG_7095.jpeg"
     },
     {
       "athlete": "oakley",
@@ -36,10 +30,7 @@
       "type": "photo",
       "src": "media/oakley/volleyball/IMG_7106.jpeg",
       "caption": "",
-      "file": "IMG_7106.jpeg",
-      "taken": "2026-09-19",
-      "lat": 40.64,
-      "lng": -103.22
+      "file": "IMG_7106.jpeg"
     },
     {
       "athlete": "tayla",
@@ -168,6 +159,107 @@
       "src": "media/tyndle/volleyball/IMG_6978.mp4",
       "caption": "",
       "file": "IMG_6978.mp4"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7229.jpeg",
+      "caption": "",
+      "file": "IMG_7229.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7230.jpeg",
+      "caption": "",
+      "file": "IMG_7230.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7231.jpeg",
+      "caption": "",
+      "file": "IMG_7231.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7232.jpeg",
+      "caption": "",
+      "file": "IMG_7232.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7233.jpeg",
+      "caption": "",
+      "file": "IMG_7233.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7234.jpeg",
+      "caption": "",
+      "file": "IMG_7234.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7235.jpeg",
+      "caption": "",
+      "file": "IMG_7235.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7236.jpeg",
+      "caption": "",
+      "file": "IMG_7236.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7237.jpeg",
+      "caption": "",
+      "file": "IMG_7237.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7238.jpeg",
+      "caption": "",
+      "file": "IMG_7238.jpeg",
+      "taken": "2026-09-25"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7347.jpeg",
+      "caption": "",
+      "file": "IMG_7347.jpeg",
+      "taken": "2026-10-01",
+      "lat": 40.16,
+      "lng": -103.2
     },
     {
       "athlete": "tyndle",
