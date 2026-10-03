@@ -58,7 +58,7 @@
       },
       "fourth": {
         "title": "Volleyball — 2026 Fourth Grade",
-        "name": "Haxtun 4th Grade",
+        "name": "City of Sterling Youth Volleyball",
         "season": "2026",
         "blurb": "Oakley and Tayla on the court together in 4th grade."
       }
@@ -99,6 +99,21 @@
   ],
   "travel": [],
   "events": [
+    {
+      "sport": "volleyball",
+      "athletes": [
+        "oakley",
+        "tayla"
+      ],
+      "date": "2026-10-03",
+      "name": "vs Caliche",
+      "venue": "Sterling Middle School",
+      "address": "Sterling, CO",
+      "status": "Final",
+      "result": "win",
+      "resultDetail": "two sets in a row.",
+      "notes": "Fourth grade game against Caliche at Sterling Middle School. Oakley and Tayla's team took two sets in a row."
+    },
     {
       "sport": "volleyball",
       "athletes": ["tyndle"],
@@ -397,6 +412,22 @@
   ],
   "memories": [
     {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "date": "2026-10-03",
+      "title": "Two sets in a row against Caliche",
+      "text": "Oakley and Tayla's team beat Caliche at Sterling Middle School, taking two sets back to back. Pink jerseys, an orange-and-black gym, and both sisters on the floor together.",
+      "photo": "media/_memories/serving-against-Caliche.jpg"
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "date": "2026-10-03",
+      "title": "Two sets in a row against Caliche",
+      "text": "Tayla and Oakley's team beat Caliche at Sterling Middle School, taking two sets back to back — the two of them rotating through the same lineup in matching pink.",
+      "photo": "media/_memories/waiting-to-serve-against-Caliche.jpg"
+    },
+    {
       "athlete": "tyndle",
       "sport": "running",
       "date": "2026-09-26",
@@ -478,6 +509,20 @@
     }
   ],
   "places": [
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "name": "Sterling Middle School",
+      "city": "Sterling, CO",
+      "note": "Tigers gym — orange and black, where the City of Sterling youth league plays."
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "name": "Sterling Middle School",
+      "city": "Sterling, CO",
+      "note": "Tigers gym — orange and black, where the City of Sterling youth league plays."
+    },
     {
       "athlete": "tyndle",
       "sport": "running",
