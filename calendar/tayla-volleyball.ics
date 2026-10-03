@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The McConnell Family//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Tayla — Volleyball
+BEGIN:VEVENT
+UID:20261003-volleyball-vs-caliche@mcconnellfamilysports
+DTSTAMP:20261003T000000Z
+DTSTART;VALUE=DATE:20261003
+DTEND;VALUE=DATE:20261004
+SUMMARY:Volleyball: vs Caliche
+LOCATION:Sterling Middle School — Sterling\, CO
+DESCRIPTION:Fourth grade game against Caliche at Sterling Middle School. Oa
+ kley and Tayla's team took two sets in a row. Result: Win
+END:VEVENT
+END:VCALENDAR

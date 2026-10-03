@@ -12,25 +12,25 @@
       "athlete": "oakley",
       "sport": "volleyball",
       "type": "photo",
-      "src": "media/oakley/volleyball/IMG_7088.jpeg",
-      "caption": "",
-      "file": "IMG_7088.jpeg"
+      "src": "media/oakley/volleyball/City-of-Sterling-team-photo.jpeg",
+      "caption": "City of Sterling team photo",
+      "file": "City-of-Sterling-team-photo.jpeg"
     },
     {
       "athlete": "oakley",
       "sport": "volleyball",
       "type": "photo",
-      "src": "media/oakley/volleyball/IMG_7095.jpeg",
-      "caption": "",
-      "file": "IMG_7095.jpeg"
+      "src": "media/oakley/volleyball/huddle-with-the-coach.jpeg",
+      "caption": "Huddle with the coach",
+      "file": "huddle-with-the-coach.jpeg"
     },
     {
       "athlete": "oakley",
       "sport": "volleyball",
       "type": "photo",
-      "src": "media/oakley/volleyball/IMG_7106.jpeg",
-      "caption": "",
-      "file": "IMG_7106.jpeg"
+      "src": "media/oakley/volleyball/on-the-sideline-chairs.jpeg",
+      "caption": "On the sideline chairs",
+      "file": "on-the-sideline-chairs.jpeg"
     },
     {
       "athlete": "tayla",
@@ -60,52 +60,41 @@
       "athlete": "tayla",
       "sport": "volleyball",
       "type": "photo",
-      "src": "media/tayla/volleyball/IMG_7103.jpeg",
-      "caption": "",
-      "file": "IMG_7103.jpeg"
+      "src": "media/tayla/volleyball/City-of-Sterling-team-photo.jpeg",
+      "caption": "City of Sterling team photo",
+      "file": "City-of-Sterling-team-photo.jpeg"
     },
     {
       "athlete": "tayla",
       "sport": "volleyball",
       "type": "photo",
-      "src": "media/tayla/volleyball/IMG_7104.jpeg",
-      "caption": "",
-      "file": "IMG_7104.jpeg"
+      "src": "media/tayla/volleyball/ready-to-rotate-in.jpeg",
+      "caption": "Ready to rotate in",
+      "file": "ready-to-rotate-in.jpeg"
     },
     {
       "athlete": "tayla",
       "sport": "volleyball",
       "type": "photo",
-      "src": "media/tayla/volleyball/IMG_7106.jpeg",
-      "caption": "",
-      "file": "IMG_7106.jpeg"
+      "src": "media/tayla/volleyball/watching-from-the-bench.jpeg",
+      "caption": "Watching from the bench",
+      "file": "watching-from-the-bench.jpeg"
     },
     {
       "athlete": "tyndle",
       "sport": "running",
       "type": "photo",
-      "src": "media/tyndle/running/IMG_7261.jpeg",
-      "caption": "",
-      "file": "IMG_7261.jpeg",
-      "taken": "2026-09-26",
-      "lat": 40.64,
-      "lng": -102.63
-    },
-    {
-      "athlete": "tyndle",
-      "sport": "running",
-      "type": "video",
-      "src": "media/tyndle/running/IMG_7263.mp4",
-      "caption": "",
-      "file": "IMG_7263.mp4"
+      "src": "media/tyndle/running/at-the-Cornfest-start-line.jpeg",
+      "caption": "At the Cornfest start line",
+      "file": "at-the-Cornfest-start-line.jpeg"
     },
     {
       "athlete": "tyndle",
       "sport": "running",
       "type": "photo",
-      "src": "media/tyndle/running/IMG_7264.jpeg",
-      "caption": "",
-      "file": "IMG_7264.jpeg"
+      "src": "media/tyndle/running/bib-323-after-the-finish.jpeg",
+      "caption": "Bib 323 after the finish",
+      "file": "bib-323-after-the-finish.jpeg"
     },
     {
       "athlete": "tyndle",
@@ -122,6 +111,14 @@
       "src": "media/tyndle/running/past-the-grain-elevator.jpg",
       "caption": "Past the grain elevator",
       "file": "past-the-grain-elevator.jpg"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "running",
+      "type": "video",
+      "src": "media/tyndle/running/the-Cornfest-start-banner.mp4",
+      "caption": "The Cornfest start banner",
+      "file": "the-Cornfest-start-banner.mp4"
     },
     {
       "athlete": "tyndle",
