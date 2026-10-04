@@ -1922,7 +1922,11 @@
 
       const hint = el("p", { class: "uploader__hint" });
       hint.appendChild(document.createTextNode(
-        "Opens GitHub's upload page for this folder — works from a phone. On an iPhone, pick "));
+        "Opens GitHub's upload page for this folder — works from a phone. You have to be "));
+      hint.appendChild(el("strong", null, ["signed in to GitHub"]));
+      hint.appendChild(document.createTextNode(
+        " first: if that page says \u201cUploads are disabled\u201d, it means the browser is " +
+        "logged out — tap Sign in at the top, then come back. On an iPhone, pick "));
       hint.appendChild(el("strong", null, ["Photo Library"]));
       hint.appendChild(document.createTextNode(" rather than "));
       hint.appendChild(el("strong", null, ["Browse"]));
