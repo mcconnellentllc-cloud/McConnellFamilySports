@@ -20,6 +20,14 @@
       "athlete": "oakley",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/oakley/volleyball/ball-in-the-air-vs-Caliche.jpg",
+      "caption": "Ball in the air vs Caliche",
+      "file": "ball-in-the-air-vs-Caliche.jpg"
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/oakley/volleyball/huddle-with-the-coach.jpeg",
       "caption": "Huddle with the coach",
       "file": "huddle-with-the-coach.jpeg"
@@ -31,6 +39,22 @@
       "src": "media/oakley/volleyball/on-the-sideline-chairs.jpeg",
       "caption": "On the sideline chairs",
       "file": "on-the-sideline-chairs.jpeg"
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/oakley/volleyball/serving-vs-Caliche.jpg",
+      "caption": "Serving vs Caliche",
+      "file": "serving-vs-Caliche.jpg"
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/oakley/volleyball/waiting-to-serve-vs-Caliche.jpg",
+      "caption": "Waiting to serve vs Caliche",
+      "file": "waiting-to-serve-vs-Caliche.jpg"
     },
     {
       "athlete": "tayla",
@@ -68,9 +92,33 @@
       "athlete": "tayla",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/tayla/volleyball/ball-in-the-air-vs-Caliche.jpg",
+      "caption": "Ball in the air vs Caliche",
+      "file": "ball-in-the-air-vs-Caliche.jpg"
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/tayla/volleyball/ready-to-rotate-in.jpeg",
       "caption": "Ready to rotate in",
       "file": "ready-to-rotate-in.jpeg"
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tayla/volleyball/serving-vs-Caliche.jpg",
+      "caption": "Serving vs Caliche",
+      "file": "serving-vs-Caliche.jpg"
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tayla/volleyball/waiting-to-serve-vs-Caliche.jpg",
+      "caption": "Waiting to serve vs Caliche",
+      "file": "waiting-to-serve-vs-Caliche.jpg"
     },
     {
       "athlete": "tayla",
