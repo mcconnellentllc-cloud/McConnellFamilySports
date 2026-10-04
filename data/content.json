@@ -72,10 +72,12 @@
       },
       "oakley": {
         "team": "fourth",
+        "number": "3",
         "summary": "Oakley is playing 4th grade volleyball this fall."
       },
       "tayla": {
         "team": "fourth",
+        "number": "2",
         "summary": "Tayla is playing 4th grade volleyball this fall."
       }
     }
