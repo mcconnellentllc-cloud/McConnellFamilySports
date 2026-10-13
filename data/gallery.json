@@ -332,6 +332,37 @@
       "athlete": "tyndle",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7428.jpeg",
+      "caption": "",
+      "file": "IMG_7428.jpeg",
+      "taken": "2026-10-10",
+      "lat": 40.98,
+      "lng": -102.28
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7429.jpeg",
+      "caption": "",
+      "file": "IMG_7429.jpeg",
+      "taken": "2026-10-10",
+      "lat": 40.98,
+      "lng": -102.28
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tyndle/volleyball/IMG_7432.jpeg",
+      "caption": "",
+      "file": "IMG_7432.jpeg",
+      "taken": "2026-10-10"
+    },
+    {
+      "athlete": "tyndle",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/tyndle/volleyball/In-play-at-Sedgwick-County.jpg",
       "caption": "In play at Sedgwick County",
       "file": "In-play-at-Sedgwick-County.jpg"
