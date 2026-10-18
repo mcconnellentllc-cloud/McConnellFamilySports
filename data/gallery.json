@@ -22,10 +22,7 @@
       "type": "photo",
       "src": "media/oakley/volleyball/IMG_7528.jpeg",
       "caption": "",
-      "file": "IMG_7528.jpeg",
-      "taken": "2026-10-17",
-      "lat": 40.64,
-      "lng": -103.22
+      "file": "IMG_7528.jpeg"
     },
     {
       "athlete": "oakley",
@@ -33,10 +30,7 @@
       "type": "photo",
       "src": "media/oakley/volleyball/IMG_7530.jpeg",
       "caption": "",
-      "file": "IMG_7530.jpeg",
-      "taken": "2026-10-17",
-      "lat": 40.64,
-      "lng": -103.22
+      "file": "IMG_7530.jpeg"
     },
     {
       "athlete": "oakley",
@@ -109,6 +103,28 @@
       "src": "media/tayla/volleyball/City-of-Sterling-team-photo.jpeg",
       "caption": "City of Sterling team photo",
       "file": "City-of-Sterling-team-photo.jpeg"
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tayla/volleyball/IMG_7528.jpeg",
+      "caption": "",
+      "file": "IMG_7528.jpeg",
+      "taken": "2026-10-17",
+      "lat": 40.64,
+      "lng": -103.22
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tayla/volleyball/IMG_7530.jpeg",
+      "caption": "",
+      "file": "IMG_7530.jpeg",
+      "taken": "2026-10-17",
+      "lat": 40.64,
+      "lng": -103.22
     },
     {
       "athlete": "tayla",
