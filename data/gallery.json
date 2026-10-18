@@ -20,6 +20,28 @@
       "athlete": "oakley",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/oakley/volleyball/IMG_7528.jpeg",
+      "caption": "",
+      "file": "IMG_7528.jpeg",
+      "taken": "2026-10-17",
+      "lat": 40.64,
+      "lng": -103.22
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/oakley/volleyball/IMG_7530.jpeg",
+      "caption": "",
+      "file": "IMG_7530.jpeg",
+      "taken": "2026-10-17",
+      "lat": 40.64,
+      "lng": -103.22
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/oakley/volleyball/ball-in-the-air-vs-Caliche.jpg",
       "caption": "Ball in the air vs Caliche",
       "file": "ball-in-the-air-vs-Caliche.jpg"
