@@ -217,7 +217,16 @@
       if (ev.sport !== sSlug) return false;
       const list = ev.athletes || [];
       return list.indexOf(aSlug) !== -1;
-    }).sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+    }).sort(function (a, b) { return eventKey(b).localeCompare(eventKey(a)); });
+  }
+  // Date plus optional 24-hour "time" (e.g. "09:50"), so two games on one
+  // day — a tournament — sort in the order they're played.
+  function eventKey(ev) { return (ev.date || "") + " " + (ev.time || ""); }
+  function fmtTime(t) {
+    const m = /^(\d{1,2}):(\d{2})$/.exec(t || "");
+    if (!m) return t || "";
+    const h = Number(m[1]);
+    return ((h + 11) % 12 + 1) + ":" + m[2] + (h < 12 ? " am" : " pm");
   }
 
   // ---------- Routing ----------
@@ -601,6 +610,7 @@
       meta.appendChild(el("dd", null, value instanceof Node ? [value] : [value]));
     }
     addRow("Date", fmtDate(ev.date));
+    if (ev.time) addRow("Time", fmtTime(ev.time));
     if (ev.venue || ev.address) {
       const lines = [];
       if (ev.venue) lines.push(ev.venue);
@@ -1563,7 +1573,7 @@
   // season reads forward. Games still to be played show no result.
   function renderGameLog(a, s) {
     const games = eventsFor(a.slug, s.slug).slice().sort(function (x, y) {
-      return (x.date || "").localeCompare(y.date || "");
+      return eventKey(x).localeCompare(eventKey(y));
     });
     if (!games.length) return null;
 

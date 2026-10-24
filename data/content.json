@@ -115,6 +115,35 @@
         "oakley",
         "tayla"
       ],
+      "date": "2026-10-24",
+      "time": "09:50",
+      "name": "Tournament semifinal vs Caliche",
+      "venue": "Sterling Middle School",
+      "address": "Sterling, CO",
+      "status": "Match in progress",
+      "notes": "4th grade end-of-season tournament, semifinal on the North court. Haxtun (No. 1 seed) against No. 4 Caliche. The winner plays for the championship at 10:45 am on the North court."
+    },
+    {
+      "sport": "volleyball",
+      "athletes": [
+        "oakley",
+        "tayla"
+      ],
+      "date": "2026-10-24",
+      "time": "08:00",
+      "name": "Tournament first round vs Campbell 1",
+      "venue": "Sterling Middle School",
+      "address": "Sterling, CO",
+      "status": "Final",
+      "result": "win",
+      "notes": "4th grade end-of-season tournament, first round on the North court. Haxtun finished the regular season No. 1 in the standings and beat No. 8 Campbell 1 to move on to the semifinals."
+    },
+    {
+      "sport": "volleyball",
+      "athletes": [
+        "oakley",
+        "tayla"
+      ],
       "date": "2026-10-03",
       "name": "vs Caliche",
       "venue": "Sterling Middle School",
