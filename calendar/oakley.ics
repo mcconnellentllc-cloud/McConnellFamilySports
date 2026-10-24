@@ -48,4 +48,28 @@ LOCATION:Sterling Middle School — Sterling\, CO
 DESCRIPTION:Fourth grade game against Caliche at Sterling Middle School. Oa
  kley and Tayla's team took two sets in a row. Result: Win
 END:VEVENT
+BEGIN:VEVENT
+UID:20261024-volleyball-tournament-first-round-vs-campbell-1@mcconnellfamil
+ ysports
+DTSTAMP:20261024T000000Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261025
+SUMMARY:Volleyball: Tournament first round vs Campbell 1
+LOCATION:Sterling Middle School — Sterling\, CO
+DESCRIPTION:4th grade end-of-season tournament\, first round on the North c
+ ourt. Haxtun finished the regular season No. 1 in the standings and beat N
+ o. 8 Campbell 1 to move on to the semifinals. Result: Win
+END:VEVENT
+BEGIN:VEVENT
+UID:20261024-volleyball-tournament-semifinal-vs-caliche@mcconnellfamilyspor
+ ts
+DTSTAMP:20261024T000000Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261025
+SUMMARY:Volleyball: Tournament semifinal vs Caliche
+LOCATION:Sterling Middle School — Sterling\, CO
+DESCRIPTION:4th grade end-of-season tournament\, semifinal on the North cou
+ rt. Haxtun (No. 1 seed) against No. 4 Caliche. The winner plays for the ch
+ ampionship at 10:45 am on the North court.
+END:VEVENT
 END:VCALENDAR

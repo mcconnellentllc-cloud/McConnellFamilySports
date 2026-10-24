@@ -68,6 +68,14 @@
       "athlete": "oakley",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/oakley/volleyball/tournament-semifinal-caliche.jpg",
+      "caption": "Tournament semifinal caliche",
+      "file": "tournament-semifinal-caliche.jpg"
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/oakley/volleyball/waiting-to-serve-vs-Caliche.jpg",
       "caption": "Waiting to serve vs Caliche",
       "file": "waiting-to-serve-vs-Caliche.jpg"
@@ -110,10 +118,7 @@
       "type": "photo",
       "src": "media/tayla/volleyball/IMG_7528.jpeg",
       "caption": "",
-      "file": "IMG_7528.jpeg",
-      "taken": "2026-10-17",
-      "lat": 40.64,
-      "lng": -103.22
+      "file": "IMG_7528.jpeg"
     },
     {
       "athlete": "tayla",
@@ -121,10 +126,7 @@
       "type": "photo",
       "src": "media/tayla/volleyball/IMG_7530.jpeg",
       "caption": "",
-      "file": "IMG_7530.jpeg",
-      "taken": "2026-10-17",
-      "lat": 40.64,
-      "lng": -103.22
+      "file": "IMG_7530.jpeg"
     },
     {
       "athlete": "tayla",
@@ -149,6 +151,14 @@
       "src": "media/tayla/volleyball/serving-vs-Caliche.jpg",
       "caption": "Serving vs Caliche",
       "file": "serving-vs-Caliche.jpg"
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tayla/volleyball/tournament-semifinal-caliche.jpg",
+      "caption": "Tournament semifinal caliche",
+      "file": "tournament-semifinal-caliche.jpg"
     },
     {
       "athlete": "tayla",
