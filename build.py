@@ -485,7 +485,7 @@ def write_calendars() -> int:
         mine = [e for e in events if slug in (e.get("athletes") or [])]
         if not mine:
             continue
-        mine.sort(key=lambda e: e.get("date") or "")
+        mine.sort(key=lambda e: (e.get("date") or "", e.get("time") or ""))
         targets = [(f"{slug}.ics", f"{name} — Sports", mine)]
         for sp in sorted({e.get("sport") for e in mine if e.get("sport")}):
             label = sports.get(sp, {}).get("name") or sp
