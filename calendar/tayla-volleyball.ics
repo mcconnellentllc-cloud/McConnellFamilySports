@@ -39,14 +39,15 @@ DESCRIPTION:4th grade end-of-season tournament\, semifinal on the North cou
  lt: Win
 END:VEVENT
 BEGIN:VEVENT
-UID:20261024-volleyball-tournament-championship@mcconnellfamilysports
+UID:20261024-volleyball-tournament-championship-vs-peetz@mcconnellfamilyspo
+ rts
 DTSTAMP:20261024T000000Z
 DTSTART;VALUE=DATE:20261024
 DTEND;VALUE=DATE:20261025
-SUMMARY:Volleyball: Tournament championship
+SUMMARY:Volleyball: Tournament championship vs Peetz
 LOCATION:Sterling Middle School — Sterling\, CO
 DESCRIPTION:4th grade end-of-season tournament final on the North court. Ha
- xtun is 2–0 on the day after beating Campbell 1 and Caliche\, and plays 
- the winner of the South semifinal.
+ xtun (No. 1 seed) is 2–0 on the day after beating Campbell 1 and Caliche
+ \, and plays No. 3 Peetz for the title.
 END:VEVENT
 END:VCALENDAR

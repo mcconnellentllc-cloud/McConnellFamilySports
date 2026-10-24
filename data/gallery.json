@@ -68,6 +68,14 @@
       "athlete": "oakley",
       "sport": "volleyball",
       "type": "photo",
+      "src": "media/oakley/volleyball/tournament-championship-peetz.jpg",
+      "caption": "Tournament championship peetz",
+      "file": "tournament-championship-peetz.jpg"
+    },
+    {
+      "athlete": "oakley",
+      "sport": "volleyball",
+      "type": "photo",
       "src": "media/oakley/volleyball/tournament-semifinal-caliche.jpg",
       "caption": "Tournament semifinal caliche",
       "file": "tournament-semifinal-caliche.jpg"
@@ -151,6 +159,14 @@
       "src": "media/tayla/volleyball/serving-vs-Caliche.jpg",
       "caption": "Serving vs Caliche",
       "file": "serving-vs-Caliche.jpg"
+    },
+    {
+      "athlete": "tayla",
+      "sport": "volleyball",
+      "type": "photo",
+      "src": "media/tayla/volleyball/tournament-championship-peetz.jpg",
+      "caption": "Tournament championship peetz",
+      "file": "tournament-championship-peetz.jpg"
     },
     {
       "athlete": "tayla",
