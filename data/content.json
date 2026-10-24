@@ -60,7 +60,7 @@
         "title": "Volleyball — 2026 Fourth Grade",
         "name": "City of Sterling Youth Volleyball",
         "season": "2026",
-        "blurb": "Oakley and Tayla on the court together in 4th grade."
+        "blurb": "Oakley and Tayla on the court together in 4th grade. No. 1 in the final standings and end-of-season tournament champions."
       }
     },
     "players": {
@@ -120,10 +120,12 @@
       "name": "Tournament championship vs Peetz",
       "venue": "Sterling Middle School",
       "address": "Sterling, CO",
-      "status": "Match in progress",
-      "photo": "media/tayla/volleyball/tournament-championship-peetz.jpg",
-      "photoCaption": "Haxtun in pink against Peetz in green for the championship. Tayla is No. 2 at the net, Oakley No. 3 on the right.",
-      "notes": "4th grade end-of-season tournament final on the North court. Haxtun (No. 1 seed) is 2–0 on the day after beating Campbell 1 and Caliche, and plays No. 3 Peetz for the title."
+      "status": "Final",
+      "result": "win",
+      "resultDetail": "Tournament champions.",
+      "photo": "media/oakley/volleyball/tournament-champions-team.jpg",
+      "photoCaption": "Tournament champions: the team and coaches with their medals and the bracket.",
+      "notes": "4th grade end-of-season tournament final on the North court. Haxtun came in as the No. 1 seed, beat Campbell 1 and Caliche, then beat No. 3 Peetz to win the tournament — 3–0 on the day."
     },
     {
       "sport": "volleyball",
