@@ -87,6 +87,30 @@
   "personal": [
     {
       "athlete": "tyndle",
+      "type": "everyday",
+      "date": "2026-10-24",
+      "title": "Visiting Gigi after the tournament",
+      "text": "After the 4th grade tournament, Tyndle and her sisters stopped at the hospital to see Gigi, who is recovering from a fall. Oakley and Tayla brought their championship medals to show her.",
+      "photo": "media/_memories/tyndle-visiting-gigi-2026-10-24.jpg"
+    },
+    {
+      "athlete": "oakley",
+      "type": "everyday",
+      "date": "2026-10-24",
+      "title": "Visiting Gigi after the tournament",
+      "text": "After winning the 4th grade tournament, Oakley and her sisters stopped at the hospital to see Gigi, who is recovering from a fall. Oakley and Tayla brought their championship medals to show her.",
+      "photo": "media/_memories/oakley-visiting-gigi-2026-10-24.jpg"
+    },
+    {
+      "athlete": "tayla",
+      "type": "everyday",
+      "date": "2026-10-24",
+      "title": "Visiting Gigi after the tournament",
+      "text": "After winning the 4th grade tournament, Tayla and her sisters stopped at the hospital to see Gigi, who is recovering from a fall. Oakley and Tayla brought their championship medals to show her.",
+      "photo": "media/_memories/tayla-visiting-gigi-2026-10-24.jpg"
+    },
+    {
+      "athlete": "tyndle",
       "type": "farm",
       "date": "2026-07-13",
       "title": "First day driving a tractor",
