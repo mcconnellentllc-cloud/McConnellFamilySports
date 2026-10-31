@@ -86,6 +86,17 @@
   "academics": [],
   "personal": [
     {
+      "athlete": "oakley",
+      "date": "2026-10-30",
+      "title": "Halloween Class Party — October 30, 2026",
+      "text": "Oakley's 4th grade class held its Halloween party. Oakley dressed as Laney Choboy, #6 for Nebraska Volleyball — a red Huskers jersey with a taped-on No. 6 and a volleyball under her arm.",
+      "photos": [
+        { "src": "media/_memories/oakley-halloween-2026-1-costume.jpg", "alt": "Oakley dressed as Laney Choboy, October 30, 2026" },
+        { "src": "media/_memories/oakley-halloween-2026-2-friends.jpg", "alt": "Oakley and friends in Halloween costumes" },
+        { "src": "media/_memories/oakley-halloween-2026-3-class.jpg", "alt": "Oakley's 4th grade class Halloween party" }
+      ]
+    },
+    {
       "athlete": "tyndle",
       "date": "2026-10-30",
       "title": "Halloween Class Party — October 30, 2026",
