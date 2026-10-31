@@ -87,6 +87,18 @@
   "personal": [
     {
       "athlete": "tyndle",
+      "date": "2026-10-30",
+      "title": "Halloween Class Party — October 30, 2026",
+      "text": "Tyndle's 6th grade class held its Halloween party. Tyndle dressed as Orange Crush — Crush shirt, Crush socks, and a Crush bottle headband — and her friends went as other soda flavors: Coca-Cola, Dr Pepper, A&W, and Sprite.",
+      "photos": [
+        { "src": "media/_memories/tyndle-halloween-2026-1-costume.jpg", "alt": "Tyndle dressed as Orange Crush, October 30, 2026" },
+        { "src": "media/_memories/tyndle-halloween-2026-2-friends.jpg", "alt": "Tyndle and friends dressed as soda flavors" },
+        { "src": "media/_memories/tyndle-halloween-2026-3-class.jpg", "alt": "Tyndle's 6th grade class Halloween party" },
+        { "src": "media/_memories/tyndle-halloween-2026-4-costumes.jpg", "alt": "6th grade class Halloween costumes" }
+      ]
+    },
+    {
+      "athlete": "tyndle",
       "type": "everyday",
       "date": "2026-10-24",
       "title": "Visiting Gigi — October 24, 2026",

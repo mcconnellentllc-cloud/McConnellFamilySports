@@ -564,6 +564,20 @@ a:hover { text-decoration: underline; }
   border-radius: var(--radius);
   margin: 8px 0 4px;
 }
+.entry__photos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+.entry__photos .entry__photo {
+  max-height: none;
+  height: auto;
+  margin: 0;
+}
+@media (min-width: 640px) {
+  .entry__photos { grid-template-columns: 1fr 1fr; align-items: start; }
+}
 .entry__links { font-size: 14px; margin: 6px 0 0; }
 .tile--family { border-style: dashed; }
 
