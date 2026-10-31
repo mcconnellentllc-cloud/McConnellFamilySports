@@ -1425,10 +1425,15 @@
       const ph = entryPhoto(e.photo, e.title || "");
       if (ph) card.appendChild(ph);
       // Several photos on one memory: "photos": [{ "src": ..., "alt": ... }].
-      (e.photos || []).forEach(function (p) {
-        const img = entryPhoto(p.src, p.alt || e.title || "");
-        if (img) card.appendChild(img);
-      });
+      // Shown whole, never cropped, so costume details stay in frame.
+      if (e.photos && e.photos.length) {
+        const grid = el("div", { class: "entry__photos" });
+        e.photos.forEach(function (p) {
+          const img = entryPhoto(p.src, p.alt || e.title || "");
+          if (img) grid.appendChild(img);
+        });
+        card.appendChild(grid);
+      }
       return card;
     }, "No milestones recorded yet", "Add one in <code>data/content.json</code> under <code>personal</code>.");
   }
