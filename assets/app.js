@@ -1424,6 +1424,11 @@
       if (e.text) card.appendChild(el("p", { class: "entry__text" }, [e.text]));
       const ph = entryPhoto(e.photo, e.title || "");
       if (ph) card.appendChild(ph);
+      // Several photos on one memory: "photos": [{ "src": ..., "alt": ... }].
+      (e.photos || []).forEach(function (p) {
+        const img = entryPhoto(p.src, p.alt || e.title || "");
+        if (img) card.appendChild(img);
+      });
       return card;
     }, "No milestones recorded yet", "Add one in <code>data/content.json</code> under <code>personal</code>.");
   }
