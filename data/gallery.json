@@ -470,6 +470,12 @@
     "gigi": [
       {
         "type": "photo",
+        "src": "media/_family/gigi/gigi-hospital-visit.jpg",
+        "caption": "Gigi hospital visit",
+        "file": "gigi-hospital-visit.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/visiting-gigi-2026-10-24.jpg",
         "caption": "Visiting gigi 2026 10 24",
         "file": "visiting-gigi-2026-10-24.jpg"
