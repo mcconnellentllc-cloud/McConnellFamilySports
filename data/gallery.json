@@ -470,6 +470,36 @@
     "gigi": [
       {
         "type": "photo",
+        "src": "media/_family/gigi/church-with-the-new-baby.jpg",
+        "caption": "Church with the new baby",
+        "file": "church-with-the-new-baby.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/easter-on-the-porch-with-the-family.jpg",
+        "caption": "Easter on the porch with the family",
+        "file": "easter-on-the-porch-with-the-family.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/easter-on-the-porch-with-the-kids.jpg",
+        "caption": "Easter on the porch with the kids",
+        "file": "easter-on-the-porch-with-the-kids.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/fourth-of-july.jpg",
+        "caption": "Fourth of july",
+        "file": "fourth-of-july.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/gigi-holding-the-baby.jpg",
+        "caption": "Gigi holding the baby",
+        "file": "gigi-holding-the-baby.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/gigi-hospital-visit.jpg",
         "caption": "Gigi hospital visit",
         "file": "gigi-hospital-visit.jpg"
