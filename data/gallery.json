@@ -470,6 +470,24 @@
     "gigi": [
       {
         "type": "photo",
+        "src": "media/_family/gigi/around-the-kitchen-table-with-the-girls.jpg",
+        "caption": "Around the kitchen table with the girls",
+        "file": "around-the-kitchen-table-with-the-girls.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/around-the-kitchen-table.jpg",
+        "caption": "Around the kitchen table",
+        "file": "around-the-kitchen-table.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/at-the-haxtun-volleyball-game.jpg",
+        "caption": "At the haxtun volleyball game",
+        "file": "at-the-haxtun-volleyball-game.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/church-with-the-new-baby.jpg",
         "caption": "Church with the new baby",
         "file": "church-with-the-new-baby.jpg"
@@ -506,9 +524,23 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/playing-rummikub.jpg",
+        "caption": "Playing rummikub",
+        "file": "playing-rummikub.jpg",
+        "lat": 40.64,
+        "lng": -102.63
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/visiting-gigi-2026-10-24.jpg",
         "caption": "Visiting gigi 2026 10 24",
         "file": "visiting-gigi-2026-10-24.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/with-gradyn.jpg",
+        "caption": "With gradyn",
+        "file": "with-gradyn.jpg"
       }
     ]
   }
