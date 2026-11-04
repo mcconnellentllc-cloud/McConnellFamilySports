@@ -1164,6 +1164,16 @@ a:hover { text-decoration: underline; }
 }
 .gallery__video:hover .gallery__play { background: rgba(15,12,8,.32); }
 
+/* Gigi's album (#/family/gigi) */
+.album__intro { font-size: 16px; max-width: 640px; margin: 0 0 16px; }
+.album__count {
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
 /* Empty state */
 .empty {
   background: var(--paper);

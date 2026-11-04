@@ -120,7 +120,7 @@
   }
   async function loadData() {
     const [athletes, content, gallery, meals, supplies, chores, calendar, history,
-           recipes] = await Promise.all([
+           recipes, gigi] = await Promise.all([
       loadJSON("data/athletes.json"),
       loadJSON("data/content.json"),
       loadJSON("data/gallery.json").catch(function () { return { photos: [] }; }),
@@ -130,6 +130,7 @@
       loadJSON("data/calendar.json").catch(function () { return null; }),
       loadJSON("data/history.json").catch(function () { return null; }),
       loadJSON("data/recipes.json").catch(function () { return null; }),
+      loadJSON("data/gigi.json").catch(function () { return null; }),
     ]);
     state.athletes = athletes;
     state.content = content;
@@ -140,6 +141,7 @@
     state.calendar = calendar;
     state.history = history;
     state.recipes = recipes;
+    state.gigi = gigi;
   }
 
   // ---------- Lookups ----------
@@ -287,6 +289,7 @@
         // "history" is family-only, so it has no entry in the shared category list.
         const label = route.category === "history" ? "Family History"
           : route.category === "recipes" ? "Recipes"
+          : route.category === "gigi" ? ((state.gigi && state.gigi.name) || "Gigi")
           : categoryName(route.category);
         parts.push(el("a", { href: "#/family/" + route.category }, [label]));
         if (route.category === "history" && route.tab) {
@@ -712,6 +715,7 @@
     v.appendChild(coverEl("The McConnells", "Trips, holidays, and the moments we keep together.", "family"));
     const grid = el("div", { class: "tiles" });
     [
+      ["gigi", "Gigi", "Pictures of Gigi, from every corner of the family."],
       ["history", "Family History", "Where the McConnells come from, and the tree."],
       ["personal", "Memories", "Holidays, milestones, and everyday moments."],
       ["travel", "Travel", "Family trips and the places we've been."],
@@ -736,6 +740,15 @@
       v.appendChild(coverEl("Family · Recipes", r.intro || null, "familycat:recipes"));
       const body = el("section", null);
       renderRecipes(body, r);
+      v.appendChild(body);
+      return;
+    }
+
+    if (route.category === "gigi") {
+      const g = state.gigi || {};
+      v.appendChild(coverEl(g.name || "Gigi", g.tagline || null, "familycat:gigi"));
+      const body = el("section", null);
+      renderGigi(body, g);
       v.appendChild(body);
       return;
     }
@@ -774,6 +787,49 @@
     if (isTravel) renderTravel(body, "family");
     else renderPersonal(body, "family", route.tab);
     v.appendChild(body);
+  }
+
+  // Gigi's album. The photo list comes from media/_family/gigi/ via build.py
+  // (gallery.json -> albums.gigi); data/gigi.json only adds captions and
+  // dates, keyed by filename, so a photo needs no JSON edit to appear.
+  function renderGigi(parent, g) {
+    if (g.intro) parent.appendChild(el("p", { class: "album__intro" }, [g.intro]));
+    const notes = g.photos || {};
+    const raw = ((state.gallery && state.gallery.albums) || {}).gigi || [];
+    const items = raw.map(function (p, i) {
+      const n = notes[p.file] || {};
+      const date = n.date || p.taken || "";
+      const text = n.caption || p.caption || "";
+      return {
+        type: p.type,
+        src: p.src,
+        date: date,
+        text: text,
+        // Lightbox caption carries the date too, when there is one.
+        caption: [text, date ? fmtDate(date) : ""].filter(Boolean).join(" · "),
+        order: i,
+      };
+    });
+    // Newest first; undated photos after, in filename order.
+    items.sort(function (a, b) {
+      if (a.date && b.date && a.date !== b.date) return a.date < b.date ? 1 : -1;
+      if (a.date && !b.date) return -1;
+      if (!a.date && b.date) return 1;
+      return a.order - b.order;
+    });
+    if (!items.length) {
+      parent.appendChild(emptyState(
+        "No pictures of Gigi yet",
+        "Drop photos into <code>media/_family/gigi/</code> on GitHub " +
+        "(<a href=\"" + REPO_URL + "/upload/main/media/_family/gigi\" target=\"_blank\" rel=\"noopener\">upload here</a>). " +
+        "They'll appear in a few minutes. Captions are optional, in <code>data/gigi.json</code>."
+      ));
+      return;
+    }
+    parent.appendChild(el("p", { class: "album__count" }, [
+      items.length + (items.length === 1 ? " picture" : " pictures"),
+    ]));
+    renderGalleryGrid(parent, items);
   }
 
   // One surname line: its story, then the people filed under it.
@@ -1853,6 +1909,12 @@
       ));
       return;
     }
+    renderGalleryGrid(parent, photos);
+  }
+
+  // Thumbnail grid that opens the shared lightbox. Items need type, src and
+  // caption (shown in the lightbox).
+  function renderGalleryGrid(parent, photos) {
     state.galleryItems = photos;
     const grid = el("div", { class: "gallery" });
     photos.forEach(function (p, idx) {

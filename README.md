@@ -464,6 +464,24 @@ cleanly and needs no image file. The motto is one string in that function.
 
 ---
 
+## Gigi's page
+
+**Family → Gigi** (`#/family/gigi`) is an album just for pictures of Gigi.
+
+- **Add a photo:** upload it into `media/_family/gigi/` on GitHub. It appears
+  after the next deploy (a few minutes). No JSON edit needed.
+- **Caption or date it (optional, any time later):** in `data/gigi.json`, add
+  the photo's exact filename under `photos`:
+
+  ```json
+  "photos": {
+    "christmas-2025.jpg": { "caption": "Gigi with all the grandkids", "date": "2025-12-25" }
+  }
+  ```
+
+Dated photos show newest first; undated ones follow. `intro` and `tagline` in
+the same file set the words at the top of the page.
+
 ## Family history and the tree
 
 `data/history.json` holds the history section at **Family → Family History**.

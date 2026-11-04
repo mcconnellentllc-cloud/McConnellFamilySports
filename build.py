@@ -30,6 +30,13 @@ CONTENT = ROOT / "data" / "content.json"
 ATHLETES = ROOT / "data" / "athletes.json"
 CAL_DIR = ROOT / "calendar"
 
+# Albums that belong to a person rather than a girl's sport — each folder is
+# listed whole under "albums" in gallery.json, so a photo dropped in on GitHub
+# shows up without touching any JSON. Captions live in data/<slug>.json.
+ALBUMS = {
+    "gigi": MEDIA / "_family" / "gigi",
+}
+
 # Photos come straight off a phone at full resolution — several megabytes and
 # thousands of pixels wide. Nothing on the site displays them that large, so
 # the build shrinks the long edge to this and re-encodes. Comfortably sharp on
@@ -376,6 +383,33 @@ def scan() -> list[dict]:
     return photos
 
 
+def scan_albums() -> dict[str, list[dict]]:
+    albums: dict[str, list[dict]] = {}
+    for slug, folder in ALBUMS.items():
+        items: list[dict] = []
+        if folder.is_dir():
+            for f in sorted(folder.iterdir()):
+                if not f.is_file() or f.name.startswith("."):
+                    continue
+                ext = f.suffix.lower()
+                if ext not in MEDIA_EXTS:
+                    continue
+                if ext in {".heic", ".heif"}:
+                    f = convert_heic(f)
+                    ext = f.suffix.lower()
+                rel = f.relative_to(ROOT).as_posix()
+                entry = {
+                    "type": "video" if ext in VIDEO_EXTS else "photo",
+                    "src": rel,
+                    "caption": caption_from_filename(f.stem),
+                    "file": f.name,
+                }
+                entry.update(CAPTURE_META.get(rel, {}))
+                items.append(entry)
+        albums[slug] = items
+    return albums
+
+
 # ---------- Calendar feeds ----------
 # Each girl gets a subscribable .ics of her events, plus one per sport, so a
 # phone can follow the season and pick up new games as they are added.
@@ -505,7 +539,8 @@ def main() -> int:
     optimize_media()
     photos = scan()
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    payload = {"photos": photos}
+    albums = scan_albums()
+    payload = {"photos": photos, "albums": albums}
     with OUT.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
@@ -515,6 +550,8 @@ def main() -> int:
         f"Wrote {OUT.relative_to(ROOT)} with {len(photos)} media item(s) "
         f"({n_photo} photo(s), {n_video} video(s))."
     )
+    for slug, items in albums.items():
+        print(f"Album {slug}: {len(items)} item(s).")
     n_cal = write_calendars()
     print(f"Wrote {n_cal} calendar feed(s) to {CAL_DIR.relative_to(ROOT)}/.")
     return 0
