@@ -561,6 +561,18 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/homestead-pumpkin-patch.jpg",
+        "caption": "Homestead pumpkin patch",
+        "file": "homestead-pumpkin-patch.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/inside-the-old-schoolhouse.jpg",
+        "caption": "Inside the old schoolhouse",
+        "file": "inside-the-old-schoolhouse.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/playing-cards-by-the-pool.jpg",
         "caption": "Playing cards by the pool",
         "file": "playing-cards-by-the-pool.jpg"
@@ -576,6 +588,12 @@
         "src": "media/_family/gigi/playing-the-slots.jpg",
         "caption": "Playing the slots",
         "file": "playing-the-slots.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/railroad-town-telephone-exchange.jpg",
+        "caption": "Railroad town telephone exchange",
+        "file": "railroad-town-telephone-exchange.jpg"
       },
       {
         "type": "photo",
