@@ -526,9 +526,7 @@
         "type": "photo",
         "src": "media/_family/gigi/playing-rummikub.jpg",
         "caption": "Playing rummikub",
-        "file": "playing-rummikub.jpg",
-        "lat": 40.64,
-        "lng": -102.63
+        "file": "playing-rummikub.jpg"
       },
       {
         "type": "photo",
