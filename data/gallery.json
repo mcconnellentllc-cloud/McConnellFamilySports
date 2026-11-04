@@ -563,9 +563,7 @@
         "type": "photo",
         "src": "media/_family/gigi/playing-cards-by-the-pool.jpg",
         "caption": "Playing cards by the pool",
-        "file": "playing-cards-by-the-pool.jpg",
-        "lat": 33.37,
-        "lng": -111.64
+        "file": "playing-cards-by-the-pool.jpg"
       },
       {
         "type": "photo",
@@ -589,9 +587,7 @@
         "type": "photo",
         "src": "media/_family/gigi/visiting-in-the-kitchen.jpg",
         "caption": "Visiting in the kitchen",
-        "file": "visiting-in-the-kitchen.jpg",
-        "lat": 40.64,
-        "lng": -102.63
+        "file": "visiting-in-the-kitchen.jpg"
       },
       {
         "type": "photo",
