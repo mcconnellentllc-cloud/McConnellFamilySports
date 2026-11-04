@@ -465,5 +465,15 @@
       "caption": "Serving in the home gym",
       "file": "serving-in-the-home-gym.jpg"
     }
-  ]
+  ],
+  "albums": {
+    "gigi": [
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/visiting-gigi-2026-10-24.jpg",
+        "caption": "Visiting gigi 2026 10 24",
+        "file": "visiting-gigi-2026-10-24.jpg"
+      }
+    ]
+  }
 }
