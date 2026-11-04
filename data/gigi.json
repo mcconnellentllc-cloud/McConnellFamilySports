@@ -1,12 +1,24 @@
 {
   "_comment": "Gigi's page (#/family/gigi). Photos go in media/_family/gigi/ — they appear on their own after the next deploy, no edit needed here. To caption or date a photo, add its exact filename under 'photos'. Every field is optional. Photos are shown newest first by date; undated ones follow in filename order.",
   "name": "Gigi",
-  "tagline": "Our Gigi — ninety-six years and counting.",
+  "tagline": "Dorothy McConnell — ninety-six years and counting.",
   "intro": "",
   "photos": {
     "visiting-gigi-2026-10-24.jpg": {
       "caption": "Tyndle, Oakley and Tayla visiting Gigi in the hospital after the 4th grade tournament. Oakley and Tayla brought their championship medals to show her.",
       "date": "2026-10-24"
+    },
+    "at-the-haxtun-volleyball-game.jpg": {
+      "caption": "Gigi with Tyndle (#6) at a Haxtun volleyball game."
+    },
+    "with-gradyn.jpg": {
+      "caption": "Gigi with Gradyn."
+    },
+    "easter-on-the-porch-with-the-kids.jpg": {
+      "caption": "Easter on Gigi's front porch, under the Harold & Dorothy sign."
+    },
+    "easter-on-the-porch-with-the-family.jpg": {
+      "caption": "Easter on Gigi's front porch."
     }
   }
 }

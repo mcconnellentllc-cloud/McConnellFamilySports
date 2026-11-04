@@ -482,6 +482,12 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/at-the-casino.jpg",
+        "caption": "At the casino",
+        "file": "at-the-casino.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/at-the-haxtun-volleyball-game.jpg",
         "caption": "At the haxtun volleyball game",
         "file": "at-the-haxtun-volleyball-game.jpg"
@@ -506,9 +512,22 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/feet-up-in-the-recliner.jpg",
+        "caption": "Feet up in the recliner",
+        "file": "feet-up-in-the-recliner.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/fourth-of-july.jpg",
         "caption": "Fourth of july",
         "file": "fourth-of-july.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/game-night-around-the-table.jpg",
+        "caption": "Game night around the table",
+        "file": "game-night-around-the-table.jpg",
+        "taken": "2024-12-24"
       },
       {
         "type": "photo",
@@ -524,9 +543,21 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/heading-out-the-door.jpg",
+        "caption": "Heading out the door",
+        "file": "heading-out-the-door.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/playing-rummikub.jpg",
         "caption": "Playing rummikub",
         "file": "playing-rummikub.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/playing-the-slots.jpg",
+        "caption": "Playing the slots",
+        "file": "playing-the-slots.jpg"
       },
       {
         "type": "photo",
