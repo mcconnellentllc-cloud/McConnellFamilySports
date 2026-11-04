@@ -494,6 +494,12 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/card-night-with-the-kids.jpg",
+        "caption": "Card night with the kids",
+        "file": "card-night-with-the-kids.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/church-with-the-new-baby.jpg",
         "caption": "Church with the new baby",
         "file": "church-with-the-new-baby.jpg"
@@ -509,6 +515,12 @@
         "src": "media/_family/gigi/easter-on-the-porch-with-the-kids.jpg",
         "caption": "Easter on the porch with the kids",
         "file": "easter-on-the-porch-with-the-kids.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/family-gathering-at-the-haxtun-fire-hall.jpg",
+        "caption": "Family gathering at the haxtun fire hall",
+        "file": "family-gathering-at-the-haxtun-fire-hall.jpg"
       },
       {
         "type": "photo",
@@ -549,6 +561,14 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/playing-cards-by-the-pool.jpg",
+        "caption": "Playing cards by the pool",
+        "file": "playing-cards-by-the-pool.jpg",
+        "lat": 33.37,
+        "lng": -111.64
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/playing-rummikub.jpg",
         "caption": "Playing rummikub",
         "file": "playing-rummikub.jpg"
@@ -564,6 +584,20 @@
         "src": "media/_family/gigi/visiting-gigi-2026-10-24.jpg",
         "caption": "Visiting gigi 2026 10 24",
         "file": "visiting-gigi-2026-10-24.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/visiting-in-the-kitchen.jpg",
+        "caption": "Visiting in the kitchen",
+        "file": "visiting-in-the-kitchen.jpg",
+        "lat": 40.64,
+        "lng": -102.63
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/gigi/watching-the-eclipse.jpg",
+        "caption": "Watching the eclipse",
+        "file": "watching-the-eclipse.jpg"
       },
       {
         "type": "photo",
