@@ -573,6 +573,12 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/hospital-visit-everyone.jpg",
+        "caption": "Hospital visit everyone",
+        "file": "hospital-visit-everyone.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/hospital-visit-side-by-side.jpg",
         "caption": "Hospital visit side by side",
         "file": "hospital-visit-side-by-side.jpg"
