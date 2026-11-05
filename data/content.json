@@ -86,6 +86,17 @@
   "academics": [],
   "personal": [
     {
+      "athlete": "family",
+      "type": "farm",
+      "date": "2026-11-05",
+      "title": "Gradyn's First Day on the Combine — November 5, 2026",
+      "text": "Gradyn's first day driving the combine, and Gage brought the sprayer down. A pretty good day to be in the field.",
+      "photos": [
+        { "src": "media/_family/farm/harvest-2026-11-05-combine.jpg", "alt": "The combine harvesting corn on Gradyn's first day driving it" },
+        { "src": "media/_family/farm/harvest-2026-11-05-sprayer.jpg", "alt": "The sprayer Gage brought down to the field" }
+      ]
+    },
+    {
       "athlete": "tayla",
       "date": "2026-10-30",
       "title": "Halloween Class Party — October 30, 2026",
