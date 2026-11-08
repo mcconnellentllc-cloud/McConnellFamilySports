@@ -1485,6 +1485,19 @@
       if (e.photos && e.photos.length) {
         const grid = el("div", { class: "entry__photos" });
         e.photos.forEach(function (p) {
+          // A clip sits in the same list: { "type": "video", "src": ..., "alt": ... }.
+          if (p.type === "video") {
+            grid.appendChild(el("video", {
+              class: "entry__photo",
+              src: p.src,
+              controls: "",
+              playsinline: "",
+              preload: "metadata",
+              poster: p.poster || null,
+              "aria-label": p.alt || e.title || "Video",
+            }));
+            return;
+          }
           const img = entryPhoto(p.src, p.alt || e.title || "");
           if (img) grid.appendChild(img);
         });

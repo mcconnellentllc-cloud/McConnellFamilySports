@@ -88,6 +88,20 @@
     {
       "athlete": "family",
       "type": "farm",
+      "year": "2026",
+      "title": "2026 Fall Harvest",
+      "text": "Fall harvest 2026 — combines in the corn, long days in the field, and a few sunsets on the way home.",
+      "photos": [
+        { "src": "media/_family/farm/fall-harvest-2026-1-two-combines.jpg", "alt": "Two combines harvesting corn side by side" },
+        { "src": "media/_family/farm/fall-harvest-2026-2-combine-header.jpg", "alt": "A CLAAS Lexion combine and its corn header in the field" },
+        { "src": "media/_family/farm/fall-harvest-2026-3-combine-sunset.jpg", "alt": "A combine working the field at sunset" },
+        { "src": "media/_family/farm/fall-harvest-2026-4-field-sunset.jpg", "alt": "Sunset over a harvested field" },
+        { "type": "video", "src": "media/_family/farm/fall-harvest-2026-5-following-the-combine.mp4", "poster": "media/_family/farm/fall-harvest-2026-5-following-the-combine-poster.jpg", "alt": "Video: following the combine through the corn" }
+      ]
+    },
+    {
+      "athlete": "family",
+      "type": "farm",
       "date": "2026-11-05",
       "title": "Gradyn's First Day on the Combine — November 5, 2026",
       "text": "Gradyn's first day driving the combine, and Gage brought the sprayer down. A pretty good day to be in the field.",
