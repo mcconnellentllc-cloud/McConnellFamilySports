@@ -609,6 +609,12 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/puzzle-in-gigis-room.jpg",
+        "caption": "Puzzle in gigis room",
+        "file": "puzzle-in-gigis-room.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/railroad-town-telephone-exchange.jpg",
         "caption": "Railroad town telephone exchange",
         "file": "railroad-town-telephone-exchange.jpg"
