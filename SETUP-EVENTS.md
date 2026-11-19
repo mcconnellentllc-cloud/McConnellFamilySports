@@ -28,6 +28,12 @@ About 30 minutes, once. Every step works in a phone browser.
 
 ## Step 1: Airtable base
 
+> **Done (Nov 19, 2026).** The three tables below were created in **Family
+> Website** and tested end to end. Left to do: add the family to **Guests**
+> and tick **Active**. Optional: delete the starter fields Airtable put on
+> Guests (Assignee, Status, Attachments, Attachment Summary) and its three
+> blank rows. Nothing uses them.
+
 Use the base **Family Website**. Its id is the part of the address that starts
 with `app`, for example `airtable.com/appXXXXXXXXXXXXXX/…`. Make three tables.
 Names must match exactly, capitals included.
