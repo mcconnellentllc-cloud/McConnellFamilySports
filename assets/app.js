@@ -120,7 +120,7 @@
   }
   async function loadData() {
     const [athletes, content, gallery, meals, supplies, chores, calendar, history,
-           recipes, gigi] = await Promise.all([
+           recipes, gigi, events] = await Promise.all([
       loadJSON("data/athletes.json"),
       loadJSON("data/content.json"),
       loadJSON("data/gallery.json").catch(function () { return { photos: [] }; }),
@@ -131,6 +131,7 @@
       loadJSON("data/history.json").catch(function () { return null; }),
       loadJSON("data/recipes.json").catch(function () { return null; }),
       loadJSON("data/gigi.json").catch(function () { return null; }),
+      loadJSON("data/events.json").catch(function () { return null; }),
     ]);
     state.athletes = athletes;
     state.content = content;
@@ -142,6 +143,7 @@
     state.history = history;
     state.recipes = recipes;
     state.gigi = gigi;
+    state.events = events;
   }
 
   // ---------- Lookups ----------
@@ -290,6 +292,7 @@
         const label = route.category === "history" ? "Family History"
           : route.category === "recipes" ? "Recipes"
           : route.category === "gigi" ? ((state.gigi && state.gigi.name) || "Gigi")
+          : route.category === "events" ? "Family Events"
           : categoryName(route.category);
         parts.push(el("a", { href: "#/family/" + route.category }, [label]));
         if (route.category === "history" && route.tab) {
@@ -444,6 +447,8 @@
     );
     cover.insertBefore(familyCrest(), cover.firstChild);
     v.appendChild(cover);
+    const next = upcomingEvents()[0];
+    if (next) v.appendChild(nextUpCard(next));
     const grid = el("div", { class: "tiles" });
     (state.athletes.athletes || []).forEach(function (a) {
       grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug }, [
@@ -715,6 +720,7 @@
     v.appendChild(coverEl("The McConnells", "Trips, holidays, and the moments we keep together.", "family"));
     const grid = el("div", { class: "tiles" });
     [
+      ["events", "Family Events", "What's coming up, when to be there, and what's on the menu."],
       ["gigi", "Gigi", "Pictures of Gigi, from every corner of the family."],
       ["history", "Family History", "Where the McConnells come from, and the tree."],
       ["personal", "Memories", "Holidays, milestones, and everyday moments."],
@@ -740,6 +746,14 @@
       v.appendChild(coverEl("Family · Recipes", r.intro || null, "familycat:recipes"));
       const body = el("section", null);
       renderRecipes(body, r);
+      v.appendChild(body);
+      return;
+    }
+
+    if (route.category === "events") {
+      v.appendChild(coverEl("Family Events", "When to be there, and what's on the table.", "familycat:events"));
+      const body = el("section", null);
+      renderEvents(body);
       v.appendChild(body);
       return;
     }
@@ -787,6 +801,227 @@
     if (isTravel) renderTravel(body, "family");
     else renderPersonal(body, "family", route.tab);
     v.appendChild(body);
+  }
+
+  // ---------- Family events (data/events.json) ----------
+  // Upcoming and past are split on today's date, so an event moves to "Past
+  // gatherings" by itself the day after — nothing to edit.
+  function todayISO() {
+    const d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") +
+      "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function allEvents() {
+    return ((state.events && state.events.events) || []).filter(function (e) {
+      return e && /^\d{4}-\d{2}-\d{2}$/.test(e.date || "");
+    });
+  }
+  function upcomingEvents() {
+    const t = todayISO();
+    return allEvents().filter(function (e) { return e.date >= t; })
+      .sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+  }
+  function pastEvents() {
+    const t = todayISO();
+    return allEvents().filter(function (e) { return e.date < t; })
+      .sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
+  }
+  // "14:00" -> "2 PM", "10:30" -> "10:30 AM".
+  function fmtTime(t) {
+    const m = /^(\d{1,2}):(\d{2})$/.exec(t || "");
+    if (!m) return t || "";
+    let h = Number(m[1]);
+    const ap = h >= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    return h + (m[2] === "00" ? "" : ":" + m[2]) + " " + ap;
+  }
+  function fmtEventDate(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return d.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  }
+  function daysUntil(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    const then = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return Math.round((then - today) / 86400000);
+  }
+  function countdownText(iso) {
+    const n = daysUntil(iso);
+    if (n === 0) return "Today";
+    if (n === 1) return "Tomorrow";
+    return "In " + n + " days";
+  }
+
+  function nextUpCard(e) {
+    return el("a", { class: "next-up", href: "#/family/events" }, [
+      el("span", { class: "next-up__label" }, ["Coming up · " + countdownText(e.date)]),
+      el("span", { class: "next-up__title" }, [e.title || "Family event"]),
+      el("span", { class: "next-up__when" }, [
+        fmtEventDate(e.date) + (e.start ? " · from " + fmtTime(e.start) : ""),
+      ]),
+    ]);
+  }
+
+  function renderEvents(parent) {
+    const up = upcomingEvents();
+    const past = pastEvents();
+    if (!up.length && !past.length) {
+      parent.appendChild(emptyState("No events yet",
+        "Add one in <code>data/events.json</code>."));
+      return;
+    }
+    if (!up.length) {
+      parent.appendChild(emptyState("Nothing on the calendar right now",
+        "The next gathering will show here as soon as it's added."));
+    }
+    up.forEach(function (e) { parent.appendChild(eventCard(e, false)); });
+    if (past.length) {
+      parent.appendChild(el("h3", { class: "events__past-title" }, ["Past gatherings"]));
+      past.forEach(function (e) { parent.appendChild(eventCard(e, true)); });
+    }
+  }
+
+  function eventCard(e, isPast) {
+    const card = el("article", { class: "event" + (isPast ? " event--past" : ""), id: "event-" + (e.slug || e.date) });
+    const head = el("header", { class: "event__head" }, [
+      isPast ? null : el("span", { class: "event__countdown" }, [countdownText(e.date)]),
+      el("h2", { class: "event__title" }, [e.title || "Family event"]),
+      el("p", { class: "event__when" }, [
+        fmtEventDate(e.date) + (e.start ? " · from " + fmtTime(e.start) : ""),
+      ]),
+      e.location ? el("p", { class: "event__where" }, [e.location]) : null,
+    ]);
+    card.appendChild(head);
+    if (e.summary) card.appendChild(el("p", { class: "event__summary" }, [e.summary]));
+
+    if (e.schedule && e.schedule.length) {
+      card.appendChild(el("h3", { class: "event__section" }, ["The day"]));
+      const ol = el("ol", { class: "event__schedule" });
+      e.schedule.forEach(function (s) {
+        ol.appendChild(el("li", null, [
+          el("span", { class: "event__time" }, [fmtTime(s.time)]),
+          el("span", null, [s.text || ""]),
+        ]));
+      });
+      card.appendChild(ol);
+    }
+
+    if (e.menu && e.menu.length) {
+      card.appendChild(el("h3", { class: "event__section" }, ["On the menu"]));
+      const menu = el("div", { class: "event__menu" });
+      e.menu.forEach(function (g) {
+        const ul = el("ul", null);
+        (g.items || []).forEach(function (it) {
+          ul.appendChild(el("li", null, [
+            it.dish || "",
+            it.bringing ? el("span", { class: "event__bringing" }, [" — " + it.bringing]) : null,
+          ]));
+        });
+        menu.appendChild(el("div", { class: "event__menu-group" }, [
+          g.group ? el("h4", null, [g.group]) : null, ul,
+        ]));
+      });
+      card.appendChild(menu);
+    }
+
+    if (!isPast) {
+      const ics = eventICS(e);
+      if (ics) {
+        card.appendChild(el("p", { class: "event__actions" }, [
+          el("a", {
+            class: "event__cal",
+            href: "data:text/calendar;charset=utf-8," + encodeURIComponent(ics),
+            download: (e.slug || "family-event") + ".ics",
+          }, ["Add to my calendar"]),
+        ]));
+      }
+      if (e.requests) card.appendChild(renderRequests(e));
+    }
+    return card;
+  }
+
+  // One-event .ics, built in the browser. Times are "floating" (no time
+  // zone), which every calendar reads as local time — right for a family
+  // gathering everyone attends in person.
+  function eventICS(e) {
+    if (!e.date) return "";
+    const d = e.date.replace(/-/g, "");
+    const esc = function (t) {
+      return String(t || "").replace(/\\/g, "\\\\").replace(/;/g, "\\;")
+        .replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+    };
+    const hm = function (t) { return /^\d{1,2}:\d{2}$/.test(t || "") ? t.replace(":", "").padStart(4, "0") + "00" : ""; };
+    const desc = [e.summary || ""].concat((e.schedule || []).map(function (s) {
+      return fmtTime(s.time) + " — " + (s.text || "");
+    })).filter(Boolean).join("\n");
+    const lines = [
+      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//McConnell Family//Events//EN",
+      "BEGIN:VEVENT",
+      "UID:" + (e.slug || d) + "@mcconnellfamilysports",
+      "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, ""),
+    ];
+    if (hm(e.start)) {
+      lines.push("DTSTART:" + d + "T" + hm(e.start));
+      if (hm(e.end)) lines.push("DTEND:" + d + "T" + hm(e.end));
+    } else {
+      lines.push("DTSTART;VALUE=DATE:" + d);
+    }
+    lines.push("SUMMARY:" + esc(e.title || "Family event"));
+    if (e.location) lines.push("LOCATION:" + esc(e.location));
+    if (desc) lines.push("DESCRIPTION:" + esc(desc));
+    lines.push("END:VEVENT", "END:VCALENDAR");
+    return lines.join("\r\n") + "\r\n";
+  }
+
+  // ---------- Event requests ----------
+  // The form posts to REQUESTS_ENDPOINT, which will be a small Worker that
+  // writes to Airtable. The Airtable token must live in that Worker, never
+  // here: this file is public. Until the URL is set, the form shows but
+  // stays switched off.
+  const REQUESTS_ENDPOINT = "";
+
+  function renderRequests(e) {
+    const box = el("section", { class: "requests" });
+    box.appendChild(el("h3", { class: "event__section" }, ["Requests"]));
+    const live = !!REQUESTS_ENDPOINT;
+    box.appendChild(el("p", { class: "requests__hint" }, [live
+      ? "A dish you'd love to see, something you're bringing, a ride you need — send it here."
+      : "Requests open here soon — a dish you'd love to see, something you're bringing, a ride you need."]));
+    const name = el("input", { type: "text", name: "name", placeholder: "Your name", autocomplete: "name", maxlength: "80", required: "required" });
+    const text = el("textarea", { name: "request", rows: "3", placeholder: "Your request", maxlength: "1000", required: "required" });
+    const btn = el("button", { type: "submit" }, ["Send request"]);
+    const status = el("p", { class: "requests__status", hidden: "hidden", role: "status" });
+    if (!live) { name.disabled = true; text.disabled = true; btn.disabled = true; }
+    const form = el("form", { class: "requests__form" }, [name, text, btn, status]);
+    form.addEventListener("submit", async function (ev) {
+      ev.preventDefault();
+      if (!live) return;
+      const n = name.value.trim(), r = text.value.trim();
+      if (!n || !r) return;
+      btn.disabled = true;
+      status.hidden = false;
+      status.className = "requests__status";
+      status.textContent = "Sending…";
+      try {
+        const res = await fetch(REQUESTS_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ event: e.slug || e.date, eventTitle: e.title || "", name: n, request: r }),
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        text.value = "";
+        status.className = "requests__status is-ok";
+        status.textContent = "Thanks, " + n + " — your request is in.";
+      } catch (err) {
+        status.className = "requests__status is-error";
+        status.textContent = "That didn't send. Please try again in a minute.";
+      }
+      btn.disabled = false;
+    });
+    box.appendChild(form);
+    return box;
   }
 
   // Gigi's album. The photo list comes from media/_family/gigi/ via build.py
