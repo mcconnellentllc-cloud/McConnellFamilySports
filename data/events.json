@@ -9,29 +9,73 @@
       "location": "Our house",
       "summary": "Come any time from 10 AM on. Dinner is around 2.",
       "schedule": [
-        { "time": "10:00", "text": "Doors open — come any time from 10 on" },
-        { "time": "11:00", "text": "The turkey arrives" },
-        { "time": "14:00", "text": "Dinner, around 2 PM" }
+        {
+          "time": "10:00",
+          "text": "Doors open — come any time from 10 on"
+        },
+        {
+          "time": "11:00",
+          "text": "The turkey arrives"
+        },
+        {
+          "time": "14:00",
+          "text": "Dinner, around 2 PM"
+        }
       ],
       "menu": [
-        { "group": "Main", "items": [
-          { "dish": "Fried turkey" },
-          { "dish": "Ham" }
-        ] },
-        { "group": "Sides", "items": [
-          { "dish": "Mashed potatoes" },
-          { "dish": "Green bean casserole" },
-          { "dish": "Deviled eggs" },
-          { "dish": "Relish tray" },
-          { "dish": "Dinner rolls" }
-        ] },
-        { "group": "Smoked appetizers", "items": [
-          { "dish": "Smoked cream cheese" },
-          { "dish": "Smoked Little Smokies wrapped in bacon" }
-        ] },
-        { "group": "Dessert", "items": [
-          { "dish": "Pumpkin pie cheesecake" }
-        ] }
+        {
+          "group": "Main",
+          "items": [
+            {
+              "dish": "Fried turkey"
+            },
+            {
+              "dish": "Ham"
+            }
+          ]
+        },
+        {
+          "group": "Sides",
+          "items": [
+            {
+              "dish": "Mashed potatoes"
+            },
+            {
+              "dish": "Green bean casserole"
+            },
+            {
+              "dish": "Deviled eggs"
+            },
+            {
+              "dish": "Relish tray"
+            },
+            {
+              "dish": "Dinner rolls"
+            }
+          ]
+        },
+        {
+          "group": "Smoked appetizers",
+          "items": [
+            {
+              "dish": "Smoked cream cheese"
+            },
+            {
+              "dish": "Smoked Little Smokies wrapped in bacon"
+            }
+          ]
+        },
+        {
+          "group": "Dessert",
+          "items": [
+            {
+              "dish": "Pumpkin pie"
+            },
+            {
+              "dish": "Cheesecake"
+            }
+          ]
+        }
       ],
       "requests": true
     }
