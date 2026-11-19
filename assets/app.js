@@ -102,7 +102,9 @@
     });
     $("#lock-btn").addEventListener("click", function () {
       sessionStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem(GUEST_KEY);
       state.familyPassword = null;
+      adminPassphrase = null;
       location.hash = "";
       showGate();
     });
@@ -259,6 +261,7 @@
       if (parts[1] === "chores") return { route: "portalChores" };
       if (parts[1] === "calendar") return { route: "portalCalendar" };
       if (parts[1] === "help") return { route: "portalHelp" };
+      if (parts[1] === "invite") return { route: "portalInvite" };
       return { route: "portal" };
     }
 
@@ -310,6 +313,7 @@
         portalChores: ["#/portal/chores", "Chores"],
         portalCalendar: ["#/portal/calendar", "Calendar"],
         portalHelp: ["#/portal/help", "How to Update"],
+        portalInvite: ["#/portal/invite", "Send Invitations"],
       }[route.route];
       if (leaf) parts.push(el("a", { href: leaf[0] }, [leaf[1]]));
     } else {
@@ -755,6 +759,10 @@
       const body = el("section", null);
       renderEvents(body);
       v.appendChild(body);
+      if (route.tab) {
+        const target = document.getElementById("event-" + route.tab);
+        if (target) setTimeout(function () { target.scrollIntoView({ block: "start" }); }, 0);
+      }
       return;
     }
 
@@ -975,53 +983,288 @@
     return lines.join("\r\n") + "\r\n";
   }
 
-  // ---------- Event requests ----------
-  // The form posts to REQUESTS_ENDPOINT, which will be a small Worker that
-  // writes to Airtable. The Airtable token must live in that Worker, never
-  // here: this file is public. Until the URL is set, the form shows but
-  // stays switched off.
-  const REQUESTS_ENDPOINT = "";
+  // ---------- Events service (requests, magic links, invitations) ----------
+  // The Cloudflare Worker in events-endpoint/ (see SETUP-EVENTS.md). It holds
+  // the Airtable and email keys; this file is public and never does. Until
+  // the URL is pasted here, the request form and the invitations page show
+  // but stay switched off.
+  const EVENTS_ENDPOINT = "";
+  const GUEST_KEY = "mfs_guest_v1";
+
+  async function eventsApi(path, payload) {
+    const res = await fetch(EVENTS_ENDPOINT.replace(/\/+$/, "") + path, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    let data = {};
+    try { data = await res.json(); } catch (e) { /* empty body */ }
+    if (!res.ok) {
+      const err = new Error(data.error || ("HTTP " + res.status));
+      err.status = res.status;
+      throw err;
+    }
+    return data;
+  }
+
+  // The guest who arrived by magic link, for this tab only.
+  function currentGuest() {
+    try { return JSON.parse(sessionStorage.getItem(GUEST_KEY) || "null"); } catch (e) { return null; }
+  }
+
+  // An invitation link looks like  …/?k=<token>#/family/events/<event>.
+  // A good token opens the site without the password. The token is taken out
+  // of the address bar either way, so it isn't left in history or shared by
+  // a copied link.
+  async function redeemMagicLink() {
+    let token = null;
+    try { token = new URLSearchParams(location.search).get("k"); } catch (e) { return; }
+    if (!token) return;
+    history.replaceState(null, "", location.pathname + location.hash);
+    if (!EVENTS_ENDPOINT || !/^[a-f0-9]{48}$/.test(token)) return;
+    try {
+      const data = await eventsApi("/verify", { token: token });
+      if (data && data.ok) {
+        sessionStorage.setItem(SESSION_KEY, PASSWORD_HASH);
+        sessionStorage.setItem(GUEST_KEY, JSON.stringify({ name: (data.guest && data.guest.name) || "", token: token }));
+      }
+    } catch (e) {
+      // Expired or switched-off link: the password screen shows as usual.
+    }
+  }
+
+  const REQUEST_KINDS = [
+    ["rsvp", "RSVP", "Let us know if you're coming"],
+    ["dish", "Request a dish", "Something you'd love to see on the table"],
+    ["bring", "I'll bring something", "Tell us what you're bringing"],
+  ];
 
   function renderRequests(e) {
     const box = el("section", { class: "requests" });
-    box.appendChild(el("h3", { class: "event__section" }, ["Requests"]));
-    const live = !!REQUESTS_ENDPOINT;
-    box.appendChild(el("p", { class: "requests__hint" }, [live
-      ? "A dish you'd love to see, something you're bringing, a ride you need — send it here."
-      : "Requests open here soon — a dish you'd love to see, something you're bringing, a ride you need."]));
-    const name = el("input", { type: "text", name: "name", placeholder: "Your name", autocomplete: "name", maxlength: "80", required: "required" });
-    const text = el("textarea", { name: "request", rows: "3", placeholder: "Your request", maxlength: "1000", required: "required" });
-    const btn = el("button", { type: "submit" }, ["Send request"]);
+    box.appendChild(el("h3", { class: "event__section" }, ["RSVP & requests"]));
+    const live = !!EVENTS_ENDPOINT;
+    const guest = currentGuest();
+    if (!live) {
+      box.appendChild(el("p", { class: "requests__hint" }, [
+        "RSVPs and requests open here soon.",
+      ]));
+    }
+
+    const uid = "req-" + (e.slug || e.date);
+    let kind = "rsvp";
+    const kinds = el("div", { class: "requests__kinds", role: "radiogroup", "aria-label": "What kind of request" });
+    REQUEST_KINDS.forEach(function (k, i) {
+      const input = el("input", { type: "radio", name: uid + "-kind", value: k[0], id: uid + "-" + k[0] });
+      if (i === 0) input.checked = true;
+      input.addEventListener("change", function () { kind = k[0]; sync(); });
+      kinds.appendChild(el("label", { class: "requests__kind", for: uid + "-" + k[0] }, [
+        input, el("span", null, [el("strong", null, [k[1]]), el("small", null, [k[2]])]),
+      ]));
+    });
+
+    const name = el("input", { type: "text", placeholder: "Your name", autocomplete: "name", maxlength: "80", "aria-label": "Your name" });
+    if (guest && guest.name) name.value = guest.name;
+    const attending = el("select", { "aria-label": "Are you coming?" }, [
+      el("option", { value: "yes" }, ["Yes, we'll be there"]),
+      el("option", { value: "maybe" }, ["Maybe"]),
+      el("option", { value: "no" }, ["Sorry, can't make it"]),
+    ]);
+    const count = el("input", { type: "number", min: "1", max: "50", value: "1", inputmode: "numeric", "aria-label": "How many people" });
+    const countWrap = el("label", { class: "requests__count" }, ["How many people ", count]);
+    const rsvpRow = el("div", { class: "requests__row" }, [attending, countWrap]);
+    const details = el("textarea", { rows: "3", maxlength: "1000" });
+    // Without a magic link, the family password proves who's asking —
+    // asked here only if it isn't already in memory from the front door.
+    const pw = el("input", { type: "password", placeholder: "Family password", autocomplete: "current-password", "aria-label": "Family password" });
+    const needPw = !guest && !state.familyPassword;
+    const btn = el("button", { type: "submit" }, ["Send"]);
     const status = el("p", { class: "requests__status", hidden: "hidden", role: "status" });
-    if (!live) { name.disabled = true; text.disabled = true; btn.disabled = true; }
-    const form = el("form", { class: "requests__form" }, [name, text, btn, status]);
+
+    function sync() {
+      rsvpRow.hidden = kind !== "rsvp";
+      countWrap.hidden = kind !== "rsvp" || attending.value === "no";
+      details.placeholder = kind === "rsvp" ? "Anything else? (optional)"
+        : kind === "dish" ? "What would you like on the menu?"
+        : "What are you bringing?";
+      btn.textContent = kind === "rsvp" ? "Send RSVP" : "Send";
+    }
+    attending.addEventListener("change", sync);
+    sync();
+
+    const form = el("form", { class: "requests__form" }, [
+      kinds, name, rsvpRow, details, needPw ? pw : null, btn, status,
+    ]);
+    if (!live) {
+      form.querySelectorAll("input, select, textarea, button").forEach(function (n) { n.disabled = true; });
+    }
     form.addEventListener("submit", async function (ev) {
       ev.preventDefault();
       if (!live) return;
-      const n = name.value.trim(), r = text.value.trim();
-      if (!n || !r) return;
+      const payload = {
+        event: e.slug,
+        type: kind,
+        name: name.value.trim(),
+        details: details.value.trim(),
+      };
+      if (kind === "rsvp") {
+        payload.attending = attending.value;
+        if (attending.value !== "no") payload.count = Number(count.value);
+      }
+      const say = function (text, cls) {
+        status.hidden = false;
+        status.className = "requests__status" + (cls ? " " + cls : "");
+        status.textContent = text;
+      };
+      if (!payload.name) { say("Please add your name.", "is-error"); name.focus(); return; }
+      if (kind !== "rsvp" && !payload.details) { say("Please say what you'd like.", "is-error"); details.focus(); return; }
+      if (guest && guest.token) payload.token = guest.token;
+      else payload.password = state.familyPassword || pw.value;
+      if (!payload.token && !payload.password) { say("Please enter the family password.", "is-error"); pw.focus(); return; }
       btn.disabled = true;
-      status.hidden = false;
-      status.className = "requests__status";
-      status.textContent = "Sending…";
+      say("Sending…");
       try {
-        const res = await fetch(REQUESTS_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ event: e.slug || e.date, eventTitle: e.title || "", name: n, request: r }),
-        });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        text.value = "";
-        status.className = "requests__status is-ok";
-        status.textContent = "Thanks, " + n + " — your request is in.";
+        await eventsApi("/request", payload);
+        if (payload.password) state.familyPassword = payload.password;
+        details.value = "";
+        say(kind === "rsvp"
+          ? "Thanks, " + payload.name + " — your RSVP is in."
+          : "Thanks, " + payload.name + " — got it.", "is-ok");
       } catch (err) {
-        status.className = "requests__status is-error";
-        status.textContent = "That didn't send. Please try again in a minute.";
+        say(err.status === 401 ? (payload.token
+          ? "Your invitation link has expired. Ask us for a fresh one."
+          : "That password isn't right.") : (err.message || "That didn't send. Please try again in a minute."), "is-error");
       }
       btn.disabled = false;
     });
     box.appendChild(form);
     return box;
+  }
+
+  // ---------- Portal: send invitations (parents only) ----------
+  // The passphrase is the parents' own, checked by the Worker — not the
+  // family password, which is shared widely. Kept in memory for this page
+  // only, never saved.
+  let adminPassphrase = null;
+
+  function viewInvite() {
+    const v = $("#view");
+    v.innerHTML = "";
+    v.appendChild(coverEl("Send Invitations", "Pick an event, pick the people, send. Each person gets their own link — no password needed.", null));
+    const body = el("section", { class: "invite" });
+    v.appendChild(body);
+    const events = upcomingEvents();
+    if (!EVENTS_ENDPOINT) {
+      body.appendChild(emptyState("Not switched on yet",
+        "Invitations start working once the events service is set up — see <code>SETUP-EVENTS.md</code>. Nothing to do here until then."));
+      return;
+    }
+    if (!events.length) {
+      body.appendChild(emptyState("No upcoming events", "Add one in <code>data/events.json</code> first."));
+      return;
+    }
+    if (!adminPassphrase) {
+      const input = el("input", { type: "password", placeholder: "Invitation passphrase", autocomplete: "current-password", "aria-label": "Invitation passphrase" });
+      const err = el("p", { class: "requests__status is-error", hidden: "hidden" });
+      const form = el("form", { class: "requests__form" }, [
+        el("p", { class: "requests__hint" }, ["Enter the passphrase for sending invitations."]),
+        input, el("button", { type: "submit" }, ["Continue"]), err,
+      ]);
+      form.addEventListener("submit", async function (ev) {
+        ev.preventDefault();
+        if (!input.value) return;
+        try {
+          await eventsApi("/admin/guests", { adminPassword: input.value });
+          adminPassphrase = input.value;
+          viewInvite();
+        } catch (e2) {
+          err.hidden = false;
+          err.textContent = e2.status === 401 ? "That passphrase isn't right." : (e2.message || "Couldn't reach the service.");
+        }
+      });
+      body.appendChild(form);
+      return;
+    }
+    renderInviteForm(body, events);
+  }
+
+  async function renderInviteForm(body, events) {
+    const loading = el("p", { class: "requests__hint" }, ["Loading the guest list…"]);
+    body.appendChild(loading);
+    let guests;
+    try {
+      guests = (await eventsApi("/admin/guests", { adminPassword: adminPassphrase })).guests || [];
+    } catch (e) {
+      loading.textContent = "Couldn't load the guest list: " + (e.message || e);
+      if (e.status === 401) adminPassphrase = null;
+      return;
+    }
+    loading.remove();
+
+    const evSel = el("select", { "aria-label": "Event" }, events.map(function (e) {
+      return el("option", { value: e.slug }, [e.title + " — " + fmtEventDate(e.date)]);
+    }));
+    body.appendChild(el("label", { class: "invite__label" }, ["Event", evSel]));
+
+    if (!guests.length) {
+      body.appendChild(emptyState("No one on the guest list yet",
+        "Add people to the <strong>Guests</strong> table in Airtable (name, email, and tick <em>Active</em>), then come back."));
+      return;
+    }
+
+    const checks = [];
+    const list = el("div", { class: "invite__guests" });
+    const byHouse = {};
+    guests.forEach(function (g) { (byHouse[g.household || "Everyone else"] = byHouse[g.household || "Everyone else"] || []).push(g); });
+    Object.keys(byHouse).sort().forEach(function (h) {
+      list.appendChild(el("h4", null, [h]));
+      byHouse[h].forEach(function (g) {
+        const cb = el("input", { type: "checkbox", value: g.id });
+        checks.push(cb);
+        list.appendChild(el("label", { class: "invite__guest" }, [cb, el("span", null, [g.name]), el("small", null, [g.email])]));
+      });
+    });
+    const allBtn = el("button", { type: "button", class: "invite__all" }, ["Select everyone"]);
+    allBtn.addEventListener("click", function () {
+      const on = checks.some(function (c) { return !c.checked; });
+      checks.forEach(function (c) { c.checked = on; });
+      allBtn.textContent = on ? "Clear all" : "Select everyone";
+    });
+    body.appendChild(el("div", { class: "invite__head" }, [el("span", null, ["Who's invited"]), allBtn]));
+    body.appendChild(list);
+
+    const note = el("textarea", { rows: "3", maxlength: "1500", placeholder: "A personal note to include (optional)" });
+    const send = el("button", { type: "button", class: "invite__send" }, ["Send invitations"]);
+    const out = el("div", { class: "invite__results", role: "status" });
+    body.appendChild(note);
+    body.appendChild(send);
+    body.appendChild(out);
+
+    send.addEventListener("click", async function () {
+      const ids = checks.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+      out.innerHTML = "";
+      if (!ids.length) { out.appendChild(el("p", { class: "requests__status is-error" }, ["Pick at least one person."])); return; }
+      const ev = events.find(function (e) { return e.slug === evSel.value; });
+      if (!confirm("Send the " + ev.title + " invitation to " + ids.length + (ids.length === 1 ? " person?" : " people?"))) return;
+      send.disabled = true;
+      out.appendChild(el("p", { class: "requests__status" }, ["Sending…"]));
+      try {
+        const res = await eventsApi("/admin/invite", { adminPassword: adminPassphrase, event: evSel.value, guestIds: ids, note: note.value.trim() });
+        out.innerHTML = "";
+        const sent = res.results.filter(function (r) { return r.ok; });
+        out.appendChild(el("p", { class: "requests__status " + (sent.length === res.results.length ? "is-ok" : "is-error") }, [
+          "Sent " + sent.length + " of " + res.results.length + ".",
+        ]));
+        const ul = el("ul", null);
+        res.results.forEach(function (r) {
+          ul.appendChild(el("li", { class: r.ok ? "is-ok" : "is-error" }, [(r.name || r.id) + (r.ok ? " — sent" : " — " + (r.error || "not sent"))]));
+        });
+        out.appendChild(ul);
+      } catch (e) {
+        out.innerHTML = "";
+        out.appendChild(el("p", { class: "requests__status is-error" }, ["Didn't send: " + (e.message || e)]));
+      }
+      send.disabled = false;
+    });
   }
 
   // Gigi's album. The photo list comes from media/_family/gigi/ via build.py
@@ -1251,6 +1494,10 @@
     grid.appendChild(el("a", { class: "tile tile--portal", href: "#/portal/calendar" }, [
       el("h2", { class: "tile__name" }, ["Calendar"]),
       el("p", { class: "tile__meta" }, ["Practices, appointments, and family plans."]),
+    ]));
+    grid.appendChild(el("a", { class: "tile tile--portal", href: "#/portal/invite" }, [
+      el("h2", { class: "tile__name" }, ["Send Invitations"]),
+      el("p", { class: "tile__meta" }, ["Email an event to grandparents and family — each gets their own link."]),
     ]));
     grid.appendChild(el("a", { class: "tile tile--portal", href: "#/portal/help" }, [
       el("h2", { class: "tile__name" }, ["How to Update This Site"]),
@@ -2456,6 +2703,7 @@
     else if (route.route === "portalChores") viewChores();
     else if (route.route === "portalCalendar") viewCalendar();
     else if (route.route === "portalHelp") viewHelp();
+    else if (route.route === "portalInvite") viewInvite();
     else viewHome();
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
@@ -2511,6 +2759,7 @@
     window.addEventListener("hashchange", function () {
       if (!$("#app").hidden) render();
     });
+    await redeemMagicLink();
     if (await checkUnlocked()) {
       await boot();
     } else {

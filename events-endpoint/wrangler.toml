@@ -1,0 +1,23 @@
+# Cloudflare Worker config for the McConnell Family events endpoint
+# (requests, magic links, invitations). See ../SETUP-EVENTS.md.
+# Deploy with:  npx wrangler deploy   (from this folder)
+# or paste worker.js into the Cloudflare dashboard editor.
+
+name = "mcconnell-family-events"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Non-secret values.
+[vars]
+ALLOWED_ORIGIN = "https://mcconnellentllc-cloud.github.io"
+SITE_URL = "https://mcconnellentllc-cloud.github.io/McConnellFamilySports"
+MAIL_PROVIDER = "gmail"
+MAIL_FROM_NAME = "The McConnell Family"
+
+# SECRETS — never put these in this file (the repo is public). Set each with
+#   npx wrangler secret put <NAME>
+# or in the dashboard under Settings -> Variables and Secrets, type "Secret":
+#   AIRTABLE_TOKEN, AIRTABLE_BASE_ID
+#   FAMILY_PASSWORD_SHA256, ADMIN_PASSWORD_SHA256
+#   MAIL_FROM
+#   GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN
