@@ -37,6 +37,10 @@ The site has two distinct audiences; keep them separate.
 - Editorial / family-keepsake tone, not childish or sports-bro.
 - Don't introduce frameworks, build systems, or backends. Pages must stay
   plain HTML/CSS/JS so the family can edit JSON by hand on GitHub.
+  The two exceptions, both user-approved, are the single-file Cloudflare
+  Workers in `upload-endpoint/` and `events-endpoint/` (Airtable + Gmail for
+  RSVPs, requests, invitations and magic links). Every key lives in the
+  Worker as a secret — never in the repo, which is public.
 - All content edits happen in `data/content.json` and `data/athletes.json`.
   `data/gallery.json` is rebuilt by `build.py` from `media/` — never hand-edit.
 - Photos that aren't tied to one girl (venues, group shots) go in

@@ -473,8 +473,14 @@ to *Past gatherings* by themselves the day after.
 
 Everything comes from `data/events.json`. Edit it on GitHub. Times are 24-hour
 (`"14:00"`). To show who is bringing a dish, add `"bringing": "Name"` to that
-dish. The request form stays switched off until `REQUESTS_ENDPOINT` in
-`assets/app.js` points at the requests service (Airtable, set up separately).
+dish.
+
+RSVPs, requests (a dish, or what someone's bringing), email invitations, and
+personal no-password links are handled by a small Cloudflare Worker
+(`events-endpoint/`) that writes to Airtable and sends from your Gmail. Until
+it is set up and `EVENTS_ENDPOINT` in `assets/app.js` points at it, the form
+and **Family Portal → Send Invitations** show but stay switched off. See
+**[SETUP-EVENTS.md](SETUP-EVENTS.md)**.
 
 ## Gigi's page
 
@@ -622,6 +628,8 @@ media/<girl>/<sport>/         Drop photo and video files in here.
 build.py                      Scans media/ and rebuilds gallery.json (photos + video).
 sync_teams.py                 Teams → site sync (also files uploads from the Upload button).
 upload-endpoint/              Cloudflare Worker for the on-site Upload button (see SETUP-UPLOAD.md).
+events-endpoint/              Cloudflare Worker for RSVPs, requests, invitations, magic links (see SETUP-EVENTS.md).
+data/events.json              Family events: date, schedule, menu.
 .github/workflows/deploy.yml  Runs on every push; builds and publishes.
 ```
 
