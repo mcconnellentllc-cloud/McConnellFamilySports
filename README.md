@@ -464,6 +464,18 @@ cleanly and needs no image file. The motto is one string in that function.
 
 ---
 
+## Family events
+
+**Family → Family Events** (`#/family/events`) lists upcoming gatherings: the
+day's schedule, the menu, an **Add to my calendar** button, and a request form.
+The next event also shows as a "Coming up" card on the home page. Events move
+to *Past gatherings* by themselves the day after.
+
+Everything comes from `data/events.json`. Edit it on GitHub. Times are 24-hour
+(`"14:00"`). To show who is bringing a dish, add `"bringing": "Name"` to that
+dish. The request form stays switched off until `REQUESTS_ENDPOINT` in
+`assets/app.js` points at the requests service (Airtable, set up separately).
+
 ## Gigi's page
 
 **Family → Gigi** (`#/family/gigi`) is an album just for pictures of Gigi.
