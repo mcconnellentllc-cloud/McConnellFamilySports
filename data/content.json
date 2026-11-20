@@ -83,7 +83,18 @@
       }
     }
   },
-  "academics": [],
+  "academics": [
+    {
+      "athlete": "gradyn",
+      "date": "2026-11-20",
+      "school": "Fort Hays Tech | Northwest",
+      "grade": "Diesel Technology",
+      "honors": ["Accepted"],
+      "notes": "Gradyn was accepted into Fort Hays Tech | Northwest in Goodland, Kansas, for the Diesel Technology program.",
+      "photo": "media/_memories/gradyn-fort-hays-tech-acceptance-2026.jpg",
+      "photoAlt": "Gradyn's acceptance email from Fort Hays Tech | Northwest"
+    }
+  ],
   "personal": [
     {
       "athlete": "family",

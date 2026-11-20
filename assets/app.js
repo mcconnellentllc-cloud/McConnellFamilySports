@@ -2275,7 +2275,9 @@
       const head = [];
       if (e.school) head.push(e.school);
       if (e.grade) head.push(e.grade);
-      card.appendChild(el("h4", { class: "entry__title" }, [head.join(" · ") || e.title || "School year"]));
+      const titleRow = el("div", { class: "entry__head" }, [el("h4", { class: "entry__title" }, [head.join(" · ") || e.title || "School year"])]);
+      if (e.date) titleRow.appendChild(el("span", { class: "entry__date" }, [fmtDate(e.date)]));
+      card.appendChild(titleRow);
       if (e.gpa) card.appendChild(el("p", { class: "entry__meta" }, [el("span", null, ["GPA " + e.gpa])]));
       if (e.honors && e.honors.length) {
         const badges = el("p", { class: "entry__badges" });
@@ -2284,8 +2286,10 @@
       }
       if (e.highlights) card.appendChild(el("p", { class: "entry__text" }, [e.highlights]));
       if (e.notes) card.appendChild(el("p", { class: "entry__text" }, [e.notes]));
-      const ph = entryPhoto(e.photo, e.school || "School");
-      if (ph) card.appendChild(ph);
+      // Shown whole, like memory photos: a letter or certificate cropped to a
+      // strip loses the words that matter.
+      const ph = entryPhoto(e.photo, e.photoAlt || e.school || "School");
+      if (ph) card.appendChild(el("div", { class: "entry__photos" }, [ph]));
       return card;
     }, "No academics recorded yet", "Add a school year in <code>data/content.json</code> under <code>academics</code>.");
   }
