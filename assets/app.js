@@ -1113,6 +1113,15 @@
       card.appendChild(menu);
     }
 
+    // Photos from earlier years of the same gathering, under their own
+    // heading: { "photosTitle": ..., "photosNote": ..., "photos": [{ src, alt }] }.
+    const pics = entryPhotoGrid(e);
+    if (pics) {
+      card.appendChild(el("h3", { class: "event__section" }, [e.photosTitle || "Photos"]));
+      if (e.photosNote) card.appendChild(el("p", { class: "event__summary" }, [e.photosNote]));
+      card.appendChild(pics);
+    }
+
     if (!isPast) {
       const ics = eventICS(e);
       const actions = el("div", { class: "event__actions" });
