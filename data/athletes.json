@@ -400,5 +400,12 @@
       "attribution": "Robert Brault",
       "use": "family"
     }
+  ],
+  "travelGroups": [
+    {
+      "slug": "kyle-brandi",
+      "name": "Kyle & Brandi",
+      "blurb": "Trips the two of us took together."
+    }
   ]
 }

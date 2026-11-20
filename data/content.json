@@ -193,7 +193,78 @@
       "photo": "media/_family/celebrations/north-platte-pumpkin-patch-2022.jpg"
     }
   ],
-  "travel": [],
+  "travel": [
+    {
+      "athlete": "family",
+      "group": "kyle-brandi",
+      "date": "2022-12-13",
+      "title": "College Station — Southwest Council Meeting",
+      "destination": "College Station, Texas",
+      "text": "Brandi and Kyle went to College Station for the Southwest Council meeting. Along the way: Kyle Field, breakfast at Stella's, and an afternoon at the George H.W. Bush Presidential Library and Museum.",
+      "photos": [
+        {
+          "src": "media/_family/travel/college-station-2022-01-kyle-field.jpg",
+          "alt": "Kyle Field at Texas A&M"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-02-campus-from-the-window.jpg",
+          "alt": "Looking out over the A&M campus and the Aggieland water tower"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-03-breakfast-at-stellas.jpg",
+          "alt": "Breakfast at Stella's"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-04-bush-library-entrance.jpg",
+          "alt": "The George Bush Presidential Library and Museum"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-05-avenger-torpedo-bomber.jpg",
+          "alt": "George H.W. Bush's TBM Avenger over the Kennebunkport exhibit"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-06-white-house-exhibit.jpg",
+          "alt": "The White House exhibit"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-07-kyle-at-the-podium.jpg",
+          "alt": "Kyle at the presidential podium"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-08-kyle-in-the-oval-office.jpg",
+          "alt": "Kyle at the Oval Office desk"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-09-kyle-in-the-situation-room.jpg",
+          "alt": "Kyle running the Situation Room"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-10-gate-of-kuwait.jpg",
+          "alt": "The Gate of Kuwait"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-11-desert-storm-gallery.jpg",
+          "alt": "The Desert Storm gallery"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-12-victory-parade.jpg",
+          "alt": "The Desert Storm victory parade wall"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-13-bush-family-gravesite.jpg",
+          "alt": "The Bush family gravesite"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-14-pavilion-ceiling.jpg",
+          "alt": "Timber-frame pavilion ceiling"
+        },
+        {
+          "src": "media/_family/travel/college-station-2022-15-pavilion-by-the-pond.jpg",
+          "alt": "The pavilion by the pond on the library grounds"
+        }
+      ]
+    }
+  ],
   "events": [
     {
       "sport": "volleyball",
