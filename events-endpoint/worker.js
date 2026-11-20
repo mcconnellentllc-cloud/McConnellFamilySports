@@ -17,6 +17,8 @@
  *   /verify          { token }                         -> { ok, guest: { name } }
  *   /request         { event, type, name, attending, count, details,
  *                      token | password }              -> { ok }
+ *   /rsvps           { event, token | password }       -> { ok, rsvps: [...] }
+ *                    (the live "Who's coming" list: latest RSVP per person)
  *   /admin/guests    { adminPassword }                 -> { ok, guests: [...] }
  *   /admin/invite    { adminPassword, event, guestIds, note }
  *                                                      -> { ok, results: [...] }
@@ -84,6 +86,7 @@ export default {
     try {
       if (path === "/verify") return await verify(body, env, json);
       if (path === "/request") return await saveRequest(body, env, json);
+      if (path === "/rsvps") return await listRsvps(body, env, json);
       if (path === "/admin/guests") return await listGuests(body, env, json);
       if (path === "/admin/invite") return await sendInvites(body, env, json);
       return json(404, { error: "Unknown route." });
@@ -101,19 +104,49 @@ async function verify(body, env, json) {
   return json(200, { ok: true, guest: { name: guest.fields.Name || "" } });
 }
 
-async function saveRequest(body, env, json) {
-  // Who is asking: a magic-link guest, or someone who knows the site password.
-  let guest = null;
+// Who is asking: a magic-link guest, or someone who knows the site password.
+// Returns { guest } (null guest for password users), or { error, status }.
+async function whoIsAsking(body, env) {
   if (body.token) {
-    guest = await guestByToken(env, body.token);
-    if (!guest) return json(401, { error: "That link isn't valid any more." });
-  } else {
-    if (!env.FAMILY_PASSWORD_SHA256) return json(500, { error: "Endpoint not configured." });
-    const pw = typeof body.password === "string" ? body.password : "";
-    if (!pw || (await sha256Hex(pw)) !== env.FAMILY_PASSWORD_SHA256.toLowerCase()) {
-      return json(401, { error: "Wrong password." });
-    }
+    const guest = await guestByToken(env, body.token);
+    return guest ? { guest } : { status: 401, error: "That link isn't valid any more." };
   }
+  if (!env.FAMILY_PASSWORD_SHA256) return { status: 500, error: "Endpoint not configured." };
+  const pw = typeof body.password === "string" ? body.password : "";
+  if (!pw || (await sha256Hex(pw)) !== env.FAMILY_PASSWORD_SHA256.toLowerCase()) {
+    return { status: 401, error: "Wrong password." };
+  }
+  return { guest: null };
+}
+
+async function listRsvps(body, env, json) {
+  const who = await whoIsAsking(body, env);
+  if (who.error) return json(who.status, { error: who.error });
+  const slug = String(body.event || "");
+  if (!SLUG_RE.test(slug)) return json(400, { error: "Unknown event." });
+  // slug is checked against SLUG_RE above, so it is safe in the formula.
+  const recs = await allRecords(env, T_REQUESTS, `AND({Event}='${slug}', {Type}='RSVP')`);
+  // Oldest first, so a later RSVP from the same person replaces an earlier one.
+  recs.sort((a, b) => String(a.createdTime).localeCompare(String(b.createdTime)));
+  const byPerson = new Map();
+  for (const r of recs) {
+    const f = r.fields || {};
+    const key = (f.Guest && f.Guest[0]) || String(f.Name || "").trim().toLowerCase();
+    if (!key) continue;
+    byPerson.set(key, {
+      name: f.Name || "",
+      status: String(f.Attending || "Yes").toLowerCase(),
+      count: f.Attending === "No" ? 0 : (Number(f.Count) || 1),
+      note: f.Details || "",
+    });
+  }
+  return json(200, { ok: true, rsvps: [...byPerson.values()] });
+}
+
+async function saveRequest(body, env, json) {
+  const who = await whoIsAsking(body, env);
+  if (who.error) return json(who.status, { error: who.error });
+  const guest = who.guest;
 
   const slug = String(body.event || "");
   if (!SLUG_RE.test(slug)) return json(400, { error: "Unknown event." });

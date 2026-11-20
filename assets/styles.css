@@ -1838,3 +1838,43 @@ a:hover { text-decoration: underline; }
 @media (max-width: 640px) {
   .reel__item { width: 62vw; height: 78vw; max-height: 340px; }
 }
+
+/* Who's coming — the running total under each event */
+.rsvps__total { font-size: 18px; margin: 0 0 6px; }
+.rsvps__total strong { font-family: var(--serif); font-size: 34px; color: var(--accent); margin-right: 2px; }
+.rsvps__maybe { color: var(--muted); font-size: 15px; }
+.rsvps__head {
+  margin: 14px 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.rsvps__list { list-style: none; margin: 0; padding: 0; }
+.rsvps__list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 15px;
+}
+.rsvps__name { flex: 1 1 auto; }
+.rsvps__count { font-weight: 600; color: var(--accent-soft); }
+.rsvps__list small { flex-basis: 100%; color: var(--muted); font-size: 13px; }
+.rsvps__live {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e7f4ea;
+  color: #1d6b34;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}

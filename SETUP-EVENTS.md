@@ -24,6 +24,11 @@ stay in `data/events.json`, and the Worker reads them from the live site.
 
 About 30 minutes, once. Every step works in a phone browser.
 
+> **Just want RSVPs and the live "Who's coming" board?** Skip Step 3 (Gmail)
+> and the four `GOOGLE_…`/`MAIL_FROM` secrets. Invitations can go out with the
+> event's **Share invitation** / **Copy invitation** buttons instead. Only
+> emailing from the portal needs Gmail.
+
 ---
 
 ## Step 1: Airtable base
