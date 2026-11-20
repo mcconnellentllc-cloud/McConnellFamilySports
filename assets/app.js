@@ -6,6 +6,7 @@
   // Generated with: printf 'McConnell' | sha256sum
   const PASSWORD_HASH = "9592955c5464e8aa0834c891b493c97ed0576d4faa79e703e367a3f511da66ae";
   const SESSION_KEY = "mfs_unlocked_v1";
+  const PW_KEY = "mfs_pw_v1";
 
   // Visitor counter via GoatCounter (no IP storage, no cookies, no
   // fingerprinting; raw IP is hashed with a 4h-rotating salt and never
@@ -70,9 +71,10 @@
     const hex = await sha256Hex(input);
     if (hex === PASSWORD_HASH) {
       sessionStorage.setItem(SESSION_KEY, PASSWORD_HASH);
-      // Keep the plaintext in memory only (never persisted) so the uploader
-      // can decrypt the shared upload token without prompting again.
+      // Kept for this tab only (cleared by Lock and when the tab closes) so
+      // uploads, requests and the live "Who's coming" list don't re-prompt.
       state.familyPassword = input;
+      try { sessionStorage.setItem(PW_KEY, input); } catch (e) { /* private mode */ }
       return true;
     }
     return false;
@@ -103,6 +105,7 @@
     $("#lock-btn").addEventListener("click", function () {
       sessionStorage.removeItem(SESSION_KEY);
       sessionStorage.removeItem(GUEST_KEY);
+      sessionStorage.removeItem(PW_KEY);
       state.familyPassword = null;
       adminPassphrase = null;
       location.hash = "";
@@ -1123,8 +1126,81 @@
       }
       card.appendChild(actions);
       if (e.requests) card.appendChild(renderRequests(e));
+      if (e.requests || e.rsvps) card.appendChild(renderRsvps(e));
     }
     return card;
+  }
+
+  // ---------- Who's coming (the running total) ----------
+  // RSVPs come back as replies; each one goes in the event's "rsvps" list in
+  // data/events.json: { "name": "Grandma & Grandpa", "count": 2,
+  // "status": "yes" | "maybe" | "no", "note": "bringing rolls" }.
+  function renderRsvps(e) {
+    const box = el("section", { class: "rsvps", id: "rsvps-" + (e.slug || e.date) });
+    fillRsvps(box, e.rsvps || []);
+    if (EVENTS_ENDPOINT) {
+      const refresh = function () { refreshRsvps(box, e); };
+      refresh();
+      slideTimers.push(setInterval(function () {
+        if (!document.hidden && box.isConnected) refresh();
+      }, 60000));
+    }
+    return box;
+  }
+  // The live list from the events service, merged over the hand-kept one:
+  // the same name in both counts once, with the live RSVP winning.
+  async function refreshRsvps(box, e) {
+    const guest = currentGuest();
+    const auth = guest && guest.token ? { token: guest.token }
+      : state.familyPassword ? { password: state.familyPassword } : null;
+    if (!auth) return;
+    try {
+      const data = await eventsApi("/rsvps", Object.assign({ event: e.slug }, auth));
+      const merged = {};
+      (e.rsvps || []).concat(data.rsvps || []).forEach(function (r) {
+        if (r && r.name) merged[r.name.trim().toLowerCase()] = r;
+      });
+      if (box.isConnected) fillRsvps(box, Object.keys(merged).map(function (k) { return merged[k]; }), true);
+    } catch (err) { /* keep showing what we have */ }
+  }
+  function fillRsvps(box, raw, isLive) {
+    const list = raw.filter(function (r) { return r && r.name; });
+    box.innerHTML = "";
+    const people = function (r) { const n = Number(r.count); return Number.isFinite(n) && n > 0 ? n : 1; };
+    const yes = list.filter(function (r) { return (r.status || "yes") === "yes"; });
+    const maybe = list.filter(function (r) { return r.status === "maybe"; });
+    const no = list.filter(function (r) { return r.status === "no"; });
+    const sum = function (rs) { return rs.reduce(function (t, r) { return t + people(r); }, 0); };
+    const total = sum(yes);
+    box.appendChild(el("h3", { class: "event__section" }, [
+      "Who's coming",
+      isLive ? el("span", { class: "rsvps__live" }, ["Live"]) : null,
+    ]));
+    box.appendChild(el("p", { class: "rsvps__total" }, [
+      el("strong", null, [String(total)]),
+      total === 1 ? " person coming" : " people coming",
+      maybe.length ? el("span", { class: "rsvps__maybe" }, [" · " + sum(maybe) + " maybe"]) : null,
+    ]));
+    if (!list.length) {
+      box.appendChild(el("p", { class: "requests__hint" }, ["No RSVPs yet."]));
+      return;
+    }
+    const group = function (title, rs) {
+      if (!rs.length) return;
+      box.appendChild(el("h4", { class: "rsvps__head" }, [title]));
+      const ul = el("ul", { class: "rsvps__list" });
+      rs.forEach(function (r) {
+        ul.appendChild(el("li", null, [
+          el("span", { class: "rsvps__name" }, [r.name]),
+          r.status !== "no" ? el("span", { class: "rsvps__count" }, [String(people(r))]) : null,
+          r.note ? el("small", null, [r.note]) : null,
+        ]));
+      });
+      box.appendChild(ul);
+    };
+    group("Coming", yes);
+    group("Maybe", maybe);
+    group("Can't make it", no);
   }
 
   // ---------- Share / copy an invitation ----------
@@ -1374,7 +1450,12 @@
       say("Sending…");
       try {
         await eventsApi("/request", payload);
-        if (payload.password) state.familyPassword = payload.password;
+        if (payload.password) {
+          state.familyPassword = payload.password;
+          try { sessionStorage.setItem(PW_KEY, payload.password); } catch (e2) { /* private mode */ }
+        }
+        const rb = document.getElementById("rsvps-" + (e.slug || e.date));
+        if (rb && kind === "rsvp") refreshRsvps(rb, e);
         details.value = "";
         say(kind === "rsvp"
           ? "Thanks, " + payload.name + " — your RSVP is in."
@@ -2993,6 +3074,7 @@
 
   // ---------- Boot ----------
   async function boot() {
+    try { state.familyPassword = state.familyPassword || sessionStorage.getItem(PW_KEY); } catch (e) { /* none */ }
     showApp();
     refreshVisitCount();
     try {

@@ -472,7 +472,13 @@ The next event also shows as a "Coming up" card on the home page.
 
 **To invite people, tap Share invitation** (on a phone it opens Messages,
 Mail, Facebook…) **or Copy invitation** and paste it anywhere. It copies the
-date, schedule, menu and a link to the page, and replies come back to you. Events move
+date, schedule, menu and a link to the page, and replies come back to you.
+
+**Who's coming** sits at the bottom of each event, with a running total.
+Replies you get go in the event's `rsvps` list in `data/events.json` (or
+just tell Claude "Grandma and Grandpa are coming, 2"). Once the events
+service is running (`SETUP-EVENTS.md`), RSVPs sent from the site show up
+there live, marked **Live**, and the list refreshes every minute. Events move
 to *Past gatherings* by themselves the day after.
 
 Everything comes from `data/events.json`. Edit it on GitHub. Times are 24-hour
