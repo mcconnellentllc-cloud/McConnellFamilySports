@@ -1112,18 +1112,91 @@
 
     if (!isPast) {
       const ics = eventICS(e);
+      const actions = el("div", { class: "event__actions" });
+      actions.appendChild(inviteButtons(e));
       if (ics) {
-        card.appendChild(el("p", { class: "event__actions" }, [
-          el("a", {
-            class: "event__cal",
-            href: "data:text/calendar;charset=utf-8," + encodeURIComponent(ics),
-            download: (e.slug || "family-event") + ".ics",
-          }, ["Add to my calendar"]),
-        ]));
+        actions.appendChild(el("a", {
+          class: "event__cal",
+          href: "data:text/calendar;charset=utf-8," + encodeURIComponent(ics),
+          download: (e.slug || "family-event") + ".ics",
+        }, ["Add to my calendar"]));
       }
+      card.appendChild(actions);
       if (e.requests) card.appendChild(renderRequests(e));
     }
     return card;
+  }
+
+  // ---------- Share / copy an invitation ----------
+  // The whole invitation as plain text, ready to paste into a text message,
+  // an email, or Facebook. Replies come straight back to whoever sends it.
+  function eventLink(e) {
+    return location.origin + location.pathname + "#/family/events/" + (e.slug || "");
+  }
+  function inviteText(e) {
+    const lines = [
+      "You're invited: " + (e.title || "Family gathering"),
+      fmtEventDate(e.date) + (e.start ? " · from " + fmtTime(e.start) : ""),
+    ];
+    if (e.location) lines.push(e.location);
+    if (e.summary) lines.push("", e.summary);
+    if (e.schedule && e.schedule.length) {
+      lines.push("", "The day:");
+      e.schedule.forEach(function (x) { lines.push(fmtTime(x.time) + " — " + (x.text || "")); });
+    }
+    if (e.menu && e.menu.length) {
+      lines.push("", "On the menu:");
+      e.menu.forEach(function (g) {
+        const dishes = (g.items || []).map(function (i) { return i.dish; }).filter(Boolean).join(", ");
+        if (dishes) lines.push((g.group ? g.group + ": " : "") + dishes);
+      });
+    }
+    lines.push("", "Let us know if you're coming, and if there's a dish you'd love or something you're bringing — just reply.");
+    lines.push("", "Details: " + eventLink(e));
+    return lines.join("\n");
+  }
+  function inviteButtons(e) {
+    const wrap = el("div", { class: "event__share" });
+    const note = el("span", { class: "event__share-note", role: "status" });
+    let timer = null;
+    const flash = function (t) {
+      note.textContent = t;
+      clearTimeout(timer);
+      timer = setTimeout(function () { note.textContent = ""; }, 2500);
+    };
+    const copy = async function () {
+      const text = inviteText(e);
+      try {
+        await navigator.clipboard.writeText(text);
+        flash("Copied — paste it into a text or email.");
+      } catch (err) {
+        // Older browsers: select the text so it can be copied by hand.
+        const ta = el("textarea", { class: "event__share-text", readonly: "readonly", rows: "10" });
+        ta.value = text;
+        if (!wrap.querySelector("textarea")) wrap.appendChild(ta);
+        ta.focus();
+        ta.select();
+        flash("Select all and copy.");
+      }
+    };
+    if (navigator.share) {
+      wrap.appendChild(el("button", {
+        type: "button",
+        class: "event__btn event__btn--primary",
+        onclick: async function () {
+          try {
+            await navigator.share({ title: e.title || "Family gathering", text: inviteText(e) });
+          } catch (err) { /* cancelled */ }
+        },
+      }, ["Share invitation"]));
+    }
+    wrap.appendChild(el("button", {
+      type: "button",
+      class: "event__btn" + (navigator.share ? "" : " event__btn--primary"),
+      onclick: copy,
+    }, ["Copy invitation"]));
+    wrap.appendChild(note);
+    return wrap;
   }
 
   // One-event .ics, built in the browser. Times are "floating" (no time
@@ -1222,8 +1295,9 @@
     const guest = currentGuest();
     if (!live) {
       box.appendChild(el("p", { class: "requests__hint" }, [
-        "RSVPs and requests open here soon.",
+        "To RSVP, ask for a dish, or tell us what you're bringing, just reply to your invitation, or call or text us.",
       ]));
+      return box;
     }
 
     const uid = "req-" + (e.slug || e.date);

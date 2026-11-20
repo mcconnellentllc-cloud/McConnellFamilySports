@@ -468,7 +468,11 @@ cleanly and needs no image file. The motto is one string in that function.
 
 **Family → Family Events** (`#/family/events`) lists upcoming gatherings: the
 day's schedule, the menu, an **Add to my calendar** button, and a request form.
-The next event also shows as a "Coming up" card on the home page. Events move
+The next event also shows as a "Coming up" card on the home page.
+
+**To invite people, tap Share invitation** (on a phone it opens Messages,
+Mail, Facebook…) **or Copy invitation** and paste it anywhere. It copies the
+date, schedule, menu and a link to the page, and replies come back to you. Events move
 to *Past gatherings* by themselves the day after.
 
 Everything comes from `data/events.json`. Edit it on GitHub. Times are 24-hour
