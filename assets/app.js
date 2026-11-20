@@ -348,6 +348,13 @@
       ? "sports" : "family";
   }
   function pickQuote(seed) {
+    // A person with a "quote" of their own in athletes.json keeps it on
+    // every one of their pages, instead of the daily rotation.
+    const m = /^(?:athlete|cat|sport):([^:]+)/.exec(String(seed || ""));
+    if (m) {
+      const own = getAthlete(m[1]);
+      if (own && own.quote && own.quote.text) return own.quote;
+    }
     const all = (state.athletes && state.athletes.quotes) || [];
     const want = quoteUseFor(seed);
     // Fall back to the whole set if nothing carries a "use" yet.

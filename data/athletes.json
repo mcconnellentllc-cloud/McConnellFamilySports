@@ -47,7 +47,11 @@
       "slug": "bryce",
       "name": "Bryce",
       "tagline": "Seasons, school years, and the moments in between.",
-      "sports": []
+      "sports": [],
+      "quote": {
+        "text": "What we have once enjoyed we can never lose. All that we love deeply becomes a part of us.",
+        "attribution": "Helen Keller"
+      }
     }
   ],
   "sports": [
