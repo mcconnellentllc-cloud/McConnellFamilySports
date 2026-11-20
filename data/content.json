@@ -217,6 +217,20 @@
   ],
   "travel": [
     {
+      "athlete": "gage",
+      "year": "2025",
+      "title": "Japan Trip 2025",
+      "destination": "Japan",
+      "text": "Gage's 2025 trip to Japan — a headband and mirrored shades on the tour bus, yukata with the group, samurai armor at Odawara Castle, cards on the bullet train, and a stop with Sherlock Holmes.",
+      "photos": [
+        { "src": "media/_family/travel/gage-japan-2025-01-headband.jpg", "alt": "Gage on the tour bus in a Japanese headband and mirrored sunglasses" },
+        { "src": "media/_family/travel/gage-japan-2025-02-yukata.jpg", "alt": "Gage and the group in matching yukata" },
+        { "src": "media/_family/travel/gage-japan-2025-03-samurai-armor.jpg", "alt": "Samurai armor photo spot at Odawara Castle" },
+        { "src": "media/_family/travel/gage-japan-2025-04-shinkansen.jpg", "alt": "Playing cards on the Shinkansen bullet train" },
+        { "src": "media/_family/travel/gage-japan-2025-05-sherlock-holmes.jpg", "alt": "Gage beside a Sherlock Holmes statue" }
+      ]
+    },
+    {
       "athlete": "family",
       "group": "kyle-brandi",
       "date": "2022-12-13",
