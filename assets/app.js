@@ -440,6 +440,159 @@
     });
   }
 
+  // ---------- Photo slideshows on cards, and the Highlights reel ----------
+  // Every photo of a person the site already knows about: their gallery, the
+  // photos on their memories, and game-day photos they're tagged in. Venue
+  // shots (media/_venues/) are buildings, not people, so they're left out.
+  function usablePhoto(src) {
+    return !!src && /\.(jpe?g|png|webp|gif|avif)$/i.test(src) && src.indexOf("media/_venues/") !== 0;
+  }
+  function collectPhotos(list) {
+    const seen = {};
+    const out = [];
+    list.forEach(function (p) {
+      if (!p || !usablePhoto(p.src) || seen[p.src]) return;
+      seen[p.src] = true;
+      out.push({ type: "photo", src: p.src, caption: p.caption || "" });
+    });
+    return out;
+  }
+  function memoryPhotos(e) {
+    const out = [];
+    if (e.photo) out.push({ src: e.photo, caption: e.title || "" });
+    (e.photos || []).forEach(function (p) { out.push({ src: p.src, caption: p.alt || e.title || "" }); });
+    return out;
+  }
+  function photosOf(slug) {
+    const c = state.content || {};
+    let list = [];
+    entriesFor("personal", slug).forEach(function (e) { list = list.concat(memoryPhotos(e)); });
+    (c.memories || []).filter(function (m) { return m.athlete === slug; })
+      .forEach(function (m) { list = list.concat(memoryPhotos(m)); });
+    (c.events || []).filter(function (ev) { return (ev.athletes || []).indexOf(slug) !== -1 && ev.photo; })
+      .forEach(function (ev) { list.push({ src: ev.photo, caption: ev.photoCaption || ev.name || "" }); });
+    ((state.gallery && state.gallery.photos) || []).filter(function (p) { return p.athlete === slug && p.type !== "video"; })
+      .forEach(function (p) { list.push({ src: p.src, caption: p.caption }); });
+    return collectPhotos(list);
+  }
+  function gigiPhotos() {
+    const notes = (state.gigi && state.gigi.photos) || {};
+    return collectPhotos((((state.gallery && state.gallery.albums) || {}).gigi || []).map(function (p) {
+      return { src: p.src, caption: (notes[p.file] && notes[p.file].caption) || p.caption };
+    }));
+  }
+  function familyPhotos() {
+    let list = [];
+    entriesFor("personal", "family").forEach(function (e) { list = list.concat(memoryPhotos(e)); });
+    return collectPhotos(list.concat(gigiPhotos()));
+  }
+  function shuffled(list) {
+    const a = list.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  // Timers from the page being shown; cleared on every navigation.
+  const slideTimers = [];
+  function clearSlideTimers() {
+    while (slideTimers.length) clearInterval(slideTimers.pop());
+  }
+  function reducedMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+  const SLIDE_MS = 4500;
+  const MAX_SLIDES = 12;
+
+  // A card's picture: a slow crossfade through up to a dozen photos, fresh
+  // order each visit. Each photo loads only just before it is shown.
+  function slideshowEl(photos) {
+    const picks = shuffled(photos).slice(0, MAX_SLIDES);
+    const box = el("div", { class: "tile__slides", "aria-hidden": "true" });
+    const imgs = picks.map(function (p, i) {
+      const img = el("img", { alt: "", decoding: "async", loading: i === 0 ? "eager" : "lazy" });
+      if (i < 2) img.src = p.src;
+      if (i === 0) img.className = "is-on";
+      box.appendChild(img);
+      return img;
+    });
+    if (imgs.length > 1 && !reducedMotion()) {
+      let i = 0;
+      // Stagger the cards so they don't all change at once.
+      const offset = Math.floor(Math.random() * SLIDE_MS);
+      setTimeout(function () {
+        if (!box.isConnected) return;
+        slideTimers.push(setInterval(function () {
+          if (document.hidden || !box.isConnected) return;
+          const next = (i + 1) % imgs.length;
+          const after = (next + 1) % imgs.length;
+          if (!imgs[after].getAttribute("src")) imgs[after].src = picks[after].src;
+          imgs[i].classList.remove("is-on");
+          imgs[next].classList.add("is-on");
+          i = next;
+        }, SLIDE_MS));
+      }, offset);
+    }
+    return box;
+  }
+  function tileEl(href, name, meta, photos, extraClass) {
+    const has = photos && photos.length;
+    return el("a", { class: "tile" + (has ? " tile--photo" : "") + (extraClass ? " " + extraClass : ""), href: href }, [
+      has ? slideshowEl(photos) : null,
+      el("div", { class: "tile__text" }, [
+        el("h2", { class: "tile__name" }, [name]),
+        meta ? el("p", { class: "tile__meta" }, [meta]) : null,
+      ]),
+    ]);
+  }
+
+  // The Highlights reel at the top of a child's page: every photo, newest
+  // memories first, scrolling sideways. Tap one to open it large.
+  function highlightsReel(photos, label) {
+    if (!photos.length) return null;
+    const wrap = el("section", { class: "reel", "aria-label": label || "Highlights" });
+    wrap.appendChild(el("h3", { class: "reel__title" }, [label || "Highlights"]));
+    const track = el("div", { class: "reel__track" });
+    photos.forEach(function (p, idx) {
+      track.appendChild(el("button", {
+        type: "button",
+        class: "reel__item",
+        "aria-label": p.caption || "Photo",
+        onclick: function () { state.galleryItems = photos; openLightbox(idx); },
+      }, [el("img", { src: idx < 4 ? p.src : null, "data-src": p.src, alt: p.caption || "", loading: "lazy", decoding: "async" })]));
+    });
+    wrap.appendChild(track);
+    // Load the rest as they come near the edge of the screen.
+    const imgs = track.querySelectorAll("img[data-src]");
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting && !en.target.getAttribute("src")) en.target.src = en.target.getAttribute("data-src");
+        });
+      }, { root: track, rootMargin: "0px 600px 0px 600px" });
+      imgs.forEach(function (im) { io.observe(im); });
+    } else {
+      imgs.forEach(function (im) { im.src = im.getAttribute("data-src"); });
+    }
+    // Drift forward one photo at a time until someone touches it.
+    if (photos.length > 2 && !reducedMotion()) {
+      let stopped = false;
+      const stop = function () { stopped = true; };
+      ["pointerdown", "wheel", "touchstart", "keydown"].forEach(function (t) {
+        track.addEventListener(t, stop, { passive: true });
+      });
+      slideTimers.push(setInterval(function () {
+        if (stopped || document.hidden || !track.isConnected) return;
+        const item = track.querySelector(".reel__item");
+        const step = item ? item.getBoundingClientRect().width + 10 : 200;
+        const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+        track.scrollTo({ left: atEnd ? 0 : track.scrollLeft + step, behavior: "smooth" });
+      }, 3500));
+    }
+    return wrap;
+  }
+
   function viewHome() {
     const v = $("#view");
     v.innerHTML = "";
@@ -455,16 +608,11 @@
     if (next) v.appendChild(nextUpCard(next));
     const grid = el("div", { class: "tiles" });
     (state.athletes.athletes || []).forEach(function (a) {
-      grid.appendChild(el("a", { class: "tile", href: "#/" + a.slug }, [
-        el("h2", { class: "tile__name" }, [a.name]),
-        el("p", { class: "tile__meta" }, [(a.tagline || "View archive")]),
-      ]));
+      grid.appendChild(tileEl("#/" + a.slug, a.name, a.tagline || "View archive", photosOf(a.slug)));
     });
     // Shared family archive.
-    grid.appendChild(el("a", { class: "tile tile--family", href: "#/family" }, [
-      el("h2", { class: "tile__name" }, ["Family"]),
-      el("p", { class: "tile__meta" }, ["Trips, holidays, and the moments we keep together."]),
-    ]));
+    grid.appendChild(tileEl("#/family", "Family", "Trips, holidays, and the moments we keep together.",
+      familyPhotos(), "tile--family"));
     v.appendChild(grid);
   }
 
@@ -477,6 +625,8 @@
       return;
     }
     v.appendChild(coverEl(a.name, a.tagline || "Choose a category", "athlete:" + a.slug));
+    const reel = highlightsReel(photosOf(a.slug), "Highlights");
+    if (reel) v.appendChild(reel);
     const grid = el("div", { class: "tiles" });
     CATEGORY_SLUGS.forEach(function (slug) {
       const cat = getCategory(slug);
@@ -722,6 +872,8 @@
     const v = $("#view");
     v.innerHTML = "";
     v.appendChild(coverEl("The McConnells", "Trips, holidays, and the moments we keep together.", "family"));
+    const reel = highlightsReel(familyPhotos(), "Highlights");
+    if (reel) v.appendChild(reel);
     const grid = el("div", { class: "tiles" });
     [
       ["events", "Family Events", "What's coming up, when to be there, and what's on the menu."],
@@ -735,10 +887,10 @@
       ["personal/faith", "Faith", "Baptisms, confirmations, and church."],
       ["personal/pets", "Pets", "The animals that are part of the family."],
     ].forEach(function (c) {
-      grid.appendChild(el("a", { class: "tile", href: "#/family/" + c[0] }, [
-        el("h2", { class: "tile__name" }, [c[1]]),
-        el("p", { class: "tile__meta" }, [c[2]]),
-      ]));
+      const photos = c[0] === "gigi" ? gigiPhotos()
+        : c[0] === "personal" ? collectPhotos([].concat.apply([], entriesFor("personal", "family").map(memoryPhotos)))
+        : null;
+      grid.appendChild(tileEl("#/family/" + c[0], c[1], c[2], photos));
     });
     v.appendChild(grid);
   }
@@ -2689,6 +2841,7 @@
 
   // ---------- Render dispatcher ----------
   function render() {
+    clearSlideTimers();
     const route = parseHash();
     renderCrumbs(route);
     if (route.route === "home") viewHome();
