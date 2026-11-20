@@ -911,6 +911,7 @@
     ].forEach(function (c) {
       const photos = c[0] === "gigi" ? gigiPhotos()
         : c[0] === "personal" ? collectPhotos([].concat.apply([], entriesFor("personal", "family").map(memoryPhotos)))
+        : c[0] === "travel" ? collectPhotos([].concat.apply([], entriesFor("travel", "family").map(memoryPhotos)))
         : null;
       grid.appendChild(tileEl("#/family/" + c[0], c[1], c[2], photos));
     });
@@ -977,10 +978,11 @@
     }
 
     const isTravel = route.category === "travel";
-    const title = isTravel ? "Travel" : "Memories";
+    const group = isTravel && travelGroups().find(function (g) { return g.slug === route.tab; });
+    const title = isTravel ? (group ? "Travel · " + group.name + " Trips" : "Travel") : "Memories";
     v.appendChild(coverEl("Family · " + title, null, "familycat:" + route.category));
     const body = el("section", null);
-    if (isTravel) renderTravel(body, "family");
+    if (isTravel) renderTravel(body, "family", route.tab);
     else renderPersonal(body, "family", route.tab);
     v.appendChild(body);
   }
@@ -2077,6 +2079,30 @@
     if (!path) return null;
     return el("img", { class: "entry__photo", src: path, alt: alt || "", loading: "lazy" });
   }
+  // Several photos on one entry: "photos": [{ "src": ..., "alt": ... }].
+  // Shown whole, never cropped, so details stay in frame. A clip sits in the
+  // same list: { "type": "video", "src": ..., "poster": ..., "alt": ... }.
+  function entryPhotoGrid(e) {
+    if (!e.photos || !e.photos.length) return null;
+    const grid = el("div", { class: "entry__photos" });
+    e.photos.forEach(function (p) {
+      if (p.type === "video") {
+        grid.appendChild(el("video", {
+          class: "entry__photo",
+          src: p.src,
+          controls: "",
+          playsinline: "",
+          preload: "metadata",
+          poster: p.poster || null,
+          "aria-label": p.alt || e.title || "Video",
+        }));
+        return;
+      }
+      const img = entryPhoto(p.src, p.alt || e.title || "");
+      if (img) grid.appendChild(img);
+    });
+    return grid;
+  }
   function renderYearGroups(parent, entries, renderItem, emptyTitle, emptyMsg) {
     if (!entries.length) {
       parent.appendChild(emptyState(emptyTitle, emptyMsg));
@@ -2136,29 +2162,8 @@
       if (e.text) card.appendChild(el("p", { class: "entry__text" }, [e.text]));
       const ph = entryPhoto(e.photo, e.title || "");
       if (ph) card.appendChild(ph);
-      // Several photos on one memory: "photos": [{ "src": ..., "alt": ... }].
-      // Shown whole, never cropped, so costume details stay in frame.
-      if (e.photos && e.photos.length) {
-        const grid = el("div", { class: "entry__photos" });
-        e.photos.forEach(function (p) {
-          // A clip sits in the same list: { "type": "video", "src": ..., "alt": ... }.
-          if (p.type === "video") {
-            grid.appendChild(el("video", {
-              class: "entry__photo",
-              src: p.src,
-              controls: "",
-              playsinline: "",
-              preload: "metadata",
-              poster: p.poster || null,
-              "aria-label": p.alt || e.title || "Video",
-            }));
-            return;
-          }
-          const img = entryPhoto(p.src, p.alt || e.title || "");
-          if (img) grid.appendChild(img);
-        });
-        card.appendChild(grid);
-      }
+      const grid = entryPhotoGrid(e);
+      if (grid) card.appendChild(grid);
       return card;
     }, "No milestones recorded yet", "Add one in <code>data/content.json</code> under <code>personal</code>.");
   }
@@ -2191,8 +2196,35 @@
     return row;
   }
 
-  function renderTravel(parent, aSlug) {
-    renderYearGroups(parent, entriesFor("travel", aSlug), function (e) {
+  // Family trips can be filed under a group ("group": "kyle-brandi"), listed
+  // in data/athletes.json under travelGroups. A chip row filters by group.
+  function travelGroups() {
+    return (state.athletes && state.athletes.travelGroups) || [];
+  }
+  function renderTravelFilter(entries, active) {
+    const base = "#/family/travel";
+    const row = el("nav", { class: "chips", "aria-label": "Filter trips" });
+    row.appendChild(el("a", { class: "chip" + (active ? "" : " is-active"), href: base },
+      ["All trips (" + entries.length + ")"]));
+    travelGroups().forEach(function (g) {
+      const n = entries.filter(function (e) { return e.group === g.slug; }).length;
+      if (!n && active !== g.slug) return;
+      row.appendChild(el("a", {
+        class: "chip" + (active === g.slug ? " is-active" : ""),
+        href: base + "/" + g.slug,
+        title: g.blurb || "",
+      }, [g.name + " (" + n + ")"]));
+    });
+    return row;
+  }
+  function renderTravel(parent, aSlug, groupSlug) {
+    let trips = entriesFor("travel", aSlug);
+    if (aSlug === "family") {
+      const active = travelGroups().some(function (g) { return g.slug === groupSlug; }) ? groupSlug : null;
+      if (travelGroups().length) parent.appendChild(renderTravelFilter(trips, active));
+      if (active) trips = trips.filter(function (e) { return e.group === active; });
+    }
+    renderYearGroups(parent, trips, function (e) {
       const card = el("article", { class: "entry entry--travel" });
       const head = el("div", { class: "entry__head" }, [el("h4", { class: "entry__title" }, [e.title || e.destination || "Trip"])]);
       if (e.date) head.appendChild(el("span", { class: "entry__date" }, [fmtDate(e.date)]));
@@ -2201,6 +2233,8 @@
       if (e.text) card.appendChild(el("p", { class: "entry__text" }, [e.text]));
       const ph = entryPhoto(e.photo, e.destination || e.title || "");
       if (ph) card.appendChild(ph);
+      const grid = entryPhotoGrid(e);
+      if (grid) card.appendChild(grid);
       if (e.link) card.appendChild(el("p", { class: "entry__links" }, [el("a", { href: e.link, target: "_blank", rel: "noopener" }, ["More →"])]));
       return card;
     }, "No trips recorded yet", "Add a trip in <code>data/content.json</code> under <code>travel</code>.");
