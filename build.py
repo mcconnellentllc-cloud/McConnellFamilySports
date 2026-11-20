@@ -35,6 +35,7 @@ CAL_DIR = ROOT / "calendar"
 # shows up without touching any JSON. Captions live in data/<slug>.json.
 ALBUMS = {
     "gigi": MEDIA / "_family" / "gigi",
+    "bryce": MEDIA / "_family" / "bryce",
 }
 
 # Photos come straight off a phone at full resolution — several megabytes and

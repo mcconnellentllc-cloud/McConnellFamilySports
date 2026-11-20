@@ -122,7 +122,7 @@
   }
   async function loadData() {
     const [athletes, content, gallery, meals, supplies, chores, calendar, history,
-           recipes, gigi, events] = await Promise.all([
+           recipes, gigi, events, bryce] = await Promise.all([
       loadJSON("data/athletes.json"),
       loadJSON("data/content.json"),
       loadJSON("data/gallery.json").catch(function () { return { photos: [] }; }),
@@ -134,6 +134,7 @@
       loadJSON("data/recipes.json").catch(function () { return null; }),
       loadJSON("data/gigi.json").catch(function () { return null; }),
       loadJSON("data/events.json").catch(function () { return null; }),
+      loadJSON("data/bryce.json").catch(function () { return null; }),
     ]);
     state.athletes = athletes;
     state.content = content;
@@ -145,6 +146,8 @@
     state.history = history;
     state.recipes = recipes;
     state.gigi = gigi;
+    // Captions for person albums (media/_family/<slug>/), keyed by slug.
+    state.albumNotes = { gigi: gigi, bryce: bryce };
     state.events = events;
   }
 
@@ -463,9 +466,10 @@
     (e.photos || []).forEach(function (p) { out.push({ src: p.src, caption: p.alt || e.title || "" }); });
     return out;
   }
-  function photosOf(slug) {
+  function photosOf(slug, forCard) {
     const c = state.content || {};
     let list = [];
+    if (slug !== "gigi") list = list.concat(albumPhotos(slug, forCard));
     entriesFor("personal", slug).forEach(function (e) { list = list.concat(memoryPhotos(e)); });
     (c.memories || []).filter(function (m) { return m.athlete === slug; })
       .forEach(function (m) { list = list.concat(memoryPhotos(m)); });
@@ -474,6 +478,17 @@
     ((state.gallery && state.gallery.photos) || []).filter(function (p) { return p.athlete === slug && p.type !== "video"; })
       .forEach(function (p) { list.push({ src: p.src, caption: p.caption }); });
     return collectPhotos(list);
+  }
+  // A person's album from media/_family/<slug>/, with captions from
+  // data/<slug>.json. forCard leaves out photos marked "card": false.
+  function albumPhotos(slug, forCard) {
+    const notes = ((state.albumNotes || {})[slug] || {}).photos || {};
+    const raw = (((state.gallery && state.gallery.albums) || {})[slug]) || [];
+    return collectPhotos(raw.filter(function (p) {
+      return !(forCard && notes[p.file] && notes[p.file].card === false);
+    }).map(function (p) {
+      return { src: p.src, caption: (notes[p.file] && notes[p.file].caption) || p.caption };
+    }));
   }
   function gigiPhotos() {
     const notes = (state.gigi && state.gigi.photos) || {};
@@ -608,7 +623,7 @@
     if (next) v.appendChild(nextUpCard(next));
     const grid = el("div", { class: "tiles" });
     (state.athletes.athletes || []).forEach(function (a) {
-      grid.appendChild(tileEl("#/" + a.slug, a.name, a.tagline || "View archive", photosOf(a.slug)));
+      grid.appendChild(tileEl("#/" + a.slug, a.name, a.tagline || "View archive", photosOf(a.slug, true)));
     });
     // Shared family archive.
     grid.appendChild(tileEl("#/family", "Family", "Trips, holidays, and the moments we keep together.",
