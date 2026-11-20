@@ -1,0 +1,9 @@
+{
+  "_comment": "Bryce's photos. Drop photos in media/_family/bryce/ — they appear on his card and his page after the next deploy, no edit needed here. To caption or date one, add its exact filename under 'photos'. \"card\": false keeps a photo off his rotating card (it still shows on his page).",
+  "photos": {
+    "bryce-headstone.jpg": {
+      "caption": "Bryce Dean Keller McConnell · Sept. 15, 2008 – May 31, 2025",
+      "card": false
+    }
+  }
+}

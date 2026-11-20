@@ -643,6 +643,14 @@
         "caption": "With gradyn",
         "file": "with-gradyn.jpg"
       }
+    ],
+    "bryce": [
+      {
+        "type": "photo",
+        "src": "media/_family/bryce/bryce-headstone.jpg",
+        "caption": "Bryce headstone",
+        "file": "bryce-headstone.jpg"
+      }
     ]
   }
 }
