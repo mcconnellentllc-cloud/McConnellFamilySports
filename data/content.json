@@ -97,6 +97,17 @@
   ],
   "personal": [
     {
+      "athlete": "gradyn",
+      "type": "farm",
+      "year": "2026",
+      "title": "Fall Harvest 2026",
+      "text": "Gradyn carrying Tyndle across the field to the tractor to keep her out of the stickers. Out in the corn, Gage ran the green-and-white combine, Kyle (Dad) ran the yellow one, and Gradyn drove the semi.",
+      "photos": [
+        { "src": "media/_memories/gradyn-harvest-2026-1-carrying-tyndle.jpg", "alt": "Gradyn carrying Tyndle piggyback across the field to the tractor" },
+        { "src": "media/_memories/gradyn-harvest-2026-2-harvest-crew.jpg", "alt": "Gage in the green-and-white combine, Dad in the yellow combine, and Gradyn driving the semi" }
+      ]
+    },
+    {
       "athlete": "family",
       "type": "farm",
       "year": "2026",
