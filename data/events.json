@@ -78,7 +78,14 @@
         }
       ],
       "requests": true,
-      "rsvps": []
+      "rsvps": [
+        {
+          "name": "Brandi, Kyle, Tyndle, Tayla & Oakley",
+          "count": 5,
+          "status": "yes",
+          "note": "Hosts"
+        }
+      ]
     }
   ]
 }
