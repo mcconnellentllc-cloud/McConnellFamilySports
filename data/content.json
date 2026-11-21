@@ -118,6 +118,21 @@
   ],
   "personal": [
     {
+      "athlete": "tayla",
+      "type": "everyday",
+      "year": "2026",
+      "title": "River Photo Shoot — Fall 2026",
+      "text": "A fall afternoon down at the river: wading barefoot under the bridge, leaves for sunglasses on a fallen log, a shower of falling leaves, and a few portraits in the yellow trees.",
+      "photos": [
+        { "src": "media/_memories/tayla-river-shoot-2026-1-standing-in-the-river.jpg", "alt": "Tayla standing barefoot in the river below the bridge" },
+        { "src": "media/_memories/tayla-river-shoot-2026-2-hands-in-the-water.jpg", "alt": "Tayla crouching with her hands in the river" },
+        { "src": "media/_memories/tayla-river-shoot-2026-3-leaf-glasses.jpg", "alt": "Tayla on a fallen log with leaves tucked in her glasses" },
+        { "src": "media/_memories/tayla-river-shoot-2026-4-falling-leaves.jpg", "alt": "Tayla laughing as leaves fall around her" },
+        { "src": "media/_memories/tayla-river-shoot-2026-5-yellow-leaves-portrait.jpg", "alt": "Tayla smiling in front of yellow fall leaves" },
+        { "src": "media/_memories/tayla-river-shoot-2026-6-three-together.jpg", "alt": "Tayla with two other girls in front of the yellow trees" }
+      ]
+    },
+    {
       "athlete": "gradyn",
       "type": "farm",
       "year": "2026",
