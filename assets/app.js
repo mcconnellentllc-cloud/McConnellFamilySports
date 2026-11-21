@@ -2298,7 +2298,11 @@
       // Shown whole, like memory photos: a letter or certificate cropped to a
       // strip loses the words that matter.
       const ph = entryPhoto(e.photo, e.photoAlt || e.school || "School");
-      if (ph) card.appendChild(el("div", { class: "entry__photos" }, [ph]));
+      const pics = (e.photos || []).map(function (p) {
+        return entryPhoto(p.src, p.alt || e.school || "School");
+      }).filter(Boolean);
+      if (ph) pics.unshift(ph);
+      if (pics.length) card.appendChild(el("div", { class: "entry__photos" }, pics));
       return card;
     }, "No academics recorded yet", "Add a school year in <code>data/content.json</code> under <code>academics</code>.");
   }
