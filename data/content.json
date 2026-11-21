@@ -113,7 +113,8 @@
       "honors": ["Accepted"],
       "notes": "Gradyn was accepted into Fort Hays Tech | Northwest in Goodland, Kansas, for the Diesel Technology program.",
       "photo": "media/_memories/gradyn-fort-hays-tech-acceptance-2026.jpg",
-      "photoAlt": "Gradyn's acceptance email from Fort Hays Tech | Northwest"
+      "photoAlt": "Gradyn's acceptance email from Fort Hays Tech | Northwest",
+      "card": false
     }
   ],
   "personal": [
