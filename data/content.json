@@ -85,6 +85,27 @@
   },
   "academics": [
     {
+      "athlete": "gage",
+      "year": "2025",
+      "school": "Fort Hays State University",
+      "honors": ["Accepted"],
+      "notes": "Gage was accepted to Fort Hays State University in Hays, Kansas. Kyle went with him on the campus visit.",
+      "photos": [
+        { "src": "media/_memories/gage-fhsu-campus-visit.jpg", "alt": "Gage in an FHSU straw hat with Kyle on the Fort Hays State campus visit" }
+      ]
+    },
+    {
+      "athlete": "gage",
+      "year": "2025",
+      "school": "Haxtun High School",
+      "grade": "Class of 2025",
+      "honors": ["Graduate"],
+      "notes": "Gage graduated from Haxtun High School with the Class of 2025.",
+      "photos": [
+        { "src": "media/_memories/gage-haxtun-graduation-2025.jpg", "alt": "Gage in his cap and gown with Kyle and Brandi at graduation" }
+      ]
+    },
+    {
       "athlete": "gradyn",
       "date": "2026-11-20",
       "school": "Fort Hays Tech | Northwest",
