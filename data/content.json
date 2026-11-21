@@ -324,6 +324,24 @@
   "travel": [
     {
       "athlete": "family",
+      "group": "kyle-brandi",
+      "date": "2025-08-04",
+      "title": "13th Anniversary Flight — August 4, 2025",
+      "destination": "Over Haxtun, Colorado",
+      "text": "Our 13th anniversary date: a morning flight over Haxtun with our neighbor Greg Larson as pilot — the town, the elevators, pivot circles, and home from the air.",
+      "photos": [
+        { "src": "media/_family/travel/anniversary-flight-2025-01-the-plane-in-the-hangar.jpg", "alt": "Greg Larson's Cessna, N4640K, in the hangar before the flight" },
+        { "src": "media/_family/travel/anniversary-flight-2025-02-greg-at-the-controls.jpg", "alt": "Greg Larson at the controls" },
+        { "src": "media/_family/travel/anniversary-flight-2025-03-headset-selfie.jpg", "alt": "A headset selfie in the back seat" },
+        { "src": "media/_family/travel/anniversary-flight-2025-04-pivots-and-feedlot.jpg", "alt": "Pivot circles and a feedlot from under the wing" },
+        { "src": "media/_family/travel/anniversary-flight-2025-05-over-haxtun.jpg", "alt": "Flying over Haxtun, the elevators and the water tower below" },
+        { "src": "media/_family/travel/anniversary-flight-2025-06-farmstead-from-above.jpg", "alt": "A farmstead from above, 8:14 on a Monday morning" },
+        { "src": "media/_family/travel/anniversary-flight-2025-07-farm-from-the-air.jpg", "alt": "Fields and a farmstead from the air" },
+        { "src": "media/_family/travel/anniversary-flight-2025-08-pasture-below.jpg", "alt": "Pasture below the plane" }
+      ]
+    },
+    {
+      "athlete": "family",
       "year": "2024",
       "title": "Grand Canyon — December 2024",
       "destination": "Grand Canyon National Park, Arizona",
