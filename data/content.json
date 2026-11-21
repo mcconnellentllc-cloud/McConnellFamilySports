@@ -325,6 +325,27 @@
     {
       "athlete": "family",
       "year": "2024",
+      "title": "Arizona Hiking Trip — December 2024",
+      "destination": "Lost Goldmine Trail, Gold Canyon, Arizona",
+      "text": "A family hike on the Lost Goldmine Trail at the foot of the Superstition Mountains — 72 degrees in December, saguaros everywhere, hiking poles for everyone, and a few cactus spines pulled out along the way.",
+      "photos": [
+        { "src": "media/_family/travel/arizona-hike-2024-01-trailhead-group.jpg", "alt": "The whole hiking group at the Lost Goldmine Trail sign" },
+        { "src": "media/_family/travel/arizona-hike-2024-02-trail-sign.jpg", "alt": "The Lost Goldmine Trail 'History on the Trail' sign" },
+        { "src": "media/_family/travel/arizona-hike-2024-03-setting-out.jpg", "alt": "Setting out on the trail toward the Superstition Mountains" },
+        { "src": "media/_family/travel/arizona-hike-2024-04-single-file.jpg", "alt": "Hiking single file through the saguaros and chollas" },
+        { "src": "media/_family/travel/arizona-hike-2024-05-gold-canyon-72-degrees.jpg", "alt": "Saguaros below the Superstitions, 72°F in Gold Canyon" },
+        { "src": "media/_family/travel/arizona-hike-2024-06-family-on-the-trail.jpg", "alt": "The family together on the trail below the mountains" },
+        { "src": "media/_family/travel/arizona-hike-2024-07-couple-by-the-saguaros.jpg", "alt": "A couple posing between two big saguaros" },
+        { "src": "media/_family/travel/arizona-hike-2024-08-many-armed-saguaro.jpg", "alt": "A many-armed saguaro against the blue sky" },
+        { "src": "media/_family/travel/arizona-hike-2024-09-kids-under-the-saguaro.jpg", "alt": "The kids with their hiking poles under a giant saguaro" },
+        { "src": "media/_family/travel/arizona-hike-2024-10-trail-break.jpg", "alt": "Taking a break on the trail" },
+        { "src": "media/_family/travel/arizona-hike-2024-11-all-smiles.jpg", "alt": "All smiles in a pink Puma shirt with hiking poles" },
+        { "src": "media/_family/travel/arizona-hike-2024-12-pulling-cactus-spines.jpg", "alt": "Pulling cactus spines out with a multitool" }
+      ]
+    },
+    {
+      "athlete": "family",
+      "year": "2024",
       "title": "Santa Fe — December 2024",
       "destination": "Santa Fe, New Mexico",
       "text": "A December trip to Santa Fe and Loretto Chapel, home of the Miraculous Staircase — two full turns with no center support, decorated with red bows for Christmas.",
