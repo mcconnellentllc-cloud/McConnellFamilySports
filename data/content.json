@@ -118,18 +118,34 @@
   ],
   "personal": [
     {
+      "athlete": "tyndle",
+      "type": "everyday",
+      "year": "2026",
+      "title": "River Photo Shoot — Fall 2026",
+      "text": "A fall afternoon down at the river with Oakley and Tayla: wading in barefoot under the bridge, a seat on a fallen log, a shower of falling leaves, and the three sisters together in the yellow trees.",
+      "photos": [
+        { "src": "media/_memories/tyndle-river-shoot-2026-1-arm-in-arm.jpg", "alt": "Tyndle arm in arm with Oakley, standing in the river" },
+        { "src": "media/_memories/tyndle-river-shoot-2026-2-under-the-bridge.jpg", "alt": "Tyndle standing barefoot in the river below the bridge" },
+        { "src": "media/_memories/tyndle-river-shoot-2026-3-on-the-rocks.jpg", "alt": "Tyndle on the rocks in the river, jeans rolled up" },
+        { "src": "media/_memories/tyndle-river-shoot-2026-4-on-the-log.jpg", "alt": "Tyndle sitting on a fallen log in the trees" },
+        { "src": "media/_memories/tyndle-river-shoot-2026-5-falling-leaves.jpg", "alt": "Tyndle smiling as leaves fall around her" },
+        { "src": "media/_memories/tyndle-river-shoot-2026-6-yellow-leaves-portrait.jpg", "alt": "Tyndle in front of yellow fall leaves" },
+        { "src": "media/_memories/tyndle-river-shoot-2026-7-three-sisters.jpg", "alt": "Oakley and Tayla in front of the yellow trees, with Tyndle behind them" }
+      ]
+    },
+    {
       "athlete": "oakley",
       "type": "everyday",
       "year": "2026",
       "title": "River Photo Shoot — Fall 2026",
       "text": "A fall afternoon down at the river: wading in arm in arm, hopping the stepping stones, a bouquet of dry leaves on a fallen log, and a few portraits in the yellow trees.",
       "photos": [
-        { "src": "media/_memories/oakley-river-shoot-2026-1-arm-in-arm.jpg", "alt": "Oakley arm in arm with a friend, standing in the river" },
-        { "src": "media/_memories/oakley-river-shoot-2026-2-stepping-stones.jpg", "alt": "Oakley and Tayla with a friend, crossing the river on the rocks" },
+        { "src": "media/_memories/oakley-river-shoot-2026-1-arm-in-arm.jpg", "alt": "Oakley arm in arm with Tyndle, standing in the river" },
+        { "src": "media/_memories/oakley-river-shoot-2026-2-stepping-stones.jpg", "alt": "Tayla, Oakley, and Tyndle crossing the river on the rocks" },
         { "src": "media/_memories/oakley-river-shoot-2026-3-leaf-bouquet.jpg", "alt": "Oakley on a fallen log holding a bouquet of dry leaves" },
         { "src": "media/_memories/oakley-river-shoot-2026-4-falling-leaves.jpg", "alt": "Oakley grinning as leaves fall around her" },
         { "src": "media/_memories/oakley-river-shoot-2026-5-yellow-leaves-portrait.jpg", "alt": "Oakley smiling in front of yellow fall leaves" },
-        { "src": "media/_memories/oakley-river-shoot-2026-6-three-together.jpg", "alt": "Oakley and Tayla in front of the yellow trees, with a friend behind them" }
+        { "src": "media/_memories/oakley-river-shoot-2026-6-three-together.jpg", "alt": "Oakley and Tayla in front of the yellow trees, with Tyndle behind them" }
       ]
     },
     {
@@ -144,7 +160,7 @@
         { "src": "media/_memories/tayla-river-shoot-2026-3-leaf-glasses.jpg", "alt": "Tayla on a fallen log with leaves tucked in her glasses" },
         { "src": "media/_memories/tayla-river-shoot-2026-4-falling-leaves.jpg", "alt": "Tayla laughing as leaves fall around her" },
         { "src": "media/_memories/tayla-river-shoot-2026-5-yellow-leaves-portrait.jpg", "alt": "Tayla smiling in front of yellow fall leaves" },
-        { "src": "media/_memories/tayla-river-shoot-2026-6-three-together.jpg", "alt": "Oakley and Tayla in front of the yellow trees, with a friend behind them" }
+        { "src": "media/_memories/tayla-river-shoot-2026-6-three-together.jpg", "alt": "Oakley and Tayla in front of the yellow trees, with Tyndle behind them" }
       ]
     },
     {
