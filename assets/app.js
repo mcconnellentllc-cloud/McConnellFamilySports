@@ -456,7 +456,8 @@
 
   // ---------- Photo slideshows on cards, and the Highlights reel ----------
   // Every photo of a person the site already knows about: their gallery, the
-  // photos on their memories, and game-day photos they're tagged in. Venue
+  // photos on their memories, school years and trips, and game-day photos
+  // they're tagged in. Venue
   // shots (media/_venues/) are buildings, not people, so they're left out.
   function usablePhoto(src) {
     return !!src && /\.(jpe?g|png|webp|gif|avif)$/i.test(src) && src.indexOf("media/_venues/") !== 0;
@@ -481,7 +482,14 @@
     const c = state.content || {};
     let list = [];
     if (slug !== "gigi") list = list.concat(albumPhotos(slug, forCard));
-    entriesFor("personal", slug).forEach(function (e) { list = list.concat(memoryPhotos(e)); });
+    ["personal", "academics", "travel"].forEach(function (arr) {
+      // "card": false on an entry keeps it off the rotating card (a letter or
+      // screenshot), while it still shows on its own page.
+      entriesFor(arr, slug).forEach(function (e) {
+        if (forCard && e.card === false) return;
+        list = list.concat(memoryPhotos(e));
+      });
+    });
     (c.memories || []).filter(function (m) { return m.athlete === slug; })
       .forEach(function (m) { list = list.concat(memoryPhotos(m)); });
     (c.events || []).filter(function (ev) { return (ev.athletes || []).indexOf(slug) !== -1 && ev.photo; })
