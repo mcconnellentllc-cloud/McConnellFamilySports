@@ -118,6 +118,25 @@
   ],
   "personal": [
     {
+      "athlete": "family",
+      "type": "everyday",
+      "date": "2024-10-10",
+      "title": "Northern Lights over Haxtun — October 10, 2024",
+      "text": "The night the aurora borealis lit up the sky over Haxtun — pink, red and green over the corn, the combine, the shop and the bins. Everyone out in the yard to see it.",
+      "photos": [
+        { "src": "media/_family/everyday/aurora-2024-10-10-01-pink-pillars-over-the-corn.jpg", "alt": "Pink and green aurora pillars over the cornfield" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-02-kids-under-the-aurora.jpg", "alt": "The kids lined up under the aurora at the edge of the corn" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-03-couple-under-the-aurora.jpg", "alt": "A couple under the glowing sky" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-04-glowing-red-over-the-field.jpg", "alt": "A glowing red aurora over the field" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-05-combine-under-the-aurora.jpg", "alt": "The combine and corn header under a red and green sky" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-06-over-the-shop-roof.jpg", "alt": "The aurora over the shop roof" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-07-red-sky-over-the-trees.jpg", "alt": "A red sky over the trees in the yard" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-08-over-the-yard.jpg", "alt": "Pink sky over the yard and the spruce trees" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-09-from-the-grain-bin.jpg", "alt": "The aurora from the top of a grain bin" },
+        { "src": "media/_family/everyday/aurora-2024-10-10-10-over-the-farmyard.jpg", "alt": "Red and green over the farmyard and the wind farm lights" }
+      ]
+    },
+    {
       "athlete": "tyndle",
       "type": "milestones",
       "year": "2026",
