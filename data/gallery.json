@@ -653,9 +653,57 @@
     "bryce": [
       {
         "type": "photo",
+        "src": "media/_family/bryce/arm-in-arm.jpg",
+        "caption": "Arm in arm",
+        "file": "arm-in-arm.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/bryce/balloons-at-sunset.jpg",
+        "caption": "Balloons at sunset",
+        "file": "balloons-at-sunset.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/bryce/balloons-rising.jpg",
+        "caption": "Balloons rising",
+        "file": "balloons-rising.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/bryce/bryce-headstone.jpg",
         "caption": "Bryce headstone",
         "file": "bryce-headstone.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/bryce/family-at-the-balloon-release.jpg",
+        "caption": "Family at the balloon release",
+        "file": "family-at-the-balloon-release.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/bryce/gathered-at-dusk.jpg",
+        "caption": "Gathered at dusk",
+        "file": "gathered-at-dusk.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/bryce/holding-each-other.jpg",
+        "caption": "Holding each other",
+        "file": "holding-each-other.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/bryce/swallowtail-butterfly.jpg",
+        "caption": "Swallowtail butterfly",
+        "file": "swallowtail-butterfly.jpg"
+      },
+      {
+        "type": "photo",
+        "src": "media/_family/bryce/watching-the-sky.jpg",
+        "caption": "Watching the sky",
+        "file": "watching-the-sky.jpg"
       }
     ]
   }
