@@ -591,6 +591,12 @@
       },
       {
         "type": "photo",
+        "src": "media/_family/gigi/on-her-porch.jpg",
+        "caption": "On her porch",
+        "file": "on-her-porch.jpg"
+      },
+      {
+        "type": "photo",
         "src": "media/_family/gigi/playing-cards-by-the-pool.jpg",
         "caption": "Playing cards by the pool",
         "file": "playing-cards-by-the-pool.jpg"
