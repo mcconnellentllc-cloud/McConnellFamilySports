@@ -122,7 +122,7 @@
       "type": "pets",
       "year": "2026",
       "title": "Enzo and the Farm Crew",
-      "text": "Enzo is our black German Shepherd. He rides along in the tractor cab at harvest, watches out every window, cools off in the stock tub and the pond, and keeps an eye on the porch cats. The scarf he's wearing in the first photo was crocheted for him by Tyndle. Last up: a happy third birthday to Enzo.",
+      "text": "Enzo is our black German Shepherd. He rides along in the tractor cab at harvest, watches out every window, cools off in the stock tub and the pond, and keeps an eye on the porch cats — Tiger, the tabby, likes to sleep right between the girls. The scarf he's wearing in the first photo was crocheted for him by Tyndle. Last up: a happy third birthday to Enzo.",
       "photos": [
         { "src": "media/_family/pets/enzo-01-enzo-in-tyndles-scarf.jpg", "alt": "Enzo at the window in the scarf Tyndle crocheted for him" },
         { "src": "media/_family/pets/enzo-02-barn-cats-napping.jpg", "alt": "Three of the cats napping on the porch couch" },
@@ -135,6 +135,7 @@
         { "src": "media/_family/pets/enzo-09-tiger-salamander.jpg", "alt": "A tiger salamander caught and kept in a tub of water" },
         { "src": "media/_family/pets/enzo-10-enzo-at-the-window.jpg", "alt": "Enzo standing up at the window to look outside" },
         { "src": "media/_family/pets/enzo-11-enzo-in-the-pond.jpg", "alt": "Enzo wading in a pond out by the field" },
+        { "src": "media/_family/pets/enzo-13-tiger-sleeping-with-the-girls.jpg", "alt": "Tiger, the tabby cat, curled up asleep between the girls" },
         { "type": "video", "src": "media/_family/pets/enzo-12-third-birthday.mp4", "poster": "media/_family/pets/enzo-12-third-birthday-poster.jpg", "alt": "Video: Happy Birthday Enzo, turning three" }
       ]
     },
