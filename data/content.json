@@ -118,6 +118,21 @@
   ],
   "personal": [
     {
+      "athlete": "oakley",
+      "type": "everyday",
+      "year": "2026",
+      "title": "River Photo Shoot — Fall 2026",
+      "text": "A fall afternoon down at the river: wading in arm in arm, hopping the stepping stones, a bouquet of dry leaves on a fallen log, and a few portraits in the yellow trees.",
+      "photos": [
+        { "src": "media/_memories/oakley-river-shoot-2026-1-arm-in-arm.jpg", "alt": "Oakley arm in arm with a friend, standing in the river" },
+        { "src": "media/_memories/oakley-river-shoot-2026-2-stepping-stones.jpg", "alt": "Oakley and Tayla with a friend, crossing the river on the rocks" },
+        { "src": "media/_memories/oakley-river-shoot-2026-3-leaf-bouquet.jpg", "alt": "Oakley on a fallen log holding a bouquet of dry leaves" },
+        { "src": "media/_memories/oakley-river-shoot-2026-4-falling-leaves.jpg", "alt": "Oakley grinning as leaves fall around her" },
+        { "src": "media/_memories/oakley-river-shoot-2026-5-yellow-leaves-portrait.jpg", "alt": "Oakley smiling in front of yellow fall leaves" },
+        { "src": "media/_memories/oakley-river-shoot-2026-6-three-together.jpg", "alt": "Oakley and Tayla in front of the yellow trees, with a friend behind them" }
+      ]
+    },
+    {
       "athlete": "tayla",
       "type": "everyday",
       "year": "2026",
@@ -129,7 +144,7 @@
         { "src": "media/_memories/tayla-river-shoot-2026-3-leaf-glasses.jpg", "alt": "Tayla on a fallen log with leaves tucked in her glasses" },
         { "src": "media/_memories/tayla-river-shoot-2026-4-falling-leaves.jpg", "alt": "Tayla laughing as leaves fall around her" },
         { "src": "media/_memories/tayla-river-shoot-2026-5-yellow-leaves-portrait.jpg", "alt": "Tayla smiling in front of yellow fall leaves" },
-        { "src": "media/_memories/tayla-river-shoot-2026-6-three-together.jpg", "alt": "Tayla with two other girls in front of the yellow trees" }
+        { "src": "media/_memories/tayla-river-shoot-2026-6-three-together.jpg", "alt": "Oakley and Tayla in front of the yellow trees, with a friend behind them" }
       ]
     },
     {
