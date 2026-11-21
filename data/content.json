@@ -118,6 +118,16 @@
   ],
   "personal": [
     {
+      "athlete": "tyndle",
+      "type": "milestones",
+      "year": "2026",
+      "title": "Learning to Play Guitar",
+      "text": "Tyndle learning to play the guitar — sheet music on the stand, working through the chords on the couch.",
+      "photos": [
+        { "type": "video", "src": "media/_memories/tyndle-learning-guitar-2026.mp4", "poster": "media/_memories/tyndle-learning-guitar-2026-poster.jpg", "alt": "Video: Tyndle practicing her acoustic guitar" }
+      ]
+    },
+    {
       "athlete": "family",
       "type": "pets",
       "year": "2026",
