@@ -325,6 +325,28 @@
     {
       "athlete": "family",
       "year": "2024",
+      "title": "Grand Canyon — December 2024",
+      "destination": "Grand Canyon National Park, Arizona",
+      "text": "A December visit to the South Rim of the Grand Canyon — the girls in matching gymnast hoodies, wind on the overlooks, and the whole family on the rim as the sun went down over the Colorado River.",
+      "photos": [
+        { "src": "media/_family/travel/grand-canyon-2024-01-south-rim-view.jpg", "alt": "The Grand Canyon from the South Rim" },
+        { "src": "media/_family/travel/grand-canyon-2024-02-clouds-over-the-canyon.jpg", "alt": "Clouds sweeping over the canyon" },
+        { "src": "media/_family/travel/grand-canyon-2024-03-at-the-railing.jpg", "alt": "Leaning on the railing, looking out over the canyon" },
+        { "src": "media/_family/travel/grand-canyon-2024-04-three-girls-at-the-overlook.jpg", "alt": "The three girls at the overlook railing" },
+        { "src": "media/_family/travel/grand-canyon-2024-05-three-girls-on-the-wall.jpg", "alt": "The three girls in their gymnast hoodies on the stone wall" },
+        { "src": "media/_family/travel/grand-canyon-2024-06-on-the-rocks-black-hoodie.jpg", "alt": "Standing on the rocks above the canyon in a black hoodie" },
+        { "src": "media/_family/travel/grand-canyon-2024-07-on-the-rocks-gray-hoodie.jpg", "alt": "Standing on the rocks above the canyon in a gray hoodie" },
+        { "src": "media/_family/travel/grand-canyon-2024-08-couple-at-the-rim.jpg", "alt": "A couple at the rim" },
+        { "src": "media/_family/travel/grand-canyon-2024-09-three-girls-on-the-wall-2.jpg", "alt": "The three girls together on the wall" },
+        { "src": "media/_family/travel/grand-canyon-2024-10-windblown-at-sunset.jpg", "alt": "Windblown at sunset, the Colorado River far below" },
+        { "src": "media/_family/travel/grand-canyon-2024-11-arms-crossed-at-sunset.jpg", "alt": "Arms crossed and smiling at sunset" },
+        { "src": "media/_family/travel/grand-canyon-2024-12-headband-at-sunset.jpg", "alt": "All smiles at sunset" },
+        { "src": "media/_family/travel/grand-canyon-2024-13-family-at-sunset.jpg", "alt": "The family together on the rim at sunset" }
+      ]
+    },
+    {
+      "athlete": "family",
+      "year": "2024",
       "title": "Arizona Hiking Trip — December 2024",
       "destination": "Lost Goldmine Trail, Gold Canyon, Arizona",
       "text": "A family hike on the Lost Goldmine Trail at the foot of the Superstition Mountains — 72 degrees in December, saguaros everywhere, hiking poles for everyone, and a few cactus spines pulled out along the way.",
