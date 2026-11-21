@@ -323,6 +323,22 @@
   ],
   "travel": [
     {
+      "athlete": "family",
+      "year": "2024",
+      "title": "Santa Fe — December 2024",
+      "destination": "Santa Fe, New Mexico",
+      "text": "A December trip to Santa Fe and Loretto Chapel, home of the Miraculous Staircase — two full turns with no center support, decorated with red bows for Christmas.",
+      "photos": [
+        { "src": "media/_family/travel/santa-fe-2024-01-loretto-chapel-front.jpg", "alt": "The front of Loretto Chapel" },
+        { "src": "media/_family/travel/santa-fe-2024-02-chapel-side-view.jpg", "alt": "Loretto Chapel's Gothic Revival side and spires" },
+        { "src": "media/_family/travel/santa-fe-2024-03-the-nave.jpg", "alt": "Walking up the nave toward the altar" },
+        { "src": "media/_family/travel/santa-fe-2024-04-staircase-from-the-pews.jpg", "alt": "The staircase seen from the pews, dressed in red Christmas bows" },
+        { "src": "media/_family/travel/santa-fe-2024-05-the-miraculous-staircase.jpg", "alt": "The Miraculous Staircase spiraling up to the choir loft" },
+        { "src": "media/_family/travel/santa-fe-2024-06-the-girls-at-the-staircase.jpg", "alt": "The girls in front of the Miraculous Staircase" },
+        { "src": "media/_family/travel/santa-fe-2024-07-family-at-the-staircase.jpg", "alt": "The family together at the Miraculous Staircase" }
+      ]
+    },
+    {
       "athlete": "gage",
       "year": "2025",
       "title": "Japan Trip 2025",
