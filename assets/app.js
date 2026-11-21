@@ -191,7 +191,8 @@
   function entriesFor(arrName, aSlug) {
     return (state.content[arrName] || [])
       .filter(function (e) { return e.athlete === aSlug; })
-      .sort(function (x, y) { return (y.date || y.year || "").localeCompare(x.date || x.year || ""); });
+      // "month" ("2024-12") orders entries that have a year but no exact day.
+      .sort(function (x, y) { return (y.date || y.month || y.year || "").localeCompare(x.date || x.month || x.year || ""); });
   }
   // Group dated entries under a year heading (newest first).
   function groupByYear(entries) {

@@ -343,6 +343,30 @@
   "travel": [
     {
       "athlete": "family",
+      "year": "2024",
+      "month": "2024-03",
+      "title": "Superstition Mountain Hike — March 2024",
+      "destination": "Hackberry Spring Trail, Superstition Mountains, Arizona",
+      "text": "A March hike to Hackberry Spring in the Superstition Mountains — storm clouds over the peaks, green desert after the rain, a cross cut into a prickly pear, boulders to climb, and the whole crew together at the spring.",
+      "photos": [
+        { "src": "media/_family/travel/superstition-2024-01-superstition-mountains.jpg", "alt": "The Superstition Mountains under storm clouds" },
+        { "src": "media/_family/travel/superstition-2024-02-hackberry-spring-trailhead.jpg", "alt": "The whole group at the Hackberry Spring Trail sign" },
+        { "src": "media/_family/travel/superstition-2024-03-on-the-trail.jpg", "alt": "Hiking single file down the trail through the saguaros" },
+        { "src": "media/_family/travel/superstition-2024-04-cross-in-the-prickly-pear.jpg", "alt": "A cross cut into a prickly pear pad along the trail" },
+        { "src": "media/_family/travel/superstition-2024-05-pincushion-cactus.jpg", "alt": "A pincushion cactus with a bright red fruit" },
+        { "src": "media/_family/travel/superstition-2024-06-kids-on-the-boulder.jpg", "alt": "The five kids on a big boulder" },
+        { "src": "media/_family/travel/superstition-2024-07-three-girls-at-the-big-rock.jpg", "alt": "The three girls in front of a huge lichen-covered rock" },
+        { "src": "media/_family/travel/superstition-2024-08-climbing-the-rock.jpg", "alt": "Climbing on a boulder beside the trail" },
+        { "src": "media/_family/travel/superstition-2024-09-selfie-wyoming-hoodie.jpg", "alt": "A trail selfie in front of the rock pillar" },
+        { "src": "media/_family/travel/superstition-2024-10-selfie-at-the-rock-pillar.jpg", "alt": "A couple's selfie in front of the rock pillar" },
+        { "src": "media/_family/travel/superstition-2024-11-selfie-kimes-cap.jpg", "alt": "Another trail selfie at the rock pillar" },
+        { "src": "media/_family/travel/superstition-2024-12-three-at-the-cliffs.jpg", "alt": "Three hikers below the canyon cliffs" },
+        { "src": "media/_family/travel/superstition-2024-13-by-the-creek.jpg", "alt": "Standing by the creek with binoculars" },
+        { "src": "media/_family/travel/superstition-2024-14-family-at-the-spring.jpg", "alt": "The family together by the water at Hackberry Spring" }
+      ]
+    },
+    {
+      "athlete": "family",
       "group": "kyle-brandi",
       "date": "2025-08-04",
       "title": "13th Anniversary Flight — August 4, 2025",
@@ -362,6 +386,7 @@
     {
       "athlete": "family",
       "year": "2024",
+      "month": "2024-12",
       "title": "Grand Canyon — December 2024",
       "destination": "Grand Canyon National Park, Arizona",
       "text": "A December visit to the South Rim of the Grand Canyon — the girls in matching gymnast hoodies, wind on the overlooks, and the whole family on the rim as the sun went down over the Colorado River.",
@@ -384,6 +409,7 @@
     {
       "athlete": "family",
       "year": "2024",
+      "month": "2024-12",
       "title": "Arizona Hiking Trip — December 2024",
       "destination": "Lost Goldmine Trail, Gold Canyon, Arizona",
       "text": "A family hike on the Lost Goldmine Trail at the foot of the Superstition Mountains — 72 degrees in December, saguaros everywhere, hiking poles for everyone, and a few cactus spines pulled out along the way.",
@@ -405,6 +431,7 @@
     {
       "athlete": "family",
       "year": "2024",
+      "month": "2024-12",
       "title": "Santa Fe — December 2024",
       "destination": "Santa Fe, New Mexico",
       "text": "A December trip to Santa Fe and Loretto Chapel, home of the Miraculous Staircase — two full turns with no center support, decorated with red bows for Christmas.",
