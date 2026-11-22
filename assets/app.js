@@ -1717,6 +1717,8 @@
         if (r.photoCaption) fig.appendChild(el("figcaption", null, [r.photoCaption]));
         card.appendChild(fig);
       }
+      const pics = entryPhotoGrid(r);
+      if (pics) card.appendChild(pics);
       if (r.ingredients && r.ingredients.length) {
         card.appendChild(el("h4", { class: "recipe__head" }, ["Ingredients"]));
         const ul = el("ul", { class: "recipe__ingredients" });
