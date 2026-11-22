@@ -176,6 +176,16 @@
   ],
   "personal": [
     {
+      "athlete": "tyndle",
+      "type": "faith",
+      "date": "2015-04-12",
+      "title": "Dedication — April 12, 2015",
+      "text": "Tyndle was dedicated at the Holyoke Assembly of God church on April 12, 2015, in a long white gown and bonnet, with family gathered around her at the front of the church.",
+      "photos": [
+        { "src": "media/_memories/tyndle-dedication-2015-04-12.jpg", "alt": "Baby Tyndle in her white dedication gown, held up front with family gathered around" }
+      ]
+    },
+    {
       "athlete": "gradyn",
       "type": "faith",
       "year": "2023",
