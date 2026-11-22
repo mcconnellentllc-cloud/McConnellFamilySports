@@ -364,24 +364,200 @@
       "month": "2023-08",
       "title": "Fort Robinson — August 2023",
       "destination": "Fort Robinson State Park, Crawford, Nebraska",
-      "text": "A family vacation to Fort Robinson: the white buttes over the pasture, Tyndle, Tayla and Oakley picking sunflowers by the fence, and an afternoon in the fort's museum — Camp Robinson in 1874, the Buffalo Soldiers of the Ninth and Tenth Cavalry, Walter Reed's years as post surgeon, and Wounded Knee.",
+      "text": "A family vacation to Fort Robinson: the family at the fort's stone marker, a wagon ride and the old stage coach, the parade ground and officers' quarters, the white buttes over the pasture, Tyndle, Tayla and Oakley picking sunflowers by the fence, and an afternoon in the fort's museum — Camp Robinson in 1874, the Buffalo Soldiers of the Ninth and Tenth Cavalry, Walter Reed's years as post surgeon, and Wounded Knee — plus the cavalry stables and 1908 veterinary hospital, a jeep tour up into the hills, Turtle Rock, and the family at the overlook on top.",
       "photos": [
-        { "src": "media/_family/travel/fort-robinson-2023-01-pine-ridge-buttes.jpg", "alt": "The white buttes above Fort Robinson, sunflowers in the pasture below" },
-        { "src": "media/_family/travel/fort-robinson-2023-02-three-sisters-at-the-fence.jpg", "alt": "Tayla, Tyndle and Oakley at the white fence with sunflowers in their hair and cameras around their necks" },
-        { "src": "media/_family/travel/fort-robinson-2023-03-tyndle-with-sunflowers.jpg", "alt": "Tyndle in her pink sweater, sunflowers tucked behind her ears" },
-        { "src": "media/_family/travel/fort-robinson-2023-04-tayla-with-sunflowers.jpg", "alt": "Tayla in her purple heart sweatshirt with a sunflower taller than she is" },
-        { "src": "media/_family/travel/fort-robinson-2023-05-oakley-with-sunflowers.jpg", "alt": "Oakley in black with a sunflower bouquet and one in her hair" },
-        { "src": "media/_family/travel/fort-robinson-2023-06-camp-robinson-1874.jpg", "alt": "A war bonnet with buffalo horns in the Camp Robinson 1874 exhibit" },
-        { "src": "media/_family/travel/fort-robinson-2023-07-lakota-beadwork.jpg", "alt": "Beaded knife sheaths, dolls and moccasins" },
-        { "src": "media/_family/travel/fort-robinson-2023-08-moccasin-1877.jpg", "alt": "A beaded moccasin from 1877 with its story card" },
-        { "src": "media/_family/travel/fort-robinson-2023-09-bourke-dress-uniform.jpg", "alt": "The dress uniform and saber of Lt. John G. Bourke" },
-        { "src": "media/_family/travel/fort-robinson-2023-10-army-of-marksmen.jpg", "alt": "The 'An Army of Marksmen' exhibit, a Krag carbine below" },
-        { "src": "media/_family/travel/fort-robinson-2023-11-officers-and-buffalo-soldiers.jpg", "alt": "Officers' keepsakes and the Ninth Cavalry lieutenants John Alexander and Charles Young" },
-        { "src": "media/_family/travel/fort-robinson-2023-12-walter-reed.jpg", "alt": "Dr. Walter Reed's time as post surgeon at Fort Robinson" },
-        { "src": "media/_family/travel/fort-robinson-2023-13-buffalo-overcoat.jpg", "alt": "A buffalo overcoat and fur cap for winter campaigns" },
-        { "src": "media/_family/travel/fort-robinson-2023-14-ghost-dance-shirt.jpg", "alt": "A Ghost Dance shirt in the Wounded Knee exhibit" },
-        { "src": "media/_family/travel/fort-robinson-2023-15-wounded-knee-artifacts.jpg", "alt": "Artifacts from Wounded Knee, 1890" },
-        { "src": "media/_family/travel/fort-robinson-2023-16-benson-medals.jpg", "alt": "Sgt. Caleb Benson's campaign medals and veteran badges" }
+        {
+          "src": "media/_family/travel/fort-robinson-2023-17-family-at-the-fort-marker.jpg",
+          "alt": "The family at the Ft. Robinson stone marker"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-01-pine-ridge-buttes.jpg",
+          "alt": "The white buttes above Fort Robinson, sunflowers in the pasture below"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-02-three-sisters-at-the-fence.jpg",
+          "alt": "Tayla, Tyndle and Oakley at the white fence with sunflowers in their hair and cameras around their necks"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-03-tyndle-with-sunflowers.jpg",
+          "alt": "Tyndle in her pink sweater, sunflowers tucked behind her ears"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-04-tayla-with-sunflowers.jpg",
+          "alt": "Tayla in her purple heart sweatshirt with a sunflower taller than she is"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-05-oakley-with-sunflowers.jpg",
+          "alt": "Oakley in black with a sunflower bouquet and one in her hair"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-06-camp-robinson-1874.jpg",
+          "alt": "A war bonnet with buffalo horns in the Camp Robinson 1874 exhibit"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-07-lakota-beadwork.jpg",
+          "alt": "Beaded knife sheaths, dolls and moccasins"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-08-moccasin-1877.jpg",
+          "alt": "A beaded moccasin from 1877 with its story card"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-09-bourke-dress-uniform.jpg",
+          "alt": "The dress uniform and saber of Lt. John G. Bourke"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-10-army-of-marksmen.jpg",
+          "alt": "The 'An Army of Marksmen' exhibit, a Krag carbine below"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-11-officers-and-buffalo-soldiers.jpg",
+          "alt": "Officers' keepsakes and the Ninth Cavalry lieutenants John Alexander and Charles Young"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-12-walter-reed.jpg",
+          "alt": "Dr. Walter Reed's time as post surgeon at Fort Robinson"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-13-buffalo-overcoat.jpg",
+          "alt": "A buffalo overcoat and fur cap for winter campaigns"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-14-ghost-dance-shirt.jpg",
+          "alt": "A Ghost Dance shirt in the Wounded Knee exhibit"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-15-wounded-knee-artifacts.jpg",
+          "alt": "Artifacts from Wounded Knee, 1890"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-16-benson-medals.jpg",
+          "alt": "Sgt. Caleb Benson's campaign medals and veteran badges"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-18-brick-stables.jpg",
+          "alt": "The red brick stables behind the white fences"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-19-wagon-ride-smile.jpg",
+          "alt": "A big grin on the wagon ride"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-20-on-the-wagon.jpg",
+          "alt": "Riding the wagon through the park"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-21-post-headquarters.jpg",
+          "alt": "The white post headquarters building with the flag on the roof"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-22-officers-quarters.jpg",
+          "alt": "Officers' quarters No. 17, bikes in the yard"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-23-white-buttes.jpg",
+          "alt": "The white buttes above the sunflower pasture"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-24-stage-lines-coach.jpg",
+          "alt": "The Fort Robinson Stage Lines coach"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-25-parade-ground.jpg",
+          "alt": "Stone pyramids and cannons on the parade ground"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-26-buffalo-soldiers-marker.jpg",
+          "alt": "The Buffalo Soldiers at Fort Robinson historical marker"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-27-horses-and-wagon.jpg",
+          "alt": "The girls in front of the team and wagon before the ride"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-28-cavalry-cutout.jpg",
+          "alt": "Faces in the cavalry sergeant photo cutout"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-29-fort-rob-jail.jpg",
+          "alt": "Three behind bars at the Fort Rob Jail"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-30-saddle-with-dad.jpg",
+          "alt": "Sitting the saddle in the museum, Dad standing by"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-31-saddle-and-mural.jpg",
+          "alt": "In the saddle in front of the painted buttes mural"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-32-jail-solo.jpg",
+          "alt": "A big gap-toothed grin from the Fort Rob Jail"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-33-horse-in-the-stalls.jpg",
+          "alt": "A horse in harness in the old cavalry stalls"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-34-stable-aisle.jpg",
+          "alt": "The brick-floored aisle of the cavalry stable"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-35-veterinary-hospital-sign.jpg",
+          "alt": "The 1908 veterinary hospital sign"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-36-veterinary-operating-room.jpg",
+          "alt": "The veterinary hospital's operating room and lay-down table"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-37-paint-horse-and-stables.jpg",
+          "alt": "A paint horse at the fence, the brick stables beyond"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-38-jeep-tour-grins.jpg",
+          "alt": "Grins on the jeep tour"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-39-three-in-the-jeep.jpg",
+          "alt": "Three girls in the back of the jeep, the buttes behind"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-40-jeep-selfie.jpg",
+          "alt": "A jeep-tour selfie with the girls"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-41-looking-out-over-the-hills.jpg",
+          "alt": "Looking out over the pine hills from the jeep"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-42-gap-in-the-rocks.jpg",
+          "alt": "The valley through a gap in the bluff"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-43-broncos-shirt-at-the-pines.jpg",
+          "alt": "A Go Broncos shirt and a big smile by the pines on top"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-44-tie-dye-at-the-pines.jpg",
+          "alt": "Tie-dye shorts and windblown hair by the pines on top"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-45-pink-at-the-pines.jpg",
+          "alt": "All in pink by the pines on top"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-46-turtle-rock.jpg",
+          "alt": "Turtle Rock"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-47-buttes-from-the-pasture.jpg",
+          "alt": "The buttes under big summer clouds"
+        },
+        {
+          "src": "media/_family/travel/fort-robinson-2023-48-family-at-the-overlook.jpg",
+          "alt": "The family together at the overlook above the valley"
+        }
       ]
     },
     {
