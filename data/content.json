@@ -176,6 +176,19 @@
   ],
   "personal": [
     {
+      "athlete": "family",
+      "type": "farm",
+      "title": "The Herd",
+      "text": "Our black Angus cows through the seasons — strung out across the green wheat under spring storm clouds, then out on the cornstalks with new calves at their sides.",
+      "photos": [
+        { "src": "media/_family/farm/the-herd-1-herd-on-the-wheat.jpg", "alt": "Black Angus cows and calves walking single file across the green wheat" },
+        { "src": "media/_family/farm/the-herd-2-storm-over-the-pasture.jpg", "alt": "The herd grazing under storm clouds" },
+        { "src": "media/_family/farm/the-herd-3-cow-and-new-calf-at-the-gate.jpg", "alt": "A cow and her new calf by the gate, corn stubble beyond" },
+        { "src": "media/_family/farm/the-herd-4-cow-848-and-calf-in-the-stalks.jpg", "alt": "Cow 848 and her calf out in the cornstalks" },
+        { "src": "media/_family/farm/the-herd-5-calf-at-the-water-tank.jpg", "alt": "A calf by the water tank with the herd" }
+      ]
+    },
+    {
       "athlete": "tyndle",
       "type": "faith",
       "date": "2015-04-12",
@@ -195,7 +208,7 @@
       "photos": [
         { "src": "media/_memories/gradyn-baptism-2023-1-baptism-group.jpg", "alt": "Wrapped in towels after the baptism, the group of boys with their teacher" },
         { "src": "media/_memories/gradyn-baptism-2023-2-baptism-group-2.jpg", "alt": "The boys together after their baptisms" },
-        { "src": "media/_memories/gradyn-baptism-2023-3-after-the-baptism.jpg", "alt": "Gradyn after his baptism, standing before the cross" },
+        { "src": "media/_memories/gradyn-baptism-2023-3-after-the-baptism.jpg", "alt": "Gradyn with Mom and Dad after his baptism, standing before the cross" },
         { "src": "media/_memories/gradyn-baptism-2023-4-with-the-girls.jpg", "alt": "Gradyn with three girls in front of the baptismal pool" },
         { "src": "media/_memories/gradyn-baptism-2023-5-in-white-shirts.jpg", "alt": "The boys in white shirts with their teacher at the church doors" }
       ]
