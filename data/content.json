@@ -121,14 +121,16 @@
     {
       "athlete": "family",
       "type": "everyday",
-      "title": "Target Practice with Dad",
+      "year": "2023",
+      "month": "2023-09",
+      "title": "Target Practice with Dad — September 2023",
       "text": "Tyndle, Oakley and Tayla practicing shooting targets with Dad — ear protection on, lying on the mat at the edge of the field, and one proud look at a shot in the center.",
       "photos": [
-        { "src": "media/_family/everyday/target-practice-01-loading-up.jpg", "alt": "Loading up on the mat with Dad, the farm equipment behind" },
-        { "src": "media/_family/everyday/target-practice-02-dad-helping-on-the-mat.jpg", "alt": "Dad helping the girls line up their rifles" },
-        { "src": "media/_family/everyday/target-practice-03-lined-up-with-dad.jpg", "alt": "The girls lined up on the mat, Dad watching over them" },
-        { "src": "media/_family/everyday/target-practice-04-three-on-the-mat.jpg", "alt": "Tyndle, Oakley and Tayla on the mat, aiming at the targets" },
-        { "src": "media/_family/everyday/target-practice-05-dad-with-the-rifle.jpg", "alt": "Dad checking a rifle while the girls watch the targets" },
+        { "src": "media/_family/everyday/target-practice-01-loading-up.jpg", "alt": "Tayla, Oakley and Tyndle loading up on the mat with Dad, the farm equipment behind" },
+        { "src": "media/_family/everyday/target-practice-02-dad-helping-on-the-mat.jpg", "alt": "Dad helping Tayla, Oakley and Tyndle line up their rifles" },
+        { "src": "media/_family/everyday/target-practice-03-lined-up-with-dad.jpg", "alt": "Tayla and Oakley on the mat with their rifles, Tyndle and Dad watching over them" },
+        { "src": "media/_family/everyday/target-practice-04-three-on-the-mat.jpg", "alt": "Tayla, Oakley and Tyndle on the mat, aiming at the targets" },
+        { "src": "media/_family/everyday/target-practice-05-dad-with-the-rifle.jpg", "alt": "Dad checking a rifle while Tayla, Oakley and Tyndle watch the targets" },
         { "src": "media/_family/everyday/target-practice-06-bullseye.jpg", "alt": "Tyndle pointing out her shot right in the center of the target" }
       ]
     },
