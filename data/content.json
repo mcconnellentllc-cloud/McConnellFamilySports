@@ -360,6 +360,32 @@
   "travel": [
     {
       "athlete": "family",
+      "year": "2023",
+      "month": "2023-08",
+      "title": "Fort Robinson — August 2023",
+      "destination": "Fort Robinson State Park, Crawford, Nebraska",
+      "text": "A family vacation to Fort Robinson: the white buttes over the pasture, Tyndle, Tayla and Oakley picking sunflowers by the fence, and an afternoon in the fort's museum — Camp Robinson in 1874, the Buffalo Soldiers of the Ninth and Tenth Cavalry, Walter Reed's years as post surgeon, and Wounded Knee.",
+      "photos": [
+        { "src": "media/_family/travel/fort-robinson-2023-01-pine-ridge-buttes.jpg", "alt": "The white buttes above Fort Robinson, sunflowers in the pasture below" },
+        { "src": "media/_family/travel/fort-robinson-2023-02-three-sisters-at-the-fence.jpg", "alt": "Tayla, Tyndle and Oakley at the white fence with sunflowers in their hair and cameras around their necks" },
+        { "src": "media/_family/travel/fort-robinson-2023-03-tyndle-with-sunflowers.jpg", "alt": "Tyndle in her pink sweater, sunflowers tucked behind her ears" },
+        { "src": "media/_family/travel/fort-robinson-2023-04-tayla-with-sunflowers.jpg", "alt": "Tayla in her purple heart sweatshirt with a sunflower taller than she is" },
+        { "src": "media/_family/travel/fort-robinson-2023-05-oakley-with-sunflowers.jpg", "alt": "Oakley in black with a sunflower bouquet and one in her hair" },
+        { "src": "media/_family/travel/fort-robinson-2023-06-camp-robinson-1874.jpg", "alt": "A war bonnet with buffalo horns in the Camp Robinson 1874 exhibit" },
+        { "src": "media/_family/travel/fort-robinson-2023-07-lakota-beadwork.jpg", "alt": "Beaded knife sheaths, dolls and moccasins" },
+        { "src": "media/_family/travel/fort-robinson-2023-08-moccasin-1877.jpg", "alt": "A beaded moccasin from 1877 with its story card" },
+        { "src": "media/_family/travel/fort-robinson-2023-09-bourke-dress-uniform.jpg", "alt": "The dress uniform and saber of Lt. John G. Bourke" },
+        { "src": "media/_family/travel/fort-robinson-2023-10-army-of-marksmen.jpg", "alt": "The 'An Army of Marksmen' exhibit, a Krag carbine below" },
+        { "src": "media/_family/travel/fort-robinson-2023-11-officers-and-buffalo-soldiers.jpg", "alt": "Officers' keepsakes and the Ninth Cavalry lieutenants John Alexander and Charles Young" },
+        { "src": "media/_family/travel/fort-robinson-2023-12-walter-reed.jpg", "alt": "Dr. Walter Reed's time as post surgeon at Fort Robinson" },
+        { "src": "media/_family/travel/fort-robinson-2023-13-buffalo-overcoat.jpg", "alt": "A buffalo overcoat and fur cap for winter campaigns" },
+        { "src": "media/_family/travel/fort-robinson-2023-14-ghost-dance-shirt.jpg", "alt": "A Ghost Dance shirt in the Wounded Knee exhibit" },
+        { "src": "media/_family/travel/fort-robinson-2023-15-wounded-knee-artifacts.jpg", "alt": "Artifacts from Wounded Knee, 1890" },
+        { "src": "media/_family/travel/fort-robinson-2023-16-benson-medals.jpg", "alt": "Sgt. Caleb Benson's campaign medals and veteran badges" }
+      ]
+    },
+    {
+      "athlete": "family",
       "group": "kyle-brandi",
       "year": "2024",
       "month": "2024-02",
