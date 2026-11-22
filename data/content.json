@@ -344,6 +344,32 @@
   "travel": [
     {
       "athlete": "family",
+      "group": "kyle-brandi",
+      "year": "2024",
+      "month": "2024-02",
+      "title": "Houston, Galveston & Louisiana — February 2024",
+      "destination": "Houston and Galveston, Texas, and Louisiana",
+      "text": "A February trip with the Firmes: the Galveston mural and the beach, a tour of USS Stewart and the submarine USS Cavalla at Seawolf Park, Rosa the Bald Eagle made from beach plastic, and a roadside alligator on the drive through Louisiana.",
+      "photos": [
+        { "src": "media/_family/travel/galveston-2024-01-galveston-mural.jpg", "alt": "A selfie at the Greetings from Galveston mural" },
+        { "src": "media/_family/travel/galveston-2024-02-on-the-beach.jpg", "alt": "A couple barefoot on the beach at Galveston" },
+        { "src": "media/_family/travel/galveston-2024-03-uss-stewart-plaque.jpg", "alt": "The USS Stewart plaque at Seawolf Park" },
+        { "src": "media/_family/travel/galveston-2024-04-uss-stewart-de238.jpg", "alt": "USS Stewart, Destroyer Escort 238, built in 1942" },
+        { "src": "media/_family/travel/galveston-2024-05-on-the-deck-gun.jpg", "alt": "Working the hand wheels on the Stewart's deck gun" },
+        { "src": "media/_family/travel/galveston-2024-06-hedgehog-launcher.jpg", "alt": "Looking over the Hedgehog anti-submarine launcher" },
+        { "src": "media/_family/travel/galveston-2024-07-view-from-the-gun-tub.jpg", "alt": "The view down the bow from the gun tub, out over the channel" },
+        { "src": "media/_family/travel/galveston-2024-08-uss-cavalla.jpg", "alt": "The submarine USS Cavalla, a torpedo in its bow tube" },
+        { "src": "media/_family/travel/galveston-2024-09-cavalla-1957-fleet-review.jpg", "alt": "A photo of the Cavalla underway at the 1957 Fleet Review" },
+        { "src": "media/_family/travel/galveston-2024-10-torpedo-tube.jpg", "alt": "Looking into a torpedo tube inside the Cavalla" },
+        { "src": "media/_family/travel/galveston-2024-11-torpedo-in-the-rack.jpg", "alt": "A torpedo in its rack below the bunks" },
+        { "src": "media/_family/travel/galveston-2024-12-submarine-comparisons.jpg", "alt": "The WWII submarine comparison chart aboard the Cavalla" },
+        { "src": "media/_family/travel/galveston-2024-13-rosa-the-bald-eagle.jpg", "alt": "Rosa the Bald Eagle, a sculpture made from beach plastic" },
+        { "src": "media/_family/travel/galveston-2024-14-on-the-road.jpg", "alt": "A road-trip selfie through the marsh" },
+        { "src": "media/_family/travel/galveston-2024-15-roadside-alligator.jpg", "alt": "Holding up a small alligator by the side of the road in Louisiana" }
+      ]
+    },
+    {
+      "athlete": "family",
       "year": "2024",
       "month": "2024-03",
       "title": "Superstition Mountain Hike — March 2024",
