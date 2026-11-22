@@ -96,14 +96,71 @@
     },
     {
       "athlete": "gage",
-      "year": "2025",
       "school": "Haxtun High School",
       "grade": "Class of 2025",
-      "honors": ["Graduate"],
-      "notes": "Gage graduated from Haxtun High School with the Class of 2025.",
+      "honors": [
+        "Graduate"
+      ],
+      "notes": "Gage graduated from Haxtun High School with the Class of 2025 on Mother's Day, May 11, 2025 — cords on his gown, a Fort Hays State sticker on his cap, and a party afterward with his medals, letter jacket and every school picture from kindergarten on.",
       "photos": [
-        { "src": "media/_memories/gage-haxtun-graduation-2025.jpg", "alt": "Gage in his cap and gown with Kyle and Brandi at graduation" }
-      ]
+        {
+          "src": "media/_memories/gage-haxtun-graduation-2025.jpg",
+          "alt": "Gage in his cap and gown with Kyle and Brandi at graduation"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-01-family-in-the-stands.jpg",
+          "alt": "Family lined up in the gym before the ceremony"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-02-walking-in.jpg",
+          "alt": "Gage walking in with a classmate past the Bulldog at center court"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-03-diploma-in-hand.jpg",
+          "alt": "Gage holding up his Haxtun High School diploma"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-04-finding-his-family.jpg",
+          "alt": "Gage finding his family in the crowd"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-05-the-hug.jpg",
+          "alt": "A hug and a white carnation after the diploma"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-06-decorated-cap.jpg",
+          "alt": "Gage's cap: the flag, the '25 tassel, a baseball and Fort Hays State"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-07-party-table.jpg",
+          "alt": "The GAGE table at his graduation party: letter jacket, team photos and medals"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-08-wrestling-and-ffa-table.jpg",
+          "alt": "The wrestling brackets, medals and FFA jacket table"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-09-k-through-12-table.jpg",
+          "alt": "School pictures from kindergarten through 12th grade under a wall of photos"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-10-party-room.jpg",
+          "alt": "The party room decorated in Bulldog red and black"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-11-holding-the-baby.jpg",
+          "alt": "Gage holding a baby in front of his party table"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-12-with-an-honored-guest.jpg",
+          "alt": "Gage with an honored guest under the 2025 balloons"
+        },
+        {
+          "src": "media/_memories/gage-graduation-2025-13-with-friends.jpg",
+          "alt": "Gage with two friends at the party"
+        }
+      ],
+      "date": "2025-05-11"
     },
     {
       "athlete": "gradyn",
