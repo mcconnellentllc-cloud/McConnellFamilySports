@@ -360,6 +360,26 @@
   "travel": [
     {
       "athlete": "family",
+      "year": "2024",
+      "title": "South Dakota — 2024",
+      "destination": "Belle Fourche, South Dakota",
+      "text": "A South Dakota trip: standing on the Geographic Center of the Nation in Belle Fourche, the cowboy cutout at the Tri-State Museum, the 1876 Buckskin Johnny Cabin and its old Majestic stove, trout in the clear water — and a night sleeping in a tent.",
+      "photos": [
+        { "src": "media/_family/travel/south-dakota-2024-01-kids-at-the-center-of-the-nation.jpg", "alt": "The kids standing on the Geographic Center of the Nation monument in Belle Fourche" },
+        { "src": "media/_family/travel/south-dakota-2024-02-center-of-the-nation-plaque.jpg", "alt": "The Geographic Center of the Nation plaque" },
+        { "src": "media/_family/travel/south-dakota-2024-03-geo-center-sign.jpg", "alt": "Welcome to Belle Fourche, the Geo Center of the U.S. historical marker" },
+        { "src": "media/_family/travel/south-dakota-2024-04-cowboy-cutout.jpg", "alt": "Two grins in the Tri-State Museum cowboy cutout" },
+        { "src": "media/_family/travel/south-dakota-2024-05-buckskin-johnny-cabin.jpg", "alt": "The Buckskin Johnny Cabin, built in 1876" },
+        { "src": "media/_family/travel/south-dakota-2024-06-majestic-stove.jpg", "alt": "A Great Majestic cookstove inside the cabin" },
+        { "src": "media/_family/travel/south-dakota-2024-07-cabin-loft-bedroom.jpg", "alt": "The cabin loft with a quilt-covered bed and a parlor stove" },
+        { "src": "media/_family/travel/south-dakota-2024-08-loft-trunk-and-cradle.jpg", "alt": "An old trunk, rocking chair and cradle in the loft" },
+        { "src": "media/_family/travel/south-dakota-2024-09-trout-pond.jpg", "alt": "Trout in the clear pond" },
+        { "src": "media/_family/travel/south-dakota-2024-10-trout-in-the-weeds.jpg", "alt": "Trout over the water weeds" },
+        { "src": "media/_family/travel/south-dakota-2024-11-tent-night-selfie.jpg", "alt": "\"Sleeping in a tent tonight with my T-bird\"" }
+      ]
+    },
+    {
+      "athlete": "family",
       "year": "2023",
       "month": "2023-08",
       "title": "Fort Robinson — August 2023",
