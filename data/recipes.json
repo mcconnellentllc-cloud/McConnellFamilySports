@@ -1,5 +1,40 @@
 {
   "_comment": "Family recipes. Every field except 'title' is optional — a recipe with just a name and a photo of a handwritten card is still worth keeping. Photos go in media/_recipes/ (the leading underscore keeps build.py from filing them into a kid's gallery).",
   "intro": "",
-  "recipes": []
+  "recipes": [
+    {
+      "title": "Grinch Spaghetti",
+      "from": "Mommy Needs A Recipe!! on Facebook",
+      "serves": "4–6",
+      "note": "Green noodles for the Christmas season — ours came out just as bright as the picture.",
+      "photos": [
+        {
+          "src": "media/_recipes/grinch-spaghetti-plate.jpg",
+          "alt": "A plate of green Grinch spaghetti with meat sauce"
+        },
+        {
+          "src": "media/_recipes/grinch-spaghetti-stovetop.jpg",
+          "alt": "Green noodles and meat sauce cooking on the stove"
+        }
+      ],
+      "ingredients": [
+        "12 ounces spaghetti noodles",
+        "1 jar (24 oz) spaghetti sauce",
+        "½ teaspoon green food coloring",
+        "1 pound ground beef",
+        "Salt and pepper, to taste",
+        "Optional: garlic powder or Italian seasoning",
+        "Red candy hearts, for topping"
+      ],
+      "steps": [
+        "Fill a large pot with water. Add about ½ teaspoon green food coloring and stir well.",
+        "Bring the water to a rolling boil and add the spaghetti noodles.",
+        "Cook according to the package, usually 9–11 minutes, stirring once or twice so they don't stick.",
+        "Drain the noodles completely and set aside.",
+        "Brown the ground beef, drain, and season with salt, pepper and garlic powder or Italian seasoning.",
+        "Stir in the spaghetti sauce and heat through.",
+        "Serve the sauce over the green noodles and top with a red candy heart."
+      ]
+    }
+  ]
 }
