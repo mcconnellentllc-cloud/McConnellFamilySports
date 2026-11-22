@@ -429,6 +429,33 @@
   "travel": [
     {
       "athlete": "family",
+      "group": "kyle-brandi",
+      "year": "2026",
+      "month": "2026-02",
+      "title": "Commodity Classic — San Antonio, February 2026",
+      "destination": "San Antonio, Texas",
+      "text": "Kyle and Brandi at the Commodity Classic in San Antonio: a Budweiser Clydesdale, the old Pioneer seed truck and a flag-wrapped Case IH on the show floor — then the River Walk by day and by boat at night, the Alamo dressed for its 190th, and a carriage horse downtown.",
+      "photos": [
+        { "src": "media/_family/travel/commodity-classic-2026-01-with-the-clydesdale.jpg", "alt": "Kyle and Brandi with a Budweiser Clydesdale at the Commodity Classic" },
+        { "src": "media/_family/travel/commodity-classic-2026-02-san-antonio-boot.jpg", "alt": "Kyle and Brandi at the San Antonio postcard wall beside the giant boot" },
+        { "src": "media/_family/travel/commodity-classic-2026-03-pioneer-seed-truck.jpg", "alt": "The vintage Pioneer Seeds truck on the trade show floor" },
+        { "src": "media/_family/travel/commodity-classic-2026-04-case-ih-magnum.jpg", "alt": "A flag-wrapped Case IH Magnum 265 at the show" },
+        { "src": "media/_family/travel/commodity-classic-2026-05-wings-mural.jpg", "alt": "Brandi in front of the wings mural" },
+        { "src": "media/_family/travel/commodity-classic-2026-06-riverwalk-selfie.jpg", "alt": "A sunny selfie on the River Walk under the cypress trees" },
+        { "src": "media/_family/travel/commodity-classic-2026-07-the-alamo.jpg", "alt": "The Alamo, decorated for the 190th anniversary of the battle" },
+        { "src": "media/_family/travel/commodity-classic-2026-08-riverwalk-waterfall.jpg", "alt": "Ducks swimming below a River Walk waterfall" },
+        { "src": "media/_family/travel/commodity-classic-2026-09-riverwalk-duck.jpg", "alt": "A duck on the River Walk, the water lit purple and green" },
+        { "src": "media/_family/travel/commodity-classic-2026-10-ironwork-sculpture.jpg", "alt": "A wrought-iron sculpture with hands, rings and a cross by the river" },
+        { "src": "media/_family/travel/commodity-classic-2026-11-tower-life-building.jpg", "alt": "The flag on top of the Tower Life Building at night" },
+        { "src": "media/_family/travel/commodity-classic-2026-12-river-boat-at-night.jpg", "alt": "Riding the river boat under trees lit purple and green" },
+        { "src": "media/_family/travel/commodity-classic-2026-13-boat-ride-lights.jpg", "alt": "On the river boat as the lights came on" },
+        { "src": "media/_family/travel/commodity-classic-2026-14-arneson-theater-bells.jpg", "alt": "The mission bells at the Arneson River Theatre at night" },
+        { "src": "media/_family/travel/commodity-classic-2026-15-tower-of-the-americas.jpg", "alt": "The Tower of the Americas lit up at night" },
+        { "src": "media/_family/travel/commodity-classic-2026-16-carriage-horse.jpg", "alt": "A draft horse pulling a lighted carriage downtown" }
+      ]
+    },
+    {
+      "athlete": "family",
       "year": "2024",
       "month": "2024-08",
       "title": "Girls' Trip to the Overland Trail Museum — August 2024",
