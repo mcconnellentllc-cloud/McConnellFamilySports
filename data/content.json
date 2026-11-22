@@ -349,23 +349,132 @@
       "month": "2024-02",
       "title": "Houston, Galveston & Louisiana — February 2024",
       "destination": "Houston and Galveston, Texas, and Louisiana",
-      "text": "A February trip with the Firmes: the Galveston mural and the beach, a tour of USS Stewart and the submarine USS Cavalla at Seawolf Park, Rosa the Bald Eagle made from beach plastic, and a roadside alligator on the drive through Louisiana.",
+      "text": "A February trip with Sara and Jared Firme: the Galveston mural, the beach and a sunset over the jetties, a tour of USS Stewart and the submarine USS Cavalla at Seawolf Park, Rosa the Bald Eagle made from beach plastic, a day at Space Center Houston — the shuttle on the 747, Skylab, Apollo and a flown Falcon 9 — and Kyle with a roadside alligator in Louisiana.",
       "photos": [
-        { "src": "media/_family/travel/galveston-2024-01-galveston-mural.jpg", "alt": "A selfie at the Greetings from Galveston mural" },
-        { "src": "media/_family/travel/galveston-2024-02-on-the-beach.jpg", "alt": "A couple barefoot on the beach at Galveston" },
-        { "src": "media/_family/travel/galveston-2024-03-uss-stewart-plaque.jpg", "alt": "The USS Stewart plaque at Seawolf Park" },
-        { "src": "media/_family/travel/galveston-2024-04-uss-stewart-de238.jpg", "alt": "USS Stewart, Destroyer Escort 238, built in 1942" },
-        { "src": "media/_family/travel/galveston-2024-05-on-the-deck-gun.jpg", "alt": "Working the hand wheels on the Stewart's deck gun" },
-        { "src": "media/_family/travel/galveston-2024-06-hedgehog-launcher.jpg", "alt": "Looking over the Hedgehog anti-submarine launcher" },
-        { "src": "media/_family/travel/galveston-2024-07-view-from-the-gun-tub.jpg", "alt": "The view down the bow from the gun tub, out over the channel" },
-        { "src": "media/_family/travel/galveston-2024-08-uss-cavalla.jpg", "alt": "The submarine USS Cavalla, a torpedo in its bow tube" },
-        { "src": "media/_family/travel/galveston-2024-09-cavalla-1957-fleet-review.jpg", "alt": "A photo of the Cavalla underway at the 1957 Fleet Review" },
-        { "src": "media/_family/travel/galveston-2024-10-torpedo-tube.jpg", "alt": "Looking into a torpedo tube inside the Cavalla" },
-        { "src": "media/_family/travel/galveston-2024-11-torpedo-in-the-rack.jpg", "alt": "A torpedo in its rack below the bunks" },
-        { "src": "media/_family/travel/galveston-2024-12-submarine-comparisons.jpg", "alt": "The WWII submarine comparison chart aboard the Cavalla" },
-        { "src": "media/_family/travel/galveston-2024-13-rosa-the-bald-eagle.jpg", "alt": "Rosa the Bald Eagle, a sculpture made from beach plastic" },
-        { "src": "media/_family/travel/galveston-2024-14-on-the-road.jpg", "alt": "A road-trip selfie through the marsh" },
-        { "src": "media/_family/travel/galveston-2024-15-roadside-alligator.jpg", "alt": "Holding up a small alligator by the side of the road in Louisiana" }
+        {
+          "src": "media/_family/travel/galveston-2024-01-galveston-mural.jpg",
+          "alt": "Sara and Brandi's selfie at the Greetings from Galveston mural"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-02-on-the-beach.jpg",
+          "alt": "A couple barefoot on the beach at Galveston"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-beach-sunset.jpg",
+          "alt": "Sunset over the Galveston beach and the jetties"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-03-uss-stewart-plaque.jpg",
+          "alt": "The USS Stewart plaque at Seawolf Park"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-04-uss-stewart-de238.jpg",
+          "alt": "USS Stewart, Destroyer Escort 238, built in 1942"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-05-on-the-deck-gun.jpg",
+          "alt": "Working the hand wheels on the Stewart's deck gun"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-06-hedgehog-launcher.jpg",
+          "alt": "Looking over the Hedgehog anti-submarine launcher"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-07-view-from-the-gun-tub.jpg",
+          "alt": "The view down the bow from the gun tub, out over the channel"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-08-uss-cavalla.jpg",
+          "alt": "The submarine USS Cavalla, a torpedo in its bow tube"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-09-cavalla-1957-fleet-review.jpg",
+          "alt": "A photo of the Cavalla underway at the 1957 Fleet Review"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-10-torpedo-tube.jpg",
+          "alt": "Looking into a torpedo tube inside the Cavalla"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-11-torpedo-in-the-rack.jpg",
+          "alt": "A torpedo in its rack below the bunks"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-12-submarine-comparisons.jpg",
+          "alt": "The WWII submarine comparison chart aboard the Cavalla"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-13-rosa-the-bald-eagle.jpg",
+          "alt": "Rosa the Bald Eagle, a sculpture made from beach plastic"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-space-center-houston.jpg",
+          "alt": "The shuttle on top of NASA 905 at Space Center Houston, 79 degrees"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-skylab-sign.jpg",
+          "alt": "Skylab, America's first space station"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-skylab-looking-up.jpg",
+          "alt": "Looking up inside the Skylab trainer"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-skylab-shower.jpg",
+          "alt": "The Skylab shower"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-skylab-sleep-compartment.jpg",
+          "alt": "A Skylab sleep compartment"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-skylab-home-in-space.jpg",
+          "alt": "Skylab: A Home in Space"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-skylab-wardroom.jpg",
+          "alt": "An astronaut figure floating in the Skylab wardroom"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-stafford-in-the-docking-module.jpg",
+          "alt": "Astronaut Tom Stafford's figure in the docking module"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-apollo-capsule.jpg",
+          "alt": "An Apollo command module, hatch open"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-nasa-905-photo.jpg",
+          "alt": "NASA 905 carrying Enterprise, 1983"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-shuttle-on-the-747.jpg",
+          "alt": "The shuttle mounted on the 747, the Saturn V building behind"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-sts-8-flag.jpg",
+          "alt": "A flag flown on the STS-8 shuttle mission in 1983"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-falcon-9-engines.jpg",
+          "alt": "The engines of a flown SpaceX Falcon 9 first stage"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-falcon-9-grid-fins.jpg",
+          "alt": "Grid fins on the Falcon 9 booster"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-falcon-9-sign.jpg",
+          "alt": "The Falcon 9 booster B1035 sign"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-14-on-the-road.jpg",
+          "alt": "A road-trip selfie through the marsh"
+        },
+        {
+          "src": "media/_family/travel/galveston-2024-15-roadside-alligator.jpg",
+          "alt": "Kyle holding up a small alligator by the side of the road in Louisiana"
+        }
       ]
     },
     {
