@@ -983,21 +983,108 @@
       "month": "2024-12",
       "title": "Grand Canyon — December 2024",
       "destination": "Grand Canyon National Park, Arizona",
-      "text": "A December visit to the South Rim of the Grand Canyon — the girls in matching gymnast hoodies, wind on the overlooks, and the whole family on the rim as the sun went down over the Colorado River.",
+      "text": "A December visit to the South Rim of the Grand Canyon — the big relief map at the visitor center, the Forming Temples and Canyon Passages overlooks, the girls in matching gymnast hoodies, wind on the overlooks, and the whole family on the rim as the sun went down over the Colorado River.",
       "photos": [
-        { "src": "media/_family/travel/grand-canyon-2024-01-south-rim-view.jpg", "alt": "The Grand Canyon from the South Rim" },
-        { "src": "media/_family/travel/grand-canyon-2024-02-clouds-over-the-canyon.jpg", "alt": "Clouds sweeping over the canyon" },
-        { "src": "media/_family/travel/grand-canyon-2024-03-at-the-railing.jpg", "alt": "Leaning on the railing, looking out over the canyon" },
-        { "src": "media/_family/travel/grand-canyon-2024-04-three-girls-at-the-overlook.jpg", "alt": "The three girls at the overlook railing" },
-        { "src": "media/_family/travel/grand-canyon-2024-05-three-girls-on-the-wall.jpg", "alt": "The three girls in their gymnast hoodies on the stone wall" },
-        { "src": "media/_family/travel/grand-canyon-2024-06-on-the-rocks-black-hoodie.jpg", "alt": "Standing on the rocks above the canyon in a black hoodie" },
-        { "src": "media/_family/travel/grand-canyon-2024-07-on-the-rocks-gray-hoodie.jpg", "alt": "Standing on the rocks above the canyon in a gray hoodie" },
-        { "src": "media/_family/travel/grand-canyon-2024-08-couple-at-the-rim.jpg", "alt": "A couple at the rim" },
-        { "src": "media/_family/travel/grand-canyon-2024-09-three-girls-on-the-wall-2.jpg", "alt": "The three girls together on the wall" },
-        { "src": "media/_family/travel/grand-canyon-2024-10-windblown-at-sunset.jpg", "alt": "Windblown at sunset, the Colorado River far below" },
-        { "src": "media/_family/travel/grand-canyon-2024-11-arms-crossed-at-sunset.jpg", "alt": "Arms crossed and smiling at sunset" },
-        { "src": "media/_family/travel/grand-canyon-2024-12-headband-at-sunset.jpg", "alt": "All smiles at sunset" },
-        { "src": "media/_family/travel/grand-canyon-2024-13-family-at-sunset.jpg", "alt": "The family together on the rim at sunset" }
+        {
+          "src": "media/_family/travel/grand-canyon-2024-01-south-rim-view.jpg",
+          "alt": "The Grand Canyon from the South Rim"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-02-clouds-over-the-canyon.jpg",
+          "alt": "Clouds sweeping over the canyon"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-03-at-the-railing.jpg",
+          "alt": "Leaning on the railing, looking out over the canyon"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-04-three-girls-at-the-overlook.jpg",
+          "alt": "The three girls at the overlook railing"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-05-three-girls-on-the-wall.jpg",
+          "alt": "The three girls in their gymnast hoodies on the stone wall"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-06-on-the-rocks-black-hoodie.jpg",
+          "alt": "Standing on the rocks above the canyon in a black hoodie"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-07-on-the-rocks-gray-hoodie.jpg",
+          "alt": "Standing on the rocks above the canyon in a gray hoodie"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-08-couple-at-the-rim.jpg",
+          "alt": "A couple at the rim"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-09-three-girls-on-the-wall-2.jpg",
+          "alt": "The three girls together on the wall"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-10-windblown-at-sunset.jpg",
+          "alt": "Windblown at sunset, the Colorado River far below"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-11-arms-crossed-at-sunset.jpg",
+          "alt": "Arms crossed and smiling at sunset"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-12-headband-at-sunset.jpg",
+          "alt": "All smiles at sunset"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-13-family-at-sunset.jpg",
+          "alt": "The family together on the rim at sunset"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-14-visitor-center-relief-map.jpg",
+          "alt": "The girls and a parent in front of the giant Grand Canyon relief map at the visitor center"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-15-reading-the-overlook-sign.jpg",
+          "alt": "The girls reading the overlook sign while someone snaps a picture"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-16-canyon-passages-sign.jpg",
+          "alt": "The Canyon Passages sign: five trails visible from the overlook"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-17-three-girls-on-the-wall.jpg",
+          "alt": "The three girls sitting on the stone wall above the canyon"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-18-smiles-on-the-overlook-path.jpg",
+          "alt": "All smiles on the overlook path in a gymnast hoodie"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-19-forming-temples-panorama.jpg",
+          "alt": "Panorama at the Forming Temples overlook"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-20-forming-temples-sign.jpg",
+          "alt": "The Forming Temples sign: Vishnu Temple, Wotans Throne and Cape Royal"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-21-couple-on-the-rim-rocks.jpg",
+          "alt": "A couple on the rim rocks, the canyon behind them"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-22-rim-panorama-at-sunset.jpg",
+          "alt": "Panorama of the rim with the sun going down"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-23-walking-the-rim-rocks.jpg",
+          "alt": "Walking across the rim rocks in the evening light"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-24-looking-down-to-the-river.jpg",
+          "alt": "Looking down to the Colorado River from the rim"
+        },
+        {
+          "src": "media/_family/travel/grand-canyon-2024-25-family-on-the-wall-at-sunset.jpg",
+          "alt": "The family on the wall at sunset, hang-loose signs all around"
+        }
       ]
     },
     {
