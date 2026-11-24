@@ -176,6 +176,17 @@
   ],
   "personal": [
     {
+      "athlete": "tayla",
+      "type": "everyday",
+      "year": "2026",
+      "month": "2026-11",
+      "title": "Her \"New\" Hat",
+      "text": "Tayla loves her \"new\" hat. Tyndle crocheted it for a different project, didn't end up needing it, and passed it down to her little sister.",
+      "photos": [
+        { "src": "media/_memories/tayla-new-hat-2026.jpg", "alt": "Tayla grinning in the chunky cream hat Tyndle crocheted" }
+      ]
+    },
+    {
       "athlete": "family",
       "type": "farm",
       "title": "The Herd",
