@@ -1,5 +1,18 @@
 {
-  "_comment": "Shared family calendar. Nothing is filled in yet — add real events here (or just ask Claude). Each event takes: date (YYYY-MM-DD) plus optional time, who, and where.",
+  "_comment": "Shared family calendar. Add real events here (or just ask Claude). Each event takes: date (YYYY-MM-DD) plus optional time, who, and where. Only today-and-later events show.",
   "note": "",
-  "events": []
+  "events": [
+    {
+      "date": "2027-11-18",
+      "title": "Thanksgiving is one week out — shopping for the turkey rub and injection: NO honey and NO honey-based anything (honey butter, honey glaze, hot honey). Not for the fryer. Ever.",
+      "who": "Kyle & Brandi"
+    },
+    {
+      "date": "2027-11-25",
+      "time": "Before frying",
+      "title": "REMINDER: Never, ever — and we mean EVER — use honey or any honey-type product on the turkey before it goes in the fryer.",
+      "who": "Kyle & Brandi",
+      "where": "Turkey fryer"
+    }
+  ]
 }
